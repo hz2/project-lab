@@ -1,0 +1,3 @@
+[options]
+module.file_ext=.sass
+module.file_ext=.scss
