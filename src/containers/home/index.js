@@ -1,13 +1,14 @@
-import React from 'react';
-import { push } from 'connected-react-router';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react'
+import { push } from 'connected-react-router'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Button } from 'antd'
 import {
   increment,
   incrementAsync,
   decrement,
   decrementAsync
-} from '../../modules/counter';
+} from '../../modules/counter'
 
 const Home = props => (
   <div>
@@ -15,32 +16,42 @@ const Home = props => (
     <p>Count: {props.count}</p>
 
     <p>
-      <button onClick={props.increment}>Increment</button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>
+      <Button type="primary" onClick={props.increment}>
+        Increment
+      </Button>
+      <Button
+        type="primary"
+        onClick={props.incrementAsync}
+        disabled={props.isIncrementing}>
         Increment Async
-      </button>
+      </Button>
     </p>
 
     <p>
-      <button onClick={props.decrement}>Decrementing</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>
+      <Button type="primary" onClick={props.decrement}>
+        Decrement
+      </Button>
+      <Button
+        type="primary"
+        onClick={props.decrementAsync}
+        disabled={props.isDecrementing}>
         Decrement Async
-      </button>
+      </Button>
     </p>
 
     <p>
-      <button onClick={() => props.changePage()}>
+      <Button type="primary" onClick={() => props.changePage()}>
         Go to about page via redux
-      </button>
+      </Button>
     </p>
   </div>
-);
+)
 
 const mapStateToProps = ({ counter }) => ({
   count: counter.count,
   isIncrementing: counter.isIncrementing,
   isDecrementing: counter.isDecrementing
-});
+})
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -52,9 +63,9 @@ const mapDispatchToProps = dispatch =>
       changePage: () => push('/about-us')
     },
     dispatch
-  );
+  )
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Home)
