@@ -1,0 +1,23 @@
+
+stages:
+  - pages
+pages:
+  image: node:10.0
+  stage: pages
+  cache:
+    paths:
+    - node_modules/
+  before_script:
+    - node -v
+    - npm -v
+  script:
+    - npm install
+    - npm run build2
+    - cp -R ./dist ./public
+    - cd ./public
+    - ls
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
