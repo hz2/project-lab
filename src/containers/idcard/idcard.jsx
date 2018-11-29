@@ -156,7 +156,7 @@ class idcard extends React.Component {
     let rdmarea = keysArr[rdm(0, keysArr.length)]
     let rdmdate = new Date(rdm(new Date('1950-01-01') / 1, new Date() / 1))
       .toISOString()
-      .replace(/(T[\d\:\.]+Z)|\-/g, '') // 随机生日
+      .replace(/(T[\d:.]+Z)|-/g, '') // 随机生日
     let rdmorder = ('0' + rdm(0, 99)).substr(-2)
     let rdmsex = rdm(0, 9) // 随机性别 奇数男 偶数女
     let b17 = `${rdmarea}${rdmdate}${rdmorder}${rdmsex}`
