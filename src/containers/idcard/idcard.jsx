@@ -51,20 +51,21 @@ class idcard extends React.Component {
     ]
     let zodiac = ''
     let zodiacList = [
-      { zh: '猴年', icon: '🐒' },
-      { zh: '鸡年', icon: '🐓' },
-      { zh: '狗年', icon: '🐕' },
-      { zh: '猪年', icon: '🐗' },
-      { zh: '鼠年', icon: '🐀' },
-      { zh: '牛年', icon: '🐂' },
-      { zh: '虎年', icon: '🐅' },
-      { zh: '兔年', icon: '🐇' },
-      { zh: '龙年', icon: '🐉' },
-      { zh: '蛇年', icon: '🐍' },
-      { zh: '马年', icon: '🐎' },
-      { zh: '羊年', icon: '🐑' },
-      { zh: '猫年', icon: '🐈' }
+      { zh: '鼠', icon: '🐀', branch: '子' },
+      { zh: '牛', icon: '🐂', branch: '丑' },
+      { zh: '虎', icon: '🐅', branch: '寅' },
+      { zh: '兔', icon: '🐇', branch: '卯' },
+      { zh: '龙', icon: '🐉', branch: '辰' },
+      { zh: '蛇', icon: '🐍', branch: '巳' },
+      { zh: '马', icon: '🐎', branch: '午' },
+      { zh: '羊', icon: '🐑', branch: '未' },
+      { zh: '猴', icon: '🐒', branch: '申' },
+      { zh: '鸡', icon: '🐓', branch: '酉' },
+      { zh: '狗', icon: '🐕', branch: '戌' },
+      { zh: '猪', icon: '🐗', branch: '亥' }
+      // { zh: '猫', icon: '🐈', branch: ' ' }
     ]
+    let tianArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
     if (val) {
       area =
         xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
@@ -84,9 +85,11 @@ class idcard extends React.Component {
       let current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
-      let currentYear = zodiacList[val.substr(6, 4) % 12]
+      let currentYear = zodiacList[(val.substr(6, 4) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
-      zodiac = currentYear.zh + ' ' + currentYear.icon
+      zodiac = `${tianArr[(val.substr(6, 4) - 4) % 10]}${currentYear.branch} ${
+        currentYear.zh
+      }年 ${currentYear.icon}`
     }
     this.setState({
       resultArea: area,
