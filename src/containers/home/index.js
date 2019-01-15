@@ -44,6 +44,15 @@ const Home = props => (
         Go to about page via redux
       </Button>
     </p>
+    <p>
+      <Button type="primary" onClick={() => props.history.push('/idc')}>
+        ID Card
+      </Button>{' '}
+      |{' '}
+      <Button type="primary" onClick={() => props.history.push('/qs')}>
+        QS
+      </Button>
+    </p>
   </div>
 )
 
@@ -60,7 +69,7 @@ const mapDispatchToProps = dispatch =>
       incrementAsync,
       decrement,
       decrementAsync,
-      changePage: () => push('/idc')
+      changePage: () => push('#/about')
     },
     dispatch
   )
