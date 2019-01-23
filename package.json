@@ -6,8 +6,8 @@
     "antd": "^3.10.4",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-relay": "^1.7.0-rc.1",
-    "connected-react-router": "6.2.1",
-    "flow-bin": "^0.90.0",
+    "connected-react-router": "6.2.2",
+    "flow-bin": "^0.91.0",
     "history": "^4.7.2",
     "http-proxy-middleware": "^0.19.0",
     "husky": "^1.1.2",
@@ -27,6 +27,11 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "sanitize.css": "^8.0.0"
+  },
+  "devDependencies": {
+    "customize-cra": "^0.2.9",
+    "prettier": "^1.15.2",
+    "react-app-rewired": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,10 +63,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "customize-cra": "^0.2.9",
-    "prettier": "^1.15.2",
-    "react-app-rewired": "^2.0.2"
-  }
+  ]
 }
