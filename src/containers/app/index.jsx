@@ -5,6 +5,7 @@ import Home from '../home'
 import idc from '../idcard'
 import qs from '../qs'
 import svg from '../svg'
+import svgpreview from '../svgpreview'
 
 const App = () => (
   <div>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path="/idc" component={idc} />
         <Route exact path="/qs" component={qs} />
         <Route exact path="/svg" component={svg} />
+        <Route exact path="/svgpreview" component={svgpreview} />
       </Switch>
     </main>
   </div>
