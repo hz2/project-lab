@@ -13,6 +13,7 @@
     "husky": "^2.4.1",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.10.0",
+    "now": "^16.2.0",
     "nprogress": "^0.2.0",
     "qrcode.react": "^0.9.2",
     "react": "^16.6.3",
@@ -34,11 +35,9 @@
     "react-app-rewired": "^2.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
     "dev": "react-app-rewired start",
-    "start2": "react-app-rewired start",
-    "build2": "react-app-rewired build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",
