@@ -13,18 +13,46 @@ import {
 const Home = props => (
   <div>
     <h1>Home</h1>
-    <div>
+    <p>Count: {props.count}</p>
+
+    <p>
+      <Button type="primary" onClick={props.increment}>
+        Increment
+      </Button>
+      <Button
+        type="primary"
+        onClick={props.incrementAsync}
+        disabled={props.isIncrementing}>
+        Increment Async
+      </Button>
+    </p>
+
+    <p>
+      <Button type="primary" onClick={props.decrement}>
+        Decrement
+      </Button>
+      <Button
+        type="primary"
+        onClick={props.decrementAsync}
+        disabled={props.isDecrementing}>
+        Decrement Async
+      </Button>
+    </p>
+
+    <p>
+      <Button type="primary" onClick={() => props.changePage()}>
+        Go to about page via redux
+      </Button>
+    </p>
+    <p>
       <Button type="primary" onClick={() => props.history.push('/idc')}>
         ID Card
-      </Button>
-
-      <Button
-        style={{ marginLeft: '15px' }}
-        type="primary"
-        onClick={() => props.history.push('/qs')}>
+      </Button>{' '}
+      |{' '}
+      <Button type="primary" onClick={() => props.history.push('/qs')}>
         QS
       </Button>
-    </div>
+    </p>
   </div>
 )
 

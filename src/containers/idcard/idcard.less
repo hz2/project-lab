@@ -1,11 +1,18 @@
-.idc-block {
-  padding: 20px;
-  max-width: 800px;
-  .idcinput {
-    width: 300px;
+.item-block {
+  display: inline-block;
+  vertical-align: top;
+
+  .item-input {
+    width: 220px;
     margin-right: 10px;
   }
+
   .line {
     margin: 10px;
+  }
+
+  +.item-block {
+    margin-left: 25px;
+
   }
 }

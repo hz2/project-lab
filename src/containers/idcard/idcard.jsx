@@ -1,14 +1,21 @@
 import React from 'react'
+import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, message } from 'antd'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './idcard.less'
 import { out as xzqh, keysArr } from './xzqh'
 
+const rdm = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
 class idcard extends React.Component {
   state = {
     visible: false,
     idcvalue: '',
+    telvalue: '',
     copied: false,
     resultArea: '',
     resultBirth: '',
@@ -151,11 +158,6 @@ class idcard extends React.Component {
     //   82: '澳门',
     //   91: '国外'
     // }
-    let rdm = (min, max) => {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min)) + min
-    }
     let rdmarea = keysArr[rdm(0, keysArr.length)]
     let rdmdate = new Date(rdm(new Date('1950-01-01') / 1, new Date() / 1))
       .toISOString()
@@ -177,21 +179,31 @@ class idcard extends React.Component {
     this.setState({ idcvalue: out })
     this.setResult(out)
   }
+  generateMobile = () => {
+    this.setState({
+      telvalue:
+        '1' +
+        rdm(5, 9) +
+        Math.random()
+          .toString()
+          .substr(3, 9)
+    })
+  }
   render() {
     return (
       <div>
-        <div className="idc-block">
+        <div className="item-block">
           <div className="line">
             <Button
               type="primary"
-              icon="search"
+              icon={<SearchOutlined />}
               onClick={this.generateIDCardNO}>
-              生成身份证号码
+              身份证号码
             </Button>
           </div>
           <div className="line">
             <Input
-              className="idcinput"
+              className="item-input"
               placeholder="输入身份证号码"
               value={this.state.idcvalue}
               onChange={this.handleChange}
@@ -211,20 +223,29 @@ class idcard extends React.Component {
           </div>
         </div>
 
-        {/*
-
-         <CopyToClipboard text={this.state.value}
-          onCopy={() => this.setState({copied: true})}>
-          <button>Copy to clipboard with button</button>
-        </CopyToClipboard> 
-
-        {this.state.copied ? (
-          <span style={{ color: 'red' }}>Copied.</span>
-        ) : null}
-
-         <Button type="primary" onClick={this.showModal}>
-          Open Modal
-        </Button>  */}
+        <div className="item-block">
+          <div className="line">
+            <Button
+              type="primary"
+              icon={<SearchOutlined />}
+              onClick={this.generateMobile}>
+              手机号码
+            </Button>
+          </div>
+          <div className="line">
+            <Input
+              className="item-input"
+              placeholder="生成输入手机号码"
+              value={this.state.telvalue}
+              readOnly
+            />
+            <CopyToClipboard
+              text={this.state.telvalue}
+              onCopy={() => message.success('复制成功！')}>
+              <Button type="primary">复制</Button>
+            </CopyToClipboard>
+          </div>
+        </div>
 
         <Modal
           title="Basic Modal"
