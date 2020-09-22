@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^4.6.4",
+    "antd": "^4.6.5",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-relay": "^5.0.0",
     "connected-react-router": "6.4.0",

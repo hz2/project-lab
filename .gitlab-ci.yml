@@ -2,7 +2,7 @@
 stages:
   - pages
 pages:
-  image: node:10.0
+  image: node:14.0
   stage: pages
   cache:
     paths:
