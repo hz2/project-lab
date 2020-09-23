@@ -1,5 +1,5 @@
 import React from 'react'
-import qs from 'qs'
+// import qs from 'qs'
 import { Input } from 'antd'
 import './style.less'
 const { TextArea } = Input
@@ -66,7 +66,7 @@ class page extends React.Component {
   }
 
   render() {
-    let v2 = this.state.val2
+    // let v2 = this.state.val2
     return (
       <div style={{ display: 'flex' }}>
         <div className="container">

@@ -14,7 +14,7 @@ const Home = props => (
   <div>
     <h1>Home</h1>
     <div>
-      <Button type="primary" onClick={() => props.history.push('/idc')}>
+      <Button type="primary" onClick={() => props.history.push('/idcard')}>
         ID Card
       </Button>
 
