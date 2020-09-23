@@ -5,7 +5,7 @@ import { HashRouter } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import store from './store'
 import history from './modules/history'
-import App from './containers/app'
+import App from './views/app'
 
 import 'sanitize.css/sanitize.css'
 import './index.css'
