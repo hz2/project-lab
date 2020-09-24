@@ -1,6 +1,10 @@
 .content {
     display: grid;
-    grid-template: repeat(4,1fr) / repeat(4,1fr);
+    grid-template: ~'repeat( 4,1fr ) / repeat( 4,1fr )' ;
+    grid-area: ~'1 / 1 / 5 / 5';
+    height: 100vh;
+    width: 100vw;
+    // grid-gap: 50px;
     .item {
         background-color: #f0f0f0;
         width: 100%;

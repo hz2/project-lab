@@ -8,7 +8,7 @@ import './bing.less'
 //       .join(' ')
 //   }
 
-const items = new Array(10)
+const items = new Array(16)
   .fill('')
   .map((x, i) => <div className="item" key={i}></div>)
 

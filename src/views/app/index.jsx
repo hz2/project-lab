@@ -22,8 +22,8 @@ const routesList = Object.entries(pathList).map((x, i) => (
 const App = () => (
   <div>
     <header></header>
-
-    <main style={{ padding: '25px' }}>
+    {/* style={{ padding: '25px' }} */}
+    <main>
       <Switch>
         <Route exact path="/" component={Home} />
         {routesList}
