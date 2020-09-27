@@ -11,18 +11,17 @@ import {
 } from '../../modules/counter'
 
 const Home = props => (
-  <div>
+  <div className="app-home">
     <h1>Home</h1>
-    <div>
+    <div className="btn-list">
       <Button type="primary" onClick={() => props.history.push('/idcard')}>
         ID Card
       </Button>
-
-      <Button
-        style={{ marginLeft: '15px' }}
-        type="primary"
-        onClick={() => props.history.push('/qs')}>
+      <Button type="primary" onClick={() => props.history.push('/qs')}>
         QS
+      </Button>
+      <Button type="primary" onClick={() => props.history.push('/bing')}>
+        Bing
       </Button>
     </div>
   </div>

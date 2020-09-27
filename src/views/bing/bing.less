@@ -1,14 +1,115 @@
 .content {
-    display: grid;
-    grid-template: ~'repeat( 4,1fr ) / repeat( 4,1fr )' ;
-    grid-area: ~'1 / 1 / 5 / 5';
-    height: 100vh;
-    width: 100vw;
-    // grid-gap: 50px;
-    .item {
-        background-color: #f0f0f0;
-        width: 100%;
-        height: 100%;
-        border:1px solid #f00;
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  // grid-gap: 50px;
+  .item {
+    background-color: #f0f0f0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 33.3333333vh;
+      object-fit: cover;
     }
+    .tips {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.45);
+      filter: drop-shadow(3px 3px 0.5px #000000ab);
+      color: #eee;
+      font-size: 14px;
+      width: inherit;
+      white-space: pre-wrap;
+      text-align: left;
+      transform: translateY(0);
+      .transitionAll;
+      .text {
+        line-height: 1.5;
+        padding: 15px;
+      }
+    }
+    .btns {
+      position: absolute;
+      margin-left: 80%;
+      margin-top: 2.5%;
+      font-size: 22px;
+      width: inherit;
+      height: initial;
+      display: flex;
+      transform: translateY(-100%);
+      .transitionAll;
+      .btn {
+        padding: 5px 10px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+    &:hover {
+      .tips {
+        transform: translateY(-100%);
+      }
+      .btns {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.transitionAll {
+  transition: all cubic-bezier(0.6, -0.28, 0.74, 0.05) 250ms;
+}
+.mktList {
+  bottom: -60px;
+  position: fixed;
+  padding-top: 15px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background: ~'linear-gradient(75deg, rgb(0 0 0 / 65%), rgb(0 0 0 / 48%))';
+  transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:hover {
+    bottom: 0;
+  }
+  .item {
+    cursor: pointer;
+    margin: 12px;
+    padding: 8px 15px;
+    color: #fff;
+    background-color: teal;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.11);
+    border-radius: 4px;
+    user-select: none;
+    font-size: 18px;
+    &:focus {
+      background-color: #007575;
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.15);
+    }
+    &:active {
+      background-color: #009999;
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .content {
+    grid-template: ~'repeat( 3,1fr ) / repeat( 5,1fr )';
+    grid-area: ~'1 / 1 / span 5 / span 3';
+  }
+}
+
+@media (orientation: portrait) {
+  .content {
+    grid-template: ~'repeat( 5,1fr ) / repeat( 3,1fr )';
+    grid-area: ~'1 / 1 / span 3 / span 5';
+    .item img {
+      height: 20vh;
+    }
+  }
+  .mktList {
+    bottom: 0;
+  }
 }
