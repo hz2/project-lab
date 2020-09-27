@@ -8,7 +8,7 @@ import history from './modules/history'
 import App from './views/app/index.jsx'
 
 import 'sanitize.css/sanitize.css'
-import './index.css'
+import './index.less'
 
 const target = document.querySelector('#root')
 
