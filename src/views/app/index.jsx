@@ -7,6 +7,7 @@ const pathList = {
   idcard: 'idcard/idcard',
   qs: 'qs',
   bing: 'bing',
+  color: 'color',
   emoji: 'emoji',
   svgpreview: 'svgpreview'
 }
@@ -25,8 +26,7 @@ const App = () => (
     {/* style={{ padding: '25px' }} */}
     <main>
       <Switch>
-        <Route exact path="/" component={Home} />
-        {routesList}
+        <Route exact path="/" component={Home} /> {routesList}
       </Switch>
     </main>
   </div>
