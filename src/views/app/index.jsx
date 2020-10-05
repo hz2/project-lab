@@ -5,7 +5,7 @@ import Home from '../home/home'
 
 const pathList = {
   idcard: 'idcard/idcard',
-  qs: 'qs',
+  encode: 'encode',
   bing: 'bing',
   color: 'color',
   emoji: 'emoji',
