@@ -84,7 +84,10 @@ const Bing = () => {
           </span>
         </a>
       </div>
-      <img alt={i} src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'} />
+      <img
+        alt={x.title}
+        src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'}
+      />
       <div className="tips">
         <div className="text">{x.copyright.replace('(©', '\n(©')}</div>
       </div>
