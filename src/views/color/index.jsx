@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './color.less'
 import { Input, Button, Radio } from 'antd'
 
@@ -46,7 +46,7 @@ const genHub = (r, g, b, min, max) => {
 }
 const Color = () => {
   const [inputColor, setInputColor] = useState('')
-  const [hslList, setHslList] = useState({})
+  // const [hslList, setHslList] = useState({})
   const genColor = () =>
     setInputColor(
       '#' +
