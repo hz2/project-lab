@@ -99,6 +99,9 @@
     grid-template: ~'repeat( 3,1fr ) / repeat( 5,1fr )';
     grid-area: ~'1 / 1 / span 5 / span 3';
   }
+  #toggleMenu {
+    display: none;
+  }
 }
 
 @media (orientation: portrait) {
@@ -111,5 +114,39 @@
   }
   .mktList {
     bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transform: translateY(100%);
+    &.menuShow {
+      transform: translateY(0);
+    }
+  }
+  @keyframes floatAni {
+    0% {
+      opacity: .8;
+      transform: scale(.95) translateY(10%);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: .8;
+      transform: scale(.95) translateY(10%);
+    }
+    
+  }
+  #toggleMenu {
+    display: block;
+    position: fixed;
+    top: 56vh;
+    right: 20px;
+    background-color: #fff9;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 999px;
+    animation: floatAni 2000ms ease-in-out infinite;
   }
 }

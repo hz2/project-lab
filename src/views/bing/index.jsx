@@ -16,10 +16,8 @@ const req = (mkt, index) =>
       .catch(error => reject(error))
   })
 
-// const openSearch = (x, event) => {
-//   event.preventDefault()
-//   window.open('https://bing.com' + x.quiz)
-// }
+// const openSearch = (x, event) => {   event.preventDefault()
+// window.open('https://bing.com' + x.quiz) }
 const openView = (x, event) => {
   event.preventDefault()
   window.open(`https://www.bing.com${x.urlbase}_1920x1200.jpg`)
@@ -50,6 +48,7 @@ const openDown = (name, url, event) => {
 const Bing = () => {
   const [imglist, setImglist] = useState([])
   const [loading, setLoading] = useState(false)
+  const [menuShow, toggleMenu] = useState(false)
   const getList = mkt => {
     setLoading(true)
     // setImglist(imglist.map(x => ({})))
@@ -139,7 +138,15 @@ const Bing = () => {
       <Spin spinning={loading} size="large">
         <div className="content">{items}</div>
       </Spin>
-      <div className="mktList">
+      <div
+        id="toggleMenu"
+        className={menuShow ? 'menuShow' : ''}
+        onClick={() => toggleMenu(!menuShow)}>
+        <span role="img" aria-label="map">
+          🌏
+        </span>
+      </div>
+      <div className={menuShow ? 'mktList menuShow' : 'mktList'}>
         {mktList}
         <div className="item" onClick={e => downAll(e)}>
           DownLoad
