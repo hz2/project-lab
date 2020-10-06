@@ -182,6 +182,7 @@ const HexConversion = () => {
             <a
               id="numAddr"
               target="_blank"
+              rel="noopener noreferrer"
               href={'http://' + parseInt(ip2Num, 16)}>
               http://{parseInt(ip2Num, 16)}
             </a>

@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import qs from 'qs'
-import { Input, Alert } from 'antd'
+import React from 'react'
 import './style.less'
 
 import HexConv from './hexConversion'
