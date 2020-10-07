@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Spin, Image } from 'antd'
 import './bing.less'
 
 const req = (mkt, index) =>
@@ -15,10 +16,8 @@ const req = (mkt, index) =>
       .catch(error => reject(error))
   })
 
-// const openSearch = (x, event) => {
-//   event.preventDefault()
-//   window.open('https://bing.com' + x.quiz)
-// }
+// const openSearch = (x, event) => {   event.preventDefault()
+// window.open('https://bing.com' + x.quiz) }
 const openView = (x, event) => {
   event.preventDefault()
   window.open(`https://www.bing.com${x.urlbase}_1920x1200.jpg`)
@@ -48,14 +47,19 @@ const openDown = (name, url, event) => {
 
 const Bing = () => {
   const [imglist, setImglist] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [menuShow, toggleMenu] = useState(false)
   const getList = mkt => {
+    setLoading(true)
+    // setImglist(imglist.map(x => ({})))
     Promise.all([req(mkt, -1), req(mkt, 9)])
       .then(arr => {
         setImglist(
           arr.flat().filter((x, i, o) => x.urlbase !== o[i - 1]?.urlbase)
         )
+        setLoading(false)
       })
-      .catch(err => console.error(new Error(err)))
+      .catch(err => setLoading(false) && console.error(new Error(err)))
   }
   const changeto = mkt => {
     getList(mkt)
@@ -65,15 +69,21 @@ const Bing = () => {
   const items = imglist.map((x = {}, i) => (
     <div className="item" key={i}>
       <div className="btns">
-        {/* <a
-          className="search btn"
-          onClick={e => openSearch(x, e)}
+        <a
+          className="download btn"
+          onClick={e =>
+            openDown(
+              x.urlbase.split('=')[1] + '.jpg',
+              `https://www.bing.com${x.urlbase}_1920x1200.jpg`,
+              e
+            )
+          }
           title="搜索"
           href="#!">
-          <span role="img" aria-label="search">
-            🔍
+          <span role="img" aria-label="download">
+            📥
           </span>
-        </a> */}
+        </a>
         <a
           className="view btn"
           onClick={e => openView(x, e)}
@@ -84,9 +94,12 @@ const Bing = () => {
           </span>
         </a>
       </div>
-      <img alt={i} src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'} />
+      <Image
+        alt={x.title}
+        src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'}
+      />
       <div className="tips">
-        <div className="text">{x.copyright.replace('(©', '\n(©')}</div>
+        <div className="text">{x.copyright?.replace('(©', '\n(©')}</div>
       </div>
     </div>
   ))
@@ -122,8 +135,18 @@ const Bing = () => {
 
   return (
     <div className="bingPage">
-      <div className="content">{items}</div>
-      <div className="mktList">
+      <Spin spinning={loading} size="large">
+        <div className="content">{items}</div>
+      </Spin>
+      <div
+        id="toggleMenu"
+        className={menuShow ? 'menuShow' : ''}
+        onClick={() => toggleMenu(!menuShow)}>
+        <span role="img" aria-label="map">
+          🌏
+        </span>
+      </div>
+      <div className={menuShow ? 'mktList menuShow' : 'mktList'}>
         {mktList}
         <div className="item" onClick={e => downAll(e)}>
           DownLoad

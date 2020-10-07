@@ -14,15 +14,27 @@ const Home = props => (
   <div className="app-home">
     <h1>Home</h1>
     <div className="btn-list">
-      <Button type="primary" onClick={() => props.history.push('/idcard')}>
-        ID Card
-      </Button>
-      <Button type="primary" onClick={() => props.history.push('/qs')}>
-        QS
-      </Button>
-      <Button type="primary" onClick={() => props.history.push('/bing')}>
-        Bing
-      </Button>
+      {[
+        {
+          name: 'ID Card',
+          path: '/idcard'
+        },
+        {
+          name: 'Bing',
+          path: '/bing'
+        },
+        {
+          name: 'Encode',
+          path: '/encode'
+        }
+      ].map((x, i) => (
+        <Button
+          type="primary"
+          key={i}
+          onClick={() => props.history.push(x.path)}>
+          {x.name}
+        </Button>
+      ))}
     </div>
   </div>
 )
