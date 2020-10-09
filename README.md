@@ -4,6 +4,7 @@
 | ------ | ------ |
 | gitlab page | [https://lab.huxi.pub](https://lab.huxi.pub) |
 | vercel | [https://lab.not.wiki](https://lab.not.wiki) |
+| qcloud (CN) | [https://lab.huching.cn](https://lab.huching.cn) |
 
 
-<img src="./public/LabRingSimpleColor.svg" alt="logo" width="350px" loading="lazy">
+<img src="./public/LabRingSimpleColor.svg" alt="logo" width="250px" loading="lazy">
