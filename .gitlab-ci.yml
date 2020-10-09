@@ -1,4 +1,3 @@
-
 stages:
   - pages
 pages:
@@ -17,6 +16,10 @@ pages:
     - mv build public
     - cd public
     - ls
+    - cd ../
+    - cp "$labuploader" ./labuploader
+    - chmod 0600 labuploader
+    - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -Cr -i labuploader public labUploader@huching.cn:/var/www/lab/
   artifacts:
     paths:
       - public
