@@ -19,8 +19,7 @@ pages:
     - cd ../
     - cp "$labuploader" ./labuploader
     - chmod 0600 labuploader
-    - scp -h
-    - scp -vCq -r -i labuploader /public labUploader@huching.cn:/var/www/lab/
+    - scp -Cr -i labuploader /public labUploader@huching.cn:/var/www/lab/
   artifacts:
     paths:
       - public
