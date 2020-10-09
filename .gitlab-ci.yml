@@ -17,10 +17,9 @@ pages:
     - cd public
     - ls
     - cd ../
-    - echo "$KUBE_CA_PEM" > "$(pwd)/labuploader"
-    - chmod 600 labuploader
-    - cat labuploader
-    - scp -vCq -r -i labuploader  ./public  labUploader@huching.cn:/var/www/lab 
+    - echo "$labuploader" > "$(pwd)/labuploader"
+    - cat "$(pwd)/labuploader"
+    - scp -vCq -r -i "$(pwd)/labuploader" ./public labUploader@huching.cn:/var/www/lab 
   artifacts:
     paths:
       - public
