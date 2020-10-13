@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './lottery.less'
+import { Statistic, Row, Col } from 'antd'
+
 // http://www.cwl.gov.cn/kjxx/ssq/ydjzjmx/
-const twoColorBall = () => {
-  // 第七条 "双色球"每注投注号码由6个红色球号码和1个蓝色球号码组成。红色球号码从1--33中选择;蓝色球号码从1--16中选择。
+
+let alpha = '',
+  beta = '',
+  gamma = ''
+const genBall = (len = 33) => {
+  const ballArr = Array.from(Array(len), (x, i) =>
+    (i + 1).toString().padStart(2, '0')
+  )
+  const tianshi = Date.now().toString(32)
+  const dili = [alpha, beta, gamma].map(x => x.toString(32).substring(4))
+  const renhe = Math.random()
+    .toString(32)
+    .substring(2)
+  const arr = [tianshi, dili, renhe].flat()
+  const intN = BigInt(parseInt(arr.join(''), 32))
+  console.log(intN, intN % BigInt(len))
+  console.log(ballArr[intN % BigInt(len)])
+  return ballArr[intN % BigInt(len)]
+}
+const handleOrientation = orientData => {
+  alpha = orientData.alpha
+  beta = orientData.beta
+  gamma = orientData.gamma
 }
 
-import { Statistic, Row, Col } from 'antd'
+const twoColorBall = () => {
+  // 第七条 "双色球"每注投注号码由6个红色球号码和1个蓝色球号码组成。
+  // 红色球号码从1--33中选择;蓝色球号码从1--16中选择。
+}
 
 const { Countdown } = Statistic
 const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30 // Moment is also OK
@@ -15,8 +41,12 @@ function onFinish() {
 }
 
 const LotteryPage = () => {
+  useEffect(() => {
+    window.addEventListener('deviceorientation', handleOrientation, true)
+  }, [])
   return (
     <div className="lotteryPage">
+      <button onClick={() => genBall()}>按钮</button>
       <Row gutter={16}>
         <Col span={12}>
           <Countdown title="Countdown" value={deadline} onFinish={onFinish} />
