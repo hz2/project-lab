@@ -95,6 +95,7 @@ const Bing = () => {
         </a>
       </div>
       <Image
+        className="imgCotainer"
         alt={x.title}
         src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'}
       />

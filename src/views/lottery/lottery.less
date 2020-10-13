@@ -1,0 +1,42 @@
+.lotteryPage {
+  padding: 20px;
+  .ballgroup {
+    display: flex;
+    flex-wrap: wrap;
+    .ball {
+      margin: 10px 8px;
+      border-radius: 999px;
+      width: 40px;
+      height: 40px;
+      color: #fff;
+      text-align: center;
+      font-size: 20px;
+      line-height: 40px;
+      font-family: monospace;
+      font-weight: 600;
+      &.redball {
+        background-color: #e70014;
+      }
+      &.blueball {
+        background-color: #549fe0;
+      }
+      &.yellowball{
+        color: #372048;
+        background: linear-gradient(0deg, #df9e1e, #fbd02d);
+      }
+      &.blue2ball {
+        background: linear-gradient(0deg, #245dba, #5a9ee5);
+      }
+    }
+  }
+  .ballgroup + .ballgroup {
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px #e0e0e0 dotted;
+  }
+  .buttons {
+    button,.link{
+      margin: 10px;
+    }
+  }
+}
