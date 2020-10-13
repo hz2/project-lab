@@ -25,9 +25,9 @@ const genBall = (len = 33, fn) => {
   return ballArr[intN % BigInt(len)]
 }
 const handleOrientation = event => {
-  alpha = event.alpha
-  beta = event.beta
-  gamma = event.gamma
+  alpha = event.alpha || ''
+  beta = event.beta || ''
+  gamma = event.gamma || ''
 }
 
 const LotteryPage = () => {
@@ -148,7 +148,7 @@ const LotteryPage = () => {
           <div className="ballList">{balldom2}</div>
         </TabPane>
       </Tabs>
-      {JSON.stringify(rArr)}
+      <div style={{ display: 'none' }}>{JSON.stringify(rArr)}</div>
     </div>
   )
 }
