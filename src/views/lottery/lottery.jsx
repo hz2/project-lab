@@ -1,77 +1,154 @@
-import React, { useEffect } from 'react'
+/* global BigInt */
+import React, { useEffect, useState } from 'react'
+import { Tabs, Button } from 'antd'
 import './lottery.less'
-import { Statistic, Row, Col } from 'antd'
-
+const { TabPane } = Tabs
 // http://www.cwl.gov.cn/kjxx/ssq/ydjzjmx/
 
 let alpha = '',
   beta = '',
   gamma = ''
-
-let sarr = []
-const genBall = (len = 33) => {
+const genBall = (len = 33, fn) => {
   const ballArr = Array.from(Array(len), (x, i) =>
     (i + 1).toString().padStart(2, '0')
   )
+  // 天时 地利 人和
   const tianshi = Date.now().toString(32)
   const dili = [alpha, beta, gamma].map(x => x.toString(32).substring(4))
   const renhe = Math.random()
     .toString(32)
     .substring(2)
-  const arr = [tianshi, dili, renhe].flat()
-  sarr = arr
-  const intN = BigInt(parseInt(arr.join(''), 32))
-  console.log(sarr, intN, intN % BigInt(len))
-  alert(JSON.stringify(sarr))
-  console.log(ballArr[intN % BigInt(len)])
+  const arr = [renhe, dili, tianshi].flat().map(x => parseInt(x || 0, 32))
+  fn && fn(arr)
+  const intN = BigInt(arr.join(''))
+  // console.log(intN, 'intN', ballArr, intN % BigInt(len));
   return ballArr[intN % BigInt(len)]
 }
-const handleOrientation = orientData => {
-  alpha = orientData.alpha
-  beta = orientData.beta
-  gamma = orientData.gamma
-}
-
-const twoColorBall = () => {
-  // 第七条 "双色球"每注投注号码由6个红色球号码和1个蓝色球号码组成。
-  // 红色球号码从1--33中选择;蓝色球号码从1--16中选择。
-}
-
-const { Countdown } = Statistic
-const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30 // Moment is also OK
-
-function onFinish() {
-  console.log('finished!')
+const handleOrientation = event => {
+  alpha = event.alpha
+  beta = event.beta
+  gamma = event.gamma
 }
 
 const LotteryPage = () => {
+  const [rArr, setRarr] = useState([])
+  const [balldom, palceBall] = useState('')
+  const [balldom2, palceBall2] = useState('')
   useEffect(() => {
-    console.log('init')
-    window.addEventListener('deviceorientation', handleOrientation, true)
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation)
+    }
+    twoColorBall()
   }, [])
+
+  const twoColorBall = times => {
+    const genGroup = (key = 0) => {
+      const fullArr = new Set(Array.from(Array(30), x => genBall(33, setRarr)))
+      const ball6 = [...fullArr].slice(-6).sort()
+      const ball1 = genBall(16)
+      return (
+        <div className="ballgroup" key={key}>
+          {ball6.map((x, i) => (
+            <div className="ball redball" key={i}>
+              {x}
+            </div>
+          ))}
+          <div className="ball blueball">{ball1}</div>
+        </div>
+      )
+    }
+    if (times) {
+      const list = (
+        <div className="groups">
+          {Array.from(Array(times), (x, i) => genGroup(i))}
+        </div>
+      )
+      palceBall(list)
+    } else {
+      palceBall(genGroup)
+    }
+  }
+  const superLottery = times => {
+    const genGroup = (key = 0) => {
+      const fullArr = new Set(Array.from(Array(30), x => genBall(35, setRarr)))
+      const ball5 = [...fullArr].slice(-5).sort()
+      const fullArr2 = new Set(Array.from(Array(12), x => genBall(12, setRarr)))
+      const ball2 = [...fullArr2].slice(-2).sort()
+      return (
+        <div className="ballgroup" key={key}>
+          {ball5.map((x, i) => (
+            <div className="ball blue2ball" key={i}>
+              {x}
+            </div>
+          ))}
+          {ball2.map((x, i) => (
+            <div className="ball yellowball" key={i}>
+              {x}
+            </div>
+          ))}
+        </div>
+      )
+    }
+    if (times) {
+      const list = (
+        <div className="groups">
+          {Array.from(Array(times), (x, i) => genGroup(i))}
+        </div>
+      )
+      palceBall2(list)
+    } else {
+      palceBall2(genGroup)
+    }
+  }
+
   return (
     <div className="lotteryPage">
-      <button onClick={() => genBall()}>按钮</button>
-      sarr {JSON.stringify(sarr)}
-      <Row gutter={16}>
-        <Col span={12}>
-          <Countdown title="Countdown" value={deadline} onFinish={onFinish} />
-        </Col>
-        <Col span={12}>
-          <Countdown
-            title="Million Seconds"
-            value={deadline}
-            format="HH:mm:ss:SSS"
-          />
-        </Col>
-        <Col span={24} style={{ marginTop: 32 }}>
-          <Countdown
-            title="Day Level"
-            value={deadline}
-            format="D 天 H 时 m 分 s 秒"
-          />
-        </Col>
-      </Row>
+      <Tabs
+        defaultActiveKey="1"
+        onChange={() => {
+          twoColorBall()
+          superLottery()
+        }}>
+        <TabPane tab="双色球" key="1">
+          <div className="buttons">
+            <Button type="primary" onClick={() => twoColorBall()}>
+              单注
+            </Button>
+            <Button type="primary" onClick={() => twoColorBall(5)}>
+              单注 x 5
+            </Button>
+            <span className="link">
+              <a
+                href="http://www.cwl.gov.cn/kjxx/ssq/"
+                target="_blank"
+                rel="noopener noreferrer">
+                双色球开奖
+              </a>
+            </span>
+          </div>
+          <div className="ballList">{balldom}</div>
+        </TabPane>
+        <TabPane tab="大乐透" key="2">
+          <div className="buttons">
+            <Button type="primary" onClick={() => superLottery()}>
+              单注
+            </Button>
+            <Button type="primary" onClick={() => superLottery(5)}>
+              单注 x 5
+            </Button>
+            <span className="link">
+              <a
+                href="https://www.lottery.gov.cn/dlt/index.html"
+                target="_blank"
+                rel="noopener noreferrer">
+                大乐透开奖
+              </a>
+            </span>
+          </div>
+          <div className="ballList">{balldom2}</div>
+        </TabPane>
+      </Tabs>
+      {JSON.stringify(rArr)}
     </div>
   )
 }
