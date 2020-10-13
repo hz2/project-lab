@@ -7,6 +7,8 @@ import { Statistic, Row, Col } from 'antd'
 let alpha = '',
   beta = '',
   gamma = ''
+
+let sarr = []
 const genBall = (len = 33) => {
   const ballArr = Array.from(Array(len), (x, i) =>
     (i + 1).toString().padStart(2, '0')
@@ -17,8 +19,10 @@ const genBall = (len = 33) => {
     .toString(32)
     .substring(2)
   const arr = [tianshi, dili, renhe].flat()
+  sarr = arr
   const intN = BigInt(parseInt(arr.join(''), 32))
-  console.log(intN, intN % BigInt(len))
+  console.log(sarr, intN, intN % BigInt(len))
+  alert(JSON.stringify(sarr))
   console.log(ballArr[intN % BigInt(len)])
   return ballArr[intN % BigInt(len)]
 }
@@ -42,11 +46,13 @@ function onFinish() {
 
 const LotteryPage = () => {
   useEffect(() => {
+    console.log('init')
     window.addEventListener('deviceorientation', handleOrientation, true)
   }, [])
   return (
     <div className="lotteryPage">
       <button onClick={() => genBall()}>按钮</button>
+      sarr {JSON.stringify(sarr)}
       <Row gutter={16}>
         <Col span={12}>
           <Countdown title="Countdown" value={deadline} onFinish={onFinish} />
