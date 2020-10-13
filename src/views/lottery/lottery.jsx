@@ -148,7 +148,7 @@ const LotteryPage = () => {
           <div className="ballList">{balldom2}</div>
         </TabPane>
       </Tabs>
-      {JSON.stringify(rArr)}
+      <div style={{ display: 'none' }}>{JSON.stringify(rArr)}</div>
     </div>
   )
 }
