@@ -19,8 +19,8 @@ const createCountUpInstance = (el, props) => {
     useEasing
   } = props
   return new CountUp(el, end, {
-    decimals,
-    duration,
+    decimalPlaces: decimals,
+    duration: duration || 3.5,
     startVal: start,
     decimal,
     easingFn,

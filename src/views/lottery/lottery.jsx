@@ -47,7 +47,6 @@ const LotteryPage = () => {
       const fullArr = new Set(Array.from(Array(30), x => genBall(33, setRarr)))
       const ball6 = [...fullArr].slice(-6).sort()
       const ball1 = genBall(16)
-      console.log('ball6', ball6)
       return (
         <div className="ballgroup" key={key}>
           {ball6.map((x, i) => (
@@ -55,7 +54,9 @@ const LotteryPage = () => {
               <CountUp end={Number(x)} />
             </div>
           ))}
-          <div className="ball blueball">{ball1}</div>
+          <div className="ball blueball">
+            <CountUp end={Number(ball1)} />
+          </div>
         </div>
       )
     }
@@ -80,12 +81,12 @@ const LotteryPage = () => {
         <div className="ballgroup" key={key}>
           {ball5.map((x, i) => (
             <div className="ball blue2ball" key={i}>
-              {x}
+              <CountUp end={Number(x)} />
             </div>
           ))}
           {ball2.map((x, i) => (
             <div className="ball yellowball" key={i}>
-              {x}
+              <CountUp end={Number(x)} />
             </div>
           ))}
         </div>
