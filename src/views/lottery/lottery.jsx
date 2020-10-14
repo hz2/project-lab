@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Tabs, Button } from 'antd'
 import './lottery.less'
+import CountUp from './countupComp'
 const { TabPane } = Tabs
 // http://www.cwl.gov.cn/kjxx/ssq/ydjzjmx/
 
@@ -46,11 +47,12 @@ const LotteryPage = () => {
       const fullArr = new Set(Array.from(Array(30), x => genBall(33, setRarr)))
       const ball6 = [...fullArr].slice(-6).sort()
       const ball1 = genBall(16)
+      console.log('ball6', ball6)
       return (
         <div className="ballgroup" key={key}>
           {ball6.map((x, i) => (
             <div className="ball redball" key={i}>
-              {x}
+              <CountUp end={Number(x)} />
             </div>
           ))}
           <div className="ball blueball">{ball1}</div>
