@@ -10,7 +10,8 @@ const pathList = {
   bing: 'bing',
   color: 'color',
   emoji: 'emoji',
-  svgpreview: 'svgpreview'
+  svgpreview: 'svgpreview',
+  svgEditor: 'svgEditor/svgEditor'
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route
