@@ -12,7 +12,7 @@ import {
 
 const Home = props => (
   <div className="app-home">
-    <h1>Home</h1>
+    <h1>Lab Home</h1>
     <div className="btn-list">
       {[
         {
@@ -22,6 +22,10 @@ const Home = props => (
         {
           name: 'Bing',
           path: '/bing'
+        },
+        {
+          name: 'Color',
+          path: '/color'
         },
         {
           name: 'Encode',
