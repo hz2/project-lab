@@ -24,6 +24,10 @@ const Home = props => (
           path: '/bing'
         },
         {
+          name: 'Color',
+          path: '/color'
+        },
+        {
           name: 'Encode',
           path: '/encode'
         },
