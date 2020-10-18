@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './color.less'
-import { Input, Button, Radio } from 'antd'
+import { Input, Button } from 'antd'
 
 const rgb2hsl = rgb => {
   let arr = ['', '', '']
@@ -58,7 +58,7 @@ const genHub = (r, g, b, min, max) => {
     return diff * (r - g) + 240
   }
 }
-const Color = () => {
+const ColorPage = () => {
   const [inputColor, setInputColor] = useState('')
 
   const [hslBg, setHslBg] = useState('')
@@ -79,11 +79,24 @@ const Color = () => {
     const hsl = rgb2hsl(val)
     setHslBg(hsl)
     const hslArr = hsl.replace(/[hsl() ]/g, '').split(',')
+
+    const arr360 = Array.from(Array(100), (x, i) => i * 3.6)
+    const arr100 = Array.from(Array(100), (x, i) => i * 1)
+
+    const genIndex = (arr, key) => {
+      const absArr = arr.map(x => Math.abs(x - key))
+      return absArr.findIndex(x => x === Math.min(...absArr))
+    }
+
+    const index1 = genIndex(arr360, hslArr[0])
+    const index2 = genIndex(arr100, hslArr[1].replace('%', ''))
+    const index3 = genIndex(arr100, hslArr[2].replace('%', ''))
+
     // h
     setHslList(
-      Array.from(Array(36), (x, i) => i * 10).map((x, i) => (
+      arr360.map((x, i) => (
         <div
-          className="item"
+          className={i === index1 ? 'item box' : 'item'}
           key={i}
           style={{
             backgroundColor: `hsl(${x},${hslArr[1]},${hslArr[2]})`
@@ -92,9 +105,9 @@ const Color = () => {
     )
     // s
     setHslList2(
-      Array.from(Array(33), (x, i) => i * 3.33).map((x, i) => (
+      arr100.map((x, i) => (
         <div
-          className="item"
+          className={i === index2 ? 'item box' : 'item'}
           key={i}
           style={{
             backgroundColor: `hsl(${hslArr[0]},${x}%,${hslArr[2]})`
@@ -103,9 +116,9 @@ const Color = () => {
     )
     // l
     setHslList3(
-      Array.from(Array(33), (x, i) => i * 3.33).map((x, i) => (
+      arr100.map((x, i) => (
         <div
-          className="item"
+          className={i === index3 ? 'item box' : 'item'}
           key={i}
           style={{
             backgroundColor: `hsl(${hslArr[0]},${hslArr[1]},${x}%)`
@@ -118,24 +131,13 @@ const Color = () => {
     <div className="colorPage">
       <Input
         className="item-input"
-        placeholder="生成输入手机号码"
+        placeholder="生成颜色"
         value={inputColor}
         readOnly
       />
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-      <div className="hslbox">
-        <Radio value={false} name="qq">
-          1
-        </Radio>
-        <Radio value={false} name="qq">
-          2
-        </Radio>
-        <Radio value={false} name="qq">
-          3
-        </Radio>
-      </div>
       <div className="mainValue" style={{ backgroundColor: hslBg }}></div>
       <div className="title">Hue</div>
       <div className="list">{hslList}</div>
@@ -147,4 +149,4 @@ const Color = () => {
   )
 }
 
-export default Color
+export default ColorPage

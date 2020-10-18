@@ -14,7 +14,19 @@
         .item {
             display: block;
             height: 40px;
-            width: 40px;
+            width: 1%;
+        }
+        .box::after {
+            content: '';
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            border: 3px solid #ddd;
+            box-sizing: content-box;
+            margin-top: -3px;
+            margin-left: -3px;
+
+
         }
     }
 }
