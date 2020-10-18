@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './color.less'
-import { Input, Button } from 'antd'
+import { Input, Button, Slider, message } from 'antd'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 const rgb2hsl = rgb => {
   let arr = ['', '', '']
@@ -64,6 +65,7 @@ const ColorPage = () => {
   const [hslList, setHslList] = useState(null)
   const [hslList2, setHslList2] = useState(null)
   const [hslList3, setHslList3] = useState(null)
+
   const genColor = () => {
     const randomColor =
       '#' +
@@ -73,36 +75,75 @@ const ColorPage = () => {
     setInputColor(randomColor)
     hslDom(randomColor)
   }
+  // const pickColor = ({ target }) => {
+  //   const color = target.style.backgroundColor
+  //   setInputColor(color)
+  //   hslDom(color)
+  // }
+  // eslint-disable-next-line
+  useEffect(() => {
+    genColor()
+  }, [])
 
-  const hslDom = val => {
-    const hsl = rgb2hsl(val)
+  const changH = x => {
+    const { s, l } = hslBg
+    const color = `hsl(${x},${s}%,${l}%)`
+    setInputColor(color)
+    hslDom(color, 'hsl')
+  }
+
+  const changS = x => {
+    const { h, l } = hslBg
+    const color = `hsl(${h},${x}%,${l}%)`
+    setInputColor(color)
+    hslDom(color, 'hsl')
+  }
+
+  const changL = x => {
+    const { h, s } = hslBg
+    const color = `hsl(${h},${s}%,${x}%)`
+    setInputColor(color)
+    hslDom(color, 'hsl')
+  }
+
+  const hslDom = (val, type) => {
+    let hsl = ''
+    if (type === 'hsl') {
+      hsl = val
+    } else {
+      hsl = rgb2hsl(val)
+    }
+    const arr360 = Array.from(Array(100), (x, i) => (i * 3.6).toFixed(2))
+    const arr100 = Array.from(Array(100), (x, i) => i * 1)
+    const genClosed = (arr, key) => {
+      const absArr = arr.map(x => (Math.abs(x - key) * 100) / 100)
+      const index = absArr.findIndex(x => x === Math.min(...absArr))
+      return arr[index]
+    }
+
     const hslArr = hsl.replace(/[hsl() ]/g, '').split(',')
-    const [h, s, l] = hslArr.map(x => x.replace('%', ''))
+    const [h0, s0, l0] = hslArr.map(x => x.replace('%', ''))
+    const [h, s, l] = [
+      genClosed(arr360, h0),
+      genClosed(arr100, s0),
+      genClosed(arr100, l0)
+    ]
     setHslBg({
-      bg: hsl,
+      bg: `hsl(${h},${s}%,${l}%)`,
       h,
       s,
       l
     })
 
-    console.log('h, s, l', h, s, l, { backgroundColor: `hsl(${50},${s},${l})` })
-    const arr360 = Array.from(Array(100), (x, i) => i * 3.6)
-    const arr100 = Array.from(Array(100), (x, i) => i * 1)
-
-    const genIndex = (arr, key) => {
-      const absArr = arr.map(x => Math.abs(x - key))
-      return absArr.findIndex(x => x === Math.min(...absArr))
-    }
-
-    const index1 = genIndex(arr360, h)
-    const index2 = genIndex(arr100, s)
-    const index3 = genIndex(arr100, l)
+    // const index1 = genIndex(arr360, h)
+    // const index2 = genIndex(arr100, s)
+    // const index3 = genIndex(arr100, l)
 
     // h
     setHslList(
       arr360.map((x, i) => (
         <div
-          className={i === index1 ? 'item box' : 'item'}
+          className="item"
           key={i}
           style={{ backgroundColor: `hsl(${x},${s}%,${l}%)` }}></div>
       ))
@@ -111,7 +152,7 @@ const ColorPage = () => {
     setHslList2(
       arr100.map((x, i) => (
         <div
-          className={i === index2 ? 'item box' : 'item'}
+          className="item"
           key={i}
           style={{ backgroundColor: `hsl(${h},${x}%,${l}%)` }}></div>
       ))
@@ -120,7 +161,7 @@ const ColorPage = () => {
     setHslList3(
       arr100.map((x, i) => (
         <div
-          className={i === index3 ? 'item box' : 'item'}
+          className="item"
           key={i}
           style={{ backgroundColor: `hsl(${h},${s}%,${x}%)` }}></div>
       ))
@@ -138,13 +179,37 @@ const ColorPage = () => {
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-      <div className="mainValue" style={{ backgroundColor: hslBg.bg }}></div>
-      <div className="title">Hue ( {hslBg.h} )</div>
+
+      <CopyToClipboard
+        text={hslBg.bg}
+        onCopy={() => message.success('颜色已复制！')}>
+        <div className="mainValue" style={{ backgroundColor: hslBg.bg }}></div>
+      </CopyToClipboard>
+      <div className="title">Hue 色相 ( {hslBg.h} )</div>
       <div className="list">{hslList}</div>
-      <div className="title">Saturation ( {hslBg.s} )</div>
+      <Slider
+        value={hslBg.h}
+        max={356.41}
+        step={3.6}
+        tooltipVisible={false}
+        onChange={val => changH(val)}
+      />
+      <div className="title">Saturation 饱和度 ( {hslBg.s} )</div>
       <div className="list">{hslList2}</div>
-      <div className="title">Lightness ( {hslBg.l} )</div>
+      <Slider
+        value={hslBg.s}
+        max={99}
+        tooltipVisible={false}
+        onChange={val => changS(val)}
+      />
+      <div className="title">Lightness 亮度 ( {hslBg.l} )</div>
       <div className="list">{hslList3}</div>
+      <Slider
+        value={hslBg.l}
+        max={99}
+        tooltipVisible={false}
+        onChange={val => changL(val)}
+      />
     </div>
   )
 }
