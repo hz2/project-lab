@@ -60,26 +60,32 @@ const genHub = (r, g, b, min, max) => {
 }
 const ColorPage = () => {
   const [inputColor, setInputColor] = useState('')
-
-  const [hslBg, setHslBg] = useState('')
+  const [hslBg, setHslBg] = useState({ bg: '' })
   const [hslList, setHslList] = useState(null)
   const [hslList2, setHslList2] = useState(null)
   const [hslList3, setHslList3] = useState(null)
   const genColor = () => {
-    setInputColor(
+    const randomColor =
       '#' +
-        Math.random()
-          .toString(16)
-          .substr(2, 6)
-    )
-    hslDom(inputColor)
+      Math.random()
+        .toString(16)
+        .substr(2, 6)
+    setInputColor(randomColor)
+    hslDom(randomColor)
   }
 
   const hslDom = val => {
     const hsl = rgb2hsl(val)
-    setHslBg(hsl)
     const hslArr = hsl.replace(/[hsl() ]/g, '').split(',')
+    const [h, s, l] = hslArr.map(x => x.replace('%', ''))
+    setHslBg({
+      bg: hsl,
+      h,
+      s,
+      l
+    })
 
+    console.log('h, s, l', h, s, l, { backgroundColor: `hsl(${50},${s},${l})` })
     const arr360 = Array.from(Array(100), (x, i) => i * 3.6)
     const arr100 = Array.from(Array(100), (x, i) => i * 1)
 
@@ -88,9 +94,9 @@ const ColorPage = () => {
       return absArr.findIndex(x => x === Math.min(...absArr))
     }
 
-    const index1 = genIndex(arr360, hslArr[0])
-    const index2 = genIndex(arr100, hslArr[1].replace('%', ''))
-    const index3 = genIndex(arr100, hslArr[2].replace('%', ''))
+    const index1 = genIndex(arr360, h)
+    const index2 = genIndex(arr100, s)
+    const index3 = genIndex(arr100, l)
 
     // h
     setHslList(
@@ -98,9 +104,7 @@ const ColorPage = () => {
         <div
           className={i === index1 ? 'item box' : 'item'}
           key={i}
-          style={{
-            backgroundColor: `hsl(${x},${hslArr[1]},${hslArr[2]})`
-          }}></div>
+          style={{ backgroundColor: `hsl(${x},${s}%,${l}%)` }}></div>
       ))
     )
     // s
@@ -109,9 +113,7 @@ const ColorPage = () => {
         <div
           className={i === index2 ? 'item box' : 'item'}
           key={i}
-          style={{
-            backgroundColor: `hsl(${hslArr[0]},${x}%,${hslArr[2]})`
-          }}></div>
+          style={{ backgroundColor: `hsl(${h},${x}%,${l}%)` }}></div>
       ))
     )
     // l
@@ -120,9 +122,7 @@ const ColorPage = () => {
         <div
           className={i === index3 ? 'item box' : 'item'}
           key={i}
-          style={{
-            backgroundColor: `hsl(${hslArr[0]},${hslArr[1]},${x}%)`
-          }}></div>
+          style={{ backgroundColor: `hsl(${h},${s}%,${x}%)` }}></div>
       ))
     )
   }
@@ -138,12 +138,12 @@ const ColorPage = () => {
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-      <div className="mainValue" style={{ backgroundColor: hslBg }}></div>
-      <div className="title">Hue</div>
+      <div className="mainValue" style={{ backgroundColor: hslBg.bg }}></div>
+      <div className="title">Hue ( {hslBg.h} )</div>
       <div className="list">{hslList}</div>
-      <div className="title">Saturation</div>
+      <div className="title">Saturation ( {hslBg.s} )</div>
       <div className="list">{hslList2}</div>
-      <div className="title">Lightness</div>
+      <div className="title">Lightness ( {hslBg.l} )</div>
       <div className="list">{hslList3}</div>
     </div>
   )
