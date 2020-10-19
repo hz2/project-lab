@@ -4,7 +4,6 @@ import { Tabs, Button } from 'antd'
 import './lottery.less'
 import CountUp from './countupComp'
 const { TabPane } = Tabs
-// http://www.cwl.gov.cn/kjxx/ssq/ydjzjmx/
 
 let alpha = '',
   beta = '',

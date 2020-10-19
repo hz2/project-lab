@@ -61,7 +61,7 @@ const genHub = (r, g, b, min, max) => {
 }
 const ColorPage = () => {
   const [inputColor, setInputColor] = useState('')
-  const [hslBg, setHslBg] = useState({ bg: '' })
+  const [hslBg, setHslBg] = useState({ bg: '', text: '#000' })
   const [hslList, setHslList] = useState(null)
   const [hslList2, setHslList2] = useState(null)
   const [hslList3, setHslList3] = useState(null)
@@ -130,6 +130,7 @@ const ColorPage = () => {
     ]
     setHslBg({
       bg: `hsl(${h},${s}%,${l}%)`,
+      text: l > 65 ? '#000' : '#fff',
       h,
       s,
       l
@@ -179,12 +180,24 @@ const ColorPage = () => {
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-
-      <CopyToClipboard
-        text={hslBg.bg}
-        onCopy={() => message.success('颜色已复制！')}>
-        <div className="mainValue" style={{ backgroundColor: hslBg.bg }}></div>
-      </CopyToClipboard>
+      <div className="previewColor">
+        <CopyToClipboard
+          text={hslBg.bg}
+          onCopy={() => message.success('颜色已复制！')}>
+          <div>
+            <div
+              className="mainValue"
+              style={{ color: hslBg.text, backgroundColor: hslBg.bg }}>
+              预览文字
+            </div>
+            <div
+              className="mainValue"
+              style={{ color: hslBg.bg, background: hslBg.text }}>
+              预览文字
+            </div>
+          </div>
+        </CopyToClipboard>
+      </div>
       <div className="title">Hue 色相 ( {hslBg.h} )</div>
       <div className="list">{hslList}</div>
       <Slider

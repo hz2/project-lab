@@ -16,7 +16,7 @@ const Home = props => (
     <div className="btn-list">
       {[
         {
-          name: 'ID Card',
+          name: 'ID card',
           path: '/idcard'
         },
         {

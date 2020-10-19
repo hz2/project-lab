@@ -23,15 +23,12 @@ const routesList = Object.entries(pathList).map((x, i) => (
 ))
 
 const App = () => (
-  <div>
+  <>
     <header></header>
-    {/* style={{ padding: '25px' }} */}
-    <main>
-      <Switch>
-        <Route exact path="/" component={Home} /> {routesList}
-      </Switch>
-    </main>
-  </div>
+    <Switch>
+      <Route exact path="/" component={Home} /> {routesList}
+    </Switch>
+  </>
 )
 
 export default App

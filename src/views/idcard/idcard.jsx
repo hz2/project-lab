@@ -191,7 +191,7 @@ class idcard extends React.Component {
   }
   render() {
     return (
-      <div>
+      <>
         <div className="item-block">
           <div className="line">
             <Button
@@ -256,7 +256,7 @@ class idcard extends React.Component {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal>
-      </div>
+      </>
     )
   }
 }
