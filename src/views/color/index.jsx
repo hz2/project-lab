@@ -81,9 +81,7 @@ const ColorPage = () => {
   //   hslDom(color)
   // }
   // eslint-disable-next-line
-  useEffect(() => {
-    genColor()
-  }, [])
+  useEffect(() => genColor(), [])
 
   const changH = x => {
     const { s, l } = hslBg
