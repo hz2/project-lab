@@ -2,7 +2,7 @@ import React from 'react'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
+import { Button, Divider } from 'antd'
 import {
   increment,
   incrementAsync,
@@ -12,11 +12,11 @@ import {
 
 const Home = props => (
   <div className="app-home">
-    <h1>Lab Home</h1>
+    <h1>Home</h1>
     <div className="btn-list">
       {[
         {
-          name: 'ID Card',
+          name: 'ID card',
           path: '/idcard'
         },
         {
@@ -43,6 +43,16 @@ const Home = props => (
           {x.name}
         </Button>
       ))}
+    </div>
+    <div className="github">
+      <Divider>
+        <a
+          href="https://github.com/hz2/project-notwiki-lab-mirror"
+          target="_blank"
+          rel="noopener noreferrer">
+          github
+        </a>
+      </Divider>
     </div>
   </div>
 )
