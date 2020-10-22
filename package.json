@@ -37,7 +37,7 @@
   "scripts": {
     "dev": "react-app-rewired start",
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "set GENERATE_SOURCEMAP=false && react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",
@@ -59,9 +59,7 @@
     ]
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+    "last 1 version",
+    "> 5%"
   ]
 }
