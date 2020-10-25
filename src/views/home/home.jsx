@@ -10,6 +10,8 @@ import {
   decrementAsync
 } from '../../modules/counter'
 
+import './home.less'
+
 const Home = props => (
   <div className="app-home">
     <h1>Home</h1>
