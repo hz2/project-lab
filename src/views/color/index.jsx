@@ -111,8 +111,8 @@ const ColorPage = () => {
     } else {
       hsl = rgb2hsl(val)
     }
-    const arr360 = Array.from(Array(100), (x, i) => (i * 3.6).toFixed(2))
-    const arr100 = Array.from(Array(100), (x, i) => i * 1)
+    const arr360 = Array.from(Array(361), (x, i) => i * 1)
+    const arr100 = Array.from(Array(101), (x, i) => i * 1)
     const genClosed = (arr, key) => {
       const absArr = arr.map(x => (Math.abs(x - key) * 100) / 100)
       const index = absArr.findIndex(x => x === Math.min(...absArr))
@@ -200,24 +200,26 @@ const ColorPage = () => {
       <div className="list">{hslList}</div>
       <Slider
         value={hslBg.h}
-        max={356.41}
-        step={3.6}
+        min={0}
+        max={361}
         tooltipVisible={false}
         onChange={val => changH(val)}
       />
-      <div className="title">Saturation 饱和度 ( {hslBg.s} )</div>
+      <div className="title">Saturation 饱和度 ( {hslBg.s}% )</div>
       <div className="list">{hslList2}</div>
       <Slider
         value={hslBg.s}
-        max={99}
+        min={0}
+        max={100}
         tooltipVisible={false}
         onChange={val => changS(val)}
       />
-      <div className="title">Lightness 亮度 ( {hslBg.l} )</div>
+      <div className="title">Lightness 亮度 ( {hslBg.l}% )</div>
       <div className="list">{hslList3}</div>
       <Slider
         value={hslBg.l}
-        max={99}
+        min={0}
+        max={100}
         tooltipVisible={false}
         onChange={val => changL(val)}
       />
