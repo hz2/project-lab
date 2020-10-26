@@ -88,7 +88,6 @@ const hsl2rgb = hsla => {
 }
 
 const ColorPage = () => {
-  const [inputColor, setInputColor] = useState('')
   const [colorSets, setColor] = useState({ rgba: '', text: '#000' })
   const [hslHue, sethslHue] = useState(null)
   const [hslSAT, setHslSAT] = useState(null)
@@ -106,7 +105,6 @@ const ColorPage = () => {
   }
   // const pickColor = ({ target }) => {
   //   const color = target.style.backgroundColor
-  //   setInputColor(color)
   //   hslDom(color)
   // }
   // eslint-disable-next-line
@@ -165,11 +163,6 @@ const ColorPage = () => {
       a_: Math.round(a * 100)
     })
 
-    setInputColor(`rgba(${[r, g, b, a].join(',')})`)
-    // const index1 = genIndex(arr360, h)
-    // const index2 = genIndex(arr100, s)
-    // const index3 = genIndex(arr100, l)
-
     // h
     sethslHue(
       arr360.map((x, i) => (
@@ -221,7 +214,7 @@ const ColorPage = () => {
       <Input
         className="item-input"
         placeholder="生成颜色"
-        value={inputColor}
+        value={colorSets.rgba}
         readOnly
       />
       <Button type="primary" onClick={genColor}>
