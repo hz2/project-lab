@@ -38,6 +38,11 @@ render(
         <header></header>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/rgb"
+            component={require('./sample/rgb.js').default}
+          />
           {routesList}
         </Switch>
       </HashRouter>
