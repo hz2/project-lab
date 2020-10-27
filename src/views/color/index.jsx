@@ -144,7 +144,7 @@ const ColorPage = () => {
       genClosed(arr100, l0 * 100) / 100
     ]
 
-    const [r, g, b, a_] = hsl2rgb([h, s, l, a])
+    const [r, g, b] = hsl2rgb([h, s, l, a])
     setColor({
       hsla: `hsla(${h},${s}%,${l}%)`,
       rgba: `rgba(${[r, g, b, a].join(',')})`,
