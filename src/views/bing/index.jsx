@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
+import Qs from 'qs'
 import './bing.less'
 
 const req = (mkt, index) =>
@@ -16,11 +17,16 @@ const req = (mkt, index) =>
       .catch(error => reject(error))
   })
 
-// const openSearch = (x, event) => {   event.preventDefault()
-// window.open('https://bing.com' + x.quiz) }
+const openSearch = (x, event) => {
+  event.preventDefault()
+  if (!x.copyrightlink.startsWith('http')) {
+    return
+  }
+  window.open(x.copyrightlink)
+}
 const openView = (x, event) => {
   event.preventDefault()
-  window.open(`https://www.bing.com${x.urlbase}_1920x1200.jpg`)
+  window.open(`https://www.bing.com${x.urlbase}_UHD.jpg`)
 }
 const openDown = (name, url, event) => {
   event.preventDefault()
@@ -69,16 +75,27 @@ const Bing = () => {
   const items = imglist.map((x = {}, i) => (
     <div className="item" key={i}>
       <div className="btns">
+        {x.copyrightlink && x.copyrightlink.startsWith('http') ? (
+          <a
+            className="search btn"
+            onClick={e => openSearch(x, e)}
+            title={Qs.parse(x.copyrightlink.split('?')[1]).q}
+            href={x.copyrightlink}>
+            <span role="img" aria-label="search">
+              🔍
+            </span>
+          </a>
+        ) : null}
         <a
           className="download btn"
           onClick={e =>
             openDown(
               x.urlbase.split('=')[1] + '.jpg',
-              `https://www.bing.com${x.urlbase}_1920x1200.jpg`,
+              `https://www.bing.com${x.urlbase}_UHD.jpg`,
               e
             )
           }
-          title="搜索"
+          title="下载原图"
           href="#!">
           <span role="img" aria-label="download">
             📥
@@ -87,8 +104,8 @@ const Bing = () => {
         <a
           className="view btn"
           onClick={e => openView(x, e)}
-          title="查看"
-          href={`https://www.bing.com${x.urlbase}_1920x1200.jpg`}>
+          title="查看原图"
+          href={`https://www.bing.com${x.urlbase}_UHD.jpg`}>
           <span role="img" aria-label="view">
             👀
           </span>
@@ -127,7 +144,7 @@ const Bing = () => {
   const downAll = e =>
     imglist.forEach(x => {
       const name = x.urlbase.split('=')[1] + '.jpg'
-      const url = `https://www.bing.com${x.urlbase}_1920x1200.jpg`
+      const url = `https://www.bing.com${x.urlbase}_UHD.jpg`
       const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
       const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
       openDown(name, url, e)
