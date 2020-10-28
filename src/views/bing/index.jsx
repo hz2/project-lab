@@ -18,7 +18,7 @@ const req = (mkt, index) =>
 
 const openSearch = (x, event) => {
   event.preventDefault()
-  window.open('https://bing.com' + x.quiz)
+  window.open(x.copyrightlink)
 }
 const openView = (x, event) => {
   event.preventDefault()
