@@ -20,7 +20,7 @@ const req = (mkt, index) =>
 // window.open('https://bing.com' + x.quiz) }
 const openView = (x, event) => {
   event.preventDefault()
-  window.open(`https://www.bing.com${x.urlbase}_1920x1200.jpg`)
+  window.open(`https://www.bing.com${x.urlbase}_UHD.jpg`)
 }
 const openDown = (name, url, event) => {
   event.preventDefault()
@@ -74,7 +74,7 @@ const Bing = () => {
           onClick={e =>
             openDown(
               x.urlbase.split('=')[1] + '.jpg',
-              `https://www.bing.com${x.urlbase}_1920x1200.jpg`,
+              `https://www.bing.com${x.urlbase}_UHD.jpg`,
               e
             )
           }
@@ -88,7 +88,7 @@ const Bing = () => {
           className="view btn"
           onClick={e => openView(x, e)}
           title="查看"
-          href={`https://www.bing.com${x.urlbase}_1920x1200.jpg`}>
+          href={`https://www.bing.com${x.urlbase}_UHD.jpg`}>
           <span role="img" aria-label="view">
             👀
           </span>
@@ -127,7 +127,7 @@ const Bing = () => {
   const downAll = e =>
     imglist.forEach(x => {
       const name = x.urlbase.split('=')[1] + '.jpg'
-      const url = `https://www.bing.com${x.urlbase}_1920x1200.jpg`
+      const url = `https://www.bing.com${x.urlbase}_UHD.jpg`
       const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
       const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
       openDown(name, url, e)
