@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
+import Qs from 'qs'
 import './bing.less'
 
 const req = (mkt, index) =>
@@ -18,6 +19,9 @@ const req = (mkt, index) =>
 
 const openSearch = (x, event) => {
   event.preventDefault()
+  if (!x.copyrightlink.startsWith('http')) {
+    return
+  }
   window.open(x.copyrightlink)
 }
 const openView = (x, event) => {
@@ -71,15 +75,17 @@ const Bing = () => {
   const items = imglist.map((x = {}, i) => (
     <div className="item" key={i}>
       <div className="btns">
-        <a
-          className="search btn"
-          onClick={e => openSearch(x, e)}
-          title="搜索"
-          href="#!">
-          <span role="img" aria-label="search">
-            🔍
-          </span>
-        </a>
+        {x.copyrightlink && x.copyrightlink.startsWith('http') ? (
+          <a
+            className="search btn"
+            onClick={e => openSearch(x, e)}
+            title={Qs.parse(x.copyrightlink.split('?')[1]).q}
+            href={x.copyrightlink}>
+            <span role="img" aria-label="search">
+              🔍
+            </span>
+          </a>
+        ) : null}
         <a
           className="download btn"
           onClick={e =>
@@ -89,7 +95,7 @@ const Bing = () => {
               e
             )
           }
-          title="下载"
+          title="下载原图"
           href="#!">
           <span role="img" aria-label="download">
             📥
@@ -98,7 +104,7 @@ const Bing = () => {
         <a
           className="view btn"
           onClick={e => openView(x, e)}
-          title="查看"
+          title="查看原图"
           href={`https://www.bing.com${x.urlbase}_UHD.jpg`}>
           <span role="img" aria-label="view">
             👀
