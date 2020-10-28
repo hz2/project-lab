@@ -16,8 +16,10 @@ const req = (mkt, index) =>
       .catch(error => reject(error))
   })
 
-// const openSearch = (x, event) => {   event.preventDefault()
-// window.open('https://bing.com' + x.quiz) }
+const openSearch = (x, event) => {
+  event.preventDefault()
+  window.open('https://bing.com' + x.quiz)
+}
 const openView = (x, event) => {
   event.preventDefault()
   window.open(`https://www.bing.com${x.urlbase}_UHD.jpg`)
@@ -70,6 +72,15 @@ const Bing = () => {
     <div className="item" key={i}>
       <div className="btns">
         <a
+          className="search btn"
+          onClick={e => openSearch(x, e)}
+          title="搜索"
+          href="#!">
+          <span role="img" aria-label="search">
+            🔍
+          </span>
+        </a>
+        <a
           className="download btn"
           onClick={e =>
             openDown(
@@ -78,7 +89,7 @@ const Bing = () => {
               e
             )
           }
-          title="搜索"
+          title="下载"
           href="#!">
           <span role="img" aria-label="download">
             📥
