@@ -61,7 +61,6 @@ const rgb2hsl = rgba => {
   const s = genSaturation(l, min, max)
   return [h, s, l, a]
 }
-
 const hsl2rgb = hsla => {
   const [h, s, l, a] = hsla
   const C = (1 - Math.abs(2 * l - 1)) * s
@@ -87,8 +86,22 @@ const hsl2rgb = hsla => {
   return [...rgb_.map(x => Math.round((x + m) * 255)), a]
 }
 
+const arr360 = Array.from(Array(361), (x, i) => i * 1)
+const arr100 = Array.from(Array(101), (x, i) => i * 1)
+const arr255 = Array.from(Array(256), (x, i) => i * 1)
+
 const ColorPage = () => {
-  const [colorSets, setColor] = useState({ rgba: '', text: '#000' })
+  const [colorSets, setColor] = useState({
+    rgba: '',
+    text: '#000',
+    h: 0,
+    s: 0,
+    l: 0,
+    a: 1,
+    r: 0,
+    g: 0,
+    b: 0
+  })
   const [hslRGB, setRGB] = useState(null)
 
   const genColor = () => {
@@ -100,13 +113,6 @@ const ColorPage = () => {
     const arr = rgb2hsl(colorStr2arr(randomColor))
     hslDom(arr)
   }
-  // const pickColor = ({ target }) => {
-  //   const color = target.style.backgroundColor
-  //   hslDom(color)
-  // }
-  // eslint-disable-next-line
-  useEffect(() => genColor(), [])
-
   const changeH = x => {
     const { s, l, a } = colorSets
     hslDom([x, s, l, a])
@@ -128,26 +134,107 @@ const ColorPage = () => {
   const changeR = x => {
     const { g, b, a } = colorSets
     const arr = rgb2hsl([x, g, b, a])
-    console.log('arr', x, arr)
     hslDom(arr)
   }
   const changeG = x => {
     const { r, b, a } = colorSets
     const arr = rgb2hsl([r, x, b, a])
-    console.log('arr', x, arr)
     hslDom(arr)
   }
   const changeB = x => {
     const { r, g, a } = colorSets
     const arr = rgb2hsl([r, g, x, a])
-    console.log('arr', x, arr)
     hslDom(arr)
   }
 
+  // eslint-disable-next-line
+  useEffect(() => genColor(), [])
+
+  const renderDomList = ({ h, s, l, a, r, g, b, s_, l_ }) => {
+    const domList = [
+      {
+        name: `Hue 色相 ( ${h}° )`,
+        val: h,
+        bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
+        max: 361,
+        arr: arr360,
+        fn: changeH
+      },
+      {
+        name: `Saturation 饱和度 ( ${s_}% )`,
+        val: s * 100,
+        bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
+        max: 100,
+        arr: arr100,
+        fn: changeS
+      },
+      {
+        name: `Lightness 亮度 ( ${l_}% )`,
+        val: l * 100,
+        bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
+        max: 100,
+        arr: arr100,
+        fn: changeL
+      },
+      {
+        name: `Alpha 透明度 ( ${a} )`,
+        val: a * 100,
+        bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
+        max: 100,
+        arr: arr100,
+        fn: changeA
+      },
+      {
+        name: `红色 ( ${r} )`,
+        val: r,
+        bgval: x => `rgba(${x},${g},${b},${a})`,
+        max: 255,
+        arr: arr255,
+        fn: changeR
+      },
+      {
+        name: `绿色 ( ${g} )`,
+        val: g,
+        bgval: x => `rgba(${r},${x},${b},${a})`,
+        max: 255,
+        arr: arr255,
+        fn: changeG
+      },
+      {
+        name: `蓝色 ( ${b} )`,
+        val: b,
+        bgval: x => `rgba(${r},${g},${x},${a})`,
+        max: 255,
+        arr: arr255,
+        fn: changeB
+      }
+    ]
+    // rgb
+    setRGB(
+      domList.map((x, i) => (
+        <div className="colorItem" key={i}>
+          <div className="title">{x.name}</div>
+          <div
+            className="list"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${x.arr
+                .map(y => x.bgval(y))
+                .join(',')})`
+            }}></div>
+          <Slider
+            key={i}
+            value={x.val}
+            min={0}
+            max={x.max}
+            tooltipVisible={false}
+            onChange={val => x.fn(val)}
+          />
+        </div>
+      ))
+    )
+  }
+
   const hslDom = val => {
-    const arr360 = Array.from(Array(361), (x, i) => i * 1)
-    const arr100 = Array.from(Array(101), (x, i) => i * 1)
-    const arr255 = Array.from(Array(256), (x, i) => i * 1)
     const genClosed = (arr, key) => {
       const absArr = arr.map(x => (Math.abs(x - key) * 100) / 100)
       const index = absArr.findIndex(x => x === Math.min(...absArr))
@@ -159,158 +246,27 @@ const ColorPage = () => {
       genClosed(arr100, s0 * 100) / 100,
       genClosed(arr100, l0 * 100) / 100
     ]
-
+    const [h_, s_, l_, a_] = [h, s, l, a].map(x => Math.round(x * 100))
     const [r, g, b] = hsl2rgb([h, s, l, a])
-    setColor(
-      Object.assign(
-        {},
-        {
-          hsla: `hsla(${h},${s}%,${l}%)`,
-          rgba: `rgba(${[r, g, b, a].join(',')})`,
-          hexa: ``,
-          text: l > 0.65 ? '#000' : '#fff',
-          h, // 0 - 360
-          s, // 0 - 1
-          l, // 0 - 1
-          a, // 0 - 1
-          r, // 0 - 255
-          g, // 0 - 255
-          b, // 0 - 255
-          h_: Math.round(h * 100),
-          s_: Math.round(s * 100),
-          l_: Math.round(l * 100),
-          a_: Math.round(a * 100)
-        }
-      )
-    )
-
-    // // h
-    // sethslHue(
-    //   arr360.map((x, i) => (
-    //     <div
-    //       className="item"
-    //       key={i}
-    //       style={{
-    //         backgroundColor: `hsla(${x},${s * 100}%,${l * 100}%,${a})`
-    //       }}></div>
-    //   ))
-    // )
-    // // s
-    // setHslSAT(
-    //   arr100.map((x, i) => (
-    //     <div
-    //       className="item"
-    //       key={i}
-    //       style={{
-    //         backgroundColor: `hsla(${h},${x}%,${l * 100}%,${a})`
-    //       }}></div>
-    //   ))
-    // )
-    // // l
-    // setHslLight(
-    //   arr100.map((x, i) => (
-    //     <div
-    //       className="item"
-    //       key={i}
-    //       style={{
-    //         backgroundColor: `hsla(${h},${s * 100}%,${x}%,${a})`
-    //       }}></div>
-    //   ))
-    // )
-    // // a
-    // setHslAlpha(
-    //   arr100.map((x, i) => (
-    //     <div
-    //       className="item"
-    //       key={i}
-    //       style={{
-    //         backgroundColor: `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`
-    //       }}></div>
-    //   ))
-    // )
-    // rgb
-    setRGB(
-      [
-        {
-          name: `Hue 色相 ( ${colorSets.h}° )`,
-          bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
-          valkey: 'h',
-          max: 361,
-          arr: arr360,
-          fn: val => changeH(val)
-        },
-        {
-          name: `Saturation 饱和度 ( ${colorSets.s_}% )`,
-          bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
-          valkey: 's_',
-          max: 100,
-          arr: arr100,
-          fn: val => changeS(val)
-        },
-        {
-          name: `Lightness 亮度 ( ${colorSets.l_}% )`,
-          bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
-          valkey: 'l_',
-          max: 100,
-          arr: arr100,
-          fn: val => changeL(val)
-        },
-        {
-          name: `Alpha 透明度 ( ${colorSets.a} )`,
-          bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
-          valkey: 'a_',
-          max: 100,
-          arr: arr100,
-          fn: val => changeA(val)
-        },
-        {
-          name: `红色 ( ${colorSets.r} )`,
-          bgval: x => `rgba(${x},${g},${b},${a})`,
-          valkey: 'r',
-          max: 255,
-          arr: arr255,
-          fn: val => changeR(val)
-        },
-        {
-          name: `绿色 ( ${colorSets.g} )`,
-          bgval: x => `rgba(${r},${x},${b},${a})`,
-          valkey: 'g',
-          max: 255,
-          arr: arr255,
-          fn: val => changeG(val)
-        },
-        {
-          name: `蓝色 ( ${colorSets.b} )`,
-          bgval: x => `rgba(${r},${g},${x},${a})`,
-          valkey: 'b',
-          max: 255,
-          arr: arr255,
-          fn: val => changeB(val)
-        }
-      ].map((x, i) => (
-        <div className="colorItem" key={i}>
-          <div className="title" key={'title' + i}>
-            {x.name + colorSets[x.valkey]}
-          </div>
-          <div
-            className="list"
-            key={'list' + i}
-            style={{
-              height: '40px',
-              backgroundImage: `linear-gradient(to right, ${x.arr
-                .map((y, j) => x.bgval(y))
-                .join(',')})`
-            }}></div>
-          <Slider
-            value={colorSets[x.valkey]}
-            min={0}
-            max={x.max}
-            tooltipVisible={false}
-            onChange={val => x.fn(val)}
-          />
-        </div>
-      ))
-    )
+    const color = {
+      hsla: `hsla(${h},${s}%,${l}%)`,
+      rgba: `rgba(${[r, g, b, a].join(',')})`,
+      hexa: ``,
+      text: l > 0.65 ? '#000' : '#fff',
+      h, // 0 - 360
+      s, // 0 - 1
+      l, // 0 - 1
+      a, // 0 - 1
+      r, // 0 - 255
+      g, // 0 - 255
+      b, // 0 - 255
+      h_,
+      s_,
+      l_,
+      a_
+    }
+    setColor(color)
+    renderDomList(color)
   }
 
   return (
@@ -345,42 +301,6 @@ const ColorPage = () => {
           </div>
         </CopyToClipboard>
       </div>
-      {/* <div className="title">Hue 色相 ( {colorSets.h}° )</div>
-      <div className="list">{hslHue}</div>
-      <Slider
-        value={colorSets.h}
-        min={0}
-        max={361}
-        tooltipVisible={false}
-        onChange={val => changeH(val)}
-      />
-      <div className="title">Saturation 饱和度 ( {colorSets.s_}% )</div>
-      <div className="list">{hslSAT}</div>
-      <Slider
-        value={colorSets.s_}
-        min={0}
-        max={100}
-        tooltipVisible={false}
-        onChange={val => changeS(val)}
-      />
-      <div className="title">Lightness 亮度 ( {colorSets.l_}% )</div>
-      <div className="list">{hslLight}</div>
-      <Slider
-        value={colorSets.l_}
-        min={0}
-        max={100}
-        tooltipVisible={false}
-        onChange={val => changeL(val)}
-      />
-      <div className="title">Alpha 透明度 ( {colorSets.a} )</div>
-      <div className="list">{hslAlpha}</div>
-      <Slider
-        value={colorSets.a_}
-        min={0}
-        max={100}
-        tooltipVisible={false}
-        onChange={val => changeA(val)}
-      /> */}
       <>{hslRGB}</>
     </div>
   )
