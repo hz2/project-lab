@@ -86,10 +86,6 @@ const hsl2rgb = hsla => {
   return [...rgb_.map(x => Math.round((x + m) * 255)), a]
 }
 
-const arr360 = Array.from(Array(361), (x, i) => i * 1)
-const arr100 = Array.from(Array(101), (x, i) => i * 1)
-const arr255 = Array.from(Array(256), (x, i) => i * 1)
-
 const ColorPage = () => {
   const [colorSets, setColor] = useState({
     rgba: '',
@@ -150,14 +146,16 @@ const ColorPage = () => {
   // eslint-disable-next-line
   useEffect(() => genColor(), [])
 
-  const renderDomList = ({ h, s, l, a, r, g, b, s_, l_ }) => {
+  const genArr = (len, fn) =>
+    Array.from(Array(len + 1), (x, i) => fn(i * 1)).join(',')
+
+  const renderDomList = ({ h, s, l, a, r, g, b, h_, s_, l_ }) => {
     const domList = [
       {
-        name: `Hue 色相 ( ${h}° )`,
+        name: `Hue 色相 ( ${h_ / 100}° )`,
         val: h,
         bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
-        max: 361,
-        arr: arr360,
+        max: 360,
         fn: changeH
       },
       {
@@ -165,7 +163,6 @@ const ColorPage = () => {
         val: s * 100,
         bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
         max: 100,
-        arr: arr100,
         fn: changeS
       },
       {
@@ -173,7 +170,6 @@ const ColorPage = () => {
         val: l * 100,
         bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
         max: 100,
-        arr: arr100,
         fn: changeL
       },
       {
@@ -181,7 +177,6 @@ const ColorPage = () => {
         val: a * 100,
         bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
         max: 100,
-        arr: arr100,
         fn: changeA
       },
       {
@@ -189,7 +184,6 @@ const ColorPage = () => {
         val: r,
         bgval: x => `rgba(${x},${g},${b},${a})`,
         max: 255,
-        arr: arr255,
         fn: changeR
       },
       {
@@ -197,7 +191,6 @@ const ColorPage = () => {
         val: g,
         bgval: x => `rgba(${r},${x},${b},${a})`,
         max: 255,
-        arr: arr255,
         fn: changeG
       },
       {
@@ -205,7 +198,6 @@ const ColorPage = () => {
         val: b,
         bgval: x => `rgba(${r},${g},${x},${a})`,
         max: 255,
-        arr: arr255,
         fn: changeB
       }
     ]
@@ -215,11 +207,12 @@ const ColorPage = () => {
         <div className="colorItem" key={i}>
           <div className="title">{x.name}</div>
           <div
-            className="list"
+            className={'list bg' + i}
             style={{
-              backgroundImage: `linear-gradient(to right, ${x.arr
-                .map(y => x.bgval(y))
-                .join(',')})`
+              backgroundImage: `linear-gradient(to right, ${genArr(
+                x.max,
+                x.bgval
+              )})`
             }}></div>
           <Slider
             key={i}
@@ -235,17 +228,12 @@ const ColorPage = () => {
   }
 
   const hslDom = val => {
-    const genClosed = (arr, key) => {
-      const absArr = arr.map(x => (Math.abs(x - key) * 100) / 100)
-      const index = absArr.findIndex(x => x === Math.min(...absArr))
-      return arr[index]
-    }
-    const [h0, s0, l0, a = 1] = val
-    const [h, s, l] = [
-      genClosed(arr360, h0),
-      genClosed(arr100, s0 * 100) / 100,
-      genClosed(arr100, l0 * 100) / 100
-    ]
+    const [h, s, l, a] = val
+    // const [h, s, l] = [
+    //   genClosed(arr360, h0),
+    //   genClosed(arr100, s0 * 100) / 100,
+    //   genClosed(arr100, l0 * 100) / 100
+    // ]
     const [h_, s_, l_, a_] = [h, s, l, a].map(x => Math.round(x * 100))
     const [r, g, b] = hsl2rgb([h, s, l, a])
     const color = {

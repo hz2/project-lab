@@ -1,17 +1,19 @@
 .colorPage {
     padding: 30px;
+
     .item-input {
         width: 250px;
         display: inline-block;
     }
+
     .previewColor {
         display: flex;
         margin: 10px 0;
         padding: 10px;
         // background-color: #f0f0f0;
-        background: conic-gradient(#ddd 0.25turn, #999 0.25turn 0.5turn, #ddd 0.5turn 0.75turn, #999 0.75turn)
-        top left / 25px 25px repeat;
+        background: conic-gradient(#ddd 0.25turn, #999 0.25turn 0.5turn, #ddd 0.5turn 0.75turn, #999 0.75turn) top left / 25px 25px repeat;
     }
+
     .mainValue {
         display: inline-flex;
         flex-wrap: wrap;
@@ -22,10 +24,40 @@
         height: 200px;
         width: 200px;
     }
+
     .list {
         display: flex;
         margin: 10px 0;
         height: 40px;
+
+        &.bg_h {
+            background-image: var(--linear-h);
+        }
+
+        &.bg_s {
+            background-image: var(--linear-s);
+        }
+
+        &.bg_l {
+            background-image: var(--linear-l);
+        }
+
+        &.bg_a {
+            background-image: var(--linear-a);
+        }
+
+        &.bg_r {
+            background-image: var(--linear-r);
+        }
+
+        &.bg_g {
+            background-image: var(--linear-g);
+        }
+
+        &.bg_b {
+            background-image: var(--linear-b);
+        }
+
         // .item {
         //     display: block;
         //     width: 1%;
@@ -48,9 +80,12 @@
         margin-right: .5%;
         margin-top: -54px;
     }
-    .ant-slider-track , .ant-slider-rail{
+
+    .ant-slider-track,
+    .ant-slider-rail {
         // opacity: 0;
     }
+
     .ant-slider-handle {
         height: 40px;
         border-radius: 0;
