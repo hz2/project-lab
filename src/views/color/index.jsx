@@ -182,22 +182,24 @@ const ColorPage = () => {
           {w.map((x, i) => (
             <div className="colorItem" key={i}>
               <div className="title">{x.name}</div>
-              <div
-                className={'list bg' + i}
-                style={{
-                  backgroundImage: `linear-gradient(to right, ${genArr(
-                    x.max,
-                    x.bgval
-                  )})`
-                }}></div>
-              <Slider
-                key={i}
-                value={x.val}
-                min={0}
-                max={x.max}
-                tooltipVisible={false}
-                onChange={val => slidingVal(val, h * 4 + i)}
-              />
+              <div className="sliderBlock">
+                <div
+                  className={'list bg' + i}
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${genArr(
+                      x.max,
+                      x.bgval
+                    )})`
+                  }}></div>
+                <Slider
+                  key={i}
+                  value={x.val}
+                  min={0}
+                  max={x.max}
+                  tooltipVisible={false}
+                  onChange={val => slidingVal(val, h * 4 + i)}
+                />
+              </div>
             </div>
           ))}
         </div>
