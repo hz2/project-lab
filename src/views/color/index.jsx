@@ -177,25 +177,29 @@ const ColorPage = () => {
     ]
     // rgb
     setRGB(
-      domList.map((x, i) => (
-        <div className="colorItem" key={i}>
-          <div className="title">{x.name}</div>
-          <div
-            className={'list bg' + i}
-            style={{
-              backgroundImage: `linear-gradient(to right, ${genArr(
-                x.max,
-                x.bgval
-              )})`
-            }}></div>
-          <Slider
-            key={i}
-            value={x.val}
-            min={0}
-            max={x.max}
-            tooltipVisible={false}
-            onChange={val => slidingVal(val, i)}
-          />
+      [domList.slice(0, 4), domList.slice(4)].map((w, h) => (
+        <div className="colorSet actionItem" key={h}>
+          {w.map((x, i) => (
+            <div className="colorItem" key={i}>
+              <div className="title">{x.name}</div>
+              <div
+                className={'list bg' + i}
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${genArr(
+                    x.max,
+                    x.bgval
+                  )})`
+                }}></div>
+              <Slider
+                key={i}
+                value={x.val}
+                min={0}
+                max={x.max}
+                tooltipVisible={false}
+                onChange={val => slidingVal(val, h * 4 + i)}
+              />
+            </div>
+          ))}
         </div>
       ))
     )
@@ -242,28 +246,30 @@ const ColorPage = () => {
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-      <div className="previewColor">
-        <CopyToClipboard
-          text={colorSets.rgba}
-          onCopy={() => message.success('颜色已复制！')}>
-          <div>
-            <div
-              className="mainValue"
-              style={{
-                color: colorSets.text,
-                backgroundColor: colorSets.rgba
-              }}>
-              预览文字
+      <div className="actionList">
+        <div className="previewColor">
+          <CopyToClipboard
+            text={colorSets.rgba}
+            onCopy={() => message.success('颜色已复制！')}>
+            <div>
+              <div
+                className="mainValue"
+                style={{
+                  color: colorSets.text,
+                  backgroundColor: colorSets.rgba
+                }}>
+                预览文字
+              </div>
+              <div
+                className="mainValue"
+                style={{ color: colorSets.rgba, background: colorSets.text }}>
+                预览文字
+              </div>
             </div>
-            <div
-              className="mainValue"
-              style={{ color: colorSets.rgba, background: colorSets.text }}>
-              预览文字
-            </div>
-          </div>
-        </CopyToClipboard>
+          </CopyToClipboard>
+        </div>
+        <div className="colorList">{hslRGB}</div>
       </div>
-      <>{hslRGB}</>
     </div>
   )
 }
