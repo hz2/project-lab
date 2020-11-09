@@ -1,8 +1,8 @@
+// @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
 import { Input, Button, Slider, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-// @flow
 const colorStr2arr = str => {
   let arr = ['', '', '']
   if (str.startsWith('#')) {

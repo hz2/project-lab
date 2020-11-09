@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
@@ -7,10 +8,13 @@ import store from './store'
 import history from './modules/history'
 import Home from './views/home/home'
 
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import reportWebVitals from './reportWebVitals'
+
 import 'sanitize.css/sanitize.css'
 import './index.less'
-import './css.less'
-// @flow
+import './index.css'
+
 const pathList = {
   idcard: 'idcard/idcard',
   lottery: 'lottery/lottery',
@@ -39,11 +43,11 @@ render(
         <header></header>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route
+          {/* <Route
             exact
             path="/rgb"
             component={require('./sample/rgb.js').default}
-          />
+          /> */}
           {routesList}
         </Switch>
       </HashRouter>
@@ -51,3 +55,6 @@ render(
   </Provider>,
   target
 )
+
+serviceWorkerRegistration.register()
+reportWebVitals()
