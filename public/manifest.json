@@ -3,6 +3,11 @@
   "name": "Lab",
   "icons": [
     {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
         "src": "/img/android-chrome-192x192.png",
         "sizes": "192x192",
         "type": "image/png"
@@ -14,8 +19,8 @@
     }
   ],
   "start_url": "/",
-  "scope": "/",
-  "background_color": "#ffffff",
+  "theme_color": "#00bbbb",
+  "background_color": "#f7f7f7",
   "display": "standalone",
-  "theme_color": "#00bbbb"
+  "scope": "/"
 }

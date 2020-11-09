@@ -1,8 +1,8 @@
+// @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
 import { Input, Button, Slider, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-
 const colorStr2arr = str => {
   let arr = ['', '', '']
   if (str.startsWith('#')) {
@@ -109,37 +109,18 @@ const ColorPage = () => {
     const arr = rgb2hsl(colorStr2arr(randomColor))
     hslDom(arr)
   }
-  const changeH = x => {
-    const { s, l, a } = colorSets
-    hslDom([x, s, l, a])
-  }
 
-  const changeS = x => {
-    const { h, l, a } = colorSets
-    hslDom([h, x / 100, l, a])
-  }
-
-  const changeL = x => {
-    const { h, s, a } = colorSets
-    hslDom([h, s, x / 100, a])
-  }
-  const changeA = x => {
-    const { h, s, l } = colorSets
-    hslDom([h, s, l, x / 100])
-  }
-  const changeR = x => {
-    const { g, b, a } = colorSets
-    const arr = rgb2hsl([x, g, b, a])
-    hslDom(arr)
-  }
-  const changeG = x => {
-    const { r, b, a } = colorSets
-    const arr = rgb2hsl([r, x, b, a])
-    hslDom(arr)
-  }
-  const changeB = x => {
-    const { r, g, a } = colorSets
-    const arr = rgb2hsl([r, g, x, a])
+  const slidingVal = (x, i) => {
+    const { h, s, l, a, r, g, b } = colorSets
+    const arr = [
+      [x, s, l, a],
+      [h, x / 100, l, a],
+      [h, s, x / 100, a],
+      [h, s, l, x / 100],
+      rgb2hsl([x, g, b, a]),
+      rgb2hsl([r, x, b, a]),
+      rgb2hsl([r, g, x, a])
+    ][i]
     hslDom(arr)
   }
 
@@ -155,73 +136,72 @@ const ColorPage = () => {
         name: `Hue 色相 ( ${h_ / 100}° )`,
         val: h,
         bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
-        max: 360,
-        fn: changeH
+        max: 360
       },
       {
         name: `Saturation 饱和度 ( ${s_}% )`,
         val: s * 100,
         bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
-        max: 100,
-        fn: changeS
+        max: 100
       },
       {
         name: `Lightness 亮度 ( ${l_}% )`,
         val: l * 100,
         bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
-        max: 100,
-        fn: changeL
+        max: 100
       },
       {
         name: `Alpha 透明度 ( ${a} )`,
         val: a * 100,
         bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
-        max: 100,
-        fn: changeA
+        max: 100
       },
       {
         name: `红色 ( ${r} )`,
         val: r,
         bgval: x => `rgba(${x},${g},${b},${a})`,
-        max: 255,
-        fn: changeR
+        max: 255
       },
       {
         name: `绿色 ( ${g} )`,
         val: g,
         bgval: x => `rgba(${r},${x},${b},${a})`,
-        max: 255,
-        fn: changeG
+        max: 255
       },
       {
         name: `蓝色 ( ${b} )`,
         val: b,
         bgval: x => `rgba(${r},${g},${x},${a})`,
-        max: 255,
-        fn: changeB
+        max: 255
       }
     ]
     // rgb
     setRGB(
-      domList.map((x, i) => (
-        <div className="colorItem" key={i}>
-          <div className="title">{x.name}</div>
-          <div
-            className={'list bg' + i}
-            style={{
-              backgroundImage: `linear-gradient(to right, ${genArr(
-                x.max,
-                x.bgval
-              )})`
-            }}></div>
-          <Slider
-            key={i}
-            value={x.val}
-            min={0}
-            max={x.max}
-            tooltipVisible={false}
-            onChange={val => x.fn(val)}
-          />
+      [domList.slice(0, 4), domList.slice(4)].map((w, h) => (
+        <div className="colorSet actionItem" key={h}>
+          {w.map((x, i) => (
+            <div className="colorItem" key={i}>
+              <div className="title">{x.name}</div>
+              <div className="sliderBlock">
+                <div
+                  className={'list bg' + i}
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${genArr(
+                      x.max,
+                      x.bgval
+                    )})`
+                  }}></div>
+                <Slider
+                  key={i}
+                  value={x.val}
+                  min={0}
+                  max={x.max}
+                  tooltipVisible={false}
+                  onChange={val => slidingVal(val, h * 4 + i)}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       ))
     )
@@ -268,28 +248,30 @@ const ColorPage = () => {
       <Button type="primary" onClick={genColor}>
         生成
       </Button>
-      <div className="previewColor">
-        <CopyToClipboard
-          text={colorSets.rgba}
-          onCopy={() => message.success('颜色已复制！')}>
-          <div>
-            <div
-              className="mainValue"
-              style={{
-                color: colorSets.text,
-                backgroundColor: colorSets.rgba
-              }}>
-              预览文字
+      <div className="actionList">
+        <div className="previewColor">
+          <CopyToClipboard
+            text={colorSets.rgba}
+            onCopy={() => message.success('颜色已复制！')}>
+            <div>
+              <div
+                className="mainValue"
+                style={{
+                  color: colorSets.text,
+                  backgroundColor: colorSets.rgba
+                }}>
+                预览文字
+              </div>
+              <div
+                className="mainValue"
+                style={{ color: colorSets.rgba, background: colorSets.text }}>
+                预览文字
+              </div>
             </div>
-            <div
-              className="mainValue"
-              style={{ color: colorSets.rgba, background: colorSets.text }}>
-              预览文字
-            </div>
-          </div>
-        </CopyToClipboard>
+          </CopyToClipboard>
+        </div>
+        <div className="colorList">{hslRGB}</div>
       </div>
-      <>{hslRGB}</>
     </div>
   )
 }
