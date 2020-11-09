@@ -9,7 +9,8 @@ import Home from './views/home/home'
 
 import 'sanitize.css/sanitize.css'
 import './index.less'
-
+import './css.less'
+// @flow
 const pathList = {
   idcard: 'idcard/idcard',
   lottery: 'lottery/lottery',

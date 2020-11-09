@@ -28,7 +28,8 @@
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "sanitize.css": "^10.0.0"
+    "sanitize.css": "^10.0.0",
+    "source-map-explorer": "^2.5.0"
   },
   "devDependencies": {
     "customize-cra": "^0.2.9",
@@ -43,7 +44,8 @@
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "flow": "flow"
+    "flow": "flow",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
