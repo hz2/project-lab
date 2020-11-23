@@ -214,11 +214,22 @@ const ColorPage = () => {
     const { h, s, l } = color
     setShowVal(val)
     const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
+    const hslstr2rgb = srt =>
+      `rgb(${hsl2rgb([
+        ...srt
+          .replace(/hsl\(|\)/g, '')
+          .split(',')
+          .map(x => (x.endsWith('%') ? x.replace('%', '') / 100 : x * 1)),
+        1
+      ])
+        .slice(0, 3)
+        .join(',')})`
 
     const cpList = fn =>
       genArr2(val).map(x => (
         <CopyToClipboard
-          text={fn(x)}
+          text={hslstr2rgb(fn(x))}
+          title={fn(x)}
           key={x}
           onCopy={() => message.success('颜色已复制！')}>
           <div
