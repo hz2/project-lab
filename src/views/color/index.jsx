@@ -110,8 +110,8 @@ const ColorPage = () => {
     hslDom(arr)
   }
 
-  const slidingVal = (x, i) => {
-    const { h, s, l, a, r, g, b } = colorSets
+  const slidingVal = (x, i, colors) => {
+    const { h, s, l, a, r, g, b } = colors
     const arr = [
       [x, s, l, a],
       [h, x / 100, l, a],
@@ -130,7 +130,8 @@ const ColorPage = () => {
   const genArr = (len, fn) =>
     Array.from(Array(len + 1), (x, i) => fn(i * 1)).join(',')
 
-  const renderDomList = ({ h, s, l, a, r, g, b, h_, s_, l_ }) => {
+  const renderDomList = color => {
+    const { h, s, l, a, r, g, b, h_, s_, l_ } = color
     const domList = [
       {
         name: `Hue 色相 ( ${h_ / 100}° )`,
@@ -197,7 +198,7 @@ const ColorPage = () => {
                   min={0}
                   max={x.max}
                   tooltipVisible={false}
-                  onChange={val => slidingVal(val, h * 4 + i)}
+                  onChange={val => slidingVal(val, h * 4 + i, color)}
                 />
               </div>
             </div>
