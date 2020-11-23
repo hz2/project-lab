@@ -55,8 +55,8 @@
     .list {
         display: flex;
         height: 20px;
-        border-radius: 100px;
-        box-shadow: 0 0 0 3px #ccc;
+        border-radius: 6px;
+        box-shadow: 0 0 0 3px #f8f8f8, 0 0 0 5px silver;
 
         &.bg_h {
             background-image: var(--linear-h);
@@ -95,6 +95,7 @@
 
     .ant-slider-track,
     .ant-slider-rail {
+        height: 20px;
         opacity: 0;
     }
 
@@ -105,5 +106,15 @@
         border-width: 7px;
         margin-top: -7px;
         box-sizing: content-box;
+    }
+    .showList {
+        .cat {
+            margin: 12px;
+            .colorItem {
+                width: 50px;
+                height: 50px;
+                display: inline-block;
+            }
+        }
     }
 }

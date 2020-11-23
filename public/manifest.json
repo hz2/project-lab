@@ -22,5 +22,21 @@
   "theme_color": "#00bbbb",
   "background_color": "#f7f7f7",
   "display": "standalone",
-  "scope": "/"
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Lab Home",
+      "short_name": "Lab Home",
+      "description": "Go to the homepage",
+      "url": "/?utm_source=shortcuts",
+      "icons": [{ "src": "/img/android-chrome-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "View Tools",
+      "short_name": "Tools",
+      "description": "View the tolls",
+      "url": "/#/tools?utm_source=shortcuts",
+      "icons": [{ "src": "/img/android-chrome-192x192.png", "sizes": "192x192" }]
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
-import { Input, Button, Slider, message } from 'antd'
+import { Input, Button, Slider, Radio, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 const colorStr2arr = str => {
   let arr = ['', '', '']
@@ -99,6 +99,8 @@ const ColorPage = () => {
     b: 0
   })
   const [hslRGB, setRGB] = useState(null)
+  const [showListDom, setShowListDom] = useState(null)
+  const [showVal, setShowVal] = useState(10)
 
   const genColor = () => {
     const randomColor =
@@ -110,8 +112,8 @@ const ColorPage = () => {
     hslDom(arr)
   }
 
-  const slidingVal = (x, i) => {
-    const { h, s, l, a, r, g, b } = colorSets
+  const slidingVal = (x, i, colors) => {
+    const { h, s, l, a, r, g, b } = colors
     const arr = [
       [x, s, l, a],
       [h, x / 100, l, a],
@@ -130,7 +132,8 @@ const ColorPage = () => {
   const genArr = (len, fn) =>
     Array.from(Array(len + 1), (x, i) => fn(i * 1)).join(',')
 
-  const renderDomList = ({ h, s, l, a, r, g, b, h_, s_, l_ }) => {
+  const colorPickerList = color => {
+    const { h, s, l, a, r, g, b, h_, s_, l_ } = color
     const domList = [
       {
         name: `Hue 色相 ( ${h_ / 100}° )`,
@@ -197,7 +200,7 @@ const ColorPage = () => {
                   min={0}
                   max={x.max}
                   tooltipVisible={false}
-                  onChange={val => slidingVal(val, h * 4 + i)}
+                  onChange={val => slidingVal(val, h * 4 + i, color)}
                 />
               </div>
             </div>
@@ -207,6 +210,56 @@ const ColorPage = () => {
     )
   }
 
+  const genShowList = (val, color) => {
+    const { h, s, l } = color
+    setShowVal(val)
+    const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
+    const hslstr2rgb = srt =>
+      `rgb(${hsl2rgb([
+        ...srt
+          .replace(/hsl\(|\)/g, '')
+          .split(',')
+          .map(x => (x.endsWith('%') ? x.replace('%', '') / 100 : x * 1)),
+        1
+      ])
+        .slice(0, 3)
+        .join(',')})`
+
+    const cpList = fn =>
+      genArr2(val).map(x => (
+        <CopyToClipboard
+          text={hslstr2rgb(fn(x))}
+          title={fn(x)}
+          key={x}
+          onCopy={() => message.success('颜色已复制！')}>
+          <div
+            className="colorItem"
+            style={{
+              backgroundColor: fn(x)
+            }}></div>
+        </CopyToClipboard>
+      ))
+
+    const showH = cpList(x => `hsl(${(360 / val) * x},${s * 100}%,${l * 100}%)`)
+    const showS = cpList(x => `hsl(${h},${(100 / val) * x}%,${l * 100}%)`)
+    const showL = cpList(x => `hsl(${h},${s * 100}%,${(100 / val) * x}%)`)
+    setShowListDom(
+      <>
+        <Radio.Group
+          defaultValue="10"
+          buttonStyle="solid"
+          onChange={({ target: { value } }) => genShowList(value * 1, color)}>
+          <Radio.Button value="10">10</Radio.Button>
+          <Radio.Button value="15">15</Radio.Button>
+          <Radio.Button value="20">20</Radio.Button>
+          <Radio.Button value="30">30</Radio.Button>
+        </Radio.Group>
+        <div className="cat">{showH}</div>
+        <div className="cat">{showS}</div>
+        <div className="cat">{showL}</div>
+      </>
+    )
+  }
   const hslDom = val => {
     const [h, s, l, a] = val
     // const [h, s, l] = [
@@ -217,10 +270,9 @@ const ColorPage = () => {
     const [h_, s_, l_, a_] = [h, s, l, a].map(x => Math.round(x * 100))
     const [r, g, b] = hsl2rgb([h, s, l, a])
     const color = {
-      hsla: `hsla(${h},${s}%,${l}%)`,
       rgba: `rgba(${[r, g, b, a].join(',')})`,
       hexa: ``,
-      text: l > 0.65 ? '#000' : '#fff',
+      text: l > 0.7 ? '#000' : '#fff',
       h, // 0 - 360
       s, // 0 - 1
       l, // 0 - 1
@@ -234,7 +286,8 @@ const ColorPage = () => {
       a_
     }
     setColor(color)
-    renderDomList(color)
+    colorPickerList(color)
+    genShowList(showVal, color)
   }
 
   return (
@@ -272,6 +325,7 @@ const ColorPage = () => {
         </div>
         <div className="colorList">{hslRGB}</div>
       </div>
+      <div className="showList">{showListDom}</div>
     </div>
   )
 }
