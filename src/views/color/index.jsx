@@ -221,7 +221,7 @@ const ColorPage = () => {
       hsla: `hsla(${h},${s}%,${l}%)`,
       rgba: `rgba(${[r, g, b, a].join(',')})`,
       hexa: ``,
-      text: l > 0.65 ? '#000' : '#fff',
+      text: l > 0.7 ? '#000' : '#fff',
       h, // 0 - 360
       s, // 0 - 1
       l, // 0 - 1
