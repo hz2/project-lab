@@ -258,11 +258,11 @@ const ColorPage = () => {
     const genHexList = fn => genArr2(val).map(x => hsl2hex(fn(x)))
 
     const cpList2 = fn =>
-      genHexList(fn).map(x => (
+      genHexList(fn).map((x, i) => (
         <CopyToClipboard
           text={x}
           title={x}
-          key={x}
+          key={i}
           onCopy={() => message.success('颜色已复制！')}>
           <div
             className="colorItem"
