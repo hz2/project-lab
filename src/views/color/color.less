@@ -107,7 +107,16 @@
         margin-top: -7px;
         box-sizing: content-box;
     }
+
     .showList {
+        .action {
+            margin: 10px 0 20px;
+
+            .ant-switch {
+                margin-left: 15px;
+            }
+        }
+
         .cat {
             margin: 0px;
             display: flex;
@@ -118,4 +127,17 @@
             }
         }
     }
+
+    .codebox {
+        margin: 20px 0 10px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 200ms linear;
+
+        &.showCode {
+            max-height: 500px;
+        }
+    }
+
+
 }

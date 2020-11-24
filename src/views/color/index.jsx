@@ -1,8 +1,9 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
-import { Input, Button, Slider, Radio, message } from 'antd'
+import { Input, Button, Slider, Radio, Switch, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+const { TextArea } = Input
 const colorStr2arr = str => {
   let arr = ['', '', '']
   if (str.startsWith('#')) {
@@ -90,7 +91,7 @@ const ColorPage = () => {
   const [colorSets, setColor] = useState({
     rgba: '',
     text: '#000',
-    h: 0,
+    h: 1,
     s: 0,
     l: 0,
     a: 1,
@@ -101,6 +102,8 @@ const ColorPage = () => {
   const [hslRGB, setRGB] = useState(null)
   const [showListDom, setShowListDom] = useState(null)
   const [showVal, setShowVal] = useState(10)
+  const [extendcode, setExtendCode] = useState(false)
+  const [showListCode, setShowListCode] = useState(null)
 
   const genColor = () => {
     const randomColor =
@@ -139,7 +142,8 @@ const ColorPage = () => {
         name: `Hue 色相 ( ${h_ / 100}° )`,
         val: h,
         bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
-        max: 360
+        max: 360,
+        min: 1
       },
       {
         name: `Saturation 饱和度 ( ${s_}% )`,
@@ -197,7 +201,7 @@ const ColorPage = () => {
                 <Slider
                   key={i}
                   value={x.val}
-                  min={0}
+                  min={x.min || 0}
                   max={x.max}
                   tooltipVisible={false}
                   onChange={val => slidingVal(val, h * 4 + i, color)}
@@ -214,51 +218,90 @@ const ColorPage = () => {
     const { h, s, l } = color
     setShowVal(val)
     const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
-    const hslstr2rgb = srt =>
-      `rgb(${hsl2rgb([
-        ...srt
-          .replace(/hsl\(|\)/g, '')
-          .split(',')
-          .map(x => (x.endsWith('%') ? x.replace('%', '') / 100 : x * 1)),
-        1
-      ])
-        .slice(0, 3)
-        .join(',')})`
+    // const hslstr2rgb = srt =>
+    //   `rgb(${hsl2rgb([
+    //     ...srt
+    //       .replace(/hsl\(|\)/g, '')
+    //       .split(',')
+    //       .map(x => (x.endsWith('%') ? x.replace('%', '') / 100 : x * 1)),
+    //     1
+    //   ])
+    //     .slice(0, 3)
+    //     .join(',')})`
 
-    const cpList = fn =>
-      genArr2(val).map(x => (
+    // const cpList = fn =>
+    //   genArr2(val).map(x => (
+    //     <CopyToClipboard
+    //       text={hslstr2rgb(fn(x))}
+    //       title={hslstr2rgb(fn(x))}
+    //       key={x}
+    //       onCopy={() => message.success('颜色已复制！')}>
+    //       <div
+    //         className="colorItem"
+    //         style={{
+    //           backgroundColor: fn(x)
+    //         }}></div>
+    //     </CopyToClipboard>
+    //   ))
+
+    // const showH = cpList(x => `hsl(${(360 / val) * x},${s * 100}%,${l * 100}%)`)
+    // const showS = cpList(x => `hsl(${h},${(100 / val) * x}%,${l * 100}%)`)
+    // const showL = cpList(x => `hsl(${h},${s * 100}%,${(100 / val) * x}%)`)
+
+    const hsl2hex = arr =>
+      '#' +
+      hsl2rgb(arr)
+        .slice(0, 3)
+        .map(x => x.toString(16).padStart(2, 0))
+        .join('')
+
+    const genHexList = fn => genArr2(val).map(x => hsl2hex(fn(x)))
+
+    const cpList2 = fn =>
+      genHexList(fn).map((x, i) => (
         <CopyToClipboard
-          text={hslstr2rgb(fn(x))}
-          title={fn(x)}
-          key={x}
+          text={x}
+          title={x}
+          key={i}
           onCopy={() => message.success('颜色已复制！')}>
           <div
             className="colorItem"
             style={{
-              backgroundColor: fn(x)
+              backgroundColor: x
             }}></div>
         </CopyToClipboard>
       ))
 
-    const showH = cpList(x => `hsl(${(360 / val) * x},${s * 100}%,${l * 100}%)`)
-    const showS = cpList(x => `hsl(${h},${(100 / val) * x}%,${l * 100}%)`)
-    const showL = cpList(x => `hsl(${h},${s * 100}%,${(100 / val) * x}%)`)
+    const textareaStr = fn => genHexList(fn).map(x => JSON.stringify(x))
+
+    const showH2 = cpList2(x => [(360 / val) * x, s, l])
+    const showS2 = cpList2(x => [h, ((100 / val) * x) / 100, l])
+    const showL2 = cpList2(x => [h, s, ((100 / val) * x) / 100])
+
+    const str1 = textareaStr(x => [(360 / val) * x, s, l])
+    const str2 = textareaStr(x => [h, ((100 / val) * x) / 100, l])
+    const str3 = textareaStr(x => [h, s, ((100 / val) * x) / 100])
+
     setShowListDom(
       <>
-        <Radio.Group
-          defaultValue="10"
-          buttonStyle="solid"
-          onChange={({ target: { value } }) => genShowList(value * 1, color)}>
-          <Radio.Button value="10">10</Radio.Button>
-          <Radio.Button value="15">15</Radio.Button>
-          <Radio.Button value="20">20</Radio.Button>
-          <Radio.Button value="30">30</Radio.Button>
-        </Radio.Group>
-        <div className="cat">{showH}</div>
-        <div className="cat">{showS}</div>
-        <div className="cat">{showL}</div>
+        <div className="action">
+          <Radio.Group
+            defaultValue="10"
+            buttonStyle="solid"
+            onChange={({ target: { value } }) => genShowList(value * 1, color)}>
+            <Radio.Button value="10">10</Radio.Button>
+            <Radio.Button value="15">15</Radio.Button>
+            <Radio.Button value="20">20</Radio.Button>
+            <Radio.Button value="30">30</Radio.Button>
+          </Radio.Group>
+          <Switch defaultChecked={false} onChange={val => setExtendCode(val)} />
+        </div>
+        <div className="cat">{showH2}</div>
+        <div className="cat">{showS2}</div>
+        <div className="cat">{showL2}</div>
       </>
     )
+    setShowListCode(`${str1}\n${str2}\n${str3}`)
   }
   const hslDom = val => {
     const [h, s, l, a] = val
@@ -273,7 +316,7 @@ const ColorPage = () => {
       rgba: `rgba(${[r, g, b, a].join(',')})`,
       hexa: ``,
       text: l > 0.7 ? '#000' : '#fff',
-      h, // 0 - 360
+      h, // 1 - 360
       s, // 0 - 1
       l, // 0 - 1
       a, // 0 - 1
@@ -326,6 +369,9 @@ const ColorPage = () => {
         <div className="colorList">{hslRGB}</div>
       </div>
       <div className="showList">{showListDom}</div>
+      <div className={extendcode ? 'codebox showCode' : 'codebox'}>
+        <TextArea rows={3} placeholder="颜色" value={showListCode} />
+      </div>
     </div>
   )
 }
