@@ -109,12 +109,12 @@
     }
 
     .showList {
-        .ant-radio-group {
+        .action {
             margin: 10px 0 20px;
-        }
 
-        .ant-input-textarea {
-            margin: 20px 0 10px;
+            .ant-switch {
+                margin-left: 15px;
+            }
         }
 
         .cat {
@@ -128,4 +128,17 @@
             }
         }
     }
+
+    .codebox {
+        margin: 20px 0 10px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 200ms linear;
+
+        &.showCode {
+            max-height: 500px;
+        }
+    }
+
+
 }

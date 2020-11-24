@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
-import { Input, Button, Slider, Radio, message } from 'antd'
+import { Input, Button, Slider, Radio, Switch, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 const { TextArea } = Input
 const colorStr2arr = str => {
@@ -102,6 +102,8 @@ const ColorPage = () => {
   const [hslRGB, setRGB] = useState(null)
   const [showListDom, setShowListDom] = useState(null)
   const [showVal, setShowVal] = useState(10)
+  const [extendcode, setExtendCode] = useState(false)
+  const [showListCode, setShowListCode] = useState(null)
 
   const genColor = () => {
     const randomColor =
@@ -282,25 +284,24 @@ const ColorPage = () => {
 
     setShowListDom(
       <>
-        <Radio.Group
-          defaultValue="10"
-          buttonStyle="solid"
-          onChange={({ target: { value } }) => genShowList(value * 1, color)}>
-          <Radio.Button value="10">10</Radio.Button>
-          <Radio.Button value="15">15</Radio.Button>
-          <Radio.Button value="20">20</Radio.Button>
-          <Radio.Button value="30">30</Radio.Button>
-        </Radio.Group>
+        <div className="action">
+          <Radio.Group
+            defaultValue="10"
+            buttonStyle="solid"
+            onChange={({ target: { value } }) => genShowList(value * 1, color)}>
+            <Radio.Button value="10">10</Radio.Button>
+            <Radio.Button value="15">15</Radio.Button>
+            <Radio.Button value="20">20</Radio.Button>
+            <Radio.Button value="30">30</Radio.Button>
+          </Radio.Group>
+          <Switch defaultChecked={false} onChange={val => setExtendCode(val)} />
+        </div>
         <div className="cat">{showH2}</div>
         <div className="cat">{showS2}</div>
         <div className="cat">{showL2}</div>
-        <TextArea
-          rows={3}
-          placeholder="颜色"
-          value={`${str1}\n${str2}\n${str3}`}
-        />
       </>
     )
+    setShowListCode(`${str1}\n${str2}\n${str3}`)
   }
   const hslDom = val => {
     const [h, s, l, a] = val
@@ -368,6 +369,9 @@ const ColorPage = () => {
         <div className="colorList">{hslRGB}</div>
       </div>
       <div className="showList">{showListDom}</div>
+      <div className={extendcode ? 'codebox showCode' : 'codebox'}>
+        <TextArea rows={3} placeholder="颜色" value={showListCode} />
+      </div>
     </div>
   )
 }
