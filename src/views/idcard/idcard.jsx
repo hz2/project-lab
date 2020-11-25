@@ -21,7 +21,9 @@ class idcard extends React.Component {
     resultBirth: '',
     resultSex: '',
     resultAstrology: '',
-    resultZodiac: ''
+    resultZodiac: '',
+    icon1: '',
+    icon2: ''
   }
 
   showModal = () => {
@@ -58,21 +60,23 @@ class idcard extends React.Component {
     ]
     let zodiac = ''
     let zodiacList = [
-      { zh: '鼠', icon: '🐀', branch: '子' },
-      { zh: '牛', icon: '🐂', branch: '丑' },
-      { zh: '虎', icon: '🐅', branch: '寅' },
-      { zh: '兔', icon: '🐇', branch: '卯' },
-      { zh: '龙', icon: '🐉', branch: '辰' },
-      { zh: '蛇', icon: '🐍', branch: '巳' },
-      { zh: '马', icon: '🐎', branch: '午' },
-      { zh: '羊', icon: '🐑', branch: '未' },
-      { zh: '猴', icon: '🐒', branch: '申' },
-      { zh: '鸡', icon: '🐓', branch: '酉' },
-      { zh: '狗', icon: '🐕', branch: '戌' },
-      { zh: '猪', icon: '🐗', branch: '亥' }
+      { zh: '鼠', icon: '🐀', icon2: '🐭', branch: '子' },
+      { zh: '牛', icon: '🐂', icon2: '🐮', branch: '丑' },
+      { zh: '虎', icon: '🐅', icon2: '🐯', branch: '寅' },
+      { zh: '兔', icon: '🐇', icon2: '🐰', branch: '卯' },
+      { zh: '龙', icon: '🐉', icon2: '🐲', branch: '辰' },
+      { zh: '蛇', icon: '🐍', icon2: '🐍', branch: '巳' },
+      { zh: '马', icon: '🐎', icon2: '🐴', branch: '午' },
+      { zh: '羊', icon: '🐐', icon2: '🐑', branch: '未' },
+      { zh: '猴', icon: '🐒', icon2: '🐵', branch: '申' },
+      { zh: '鸡', icon: '🐓', icon2: '🐔', branch: '酉' },
+      { zh: '狗', icon: '🐕', icon2: '🐶', branch: '戌' },
+      { zh: '猪', icon: '🐖', icon2: '🐷', branch: '亥' }
       // { zh: '猫', icon: '🐈', branch: ' ' }
     ]
     let tianArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+    let icon1 = ''
+    let icon2 = ''
     if (val) {
       area =
         xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
@@ -92,18 +96,22 @@ class idcard extends React.Component {
       let current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
+      icon1 = current.icon
       let currentYear = zodiacList[(val.substr(6, 4) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
       zodiac = `${tianArr[(val.substr(6, 4) - 4) % 10]}${currentYear.branch} ${
         currentYear.zh
-      }年 ${currentYear.icon}`
+      }年 ${currentYear.icon2}`
+      icon2 = currentYear.icon
     }
     this.setState({
       resultArea: area,
       resultBirth: birth,
       resultSex: sex,
       resultAstrology: astrology,
-      resultZodiac: zodiac
+      resultZodiac: zodiac,
+      icon1: icon1,
+      icon2: icon2
     })
   }
   handleChange = ({ target: { value } }) => {
@@ -220,6 +228,8 @@ class idcard extends React.Component {
             <p>{this.state.resultSex}</p>
             <p>{this.state.resultAstrology}</p>
             <p>{this.state.resultZodiac}</p>
+            <div className="addition icon1">{this.state.icon1}</div>
+            <div className="addition icon2">{this.state.icon2}</div>
           </div>
         </div>
 
