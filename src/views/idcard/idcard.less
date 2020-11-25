@@ -2,6 +2,7 @@
   display: inline-block;
   vertical-align: top;
   margin: 25px;
+  position: relative;
 
   .item-input {
     width: 220px;
@@ -10,6 +11,20 @@
 
   .line {
     margin: 10px;
+  }
+  .addition {
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.65;
+    &.icon1 {
+      right: 10px;
+      top: 10px;
+      visibility: hidden;
+    }
+    &.icon2 {
+      bottom: -10px;
+      right: 25px;
+    }
   }
 
 }
