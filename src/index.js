@@ -40,7 +40,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <HashRouter>
-        <header></header>
+        {/* <header></header> */}
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route

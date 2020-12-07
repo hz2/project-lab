@@ -16,9 +16,26 @@
 
     .ant-divider-horizontal.ant-divider-with-text::before,
     .ant-divider-horizontal.ant-divider-with-text::after {
-        border-color:rgba(9, 60, 83, 0.1);
+        border-color: rgba(9, 60, 83, 0.1);
 
     }
-    
+
+    h2 {
+        font-size: 2em;
+        // font-style: italic;
+        margin-top: 20px;
+        transform: skewX(-3deg);
+
+        &::before {
+            margin-right: 8px;
+            content: '';
+            vertical-align: -5px;
+            width: 3px;
+            height: 1.25em;
+            background-color: #0bb;
+            display: inline-block;
+        }
+    }
+
 
 }

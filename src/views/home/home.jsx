@@ -14,11 +14,11 @@ import './home.less'
 
 const Home = props => (
   <div className="app-home">
-    <h1>Home</h1>
+    <h2>Generator</h2>
     <div className="btn-list">
       {[
         {
-          name: 'ID card',
+          name: 'Person',
           path: '/idcard'
         },
         {
@@ -30,12 +30,24 @@ const Home = props => (
           path: '/color'
         },
         {
-          name: 'Encode',
-          path: '/encode'
-        },
-        {
           name: 'Lottery',
           path: '/lottery'
+        }
+      ].map((x, i) => (
+        <Button
+          type="primary"
+          key={i}
+          onClick={() => props.history.push(x.path)}>
+          {x.name}
+        </Button>
+      ))}
+    </div>
+    <h2>Converter</h2>
+    <div className="btn-list">
+      {[
+        {
+          name: 'Encode',
+          path: '/encode'
         }
       ].map((x, i) => (
         <Button
