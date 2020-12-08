@@ -95,7 +95,20 @@ const listOrig = [
   }
 ]
 
-const houtian = ['li', 'kun', 'dui', 'qian', 'kan', 'gen', 'zhen', 'xun']
+const hetu = [
+  [0, 0, 7, 0, 0],
+  [0, 0, 2, 0, 0],
+  [8, 3, 5.1, 4, 9],
+  [0, 0, 1, 0, 0],
+  [0, 0, 6, 0, 0]
+]
+const luoshu = [
+  [4, 9, 2],
+  [3, 5, 7],
+  [8, 1, 6]
+]
+const xiantian = ['li', 'kun', 'dui', 'qian', 'kan', 'gen', 'zhen', 'xun']
+const houtian = ['qian', 'dui', 'li', 'zhen', 'kun', 'gen', 'kan', 'xun']
 const list = listOrig.map((x, i) => Object.assign(x, obj[houtian[i]]))
 const bagua = (
   <svg
@@ -110,8 +123,8 @@ const bagua = (
             id={x.id}
             d={x.d.join(' ')}
             fill={x.color}
-            stroke="#bbb"
-            stroke-width="1.5px"
+            stroke="#ccc"
+            stroke-width="0.3px"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
