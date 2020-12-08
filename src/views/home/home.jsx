@@ -32,6 +32,10 @@ const Home = props => (
         {
           name: 'Lottery',
           path: '/lottery'
+        },
+        {
+          name: 'Plum Flower',
+          path: '/plumFlower'
         }
       ].map((x, i) => (
         <Button
