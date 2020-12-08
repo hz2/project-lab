@@ -99,31 +99,35 @@ const houtian = ['li', 'kun', 'dui', 'qian', 'kan', 'gen', 'zhen', 'xun']
 const list = listOrig.map((x, i) => Object.assign(x, obj[houtian[i]]))
 const bagua = (
   <svg
-    w="800"
+    width="800"
     height="800"
     viewBox={[0, 0, w, w].join(' ')}
     xmlns="http://www.w3.org/2000/svg">
-    {list.map(x => (
-      <g>
-        <path
-          id={x.id}
-          d={x.d.join(' ')}
-          fill={x.color}
-          stroke="#000"
-          stroke-width="0px"
-        />
-        <text
-          color="#fff"
-          font-size="8px"
-          x={x.pos[0]}
-          y={x.pos[1]}
-          text-anchor="middle"
-          dominant-baseline="middle">
-          <tspan>{x.text}</tspan>
-          <tspan>{x.trigrams}</tspan>
-        </text>
-      </g>
-    ))}
+    <g transform="scale(.9 .9) translate(5,5)">
+      {list.map(x => (
+        <g>
+          <path
+            id={x.id}
+            d={x.d.join(' ')}
+            fill={x.color}
+            stroke="#bbb"
+            stroke-width="1.5px"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <text
+            color="#fff"
+            font-size="8px"
+            x={x.pos[0]}
+            y={x.pos[1]}
+            text-anchor="middle"
+            dominant-baseline="middle">
+            <tspan>{x.text}</tspan>
+            <tspan>{x.trigrams}</tspan>
+          </text>
+        </g>
+      ))}
+    </g>
   </svg>
 )
 
