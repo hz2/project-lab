@@ -23,7 +23,8 @@ const pathList = {
   color: 'color',
   emoji: 'emoji',
   svgpreview: 'svgpreview',
-  svgEditor: 'svgEditor/svgEditor'
+  svgEditor: 'svgEditor/svgEditor',
+  plumFlower: 'plumFlower/plumFlower'
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route
@@ -40,7 +41,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <HashRouter>
-        <header></header>
+        {/* <header></header> */}
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route
