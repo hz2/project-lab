@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Radio, Switch, Form } from 'antd'
+import { Radio, Form } from 'antd'
 import guaJson from './guaText'
 
 const w = 100
@@ -10,6 +10,7 @@ const p2 = half + subtense
 
 const r = Math.sqrt(Math.pow((2 / 6) * w, 2) / 2)
 const r2 = Math.sqrt(Math.pow((1 / 8) * w, 2) / 2)
+const r3 = Math.sqrt(Math.pow((1 / 24) * w, 2) / 2)
 
 const listOrig = [
   {
@@ -171,6 +172,293 @@ const hetu = [
   }
 ]
 
+const hetup = [
+  {
+    num: '五',
+    color: 'white',
+    points: [
+      [half, half],
+      [half - r3, half],
+      [half, half - r3],
+      [half + r3, half],
+      [half, half + r3]
+    ],
+    lines: [
+      [half - r3, half, half + r3, half],
+      [half, half - r3, half, half + r3]
+    ]
+  },
+  {
+    num: '十',
+    color: 'black',
+    points: [
+      [half - r3 * 2, half - r3 * 2],
+      [half - r3 * 1, half - r3 * 2],
+      [half - r3 * 0, half - r3 * 2],
+      [half + r3 * 1, half - r3 * 2],
+      [half + r3 * 2, half - r3 * 2],
+      [half - r3 * 2, half + r3 * 2],
+      [half - r3 * 1, half + r3 * 2],
+      [half - r3 * 0, half + r3 * 2],
+      [half + r3 * 1, half + r3 * 2],
+      [half + r3 * 2, half + r3 * 2]
+    ],
+    lines: [
+      [
+        half - r3 * 2,
+        half - r3 * 2,
+        half + r3 * 2,
+        half - r3 * 2,
+        half + r3 * 2,
+        half + r3 * 2,
+        half - r3 * 2,
+        half + r3 * 2
+      ]
+    ]
+  },
+  {
+    num: '二',
+    color: 'black',
+    points: [
+      [half - r3 * 0.5, half - r3 * 4],
+      [half + r3 * 0.5, half - r3 * 4]
+    ],
+    lines: [[half - r3 * 0.5, half - r3 * 4, half + r3 * 0.5, half - r3 * 4]]
+  },
+  {
+    num: '七',
+    color: 'white',
+    points: [
+      [half - r3 * 3, half - r3 * 6],
+      [half - r3 * 2, half - r3 * 6],
+      [half - r3, half - r3 * 6],
+      [half, half - r3 * 6],
+      [half + r3, half - r3 * 6],
+      [half + r3 * 2, half - r3 * 6],
+      [half + r3 * 3, half - r3 * 6]
+    ],
+    lines: [[half - r3 * 3, half - r3 * 6, half + r3 * 3, half - r3 * 6]]
+  },
+  {
+    num: '四',
+    color: 'black',
+    points: [
+      [half + r3 * 4, half - r3 * 1.5],
+      [half + r3 * 4, half - r3 * 0.5],
+      [half + r3 * 4, half + r3 * 0.5],
+      [half + r3 * 4, half + r3 * 1.5]
+    ],
+    lines: [[half + r3 * 4, half - r3 * 1.5, half + r3 * 4, half + r3 * 1.5]]
+  },
+  {
+    num: '九',
+    color: 'white',
+    points: [
+      [half + r3 * 6, half - r3 * 4],
+      [half + r3 * 6, half - r3 * 3],
+      [half + r3 * 6, half - r3 * 2],
+      [half + r3 * 6, half - r3],
+      [half + r3 * 6, half],
+      [half + r3 * 6, half + r3],
+      [half + r3 * 6, half + r3 * 2],
+      [half + r3 * 6, half + r3 * 3],
+      [half + r3 * 6, half + r3 * 4]
+    ],
+    lines: [[half + r3 * 6, half - r3 * 4, half + r3 * 6, half + r3 * 4]]
+  },
+  {
+    num: '一',
+    color: 'white',
+    points: [[half, half + r3 * 4]],
+    lines: []
+  },
+  {
+    num: '六',
+    color: 'black',
+    points: [
+      [half - r3 * 2.5, half + r3 * 6],
+      [half - r3 * 1.5, half + r3 * 6],
+      [half - r3 * 0.5, half + r3 * 6],
+      [half + r3 * 0.5, half + r3 * 6],
+      [half + r3 * 1.5, half + r3 * 6],
+      [half + r3 * 2.5, half + r3 * 6]
+    ],
+    lines: [[half - r3 * 2.5, half + r3 * 6, half + r3 * 2.5, half + r3 * 6]]
+  },
+  {
+    num: '三',
+    color: 'white',
+    points: [
+      [half - r3 * 4, half - r3],
+      [half - r3 * 4, half],
+      [half - r3 * 4, half + r3]
+    ],
+    lines: [[half - r3 * 4, half - r3, half - r3 * 4, half + r3]]
+  },
+  {
+    num: '八',
+    color: 'black',
+    points: [
+      [half - r3 * 6, half - r3 * 3.5],
+      [half - r3 * 6, half - r3 * 2.5],
+      [half - r3 * 6, half - r3 * 1.5],
+      [half - r3 * 6, half - r3 * 0.5],
+      [half - r3 * 6, half + r3 * 0.5],
+      [half - r3 * 6, half + r3 * 1.5],
+      [half - r3 * 6, half + r3 * 2.5],
+      [half - r3 * 6, half + r3 * 3.5]
+    ],
+    lines: [[half - r3 * 6, half - r3 * 3.5, half - r3 * 6, half + r3 * 3.5]]
+  }
+]
+
+const luoshup = [
+  {
+    num: '五',
+    color: 'white',
+    points: [
+      [half, half],
+      [half - r3, half],
+      [half, half - r3],
+      [half + r3, half],
+      [half, half + r3]
+    ],
+    lines: [
+      [half - r3, half, half + r3, half],
+      [half, half - r3, half, half + r3]
+    ]
+  },
+  {
+    num: '二',
+    color: 'black',
+    points: [
+      [half + r3 * 4.5, half - r3 * 4.5],
+      [half + r3 * 5.5, half - r3 * 5.5]
+    ],
+    lines: [
+      [half + r3 * 4.5, half - r3 * 4.5, half + r3 * 5.5, half - r3 * 5.5]
+    ]
+  },
+  {
+    num: '九',
+    color: 'white',
+    points: [
+      [half - r3 * 4, half - r3 * 6],
+      [half - r3 * 3, half - r3 * 6],
+      [half - r3 * 2, half - r3 * 6],
+      [half - r3 * 1, half - r3 * 6],
+      [half, half - r3 * 6],
+      [half + r3 * 1, half - r3 * 6],
+      [half + r3 * 2, half - r3 * 6],
+      [half + r3 * 3, half - r3 * 6],
+      [half + r3 * 4, half - r3 * 6]
+    ],
+    lines: [[half - r3 * 4, half - r3 * 6, half + r3 * 4, half - r3 * 6]]
+  },
+  {
+    num: '四',
+    color: 'black',
+    points: [
+      [half - r3 * 5, half - r3 * 6],
+      [half - r3 * 6, half - r3 * 5],
+      [half - r3 * 5, half - r3 * 4],
+      [half - r3 * 4, half - r3 * 5]
+    ],
+    lines: [
+      [
+        half - r3 * 5,
+        half - r3 * 6,
+        half - r3 * 6,
+        half - r3 * 5,
+        half - r3 * 5,
+        half - r3 * 4,
+        half - r3 * 4,
+        half - r3 * 5
+      ]
+    ]
+  },
+  {
+    num: '三',
+    color: 'white',
+    points: [
+      [half - r3 * 6, half - r3],
+      [half - r3 * 6, half],
+      [half - r3 * 6, half + r3]
+    ],
+    lines: [[half - r3 * 6, half - r3, half - r3 * 6, half + r3]]
+  },
+  {
+    num: '七',
+    color: 'white',
+    points: [
+      [half + r3 * 6, half - r3 * 3],
+      [half + r3 * 6, half - r3 * 2],
+      [half + r3 * 6, half - r3],
+      [half + r3 * 6, half],
+      [half + r3 * 6, half + r3],
+      [half + r3 * 6, half + r3 * 2],
+      [half + r3 * 6, half + r3 * 3]
+    ],
+    lines: [[half + r3 * 6, half - r3 * 3, half + r3 * 6, half + r3 * 3]]
+  },
+  {
+    num: '一',
+    color: 'white',
+    points: [[half, half + r3 * 6]],
+    lines: []
+  },
+  {
+    num: '六',
+    color: 'black',
+    points: [
+      [half + r3 * 5, half + r3 * 6],
+      [half + r3 * 6, half + r3 * 5],
+      [half + r3 * 5, half + r3 * 4],
+      [half + r3 * 4, half + r3 * 5],
+      [half + r3 * 4, half + r3 * 3],
+      [half + r3 * 3, half + r3 * 4]
+    ],
+    lines: [
+      [
+        half + r3 * 5,
+        half + r3 * 6,
+        half + r3 * 6,
+        half + r3 * 5,
+        half + r3 * 4,
+        half + r3 * 3,
+        half + r3 * 3,
+        half + r3 * 4
+      ]
+    ]
+  },
+  {
+    num: '八',
+    color: 'black',
+    points: [
+      [half - r3 * 5, half + r3 * 6],
+      [half - r3 * 6, half + r3 * 5],
+      [half - r3 * 5, half + r3 * 4],
+      [half - r3 * 4, half + r3 * 5],
+      [half - r3 * 4, half + r3 * 3],
+      [half - r3 * 3, half + r3 * 4],
+      [half - r3 * 3, half + r3 * 2],
+      [half - r3 * 2, half + r3 * 3]
+    ],
+    lines: [
+      [
+        half - r3 * 5,
+        half + r3 * 6,
+        half - r3 * 6,
+        half + r3 * 5,
+        half - r3 * 3,
+        half + r3 * 2,
+        half - r3 * 2,
+        half + r3 * 3
+      ]
+    ]
+  }
+]
+
 const guaType = {
   // 伏羲先天
   xiantian: ['qian', 'xun', 'kan', 'gen', 'kun', 'zhen', 'li', 'dui'],
@@ -268,7 +556,9 @@ const Yi = () => {
       onChange={({ target: { value } }) => heluoFn(value)}>
       <Radio.Button value="hide">无</Radio.Button>
       <Radio.Button value="hetu">河图</Radio.Button>
+      <Radio.Button value="hetup">河图</Radio.Button>
       <Radio.Button value="luoshu">洛书</Radio.Button>
+      <Radio.Button value="luoshup">洛书</Radio.Button>
     </Radio.Group>
   )
 
@@ -276,37 +566,75 @@ const Yi = () => {
     const list = {
       hide: [],
       hetu,
-      luoshu
+      luoshu,
+      hetup,
+      luoshup
     }
 
-    const dom = (
-      <g id="heluo">
-        {list[val].map((x, i) => (
-          <g key={i}>
-            <circle
-              cx={x.pos[0]}
-              cy={x.pos[1]}
-              r="4"
-              fill={x.color}
-              fill={x.color}
-              stroke="#fff"
-              strokeWidth="0.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <text
-              color="#fff"
-              fontSize="4"
-              transform="translate(0,1.5)"
-              x={x.pos[0]}
-              y={x.pos[1]}
-              textAnchor="middle">
-              <tspan>{x.num}</tspan>
-            </text>
-          </g>
-        ))}
-      </g>
-    )
+    let dom = null
+    if (['hetu', 'luoshu'].includes(val)) {
+      dom = (
+        <g id="heluo">
+          {list[val].map((x, i) => (
+            <g key={i}>
+              <circle
+                cx={x.pos[0]}
+                cy={x.pos[1]}
+                r="4"
+                fill={x.color}
+                stroke="#fff"
+                strokeWidth="0.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <text
+                color="#fff"
+                fontSize="4"
+                transform="translate(0,1.5)"
+                x={x.pos[0]}
+                y={x.pos[1]}
+                textAnchor="middle">
+                <tspan>{x.num}</tspan>
+              </text>
+            </g>
+          ))}
+        </g>
+      )
+    } else if (['hetup', 'luoshup'].includes(val)) {
+      dom = (
+        <g id="heluop">
+          {list[val].map((x, i) => (
+            <g key={i} name={x.num}>
+              {x.points.map((y, j) => (
+                <circle
+                  key={j}
+                  cx={y[0]}
+                  cy={y[1]}
+                  r="1.2"
+                  fill={x.color}
+                  stroke="#fff"
+                  strokeWidth="0"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              ))}
+              {x.lines.map((y, j) => (
+                <path
+                  key={j}
+                  d={'M ' + y.join(' ') + ' Z'}
+                  fill="none"
+                  stroke={x.color}
+                  strokeWidth=".25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              ))}
+            </g>
+          ))}
+        </g>
+      )
+    }
+
     setHeluo(dom)
   }
 
