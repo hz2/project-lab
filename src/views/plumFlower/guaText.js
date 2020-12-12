@@ -116,7 +116,7 @@ export default {
     t8: '土',
     t9: '未',
     t10: '羊',
-    t11: '乙',
+    t11: '乙癸',
     color: '#fdcd3c'
   }
 }
