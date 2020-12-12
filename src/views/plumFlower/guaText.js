@@ -12,7 +12,7 @@ export default {
     t9: '戌',
     t10: '狗',
     t11: '甲壬',
-    color: '#00abff'
+    color: '#c8c8c8'
   },
   dui: {
     trigrams: '☱',
@@ -116,7 +116,7 @@ export default {
     t8: '土',
     t9: '未',
     t10: '羊',
-    t11: '乙',
+    t11: '乙癸',
     color: '#fdcd3c'
   }
 }
