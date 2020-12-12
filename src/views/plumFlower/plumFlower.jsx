@@ -533,9 +533,9 @@ const Yi = () => {
       <Radio.Button value="t2">自然</Radio.Button>
       <Radio.Button value="zh">方位</Radio.Button>
       <Radio.Button value="t8">五行</Radio.Button>
-      <Radio.Button value="t9">天干</Radio.Button>
+      <Radio.Button value="t11">天干</Radio.Button>
       <Radio.Button value="t10">生肖</Radio.Button>
-      <Radio.Button value="t11">地支</Radio.Button>
+      <Radio.Button value="t9">地支</Radio.Button>
       <Radio.Button value="t3">家人</Radio.Button>
       <Radio.Button value="t4">性情</Radio.Button>
       <Radio.Button value="t5">动物</Radio.Button>
@@ -555,6 +555,7 @@ const Yi = () => {
       buttonStyle="solid"
       onChange={({ target: { value } }) => heluoFn(value)}>
       <Radio.Button value="hide">无</Radio.Button>
+      <Radio.Button value="fish">太极</Radio.Button>
       <Radio.Button value="hetu">河图</Radio.Button>
       <Radio.Button value="hetup">河图</Radio.Button>
       <Radio.Button value="luoshu">洛书</Radio.Button>
