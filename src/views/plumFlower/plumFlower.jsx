@@ -9,7 +9,7 @@ const p1 = half - subtense
 const p2 = half + subtense
 
 const r = Math.sqrt(Math.pow((2 / 6) * w, 2) / 2)
-const r2 = Math.sqrt(Math.pow((1 / 6) * w, 2) / 2)
+const r2 = Math.sqrt(Math.pow((1 / 8) * w, 2) / 2)
 
 const listOrig = [
   {
@@ -70,47 +70,47 @@ const listOrig = [
 const luoshu = [
   {
     pos: [half, half],
-    num: 5,
+    num: '五',
     color: '#d8c518'
   },
   {
     pos: [half, (1 / 2) * w - r2],
-    num: 9,
+    num: '九',
     color: '#b118d8'
   },
   {
     pos: [(1 / 2) * w + r2, (1 / 2) * w - r2],
-    num: 2,
+    num: '二',
     color: '#181818'
   },
   {
     pos: [(1 / 2) * w + r2, half],
-    num: 7,
+    num: '七',
     color: '#d85118'
   },
   {
     pos: [(1 / 2) * w + r2, (1 / 2) * w + r2],
-    num: 6,
+    num: '六',
     color: '#dbdbdb'
   },
   {
     pos: [half, (1 / 2) * w + r2],
-    num: 1,
+    num: '一',
     color: '#dbdbdb'
   },
   {
     pos: [(1 / 2) * w - r2, (1 / 2) * w + r2],
-    num: 8,
+    num: '八',
     color: '#dbdbdb'
   },
   {
     pos: [(1 / 2) * w - r2, half],
-    num: 3,
+    num: '三',
     color: '#78d818'
   },
   {
     pos: [(1 / 2) * w - r2, (1 / 2) * w - r2],
-    num: 4,
+    num: '四',
     color: '#18d89e'
   }
 ]
@@ -122,6 +122,54 @@ const luoshu = [
 //   [0, 0, 1, 0, 0],
 //   [0, 0, 6, 0, 0]
 // ]
+
+const hetu = [
+  {
+    pos: [half, half],
+    num: '五十',
+    color: '#fdcd3c'
+  },
+  {
+    pos: [half, (1 / 2) * w - r2],
+    num: '二',
+    color: '#d90505'
+  },
+  {
+    pos: [half, (1 / 2) * w - r2 * 2],
+    num: '七',
+    color: '#d90505'
+  },
+  {
+    pos: [(1 / 2) * w + r2, half],
+    num: '四',
+    color: '#d0d0d0'
+  },
+  {
+    pos: [(1 / 2) * w + r2 * 2, half],
+    num: '九',
+    color: '#d0d0d0'
+  },
+  {
+    pos: [half, (1 / 2) * w + r2],
+    num: '一',
+    color: '#5b5b5b'
+  },
+  {
+    pos: [half, (1 / 2) * w + r2 * 2],
+    num: '六',
+    color: '#5b5b5b'
+  },
+  {
+    pos: [(1 / 2) * w - r2, half],
+    num: '三',
+    color: '#00f0a1'
+  },
+  {
+    pos: [(1 / 2) * w - r2 * 2, half],
+    num: '八',
+    color: '#00f0a1'
+  }
+]
 
 const guaType = {
   // 伏羲先天
@@ -164,26 +212,9 @@ const Yi = () => {
     ))
   }
 
-  const loushuDom = (
-    <g id="luoshu">
-      {luoshu.map((x, i) => (
-        <g key={i}>
-          <circle cx={x.pos[0]} cy={x.pos[1]} r="5" fill={x.color} />
-          <text
-            color="#fff"
-            fontSize="5.5"
-            transform="translate(0,2.2)"
-            x={x.pos[0]}
-            y={x.pos[1]}
-            textAnchor="middle">
-            <tspan>{x.num}</tspan>
-          </text>
-        </g>
-      ))}
-    </g>
-  )
   const [guaList, setGuaList] = useState(genDom())
-  const [luoshuVal, setLuoshuVal] = useState(null)
+  // const [luoshuVal, setLuoshuVal] = useState(null)
+  const [heluoVal, setHeluo] = useState(null)
   const [guaTypeVal, setGuaTypeVal] = useState('houtian')
   const [guaTextVal, setGuaTextVal] = useState('text')
 
@@ -230,13 +261,62 @@ const Yi = () => {
     setGuaList(genDom(guaTypeVal, val))
   }
 
-  const toggleLuoshu = val => {
-    if (val) {
-      setLuoshuVal(loushuDom)
-    } else {
-      setLuoshuVal(null)
+  const actionList2 = (
+    <Radio.Group
+      defaultValue="hide"
+      buttonStyle="solid"
+      onChange={({ target: { value } }) => heluoFn(value)}>
+      <Radio.Button value="hide">无</Radio.Button>
+      <Radio.Button value="hetu">河图</Radio.Button>
+      <Radio.Button value="luoshu">洛书</Radio.Button>
+    </Radio.Group>
+  )
+
+  const heluoFn = val => {
+    const list = {
+      hide: [],
+      hetu,
+      luoshu
     }
+
+    const dom = (
+      <g id="heluo">
+        {list[val].map((x, i) => (
+          <g key={i}>
+            <circle
+              cx={x.pos[0]}
+              cy={x.pos[1]}
+              r="4"
+              fill={x.color}
+              fill={x.color}
+              stroke="#fff"
+              strokeWidth="0.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <text
+              color="#fff"
+              fontSize="4"
+              transform="translate(0,1.5)"
+              x={x.pos[0]}
+              y={x.pos[1]}
+              textAnchor="middle">
+              <tspan>{x.num}</tspan>
+            </text>
+          </g>
+        ))}
+      </g>
+    )
+    setHeluo(dom)
   }
+
+  // const toggleLuoshu = val => {
+  //   if (val) {
+  //     setLuoshuVal(loushuDom)
+  //   } else {
+  //     setLuoshuVal(null)
+  //   }
+  // }
 
   const layout = {
     labelCol: { span: 4 },
@@ -248,9 +328,10 @@ const Yi = () => {
       <Form {...layout} name="basic">
         <Form.Item label="卦"> {actionList0} </Form.Item>
         <Form.Item label="象征"> {actionList1} </Form.Item>
-        <Form.Item label="洛书">
+        <Form.Item label="河洛"> {actionList2} </Form.Item>
+        {/* <Form.Item label="洛书">
           <Switch defaultChecked={false} onChange={val => toggleLuoshu(val)} />
-        </Form.Item>
+        </Form.Item> */}
       </Form>
       <div style={{ margin: '25px auto', width: '90%', maxWidth: '1000px' }}>
         <svg
@@ -258,7 +339,7 @@ const Yi = () => {
           xmlns="http://www.w3.org/2000/svg">
           <g transform="scale(.9 .9) translate(5,5)">
             {guaList}
-            {luoshuVal}
+            {heluoVal}
           </g>
         </svg>
       </div>
