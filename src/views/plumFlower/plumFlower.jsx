@@ -70,39 +70,48 @@ const listOrig = [
 const luoshu = [
   {
     pos: [half, half],
-    num: 5
+    num: 5,
+    color: '#d8c518'
   },
   {
     pos: [half, (1 / 2) * w - r2],
-    num: 9
+    num: 9,
+    color: '#b118d8'
   },
   {
     pos: [(1 / 2) * w + r2, (1 / 2) * w - r2],
-    num: 2
+    num: 2,
+    color: '#181818'
   },
   {
     pos: [(1 / 2) * w + r2, half],
-    num: 7
+    num: 7,
+    color: '#d85118'
   },
   {
     pos: [(1 / 2) * w + r2, (1 / 2) * w + r2],
-    num: 6
+    num: 6,
+    color: '#dbdbdb'
   },
   {
     pos: [half, (1 / 2) * w + r2],
-    num: 1
+    num: 1,
+    color: '#dbdbdb'
   },
   {
     pos: [(1 / 2) * w - r2, (1 / 2) * w + r2],
-    num: 8
+    num: 8,
+    color: '#dbdbdb'
   },
   {
     pos: [(1 / 2) * w - r2, half],
-    num: 3
+    num: 3,
+    color: '#78d818'
   },
   {
     pos: [(1 / 2) * w - r2, (1 / 2) * w - r2],
-    num: 4
+    num: 4,
+    color: '#18d89e'
   }
 ]
 
@@ -159,7 +168,7 @@ const Yi = () => {
     <g id="luoshu">
       {luoshu.map((x, i) => (
         <g key={i}>
-          <circle cx={x.pos[0]} cy={x.pos[1]} r="5" fill="#ff89ff" />
+          <circle cx={x.pos[0]} cy={x.pos[1]} r="5" fill={x.color} />
           <text
             color="#fff"
             fontSize="5.5"
