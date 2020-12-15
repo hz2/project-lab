@@ -183,7 +183,7 @@ const Yi = () => {
           viewBox={[0, 0, w, w].join(' ')}
           xmlns="http://www.w3.org/2000/svg">
           <g transform="scale(.9 .9) translate(5,5)">
-            {guaList}
+            <g id="guagraph">{guaList}</g>
             <HeluoComp w={w} tabVal={heluoTab} />
           </g>
         </svg>

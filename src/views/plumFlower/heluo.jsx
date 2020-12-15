@@ -482,6 +482,6 @@ const HeluoComp = props => {
   const reRender = () => heluoFn(tabVal)
   useEffect(reRender, [tabVal])
 
-  return <g> {heluoVal}</g>
+  return <>{heluoVal}</>
 }
 export default HeluoComp
