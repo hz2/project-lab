@@ -481,6 +481,14 @@ const HeluoComp = props => {
           <path fill="#000" d={fishblack.join(' ')} />
           <circle cx={half} cy={half - fishR / 2} fill="#000" r={fishR / 6} />
           <circle cx={half} cy={half + fishR / 2} fill="#fff" r={fishR / 6} />
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={`0 ${half} ${half}`}
+            to={`360 ${half} ${half}`}
+            dur="36s"
+            repeatCount="indefinite"
+          />
         </g>
       )
     } else if (['hetu', 'luoshu'].includes(val)) {
