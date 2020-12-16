@@ -18,42 +18,42 @@ const HeluoComp = props => {
       color: '#d8c518'
     },
     {
-      pos: [half, (1 / 2) * w - r2],
+      pos: [half, half - r2],
       num: '九',
       color: '#b118d8'
     },
     {
-      pos: [(1 / 2) * w + r2, (1 / 2) * w - r2],
+      pos: [half + r2, half - r2],
       num: '二',
       color: '#181818'
     },
     {
-      pos: [(1 / 2) * w + r2, half],
+      pos: [half + r2, half],
       num: '七',
       color: '#d85118'
     },
     {
-      pos: [(1 / 2) * w + r2, (1 / 2) * w + r2],
+      pos: [half + r2, half + r2],
       num: '六',
-      color: '#dbdbdb'
+      color: '#c8c8c8'
     },
     {
-      pos: [half, (1 / 2) * w + r2],
+      pos: [half, half + r2],
       num: '一',
-      color: '#dbdbdb'
+      color: '#c8c8c8'
     },
     {
-      pos: [(1 / 2) * w - r2, (1 / 2) * w + r2],
+      pos: [half - r2, half + r2],
       num: '八',
-      color: '#dbdbdb'
+      color: '#c8c8c8'
     },
     {
-      pos: [(1 / 2) * w - r2, half],
+      pos: [half - r2, half],
       num: '三',
       color: '#78d818'
     },
     {
-      pos: [(1 / 2) * w - r2, (1 / 2) * w - r2],
+      pos: [half - r2, half - r2],
       num: '四',
       color: '#18d89e'
     }
@@ -74,42 +74,42 @@ const HeluoComp = props => {
       color: '#fdcd3c'
     },
     {
-      pos: [half, (1 / 2) * w - r2],
+      pos: [half, half - r2],
       num: '二',
       color: '#d90505'
     },
     {
-      pos: [half, (1 / 2) * w - r2 * 2],
+      pos: [half, half - r2 * 2],
       num: '七',
       color: '#d90505'
     },
     {
-      pos: [(1 / 2) * w + r2, half],
+      pos: [half + r2, half],
       num: '四',
-      color: '#d0d0d0'
+      color: '#c8c8c8'
     },
     {
-      pos: [(1 / 2) * w + r2 * 2, half],
+      pos: [half + r2 * 2, half],
       num: '九',
-      color: '#d0d0d0'
+      color: '#c8c8c8'
     },
     {
-      pos: [half, (1 / 2) * w + r2],
+      pos: [half, half + r2],
       num: '一',
       color: '#5b5b5b'
     },
     {
-      pos: [half, (1 / 2) * w + r2 * 2],
+      pos: [half, half + r2 * 2],
       num: '六',
       color: '#5b5b5b'
     },
     {
-      pos: [(1 / 2) * w - r2, half],
+      pos: [half - r2, half],
       num: '三',
       color: '#00f0a1'
     },
     {
-      pos: [(1 / 2) * w - r2 * 2, half],
+      pos: [half - r2 * 2, half],
       num: '八',
       color: '#00f0a1'
     }
@@ -404,6 +404,66 @@ const HeluoComp = props => {
 
   const [heluoVal, setHeluo] = useState(null)
 
+  const fishR = 1.5 * r2
+  const fishwhite = [
+    'M',
+    half,
+    half,
+    'A',
+    fishR / 2,
+    fishR / 2,
+    0,
+    1,
+    0,
+    half,
+    half - fishR,
+    'A',
+    fishR,
+    fishR,
+    0,
+    1,
+    0,
+    half,
+    half + fishR,
+    'A',
+    fishR / 2,
+    fishR / 2,
+    0,
+    1,
+    1,
+    half,
+    half
+  ]
+  const fishblack = [
+    'M',
+    half,
+    half,
+    'A',
+    fishR / 2,
+    fishR / 2,
+    0,
+    1,
+    0,
+    half,
+    half - fishR,
+    'A',
+    fishR,
+    fishR,
+    0,
+    1,
+    1,
+    half,
+    half + fishR,
+    'A',
+    fishR / 2,
+    fishR / 2,
+    0,
+    1,
+    1,
+    half,
+    half
+  ]
+
   const heluoFn = val => {
     const list = {
       hide: [],
@@ -414,25 +474,34 @@ const HeluoComp = props => {
     }
 
     let dom = null
-    if (['hetu', 'luoshu'].includes(val)) {
+    if ('fish' === val) {
+      dom = (
+        <g id="fish">
+          <path fill="#fff" d={fishwhite.join(' ')} />
+          <path fill="#000" d={fishblack.join(' ')} />
+          <circle cx={half} cy={half - fishR / 2} fill="#000" r={fishR / 6} />
+          <circle cx={half} cy={half + fishR / 2} fill="#fff" r={fishR / 6} />
+        </g>
+      )
+    } else if (['hetu', 'luoshu'].includes(val)) {
       dom = (
         <g id="heluo">
           {list[val].map((x, i) => (
             <g key={i}>
-              <circle
-                cx={x.pos[0]}
-                cy={x.pos[1]}
-                r="4"
+              <rect
+                x={x.pos[0]}
+                y={x.pos[1]}
+                height={r2}
+                width={r2}
+                transform={`translate(${-r2 / 2},${-r2 / 2})`}
                 fill={x.color}
                 stroke="#fff"
-                strokeWidth="0.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                strokeWidth={w / 300}
               />
               <text
                 color="#fff"
-                fontSize="4"
-                transform="translate(0,1.5)"
+                fontSize={w / 25}
+                transform={`translate(0,${r2 / 6})`}
                 x={x.pos[0]}
                 y={x.pos[1]}
                 textAnchor="middle">
@@ -452,12 +521,10 @@ const HeluoComp = props => {
                   key={j}
                   cx={y[0]}
                   cy={y[1]}
-                  r="1"
+                  r={w / 100}
                   fill={x.color}
                   stroke="#fff"
                   strokeWidth="0"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
                 />
               ))}
               {x.lines.map((y, j) => (
@@ -466,9 +533,7 @@ const HeluoComp = props => {
                   d={'M ' + y.join(' ') + ' Z'}
                   fill="none"
                   stroke={x.color}
-                  strokeWidth=".25"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeWidth={w / 300}
                 />
               ))}
             </g>

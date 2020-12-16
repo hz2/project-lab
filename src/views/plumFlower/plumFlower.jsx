@@ -3,7 +3,7 @@ import { Radio, Form } from 'antd'
 import guaJson from './guaText'
 import HeluoComp from './heluo'
 
-const w = 100
+const w = 1000
 const half = w / 2
 const subtense = Math.tan((22.5 * Math.PI) / 180) * half
 const p1 = half - subtense
@@ -83,18 +83,19 @@ const Yi = () => {
           id={x.id}
           d={x.d.join(' ')}
           fill={x.color}
-          stroke="#ccc"
-          strokeWidth="0.3px"
+          stroke="#bbb"
+          strokeWidth={w / 330}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <text
           color="#fff"
-          fontSize="8px"
+          fontSize={w / 15}
           x={x.pos[0]}
           y={x.pos[1]}
           textAnchor="middle"
-          dominantBaseline="middle">
+          dominantBaseline="middle"
+          transform={`rotate(${i * 45},${x.pos[0]},${x.pos[1]})`}>
           <tspan>{x[textkey]}</tspan>
           <tspan>{x.trigrams}</tspan>
           {/* <tspan>{x.t3}</tspan> */}
@@ -151,7 +152,7 @@ const Yi = () => {
     setGuaList(genDom(guaTypeVal, val))
   }
 
-  const [heluoTab, setheluoTab] = useState('hide')
+  const [heluoTab, setheluoTab] = useState('fish')
 
   const actionList2 = (
     <Radio.Group
