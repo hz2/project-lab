@@ -12,6 +12,8 @@ export default {
     t9: '戌',
     t10: '狗',
     t11: '甲壬',
+    t12: '大肠',
+    t13: '小雪',
     color: '#c8c8c8'
   },
   dui: {
@@ -27,6 +29,8 @@ export default {
     t9: '申酉',
     t10: '猴鸡',
     t11: '丁',
+    t12: '肺',
+    t13: '寒露',
     color: '#d0d0d0'
   },
   li: {
@@ -42,6 +46,8 @@ export default {
     t9: '巳午',
     t10: '蛇马',
     t11: '己',
+    t12: '心',
+    t13: '小暑',
     color: '#d90505'
   },
   zhen: {
@@ -57,6 +63,8 @@ export default {
     t9: '寅卯',
     t10: '虎兔',
     t11: '庚',
+    t12: '肝',
+    t13: '清明',
     color: '#00f0a1'
   },
   xun: {
@@ -72,6 +80,8 @@ export default {
     t9: '辰',
     t10: '龙',
     t11: '辛',
+    t12: '胆',
+    t13: '小满',
     color: '#00b076'
   },
   kan: {
@@ -87,6 +97,8 @@ export default {
     t9: '亥子',
     t10: '猪鼠',
     t11: '戊',
+    t12: '肾',
+    t13: '小寒',
     color: '#5b5b5b'
   },
   gen: {
@@ -102,6 +114,8 @@ export default {
     t9: '丑',
     t10: '牛',
     t11: '丙',
+    t12: '小肠',
+    t13: '雨水',
     color: '#e3aa00'
   },
   kun: {
@@ -117,6 +131,8 @@ export default {
     t9: '未',
     t10: '羊',
     t11: '乙癸',
+    t12: '脾',
+    t13: '处暑',
     color: '#fdcd3c'
   }
 }
