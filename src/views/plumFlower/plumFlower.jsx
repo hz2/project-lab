@@ -134,8 +134,10 @@ const Yi = () => {
       onChange={({ target: { value } }) => guaTextFn(value)}>
       <Radio.Button value="text">卦</Radio.Button>
       <Radio.Button value="t2">自然</Radio.Button>
+      <Radio.Button value="t13">节气</Radio.Button>
       <Radio.Button value="zh">方位</Radio.Button>
       <Radio.Button value="t8">五行</Radio.Button>
+      <Radio.Button value="t12">器官</Radio.Button>
       <Radio.Button value="t11">天干</Radio.Button>
       <Radio.Button value="t10">生肖</Radio.Button>
       <Radio.Button value="t9">地支</Radio.Button>
@@ -159,11 +161,16 @@ const Yi = () => {
       defaultValue="fish"
       buttonStyle="solid"
       onChange={({ target: { value } }) => setheluoTab(value)}>
+      <Radio.Button value="wuji">无极</Radio.Button>
       <Radio.Button value="fish">太极</Radio.Button>
+      <Radio.Button value="huangji">皇极</Radio.Button>
       <Radio.Button value="hetu">河图</Radio.Button>
       <Radio.Button value="hetup">河图</Radio.Button>
+      <Radio.Button value="hetup2">万氏河图</Radio.Button>
       <Radio.Button value="luoshu">洛书</Radio.Button>
       <Radio.Button value="luoshup">洛书</Radio.Button>
+      <Radio.Button value="taijiorig">原始太极</Radio.Button>
+      <Radio.Button value="taijihetu">太极河图</Radio.Button>
     </Radio.Group>
   )
 
