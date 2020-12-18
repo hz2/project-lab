@@ -161,11 +161,15 @@ const Yi = () => {
       defaultValue="fish"
       buttonStyle="solid"
       onChange={({ target: { value } }) => setheluoTab(value)}>
+      <Radio.Button value="wuji">无极</Radio.Button>
       <Radio.Button value="fish">太极</Radio.Button>
+      <Radio.Button value="huangji">皇极</Radio.Button>
       <Radio.Button value="hetu">河图</Radio.Button>
       <Radio.Button value="hetup">河图</Radio.Button>
+      <Radio.Button value="hetup2">万氏河图</Radio.Button>
       <Radio.Button value="luoshu">洛书</Radio.Button>
       <Radio.Button value="luoshup">洛书</Radio.Button>
+      <Radio.Button value="taijiorig">原始太极</Radio.Button>
       <Radio.Button value="taijihetu">太极河图</Radio.Button>
     </Radio.Group>
   )
