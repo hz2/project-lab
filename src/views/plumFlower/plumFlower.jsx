@@ -166,6 +166,7 @@ const Yi = () => {
       <Radio.Button value="hetup">河图</Radio.Button>
       <Radio.Button value="luoshu">洛书</Radio.Button>
       <Radio.Button value="luoshup">洛书</Radio.Button>
+      <Radio.Button value="taijihetu">太极河图</Radio.Button>
     </Radio.Group>
   )
 
