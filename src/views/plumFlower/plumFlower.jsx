@@ -9,57 +9,49 @@ const subtense = Math.tan((22.5 * Math.PI) / 180) * half
 const p1 = half - subtense
 const p2 = half + subtense
 
-const r = Math.sqrt(Math.pow((2 / 6) * w, 2) / 2)
+// const r = Math.sqrt(Math.pow((2 / 6) * w, 2) / 2)
 
 const listOrig = [
   {
     id: 'ss',
     zh: '正南',
-    d: ['M', half, half, p1, 0, p2, 0, 'z'],
-    pos: [half, (1 / 6) * w]
+    d: ['M', half, half, p1, 0, p2, 0, 'z']
   },
   {
     id: 'sw',
     zh: '西南',
-    d: ['M', half, half, p2, 0, w, p1, 'z'],
-    pos: [(1 / 2) * w + r, (1 / 2) * w - r]
+    d: ['M', half, half, p2, 0, w, p1, 'z']
   },
   {
     id: 'ww',
     zh: '正西',
-    d: ['M', half, half, w, p1, w, p2, 'z'],
-    pos: [(5 / 6) * w, (1 / 2) * w]
+    d: ['M', half, half, w, p1, w, p2, 'z']
   },
   {
     id: 'nw',
     zh: '西北',
-    d: ['M', half, half, w, p2, p2, w, 'z'],
-    pos: [(1 / 2) * w + r, (1 / 2) * w + r]
+    d: ['M', half, half, w, p2, p2, w, 'z']
   },
 
   {
     id: 'nn',
     zh: '正北',
-    d: ['M', half, half, p2, w, p1, w, 'z'],
-    pos: [half, (5 / 6) * w]
+    d: ['M', half, half, p2, w, p1, w, 'z']
   },
   {
     id: 'ne',
     zh: '东北',
-    d: ['M', half, half, p1, w, 0, p2, 'z'],
-    pos: [(1 / 2) * w - r, (1 / 2) * w + r]
+    d: ['M', half, half, p1, w, 0, p2, 'z']
   },
   {
     id: 'ee',
     zh: '正东',
-    d: ['M', half, half, 0, p2, 0, p1, 'z'],
-    pos: [(1 / 6) * w, (1 / 2) * w]
+    d: ['M', half, half, 0, p2, 0, p1, 'z']
   },
   {
     id: 'se',
     zh: '东南',
-    d: ['M', half, half, 0, p1, p1, 0, 'z'],
-    pos: [(1 / 2) * w - r, (1 / 2) * w - r]
+    d: ['M', half, half, 0, p1, p1, 0, 'z']
   }
 ]
 const guaType = {
@@ -73,7 +65,7 @@ const guaType = {
 }
 
 const Yi = () => {
-  const genDom = (type = 'houtian', textkey = 'text') => {
+  const genDom = (type = 'houtian', textkey = 'trigrams') => {
     const gua = listOrig.map((x, i) =>
       Object.assign(x, guaJson[guaType[type][i]])
     )
@@ -91,14 +83,22 @@ const Yi = () => {
         <text
           color="#fff"
           fontSize={w / 15}
-          x={x.pos[0]}
-          y={x.pos[1]}
+          x={half}
+          y={half * 0.15}
           textAnchor="middle"
           dominantBaseline="middle"
-          transform={`rotate(${i * 45},${x.pos[0]},${x.pos[1]})`}>
+          transform={`rotate(${i * 45},${half},${half})`}>
+          <tspan>{x.text}</tspan>
+        </text>
+        <text
+          color="#fff"
+          fontSize={w / 18}
+          x={half}
+          y={half * 0.35}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          transform={`rotate(${i * 45},${half},${half})`}>
           <tspan>{x[textkey]}</tspan>
-          <tspan>{x.trigrams}</tspan>
-          {/* <tspan>{x.t3}</tspan> */}
         </text>
       </g>
     ))
@@ -107,7 +107,7 @@ const Yi = () => {
   const [guaList, setGuaList] = useState(genDom())
   // const [luoshuVal, setLuoshuVal] = useState(null)
   const [guaTypeVal, setGuaTypeVal] = useState('houtian')
-  const [guaTextVal, setGuaTextVal] = useState('text')
+  const [guaTextVal, setGuaTextVal] = useState('trigrams')
 
   const actionList0 = (
     <Radio.Group
@@ -129,10 +129,10 @@ const Yi = () => {
 
   const actionList1 = (
     <Radio.Group
-      defaultValue="text"
+      defaultValue="trigrams"
       buttonStyle="solid"
       onChange={({ target: { value } }) => guaTextFn(value)}>
-      <Radio.Button value="text">卦</Radio.Button>
+      <Radio.Button value="trigrams">卦</Radio.Button>
       <Radio.Button value="t2">自然</Radio.Button>
       <Radio.Button value="t13">节气</Radio.Button>
       <Radio.Button value="zh">方位</Radio.Button>
