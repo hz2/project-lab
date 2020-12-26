@@ -92,7 +92,7 @@ const Yi = () => {
         </text>
         <text
           color="#fff"
-          fontSize={w / 18}
+          fontSize={w / 17}
           x={half}
           y={half * 0.35}
           textAnchor="middle"
@@ -135,8 +135,12 @@ const Yi = () => {
       <Radio.Button value="trigrams">卦</Radio.Button>
       <Radio.Button value="t2">自然</Radio.Button>
       <Radio.Button value="t13">节气</Radio.Button>
-      <Radio.Button value="zh">方位</Radio.Button>
+      <Radio.Button value="t14">四季</Radio.Button>
+      <Radio.Button value="zh">方道</Radio.Button>
       <Radio.Button value="t8">五行</Radio.Button>
+      <Radio.Button value="t15">五音</Radio.Button>
+      <Radio.Button value="t16">五味</Radio.Button>
+      <Radio.Button value="t17">五色</Radio.Button>
       <Radio.Button value="t12">器官</Radio.Button>
       <Radio.Button value="t11">天干</Radio.Button>
       <Radio.Button value="t10">生肖</Radio.Button>
