@@ -57,7 +57,14 @@ render(
   target
 )
 
-serviceWorkerRegistration.register()
+serviceWorkerRegistration.register({
+  onUpdate: registration => {
+    console.log('PWA Update => ', registration)
+  },
+  onSuccess: registration => {
+    console.log('PWA Success => ', registration)
+  }
+})
 reportWebVitals()
 
 // let deferredPrompt = null;
