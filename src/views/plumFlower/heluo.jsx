@@ -86,22 +86,22 @@ const HeluoComp = props => {
     {
       pos: [half + r2, half],
       num: '四',
-      color: '#c8c8c8'
+      color: '#dbdbdb'
     },
     {
       pos: [half + r2 * 2, half],
       num: '九',
-      color: '#c8c8c8'
+      color: '#dbdbdb'
     },
     {
       pos: [half, half + r2],
       num: '一',
-      color: '#5b5b5b'
+      color: '#4b4b4b'
     },
     {
       pos: [half, half + r2 * 2],
       num: '六',
-      color: '#5b5b5b'
+      color: '#4b4b4b'
     },
     {
       pos: [half - r2, half],
