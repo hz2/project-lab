@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Wuxing from './wixing'
 const HeluoComp = props => {
   const { w, tabVal } = props
   const half = w / 2
@@ -648,6 +649,8 @@ const HeluoComp = props => {
           ))}
         </g>
       )
+    } else if (['wuxing', 'wuxing1', 'wuxing2'].includes(val)) {
+      dom = <Wuxing half={half} r={r2} type={val} />
     }
 
     setHeluo(dom)
