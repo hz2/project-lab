@@ -24,7 +24,8 @@ const pathList = {
   emoji: 'emoji',
   svgpreview: 'svgpreview',
   svgEditor: 'svgEditor/svgEditor',
-  plumFlower: 'plumFlower/plumFlower'
+  plumFlower: 'plumFlower/plumFlower',
+  ip: 'onlineService/ip'
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route
