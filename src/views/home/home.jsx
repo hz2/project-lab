@@ -64,7 +64,15 @@ const Home = props => (
     </div>
     <div className="github">
       <Divider>
-        <span>github</span>
+        <span>
+          <em>2020-present \ made with 💤 by </em>
+          <a
+            href="https://github.com/hz2/project-notwiki-lab-mirror"
+            target="_blank"
+            rel="noopener noreferrer">
+            Hz²
+          </a>
+        </span>
       </Divider>
     </div>
   </div>
