@@ -23,7 +23,8 @@ class idcard extends React.Component {
     resultAstrology: '',
     resultZodiac: '',
     icon1: '',
-    icon2: ''
+    icon2: '',
+    phoneobj: {}
   }
 
   showModal = () => {
@@ -188,16 +189,90 @@ class idcard extends React.Component {
     this.setResult(out)
   }
   generateMobile = () => {
+    const list = [
+      '130',
+      '131',
+      '132',
+      '133',
+      '134',
+      '135',
+      '136',
+      '137',
+      '138',
+      '139',
+      '150',
+      '151',
+      '152',
+      '153',
+      '155',
+      '156',
+      '157',
+      '158',
+      '159',
+      '162',
+      '165',
+      '166',
+      '167',
+      '170',
+      '171',
+      '172',
+      '173',
+      '175',
+      '176',
+      '177',
+      '178',
+      '180',
+      '181',
+      '182',
+      '183',
+      '184',
+      '185',
+      '186',
+      '187',
+      '188',
+      '189',
+      '190',
+      '191',
+      '193',
+      '195',
+      '196',
+      '197',
+      '198',
+      '199'
+    ]
+    const prefix = list[Math.floor(Math.random() * list.length)]
+    const phone =
+      prefix +
+      Math.random()
+        .toString()
+        .substr(3, 8)
     this.setState({
-      telvalue:
-        '1' +
-        rdm(5, 9) +
-        Math.random()
-          .toString()
-          .substr(3, 9)
+      telvalue: phone
+    })
+    if (phone) {
+      this.queryPhoneNo(phone)
+    }
+  }
+  handleTelChange = ({ target: { value: phone } }) => {
+    if (phone && phone.length === 11) {
+      this.queryPhoneNo(phone)
+    }
+    this.setState({
+      telvalue: phone
     })
   }
+  queryPhoneNo = num => {
+    fetch('https://respok.com/phonenum.php?' + num, { mode: 'cors' })
+      .then(response => response.json())
+      .then(r =>
+        this.setState({
+          phoneobj: r
+        })
+      )
+      .catch(e => console.error('error', e))
+  }
   render() {
+    const { phoneobj } = this.state
     return (
       <>
         <div className="item-block">
@@ -247,7 +322,8 @@ class idcard extends React.Component {
               className="item-input"
               placeholder="生成输入手机号码"
               value={this.state.telvalue}
-              readOnly
+              maxLength="11"
+              onChange={this.handleTelChange}
             />
             <CopyToClipboard
               text={this.state.telvalue}
@@ -255,6 +331,16 @@ class idcard extends React.Component {
               <Button type="primary">复制</Button>
             </CopyToClipboard>
           </div>
+          {phoneobj.province ? (
+            <div className="line">
+              <p>
+                {phoneobj.province || '未知'} {phoneobj.city || ''}
+              </p>
+              <p>归属地：{phoneobj.sp}</p>
+              <p>区号：{phoneobj.tel_prefix}</p>
+              <p>邮政编码：{phoneobj.postcode}</p>
+            </div>
+          ) : null}
         </div>
 
         <Modal
