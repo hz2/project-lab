@@ -19,7 +19,7 @@ const Home = props => (
       {[
         {
           name: 'Person',
-          path: '/idcard'
+          path: '/person'
         },
         {
           name: 'Bing',

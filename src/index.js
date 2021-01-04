@@ -17,6 +17,7 @@ import './index.css'
 
 const pathList = {
   idcard: 'idcard/idcard',
+  person: 'idcard/idcard',
   lottery: 'lottery/lottery',
   encode: 'encode',
   bing: 'bing',
