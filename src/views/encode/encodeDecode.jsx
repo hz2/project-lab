@@ -132,7 +132,7 @@ const Encode = () => {
         <div className="encodeContent">
           <div className="origVal">
             <TextArea
-              rows={3}
+              rows={4}
               placeholder="编码"
               value={encodeObj.text}
               onChange={origTextInput}
@@ -141,37 +141,40 @@ const Encode = () => {
           <div className="encodeVal">
             {checkbox}
             <Card size="small" title="网址编码">
+              <div className="text">对统一资源标识符（URI）进行编码</div>
+              <TextArea
+                rows={4}
+                placeholder="%E7%BC%96%E7%A0%81"
+                value={encodeObj.url}
+                onChange={decodeUrl}
+              />
               <Checkbox
                 className="text"
                 checked={checkbox}
                 onChange={checkboxChange}>
                 URIComponent 模式
               </Checkbox>
-              <TextArea
-                rows={3}
-                placeholder="%E7%BC%96%E7%A0%81"
-                value={encodeObj.url}
-                onChange={decodeUrl}
-              />
             </Card>
             <Card size="small" title="Base64 编码">
+              <div className="text">使用 Base64 进行编码解码</div>
               <TextArea
-                rows={3}
+                rows={4}
                 placeholder="57yW56CB"
                 value={encodeObj.b64}
                 onChange={decodeB64}
               />
             </Card>
             <Card size="small" title="Unicode 编码">
+              <div className="text">输入字符，自动获取 Unicode 编码</div>
               <TextArea
-                rows={3}
+                rows={4}
                 placeholder="\u7f16\u7801"
                 value={encodeObj.unicode}
                 onChange={decodeUni}
               />
-              <p className="text">HTML 实体</p>
+              <div className="text">HTML 实体</div>
               <TextArea
-                rows={3}
+                rows={4}
                 placeholder={'&#32534;&#30721;'}
                 value={encodeObj.html}
                 onChange={decodeHtml}
