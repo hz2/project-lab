@@ -158,7 +158,7 @@ const Yi = () => {
     setGuaList(genDom(guaTypeVal, val))
   }
 
-  const [heluoTab, setheluoTab] = useState('wuxing') // fish
+  const [heluoTab, setheluoTab] = useState('fish') // fish
 
   const actionList2 = (
     <Radio.Group
@@ -175,9 +175,10 @@ const Yi = () => {
       <Radio.Button value="luoshup">洛书</Radio.Button>
       <Radio.Button value="taijiorig">原始太极</Radio.Button>
       <Radio.Button value="taijihetu">太极河图</Radio.Button>
-      <Radio.Button value="wuxing">五行生克</Radio.Button>
-      {/* <Radio.Button value="wuxing1">五行生</Radio.Button>
-      <Radio.Button value="wuxing2">五行克</Radio.Button> */}
+      <Radio.Button value="wuxing">五行</Radio.Button>
+      <Radio.Button value="wuxing0">生克</Radio.Button>
+      <Radio.Button value="wuxing1">五行生</Radio.Button>
+      <Radio.Button value="wuxing2">五行克</Radio.Button>
     </Radio.Group>
   )
 
@@ -193,7 +194,12 @@ const Yi = () => {
         <Form.Item label="象征"> {actionList1} </Form.Item>
         <Form.Item label="河洛"> {actionList2} </Form.Item>
       </Form>
-      <div style={{ margin: '25px auto', width: '90%', maxWidth: '1000px' }}>
+      <div
+        style={{
+          margin: '25px auto',
+          width: '90%',
+          maxWidth: 'min(1000px,70vh)'
+        }}>
         <svg
           viewBox={[0, 0, w, w].join(' ')}
           xmlns="http://www.w3.org/2000/svg">

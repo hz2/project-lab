@@ -649,7 +649,7 @@ const HeluoComp = props => {
           ))}
         </g>
       )
-    } else if (['wuxing', 'wuxing1', 'wuxing2'].includes(val)) {
+    } else if (['wuxing', 'wuxing0', 'wuxing1', 'wuxing2'].includes(val)) {
       dom = <Wuxing half={half} r={r2} type={val} />
     }
 

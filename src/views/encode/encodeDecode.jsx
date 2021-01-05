@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { Input, Checkbox, Card, message } from 'antd'
-import Qs from 'qs'
+import './style.less'
 const { TextArea } = Input
 
 const Encode = () => {
-  const [qsStr, setQsStr] = useState('')
-  const [qsObj, setQsObj] = useState('')
   const [checkbox, setCheckbox] = useState(false)
   const [encodeObj, updateEncodeObj] = useState({
     text: '',
@@ -128,95 +126,61 @@ const Encode = () => {
     }
   }
   return (
-    <div className="encode">
-      <h2>编码解码</h2>
-      <div className="encodeContent">
-        <div className="origVal">
-          <TextArea
-            rows={3}
-            placeholder="编码"
-            value={encodeObj.text}
-            onChange={origTextInput}
-          />
-        </div>
-        <div className="encodeVal">
-          {checkbox}
-          <Card size="small" title="网址编码">
-            <Checkbox
-              className="text"
-              checked={checkbox}
-              onChange={checkboxChange}>
-              URIComponent 模式
-            </Checkbox>
+    <div className="encodePage">
+      <div className="encode">
+        <h2>编码解码</h2>
+        <div className="encodeContent">
+          <div className="origVal">
             <TextArea
-              rows={3}
-              placeholder="%E7%BC%96%E7%A0%81"
-              value={encodeObj.url}
-              onChange={decodeUrl}
+              rows={4}
+              placeholder="编码"
+              value={encodeObj.text}
+              onChange={origTextInput}
             />
-          </Card>
-          <Card size="small" title="Base64 编码">
-            <TextArea
-              rows={3}
-              placeholder="57yW56CB"
-              value={encodeObj.b64}
-              onChange={decodeB64}
-            />
-          </Card>
-          <Card size="small" title="Unicode 编码">
-            <TextArea
-              rows={3}
-              placeholder="\u7f16\u7801"
-              value={encodeObj.unicode}
-              onChange={decodeUni}
-            />
-            <p className="text">HTML 实体</p>
-            <TextArea
-              rows={3}
-              placeholder={'&#32534;&#30721;'}
-              value={encodeObj.html}
-              onChange={decodeHtml}
-            />
-          </Card>
-        </div>
-        <div className="qscover">
-          <h4>Query String 转换</h4>
-          <TextArea
-            placeholder={'id=1&name=querystring'}
-            rows={6}
-            value={qsStr}
-            onChange={({ target: { value } }) => {
-              setQsStr(value)
-              if (!value) {
-                setQsObj('')
-                return
-              }
-              try {
-                setQsObj(JSON.stringify(Qs.parse(value), null, 4))
-              } catch (error) {
-                console.log('error', error)
-                message.error('输入有误')
-              }
-            }}
-          />
-          <TextArea
-            placeholder={'{"id":"1","name":"querystring"}'}
-            rows={6}
-            value={qsObj}
-            onChange={({ target: { value } }) => {
-              setQsObj(value)
-              if (!value) {
-                setQsStr('')
-                return
-              }
-              try {
-                setQsStr(Qs.stringify(JSON.parse(value)))
-              } catch (error) {
-                console.log('error', error)
-                message.error('输入有误')
-              }
-            }}
-          />
+          </div>
+          <div className="encodeVal">
+            {checkbox}
+            <Card size="small" title="网址编码">
+              <div className="text">对统一资源标识符（URI）进行编码</div>
+              <TextArea
+                rows={4}
+                placeholder="%E7%BC%96%E7%A0%81"
+                value={encodeObj.url}
+                onChange={decodeUrl}
+              />
+              <Checkbox
+                className="text"
+                checked={checkbox}
+                onChange={checkboxChange}>
+                URIComponent 模式
+              </Checkbox>
+            </Card>
+            <Card size="small" title="Base64 编码">
+              <div className="text">使用 Base64 进行编码解码</div>
+              <TextArea
+                rows={4}
+                placeholder="57yW56CB"
+                value={encodeObj.b64}
+                onChange={decodeB64}
+              />
+            </Card>
+            <Card size="small" title="Unicode 编码">
+              <div className="text">输入字符，自动获取 Unicode 编码</div>
+              <TextArea
+                rows={4}
+                placeholder="\u7f16\u7801"
+                value={encodeObj.unicode}
+                onChange={decodeUni}
+              />
+              <div className="text">HTML 实体</div>
+              <TextArea
+                rows={4}
+                placeholder={'&#32534;&#30721;'}
+                value={encodeObj.html}
+                onChange={decodeHtml}
+              />
+            </Card>
+          </div>
         </div>
       </div>
     </div>

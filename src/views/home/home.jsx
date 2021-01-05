@@ -12,59 +12,40 @@ import {
 
 import './home.less'
 
+const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
+const cnverterList = ['encode', 'hex', 'queryString']
+
+const genTitle = str =>
+  str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
+
+const genBtn = (list, history) =>
+  list.map((x, i) => (
+    <Button type="primary" key={i} onClick={() => history.push('/' + x)}>
+      {genTitle(x)}
+    </Button>
+  ))
 const Home = props => (
   <div className="app-home">
     <h2>Generator</h2>
-    <div className="btn-list">
-      {[
-        {
-          name: 'Person',
-          path: '/person'
-        },
-        {
-          name: 'Bing',
-          path: '/bing'
-        },
-        {
-          name: 'Color',
-          path: '/color'
-        },
-        {
-          name: 'Lottery',
-          path: '/lottery'
-        },
-        {
-          name: 'Plum Flower',
-          path: '/plumFlower'
-        }
-      ].map((x, i) => (
-        <Button
-          type="primary"
-          key={i}
-          onClick={() => props.history.push(x.path)}>
-          {x.name}
-        </Button>
-      ))}
-    </div>
+    <div className="btn-list">{genBtn(generatorList, props.history)}</div>
     <h2>Converter</h2>
-    <div className="btn-list">
-      {[
-        {
-          name: 'Encode',
-          path: '/encode'
-        }
-      ].map((x, i) => (
-        <Button
-          type="primary"
-          key={i}
-          onClick={() => props.history.push(x.path)}>
-          {x.name}
-        </Button>
-      ))}
-    </div>
+    <div className="btn-list">{genBtn(cnverterList, props.history)}</div>
     <div className="github">
       <Divider>
-        <span>github</span>
+        <span>
+          <span>2020-present \ made with </span>
+          <span role="img" aria-label="sleep">
+            {' '}
+            💤{' '}
+          </span>
+          <span> by </span>
+          <a
+            href="https://github.com/hz2/project-notwiki-lab-mirror"
+            target="_blank"
+            rel="noopener noreferrer">
+            Hz²
+          </a>
+        </span>
       </Divider>
     </div>
   </div>
