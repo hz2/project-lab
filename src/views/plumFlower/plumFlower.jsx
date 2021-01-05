@@ -176,8 +176,8 @@ const Yi = () => {
       <Radio.Button value="taijiorig">原始太极</Radio.Button>
       <Radio.Button value="taijihetu">太极河图</Radio.Button>
       <Radio.Button value="wuxing">五行生克</Radio.Button>
-      {/* <Radio.Button value="wuxing1">五行生</Radio.Button>
-      <Radio.Button value="wuxing2">五行克</Radio.Button> */}
+      <Radio.Button value="wuxing1">五行生</Radio.Button>
+      <Radio.Button value="wuxing2">五行克</Radio.Button>
     </Radio.Group>
   )
 

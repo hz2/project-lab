@@ -2,60 +2,23 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { Route, Switch, HashRouter } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import store from './store'
 import history from './modules/history'
-import Home from './views/home/home'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
 
 import 'sanitize.css/sanitize.css'
 import './index.less'
-import './index.css'
-
-const pathList = {
-  idcard: 'idcard/idcard',
-  person: 'idcard/idcard',
-  lottery: 'lottery/lottery',
-  queryString: 'encode/qs',
-  hex: 'encode/hexConversion',
-  encode: 'encode/encodeDecode',
-  bing: 'bing',
-  color: 'color',
-  emoji: 'emoji',
-  svgpreview: 'svgpreview',
-  svgEditor: 'svgEditor/svgEditor',
-  plumFlower: 'plumFlower/plumFlower',
-  ip: 'onlineService/ip'
-}
-const routesList = Object.entries(pathList).map((x, i) => (
-  <Route
-    exact
-    path={'/' + x[0]}
-    component={require('./views/' + x[1]).default}
-    key={i}
-  />
-))
+import Routers from './routers'
 
 const target = document.querySelector('#root')
 
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <HashRouter>
-        {/* <header></header> */}
-        <Switch>
-          <Route exact path="/" component={Home} />
-          {/* <Route
-            exact
-            path="/rgb"
-            component={require('./sample/rgb.js').default}
-          /> */}
-          {routesList}
-        </Switch>
-      </HashRouter>
+      <Routers />
     </ConnectedRouter>
   </Provider>,
   target
