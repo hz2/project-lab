@@ -65,7 +65,12 @@ const Home = props => (
     <div className="github">
       <Divider>
         <span>
-          <em>2020-present \ made with 💤 by </em>
+          <span>2020-present \ made with </span>
+          <span role="img" aria-label="sleep">
+            {' '}
+            💤{' '}
+          </span>
+          <span> by </span>
           <a
             href="https://github.com/hz2/project-notwiki-lab-mirror"
             target="_blank"
