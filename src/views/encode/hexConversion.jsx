@@ -106,89 +106,95 @@ const HexConversion = () => {
     setHexSet(tempSet)
   }
   const hexConvComp = (
-    <div className="hexConv">
-      <h2>进制转换</h2>
-      <Alert className="hexAlert" message={hexInfo.text} type={hexInfo.type} />
-      <div className="inputList">
-        {[
-          {
-            zh: '二进制',
-            key: 'bin',
-            pattern: '[0-1]+',
-            placeholder: '1010'
-          },
-          {
-            zh: '八进制',
-            key: 'oct',
-            pattern: '[0-7]+',
-            placeholder: '12'
-          },
-          {
-            zh: '十进制',
-            key: 'dec',
-            pattern: '[0-9]+',
-            placeholder: '18'
-          },
-          {
-            zh: '十六进制',
-            key: 'hex',
-            pattern: '[0-9A-Fa-f]+',
-            placeholder: 'A'
-          }
-        ].map(x => (
-          <div className="item" key={x.key}>
-            <div className="title">{x.zh}</div>
-            <Input
-              type="text"
-              id={'type_' + x.key}
-              pattern={x.pattern}
-              placeholder={x.placeholder}
-              value={hexSet[x.key]}
-              onChange={e => hexConvert(e, x.key)}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="ip2num">
-        <h4>IP 转 数字地址</h4>
-        <div className="text">IP 地址</div>
-        <Input
-          type="text"
-          placeholder="127.0.0.1"
-          value={origIp}
-          onChange={({ target: { value } }) => setOrigIp(value)}
+    <div className="encodePage">
+      <div className="hexConv">
+        <h2>进制转换</h2>
+        <Alert
+          className="hexAlert"
+          message={hexInfo.text}
+          type={hexInfo.type}
         />
-        <Button
-          type="primary"
-          onClick={() =>
-            origIp
-              ? setIp2Num(
-                  origIp
-                    .split('.')
-                    .map(x =>
-                      parseInt(x, 10)
-                        .toString(16)
-                        .padStart(2, '0')
-                    )
-                    .join('')
-                )
-              : message.info('请输入 IP 地址')
-          }>
-          转换
-        </Button>
-        <div className="text">
-          <span>数字地址</span>
-          {ip2Num ? (
-            <a
-              id="numAddr"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={'http://' + parseInt(ip2Num, 16)}>
-              http://{parseInt(ip2Num, 16)}
-            </a>
-          ) : (
-            ''
-          )}
+        <div className="inputList">
+          {[
+            {
+              zh: '二进制',
+              key: 'bin',
+              pattern: '[0-1]+',
+              placeholder: '1010'
+            },
+            {
+              zh: '八进制',
+              key: 'oct',
+              pattern: '[0-7]+',
+              placeholder: '12'
+            },
+            {
+              zh: '十进制',
+              key: 'dec',
+              pattern: '[0-9]+',
+              placeholder: '18'
+            },
+            {
+              zh: '十六进制',
+              key: 'hex',
+              pattern: '[0-9A-Fa-f]+',
+              placeholder: 'A'
+            }
+          ].map(x => (
+            <div className="item" key={x.key}>
+              <div className="title">{x.zh}</div>
+              <Input
+                type="text"
+                id={'type_' + x.key}
+                pattern={x.pattern}
+                placeholder={x.placeholder}
+                value={hexSet[x.key]}
+                onChange={e => hexConvert(e, x.key)}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="ip2num">
+          <h4>IP 转 数字地址</h4>
+          <div className="text">IP 地址</div>
+          <Input
+            type="text"
+            placeholder="127.0.0.1"
+            value={origIp}
+            onChange={({ target: { value } }) => setOrigIp(value)}
+          />
+          <Button
+            type="primary"
+            onClick={() =>
+              origIp
+                ? setIp2Num(
+                    origIp
+                      .split('.')
+                      .map(x =>
+                        parseInt(x, 10)
+                          .toString(16)
+                          .padStart(2, '0')
+                      )
+                      .join('')
+                  )
+                : message.info('请输入 IP 地址')
+            }>
+            转换
+          </Button>
+          <div className="text">
+            <span>数字地址</span>
+            {ip2Num ? (
+              <a
+                id="numAddr"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={'http://' + parseInt(ip2Num, 16)}>
+                http://{parseInt(ip2Num, 16)}
+              </a>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
       </div>
     </div>
