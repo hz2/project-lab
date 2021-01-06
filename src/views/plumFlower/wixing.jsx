@@ -95,7 +95,7 @@ const arrowSheng = (half, r, i) => (
       strokeLinejoin="round"
     />
     <text
-      color={shengColor}
+      fill={shengColor}
       fontSize={half / 15}
       fontWeight="bold"
       x={half + cosTheta(36) * r * 2.5}
@@ -317,7 +317,7 @@ const ShengKe = (half, r) =>
       {arrowSheng(half, r, x)}
       {arrowKe(half, r, x)}
       <text
-        color={keColor}
+        fill={keColor}
         fontSize={half / 12}
         fontWeight="bold"
         x={half}
@@ -360,7 +360,7 @@ const Wuxing = props => {
             strokeWidth={w / 300}
           />
           <text
-            color="#fff"
+            fill="#fff"
             fontSize={w / 25}
             transform={`translate(0,${r / 6})`}
             x={x.pos[0]}
