@@ -109,50 +109,66 @@ const Yi = () => {
   const [guaTypeVal, setGuaTypeVal] = useState('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
 
-  const actionList0 = (
-    <Radio.Group
-      defaultValue="houtian"
-      buttonStyle="solid"
-      onChange={({ target: { value } }) => guaTypeFn(value)}>
-      <Radio.Button value="xiantian">伏羲先天</Radio.Button>
-      <Radio.Button value="houtian">文王后天</Radio.Button>
-      <Radio.Button value="lianshan">连山</Radio.Button>
-      <Radio.Button value="guishu">坤乾龟书</Radio.Button>
-      <Radio.Button value="longtu">震巽龙图</Radio.Button>
-    </Radio.Group>
-  )
+  const ActionBar1 = () => {
+    const list = Object.entries({
+      xiantian: '伏羲先天',
+      houtian: '文王后天',
+      lianshan: '连山',
+      guishu: '坤乾龟书',
+      longtu: '震巽龙图'
+    })
+    return (
+      <Radio.Group
+        defaultValue="houtian"
+        buttonStyle="solid"
+        onChange={({ target: { value } }) => guaTypeFn(value)}>
+        {list.map(x => (
+          <Radio.Button key={x[0]} value={x[0]}>
+            {x[1]}
+          </Radio.Button>
+        ))}
+      </Radio.Group>
+    )
+  }
 
   const guaTypeFn = val => {
     setGuaTypeVal(val)
     setGuaList(genDom(val, guaTextVal))
   }
-
-  const actionList1 = (
-    <Radio.Group
-      defaultValue="trigrams"
-      buttonStyle="solid"
-      onChange={({ target: { value } }) => guaTextFn(value)}>
-      <Radio.Button value="trigrams">卦</Radio.Button>
-      <Radio.Button value="t2">自然</Radio.Button>
-      <Radio.Button value="t13">节气</Radio.Button>
-      <Radio.Button value="t14">四季</Radio.Button>
-      <Radio.Button value="zh">方道</Radio.Button>
-      <Radio.Button value="t8">五行</Radio.Button>
-      <Radio.Button value="t15">五音</Radio.Button>
-      <Radio.Button value="t16">五味</Radio.Button>
-      <Radio.Button value="t17">五色</Radio.Button>
-      <Radio.Button value="t12">器官</Radio.Button>
-      <Radio.Button value="t11">天干</Radio.Button>
-      <Radio.Button value="t10">生肖</Radio.Button>
-      <Radio.Button value="t9">地支</Radio.Button>
-      <Radio.Button value="t3">家人</Radio.Button>
-      <Radio.Button value="t4">性情</Radio.Button>
-      <Radio.Button value="t5">动物</Radio.Button>
-      <Radio.Button value="t6">身体</Radio.Button>
-      <Radio.Button value="t7">器官</Radio.Button>
-    </Radio.Group>
-  )
-
+  const ActionBar2 = () => {
+    const list = Object.entries({
+      trigrams: '卦',
+      t2: '自然',
+      t13: '节气',
+      t14: '四季',
+      zh: '方道',
+      t8: '五行',
+      t15: '五音',
+      t16: '五味',
+      t17: '五色',
+      t12: '器官',
+      t11: '天干',
+      t10: '生肖',
+      t9: '地支',
+      t3: '家人',
+      t4: '性情',
+      t5: '动物',
+      t6: '身体',
+      t7: '器官'
+    })
+    return (
+      <Radio.Group
+        defaultValue="trigrams"
+        buttonStyle="solid"
+        onChange={({ target: { value } }) => guaTextFn(value)}>
+        {list.map(x => (
+          <Radio.Button key={x[0]} value={x[0]}>
+            {x[1]}
+          </Radio.Button>
+        ))}
+      </Radio.Group>
+    )
+  }
   const guaTextFn = val => {
     setGuaTextVal(val)
     setGuaList(genDom(guaTypeVal, val))
@@ -160,27 +176,36 @@ const Yi = () => {
 
   const [heluoTab, setheluoTab] = useState('fish') // fish
 
-  const actionList2 = (
-    <Radio.Group
-      defaultValue="fish"
-      buttonStyle="solid"
-      onChange={({ target: { value } }) => setheluoTab(value)}>
-      {/* <Radio.Button value="wuji">无极</Radio.Button> */}
-      <Radio.Button value="fish">太极</Radio.Button>
-      {/* <Radio.Button value="huangji">皇极</Radio.Button> */}
-      <Radio.Button value="hetu">河图</Radio.Button>
-      <Radio.Button value="hetup">河图</Radio.Button>
-      <Radio.Button value="hetup2">万氏河图</Radio.Button>
-      <Radio.Button value="luoshu">洛书</Radio.Button>
-      <Radio.Button value="luoshup">洛书</Radio.Button>
-      <Radio.Button value="taijiorig">原始太极</Radio.Button>
-      <Radio.Button value="taijihetu">太极河图</Radio.Button>
-      <Radio.Button value="wuxing">五行</Radio.Button>
-      <Radio.Button value="wuxing0">生克</Radio.Button>
-      <Radio.Button value="wuxing1">五行生</Radio.Button>
-      <Radio.Button value="wuxing2">五行克</Radio.Button>
-    </Radio.Group>
-  )
+  const ActionBar3 = () => {
+    const list = Object.entries({
+      // wuji: "无极",
+      fish: '太极',
+      // huangji: "皇极",
+      hetu: '河图',
+      hetup: '河图',
+      hetup2: '万氏河图',
+      luoshu: '洛书',
+      luoshup: '洛书',
+      taijiorig: '原始太极',
+      taijihetu: '太极河图',
+      wuxing: '五行',
+      wuxing0: '生克',
+      wuxing1: '五行生',
+      wuxing2: '五行克'
+    })
+    return (
+      <Radio.Group
+        defaultValue="fish"
+        buttonStyle="solid"
+        onChange={({ target: { value } }) => setheluoTab(value)}>
+        {list.map(x => (
+          <Radio.Button key={x[0]} value={x[0]}>
+            {x[1]}
+          </Radio.Button>
+        ))}
+      </Radio.Group>
+    )
+  }
 
   const layout = {
     labelCol: { span: 4 },
@@ -190,9 +215,15 @@ const Yi = () => {
   return (
     <div style={{ margin: '50px 25px' }}>
       <Form {...layout} name="basic">
-        <Form.Item label="卦"> {actionList0} </Form.Item>
-        <Form.Item label="象征"> {actionList1} </Form.Item>
-        <Form.Item label="河洛"> {actionList2} </Form.Item>
+        <Form.Item label="卦">
+          <ActionBar1 />
+        </Form.Item>
+        <Form.Item label="象征">
+          <ActionBar2 />
+        </Form.Item>
+        <Form.Item label="河洛">
+          <ActionBar3 />
+        </Form.Item>
       </Form>
       <div
         style={{
