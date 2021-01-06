@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Radio, Form } from 'antd'
+import { Radio, Form, Button } from 'antd'
 import guaJson from './guaText'
 import HeluoComp from './heluo'
 
@@ -12,7 +12,7 @@ const p2 = half + subtense
 const listOrig = [
   {
     id: 'ss',
-    zh: '正南',
+    zh: '南',
     d: ['M', half, half, p1, 0, p2, 0, 'z']
   },
   {
@@ -22,7 +22,7 @@ const listOrig = [
   },
   {
     id: 'ww',
-    zh: '正西',
+    zh: '西',
     d: ['M', half, half, w, p1, w, p2, 'z']
   },
   {
@@ -33,7 +33,7 @@ const listOrig = [
 
   {
     id: 'nn',
-    zh: '正北',
+    zh: '北',
     d: ['M', half, half, p2, w, p1, w, 'z']
   },
   {
@@ -43,7 +43,7 @@ const listOrig = [
   },
   {
     id: 'ee',
-    zh: '正东',
+    zh: '东',
     d: ['M', half, half, 0, p2, 0, p1, 'z']
   },
   {
@@ -79,24 +79,22 @@ const Yi = () => {
           strokeLinejoin="round"
         />
         <text
-          color="#fff"
           fontSize={w / 15}
           x={half}
           y={half * 0.15}
           textAnchor="middle"
           dominantBaseline="middle"
           transform={`rotate(${i * 45},${half},${half})`}>
-          <tspan>{x.text}</tspan>
+          <tspan fill="#fff">{x.text}</tspan>
         </text>
         <text
-          color="#fff"
           fontSize={w / 17}
           x={half}
           y={half * 0.35}
           textAnchor="middle"
           dominantBaseline="middle"
           transform={`rotate(${i * 45},${half},${half})`}>
-          <tspan>{x[textkey]}</tspan>
+          <tspan fill="#fff">{x[textkey]}</tspan>
         </text>
       </g>
     ))
@@ -205,6 +203,25 @@ const Yi = () => {
     )
   }
 
+  const downloadSvgFile = () => {
+    const content = document.querySelector('#plumflower').outerHTML
+    const blob = new Blob([content], { type: 'xml/svg' })
+    let file = new FileReader()
+    file.onload = e => {
+      let el = document.createElement('a')
+      el.setAttribute('href', e.target.result)
+      el.setAttribute('download', 'plumFlowerYi.svg')
+      if (document.createEvent) {
+        var event = document.createEvent('MouseEvents')
+        event.initEvent('click', true, true)
+        el.dispatchEvent(event)
+      } else {
+        el.click()
+      }
+    }
+    file.readAsDataURL(blob)
+  }
+
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 16 }
@@ -221,6 +238,11 @@ const Yi = () => {
         </Form.Item>
         <Form.Item label="河洛">
           <ActionBar3 />
+        </Form.Item>
+        <Form.Item label="下载">
+          <Button type="plain" onClick={downloadSvgFile}>
+            下载图形
+          </Button>
         </Form.Item>
       </Form>
       <div className="yiContainer">

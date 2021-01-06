@@ -606,7 +606,7 @@ const HeluoComp = props => {
                 strokeWidth={w / 300}
               />
               <text
-                color="#fff"
+                fill="#fff"
                 fontSize={w / 25}
                 transform={`translate(0,${r2 / 6})`}
                 x={x.pos[0]}
