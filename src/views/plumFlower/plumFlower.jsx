@@ -9,8 +9,6 @@ const subtense = Math.tan((22.5 * Math.PI) / 180) * half
 const p1 = half - subtense
 const p2 = half + subtense
 
-// const r = Math.sqrt(Math.pow((2 / 6) * w, 2) / 2)
-
 const listOrig = [
   {
     id: 'ss',
@@ -119,7 +117,7 @@ const Yi = () => {
     })
     return (
       <Radio.Group
-        defaultValue="houtian"
+        value={guaTypeVal}
         buttonStyle="solid"
         onChange={({ target: { value } }) => guaTypeFn(value)}>
         {list.map(x => (
@@ -158,7 +156,7 @@ const Yi = () => {
     })
     return (
       <Radio.Group
-        defaultValue="trigrams"
+        value={guaTextVal}
         buttonStyle="solid"
         onChange={({ target: { value } }) => guaTextFn(value)}>
         {list.map(x => (
@@ -195,8 +193,8 @@ const Yi = () => {
     })
     return (
       <Radio.Group
-        defaultValue="fish"
         buttonStyle="solid"
+        value={heluoTab}
         onChange={({ target: { value } }) => setheluoTab(value)}>
         {list.map(x => (
           <Radio.Button key={x[0]} value={x[0]}>
@@ -213,7 +211,7 @@ const Yi = () => {
   }
 
   return (
-    <div style={{ margin: '50px 25px' }}>
+    <div className="pageYi">
       <Form {...layout} name="basic">
         <Form.Item label="卦">
           <ActionBar1 />
@@ -225,13 +223,9 @@ const Yi = () => {
           <ActionBar3 />
         </Form.Item>
       </Form>
-      <div
-        style={{
-          margin: '25px auto',
-          width: '90%',
-          maxWidth: 'min(1000px,70vh)'
-        }}>
+      <div className="yiContainer">
         <svg
+          id="plumflower"
           viewBox={[0, 0, w, w].join(' ')}
           xmlns="http://www.w3.org/2000/svg">
           <g transform="scale(.9 .9) translate(5,5)">
