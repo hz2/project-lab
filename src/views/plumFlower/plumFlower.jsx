@@ -203,23 +203,44 @@ const Yi = () => {
     )
   }
 
-  const downloadSvgFile = () => {
+  const downloadSvgFile = type => {
+    const downloadBlob = (blob, name) => {
+      let file = new FileReader()
+      file.onload = e => {
+        let el = document.createElement('a')
+        el.setAttribute('href', e.target.result)
+        el.setAttribute('download', name)
+        if (document.createEvent) {
+          var event = document.createEvent('MouseEvents')
+          event.initEvent('click', true, true)
+          el.dispatchEvent(event)
+        } else {
+          el.click()
+        }
+      }
+      file.readAsDataURL(blob)
+    }
     const content = document.querySelector('#plumflower').outerHTML
-    const blob = new Blob([content], { type: 'image/svg+xml' })
-    let file = new FileReader()
-    file.onload = e => {
-      let el = document.createElement('a')
-      el.setAttribute('href', e.target.result)
-      el.setAttribute('download', 'plumFlowerYi.svg')
-      if (document.createEvent) {
-        var event = document.createEvent('MouseEvents')
-        event.initEvent('click', true, true)
-        el.dispatchEvent(event)
-      } else {
-        el.click()
+    const svgblob = new Blob([content], {
+      type: 'image/svg+xml'
+    })
+    if (type === 'svg') {
+      downloadBlob(svgblob, 'plumFlowerYi.svg')
+    } else if (type === 'bitmap') {
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+      const DOMURL = window.URL || window.webkitURL || window
+      const img = new Image()
+      const url = DOMURL.createObjectURL(svgblob)
+      img.src = url
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0)
+        canvas.toBlob(blob => {
+          downloadBlob(blob, 'plumFlowerYi.png')
+        })
+        DOMURL.revokeObjectURL(url)
       }
     }
-    file.readAsDataURL(blob)
   }
 
   const layout = {
@@ -229,6 +250,7 @@ const Yi = () => {
 
   return (
     <div className="pageYi">
+      <canvas id="canvas" width="1000" height="1000"></canvas>
       <Form {...layout} name="basic">
         <Form.Item label="卦">
           <ActionBar1 />
@@ -239,9 +261,12 @@ const Yi = () => {
         <Form.Item label="河洛">
           <ActionBar3 />
         </Form.Item>
-        <Form.Item label="下载">
-          <Button type="plain" onClick={downloadSvgFile}>
-            下载图形
+        <Form.Item label="下载" className="downloadBtn">
+          <Button type="plain" onClick={() => downloadSvgFile('svg')}>
+            下载矢量图
+          </Button>
+          <Button type="plain" onClick={() => downloadSvgFile('bitmap')}>
+            下载位图
           </Button>
         </Form.Item>
       </Form>
@@ -250,7 +275,7 @@ const Yi = () => {
           id="plumflower"
           viewBox={[0, 0, w, w].join(' ')}
           xmlns="http://www.w3.org/2000/svg">
-          <g transform="scale(.9 .9) translate(5,5)">
+          <g transform="scale(.9 .9) translate(50,50)">
             <g id="guagraph">{guaList}</g>
             <HeluoComp w={w} tabVal={heluoTab} />
           </g>
