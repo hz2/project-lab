@@ -205,7 +205,7 @@ const Yi = () => {
 
   const downloadSvgFile = () => {
     const content = document.querySelector('#plumflower').outerHTML
-    const blob = new Blob([content], { type: 'xml/svg' })
+    const blob = new Blob([content], { type: 'image/svg+xml' })
     let file = new FileReader()
     file.onload = e => {
       let el = document.createElement('a')
