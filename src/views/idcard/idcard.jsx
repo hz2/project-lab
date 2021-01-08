@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
-import { Modal, Input, Button, message } from 'antd'
+import { Modal, Input, Button, Spin, message } from 'antd'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './idcard.less'
@@ -24,7 +24,8 @@ class idcard extends React.Component {
     resultZodiac: '',
     icon1: '',
     icon2: '',
-    phoneobj: {}
+    phoneobj: {},
+    loading: false
   }
 
   showModal = () => {
@@ -262,14 +263,23 @@ class idcard extends React.Component {
     })
   }
   queryPhoneNo = num => {
+    this.setState({
+      loading: true
+    })
     fetch('https://respok.com/phonenum.php?' + num, { mode: 'cors' })
       .then(response => response.json())
       .then(r =>
         this.setState({
-          phoneobj: r
+          phoneobj: r,
+          loading: false
         })
       )
-      .catch(e => console.error('error', e))
+      .catch(e => {
+        console.error('error', e)
+        this.setState({
+          loading: false
+        })
+      })
   }
   render() {
     const { phoneobj } = this.state
@@ -331,16 +341,18 @@ class idcard extends React.Component {
               <Button type="primary">复制</Button>
             </CopyToClipboard>
           </div>
-          {phoneobj.province ? (
-            <div className="line">
-              <p>
-                {phoneobj.province || '未知'} {phoneobj.city || ''}
-              </p>
-              <p>归属地：{phoneobj.sp}</p>
-              <p>区号：{phoneobj.tel_prefix}</p>
-              <p>邮政编码：{phoneobj.postcode}</p>
-            </div>
-          ) : null}
+          <div className="line">
+            <Spin spinning={this.state.loading}>
+              {phoneobj.province && (
+                <p>
+                  {phoneobj.province || '未知'} {phoneobj.city || ''}
+                </p>
+              )}
+              {phoneobj.sp && <p>归属地：{phoneobj.sp}</p>}
+              {phoneobj.tel_prefix && <p>区号：{phoneobj.tel_prefix}</p>}
+              {phoneobj.postcode && <p>邮政编码：{phoneobj.postcode}</p>}
+            </Spin>
+          </div>
         </div>
 
         <Modal
