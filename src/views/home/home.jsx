@@ -32,7 +32,7 @@ const Home = props => (
     <div className="btn-list">{genBtn(cnverterList, props.history)}</div>
     <div className="github">
       <Divider>
-        <span>
+        <span className="footertext">
           <span>2020-present</span>
           <span className="splitcolor">\</span>
           <span>Made with </span>
