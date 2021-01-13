@@ -33,7 +33,7 @@ const Home = props => (
     <div className="github">
       <Divider>
         <span>
-          <span>2020-present \ made with </span>
+          <span>2020-present \ Made with </span>
           <span role="img" aria-label="sleep">
             {' '}
             💤{' '}

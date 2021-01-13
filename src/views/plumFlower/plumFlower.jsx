@@ -220,18 +220,20 @@ const Yi = () => {
       }
       file.readAsDataURL(blob)
     }
-    const content = document.querySelector('#plumflower').outerHTML
-    const svgblob = new Blob([content], {
-      type: 'image/svg+xml'
-    })
+    const dom = document.querySelector('#plumflower')
+    const genBlob = x => new Blob([x.outerHTML], { type: 'image/svg+xml' })
     if (type === 'svg') {
-      downloadBlob(svgblob, 'plumFlowerYi.svg')
+      dom.removeAttribute('width')
+      dom.removeAttribute('height')
+      downloadBlob(genBlob(dom), 'plumFlowerYi.svg')
     } else if (type === 'bitmap') {
+      dom.setAttribute('width', '1000px')
+      dom.setAttribute('height', '1000px')
       const canvas = document.getElementById('canvas')
       const ctx = canvas.getContext('2d')
       const DOMURL = window.URL || window.webkitURL || window
       const img = new Image()
-      const url = DOMURL.createObjectURL(svgblob)
+      const url = DOMURL.createObjectURL(genBlob(dom))
       img.src = url
       img.onload = () => {
         ctx.drawImage(img, 0, 0)
@@ -261,14 +263,6 @@ const Yi = () => {
         <Form.Item label="河洛">
           <ActionBar3 />
         </Form.Item>
-        <Form.Item label="下载" className="downloadBtn">
-          <Button type="plain" onClick={() => downloadSvgFile('svg')}>
-            下载矢量图
-          </Button>
-          <Button type="plain" onClick={() => downloadSvgFile('bitmap')}>
-            下载位图
-          </Button>
-        </Form.Item>
       </Form>
       <div className="yiContainer">
         <svg
@@ -280,6 +274,14 @@ const Yi = () => {
             <HeluoComp w={w} tabVal={heluoTab} />
           </g>
         </svg>
+      </div>
+      <div className="downloadBtn">
+        <Button type="plain" onClick={() => downloadSvgFile('svg')}>
+          下载矢量图
+        </Button>
+        <Button type="plain" onClick={() => downloadSvgFile('bitmap')}>
+          下载位图
+        </Button>
       </div>
     </div>
   )
