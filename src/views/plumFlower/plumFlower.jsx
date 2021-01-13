@@ -73,8 +73,6 @@ const Yi = () => {
           id={x.id}
           d={x.d.join(' ')}
           fill={x.color}
-          stroke="#bbb"
-          strokeWidth={w / 330}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
