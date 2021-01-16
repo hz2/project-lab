@@ -39,8 +39,7 @@ const Home = props => (
           <span role="img" aria-label="sleep">
             💤
           </span>
-          <span className="splitcolor">\</span>
-          <span>by </span>
+          <span> by </span>
           <a
             href="https://github.com/hz2/project-notwiki-lab-mirror"
             target="_blank"
