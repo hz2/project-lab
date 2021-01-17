@@ -13,7 +13,7 @@ import {
 import './home.less'
 
 const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
-const cnverterList = ['encode', 'hex', 'queryString']
+const cnverterList = ['encode', 'hex', 'queryString', 'svg']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
