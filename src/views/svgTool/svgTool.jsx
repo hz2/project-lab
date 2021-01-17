@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Tabs, Button } from 'antd'
+import { Tabs, Button, Upload } from 'antd'
+import { getFileInfo } from 'prettier'
 const { TabPane } = Tabs
 
 const SvgTool = () => {
@@ -9,8 +10,12 @@ const SvgTool = () => {
     console.log('a', a)
   }, [])
 
+  const getFileInfo = e => {
+    console.log('e', e)
+  }
+
   return (
-    <div className="svgTool">
+    <div className="svgTool common-box">
       <Tabs
         defaultActiveKey="1"
         onChange={() => {
@@ -18,9 +23,9 @@ const SvgTool = () => {
         }}>
         <TabPane tab="Symbol" key="1">
           <div className="buttons">
-            <Button type="primary" onClick={() => {}}>
-              单注
-            </Button>
+            <Upload type="primary" onChange={e => getFileInfo(e)}>
+              选择文件
+            </Upload>
           </div>
         </TabPane>
       </Tabs>
