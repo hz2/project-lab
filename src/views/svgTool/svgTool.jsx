@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Tabs, Upload, Button, message } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
+import './svgTool.less'
 const { TabPane } = Tabs
 const parseString = require('xml2js').parseString
 const xml2js = require('xml2js')
-import './svgTool.less'
 
 const SvgTool = () => {
-  const [a, setA] = useState('')
+  const [svgdom, setSvgDom] = useState('')
   useEffect(() => {
-    setA(1)
-    console.log('a', a)
+    // setA(1)
+    // console.log('a', a)
   }, [])
   const props = {
     name: 'file',
@@ -31,12 +31,14 @@ const SvgTool = () => {
                 return xml
               })
               .join('')
+            setSvgDom(svgList)
 
-            document.querySelector('#domResult').innerHTML = svgList
+            // document.querySelector('#domResult').innerHTML = svgList
           })
         }
         reader.onerror = e => {
           console.error('file err', e)
+          message.error('e', e)
         }
       }
       return false
@@ -55,7 +57,9 @@ const SvgTool = () => {
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </div>
-          <div id="domResult"></div>
+          <div
+            id="domResult"
+            dangerouslySetInnerHTML={{ __html: svgdom }}></div>
         </TabPane>
       </Tabs>
     </div>
