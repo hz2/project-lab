@@ -11,6 +11,7 @@
     "history": "^4.7.2",
     "http-proxy-middleware": "^0.19.2",
     "husky": "^2.4.1",
+    "jszip": "^3.5.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.10.0",
     "now": "^16.7.3",

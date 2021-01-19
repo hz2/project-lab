@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
 import Qs from 'qs'
 import './bing.less'
+import { downloadBlob } from '../../libs/common.js'
 
 const req = (mkt, index) =>
   new Promise((resolve, reject) => {
@@ -32,22 +33,7 @@ const openDown = (name, url, event) => {
   event.preventDefault()
   fetch(url, { mode: 'cors' })
     .then(response => response.blob())
-    .then(r => {
-      let file = new FileReader()
-      file.onload = e => {
-        let el = document.createElement('a')
-        el.setAttribute('href', e.target.result)
-        el.setAttribute('download', name)
-        if (document.createEvent) {
-          var event = document.createEvent('MouseEvents')
-          event.initEvent('click', true, true)
-          el.dispatchEvent(event)
-        } else {
-          el.click()
-        }
-      }
-      file.readAsDataURL(r)
-    })
+    .then(r => downloadBlob(r, name))
     .catch(err => console.error(new Error(err)))
 }
 
