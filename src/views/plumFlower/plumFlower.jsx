@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import guaJson from './guaText'
 import HeluoComp from './heluo'
+import { downloadBlob } from '../../libs/common.js'
 
 const w = 1000
 const half = w / 2
@@ -73,8 +74,6 @@ const Yi = () => {
           id={x.id}
           d={x.d.join(' ')}
           fill={x.color}
-          stroke="#bbb"
-          strokeWidth={w / 330}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -204,22 +203,6 @@ const Yi = () => {
   }
 
   const downloadSvgFile = type => {
-    const downloadBlob = (blob, name) => {
-      let file = new FileReader()
-      file.onload = e => {
-        let el = document.createElement('a')
-        el.setAttribute('href', e.target.result)
-        el.setAttribute('download', name)
-        if (document.createEvent) {
-          var event = document.createEvent('MouseEvents')
-          event.initEvent('click', true, true)
-          el.dispatchEvent(event)
-        } else {
-          el.click()
-        }
-      }
-      file.readAsDataURL(blob)
-    }
     const dom = document.querySelector('#plumflower')
     const genBlob = x => new Blob([x.outerHTML], { type: 'image/svg+xml' })
     if (type === 'svg') {

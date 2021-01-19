@@ -13,7 +13,7 @@ import {
 import './home.less'
 
 const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
-const cnverterList = ['encode', 'hex', 'queryString']
+const cnverterList = ['encode', 'hex', 'queryString', 'svg']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
@@ -32,11 +32,12 @@ const Home = props => (
     <div className="btn-list">{genBtn(cnverterList, props.history)}</div>
     <div className="github">
       <Divider>
-        <span>
-          <span>2020-present \ Made with </span>
+        <span className="footertext">
+          <span>2020-present</span>
+          <span className="splitcolor">\</span>
+          <span>Made with </span>
           <span role="img" aria-label="sleep">
-            {' '}
-            💤{' '}
+            💤
           </span>
           <span> by </span>
           <a
