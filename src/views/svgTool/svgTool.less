@@ -3,24 +3,34 @@
         display: inline-block;
         vertical-align: top;
         text-align: center;
-        padding: 10px;
-        margin: auto;
-        width: 160px;
+        margin: 5px;
+        width: 170px;
         border-radius: 8px;
+        overflow: hidden;
         .icon {
-            margin: 0 auto 10px;
+            margin: auto;
+            padding: 10px;
+
             svg {
-                width: 140px;
-                height: 140px;
+                width: 150px;
+                height: 150px;
             }
         }
 
         .text {
+            padding: 10px;
             font-size: 13px;
             color: #999;
         }
+
+        @dark: #888;
+        @light: #ccc;
         &:hover {
-            background-color: #e8e8e8;
+            background-color: #eee;
+
+            .icon {
+                background: conic-gradient( @light 0.25turn, @dark 0.25turn 0.5turn, @light 0.5turn 0.75turn, @dark 0.75turn) top left / 30px 30px repeat;
+            }
         }
     }
 
