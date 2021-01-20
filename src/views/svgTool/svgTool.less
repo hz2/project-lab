@@ -1,9 +1,29 @@
 #domResult {
-    svg {
-        width: 120px;
-        height: 120px;
-        margin: 10px;
+    .item {
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        padding: 10px;
+        margin: auto;
+        width: 160px;
+        border-radius: 8px;
+        .icon {
+            margin: 0 auto 10px;
+            svg {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        .text {
+            font-size: 13px;
+            color: #999;
+        }
+        &:hover {
+            background-color: #e8e8e8;
+        }
     }
+
 }
 
 .svgTool {

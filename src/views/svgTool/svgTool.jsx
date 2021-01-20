@@ -9,8 +9,7 @@ const xml2js = require('xml2js')
 const parseString = xml2js.parseString
 
 const SvgTool = () => {
-  const [svgdom, setSvgDom] = useState('')
-  const [svglist, setSvgList] = useState([])
+  const [svgList, setSvgList] = useState([])
   useEffect(() => {
     // setA(1)
     // console.log('a', a)
@@ -21,15 +20,17 @@ const SvgTool = () => {
       reader.readAsText(file, 'UTF-8')
       reader.onload = evt => {
         const xmlStr = evt.target.result
-        parseString(xmlStr, { trim: true }, function(err, result) {
+        parseString(xmlStr, { trim: true }, (err, result) => {
           const arr = result.svg.symbol
           const svgList = arr.map(x => {
             var builder = new xml2js.Builder()
             var xml = builder.buildObject({ svg: x })
-            return xml
+            return {
+              svg: xml,
+              name: x.$ && x.$.id
+            }
           })
           setSvgList(svgList)
-          setSvgDom(svgList.join(''))
         })
       }
       reader.onerror = e => {
@@ -43,8 +44,15 @@ const SvgTool = () => {
   const donwloadZip = () => {
     var zip = new JSZip()
     const folder = zip.folder('svgList')
-    svglist.forEach((x, i) => {
-      folder.file('svg_' + i + '.svg', x)
+    let nameArr = []
+    svgList.forEach(x => {
+      let name = x.name || 'svg'
+      let newName = name
+      if (nameArr.includes(name)) {
+        newName += '_' + nameArr.filter(y => y === name).length
+      }
+      nameArr.push(name)
+      folder.file(newName + '.svg', x.svg)
     })
     zip
       .generateAsync({ type: 'blob' })
@@ -71,9 +79,16 @@ const SvgTool = () => {
               Download as Zip
             </Button>
           </div>
-          <div
-            id="domResult"
-            dangerouslySetInnerHTML={{ __html: svgdom }}></div>
+          <div id="domResult">
+            {svgList.map((x, i) => (
+              <div className="item" key={i}>
+                <div
+                  className="icon"
+                  dangerouslySetInnerHTML={{ __html: x.svg }}></div>
+                <div className="text">{x.name}</div>
+              </div>
+            ))}
+          </div>
         </TabPane>
       </Tabs>
     </div>
