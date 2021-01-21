@@ -1,4 +1,21 @@
-#domResult {
+.result {
+    .file {
+        margin: 25px 0;
+
+        .file-name {
+            padding: 10px 25px;
+            font-size: 22px;
+            background: linear-gradient(135deg, #ddeefd, #fdfeff);
+            color: #00a292;
+            text-transform: uppercase;
+        }
+
+        .file-content {
+            padding: 15px 10px;
+
+        }
+    }
+
     .item {
         display: inline-block;
         vertical-align: top;
@@ -7,6 +24,7 @@
         width: 150px;
         border-radius: 8px;
         overflow: hidden;
+
         .icon {
             margin: auto;
             padding: 10px;
@@ -25,11 +43,12 @@
 
         @dark: #888;
         @light: #ccc;
+
         &:hover {
             background-color: #eee;
 
             .icon {
-                background: conic-gradient( @light 0.25turn, @dark 0.25turn 0.5turn, @light 0.5turn 0.75turn, @dark 0.75turn) top left / 25px 25px repeat;
+                background: conic-gradient(@light 0.25turn, @dark 0.25turn 0.5turn, @light 0.5turn 0.75turn, @dark 0.75turn) top left / 25px 25px repeat;
             }
         }
     }

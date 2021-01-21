@@ -14,31 +14,31 @@ const SvgTool = () => {
     // setA(1)
     // console.log('a', a)
   }, [])
-  const beforeUpload = file => {
-    if (file) {
-      var reader = new FileReader()
+  const LoadFile = file =>
+    new Promise((resolve, reject) => {
+      if (!file) reject('no file')
+      const reader = new FileReader()
       reader.readAsText(file, 'UTF-8')
-      reader.onload = evt => {
-        const xmlStr = evt.target.result
-        parseString(xmlStr, { trim: true }, (err, result) => {
-          const arr = result.svg.symbol
-          const svgList = arr.map(x => {
-            var builder = new xml2js.Builder()
-            var xml = builder.buildObject({ svg: x })
-            return {
-              svg: xml,
-              name: x.$ && x.$.id
-            }
-          })
-          setSvgList(svgList)
-        })
-      }
-      reader.onerror = e => {
-        console.error('file err', e)
-        message.error('e', e)
-      }
-    }
-    return false
+      reader.onload = ({ target: { result } }) =>
+        parseString(
+          result,
+          { trim: true },
+          (err, { svg }) =>
+            !err &&
+            resolve({
+              name: file.name,
+              list: svg.symbol.map(x => ({
+                svg: new xml2js.Builder().buildObject({ svg: x }),
+                name: x.$ && x.$.id
+              }))
+            })
+        )
+      reader.onerror = e => reject(e)
+    })
+
+  const uploadSymbolOnChange = ({ fileList }) => {
+    const arr = fileList.map(x => LoadFile(x.originFileObj))
+    Promise.all(arr).then(list => setSvgList(list))
   }
 
   const donwloadZip = () => {
@@ -61,7 +61,9 @@ const SvgTool = () => {
 
   const props = {
     name: 'file',
-    beforeUpload
+    multiple: true,
+    onChange: uploadSymbolOnChange,
+    beforeUpload: () => false
   }
   return (
     <div className="svgTool common-box">
@@ -79,13 +81,20 @@ const SvgTool = () => {
               Download as Zip
             </Button>
           </div>
-          <div id="domResult">
+          <div className="result">
             {svgList.map((x, i) => (
-              <div className="item" key={i}>
-                <div
-                  className="icon"
-                  dangerouslySetInnerHTML={{ __html: x.svg }}></div>
-                <div className="text">{x.name}</div>
+              <div className="file" key={i}>
+                <div className="file-name">{x.name}</div>
+                <div className="file-content">
+                  {x.list.map((y, j) => (
+                    <div className="item" key={j}>
+                      <div
+                        className="icon"
+                        dangerouslySetInnerHTML={{ __html: y.svg }}></div>
+                      <div className="text">{y.name}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
