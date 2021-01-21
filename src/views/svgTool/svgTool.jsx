@@ -4,23 +4,20 @@ import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from '../../libs/common.js'
 const { TabPane } = Tabs
-var JSZip = require('jszip')
-const xml2js = require('xml2js')
-const parseString = xml2js.parseString
+const JSZip = require('jszip')
+const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => {
-    // setA(1)
-    // console.log('a', a)
-  }, [])
+  useEffect(() => {}, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
       const reader = new FileReader()
+      const builder = new XmlBuilder()
       reader.readAsText(file, 'UTF-8')
       reader.onload = ({ target: { result } }) =>
-        parseString(
+        xmlParser(
           result,
           { trim: true },
           (err, { svg }) =>
@@ -28,7 +25,7 @@ const SvgTool = () => {
             resolve({
               name: file.name,
               list: svg.symbol.map(x => ({
-                svg: new xml2js.Builder().buildObject({ svg: x }),
+                svg: builder.buildObject({ svg: x }),
                 name: x.$ && x.$.id
               }))
             })
@@ -46,8 +43,7 @@ const SvgTool = () => {
       message.info('请上传 Svg Symbol')
       return
     }
-    var zip = new JSZip()
-    // const folder = zip.folder('svgList')
+    const zip = new JSZip()
     const FolderList = (list, folder) => {
       let nameArr = []
       list.forEach(x => {
@@ -69,11 +65,23 @@ const SvgTool = () => {
       .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
   }
 
+  const scrollToDom = ({ name }) => {
+    const top = document
+      .querySelector('#' + name.replace('.svg', ''))
+      .getBoundingClientRect().y
+    window.scrollTo({
+      top,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   const props = {
     name: 'file',
     multiple: true,
     onChange: uploadSymbolOnChange,
-    beforeUpload: () => false
+    beforeUpload: () => false,
+    onPreview: scrollToDom
   }
   return (
     <div className="svgTool common-box">
@@ -94,7 +102,9 @@ const SvgTool = () => {
           <div className="result">
             {svgList.map((x, i) => (
               <div className="file" key={i}>
-                <div className="file-name">{x.name}</div>
+                <div className="file-name" id={x.name.replace('.svg', '')}>
+                  {x.name}
+                </div>
                 <div className="file-content">
                   {x.list.map((y, j) => (
                     <div className="item" key={j}>
