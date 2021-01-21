@@ -24,6 +24,7 @@ const SvgTool = () => {
             !err &&
             resolve({
               name: file.name,
+              uid: file.uid,
               list: svg.symbol.map(x => ({
                 svg: builder.buildObject({ svg: x }),
                 name: x.$ && x.$.id
@@ -65,10 +66,8 @@ const SvgTool = () => {
       .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
   }
 
-  const scrollToDom = ({ name }) => {
-    const top = document
-      .querySelector('#' + name.replace('.svg', ''))
-      .getBoundingClientRect().y
+  const scrollToDom = ({ uid }) => {
+    const top = document.querySelector('#' + uid).getBoundingClientRect().y
     window.scrollTo({
       top,
       left: 0,
@@ -102,7 +101,7 @@ const SvgTool = () => {
           <div className="result">
             {svgList.map((x, i) => (
               <div className="file" key={i}>
-                <div className="file-name" id={x.name.replace('.svg', '')}>
+                <div className="file-name" id={x.uid}>
                   {x.name}
                 </div>
                 <div className="file-content">
