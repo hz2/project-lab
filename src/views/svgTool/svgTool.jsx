@@ -4,64 +4,83 @@ import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from '../../libs/common.js'
 const { TabPane } = Tabs
-var JSZip = require('jszip')
-const xml2js = require('xml2js')
-const parseString = xml2js.parseString
+const JSZip = require('jszip')
+const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => {
-    // setA(1)
-    // console.log('a', a)
-  }, [])
-  const beforeUpload = file => {
-    if (file) {
-      var reader = new FileReader()
+  useEffect(() => {}, [])
+  const LoadFile = file =>
+    new Promise((resolve, reject) => {
+      if (!file) reject('no file')
+      const reader = new FileReader()
+      const builder = new XmlBuilder()
       reader.readAsText(file, 'UTF-8')
-      reader.onload = evt => {
-        const xmlStr = evt.target.result
-        parseString(xmlStr, { trim: true }, (err, result) => {
-          const arr = result.svg.symbol
-          const svgList = arr.map(x => {
-            var builder = new xml2js.Builder()
-            var xml = builder.buildObject({ svg: x })
-            return {
-              svg: xml,
-              name: x.$ && x.$.id
-            }
-          })
-          setSvgList(svgList)
-        })
-      }
-      reader.onerror = e => {
-        console.error('file err', e)
-        message.error('e', e)
-      }
-    }
-    return false
+      reader.onload = ({ target: { result } }) =>
+        xmlParser(
+          result,
+          { trim: true },
+          (err, { svg }) =>
+            !err &&
+            resolve({
+              name: file.name,
+              uid: file.uid,
+              list: svg.symbol.map(x => ({
+                svg: builder.buildObject({ svg: x }),
+                name: x.$ && x.$.id
+              }))
+            })
+        )
+      reader.onerror = e => reject(e)
+    })
+
+  const uploadSymbolOnChange = ({ fileList }) => {
+    const arr = fileList.map(x => LoadFile(x.originFileObj))
+    Promise.all(arr).then(list => setSvgList(list))
   }
 
   const donwloadZip = () => {
-    var zip = new JSZip()
-    const folder = zip.folder('svgList')
-    let nameArr = []
+    if (!svgList.length) {
+      message.info('请上传 Svg Symbol')
+      return
+    }
+    const zip = new JSZip()
+    const FolderList = (list, folder) => {
+      let nameArr = []
+      list.forEach(x => {
+        let name = x.name || 'svg'
+        let newName = name
+        if (nameArr.includes(name)) {
+          newName += '_' + nameArr.filter(y => y === name).length
+        }
+        nameArr.push(name)
+        folder.file(newName + '.svg', x.svg)
+      })
+    }
     svgList.forEach(x => {
-      let name = x.name || 'svg'
-      let newName = name
-      if (nameArr.includes(name)) {
-        newName += '_' + nameArr.filter(y => y === name).length
-      }
-      nameArr.push(name)
-      folder.file(newName + '.svg', x.svg)
+      const folder = zip.folder(x.name.replace('.svg', ''))
+      FolderList(x.list, folder)
     })
     zip
       .generateAsync({ type: 'blob' })
       .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
   }
 
+  const scrollToDom = ({ uid }) => {
+    const top = document.querySelector('#' + uid).getBoundingClientRect().y
+    window.scrollTo({
+      top,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   const props = {
     name: 'file',
-    beforeUpload
+    multiple: true,
+    onChange: uploadSymbolOnChange,
+    beforeUpload: () => false,
+    onPreview: scrollToDom
   }
   return (
     <div className="svgTool common-box">
@@ -79,13 +98,22 @@ const SvgTool = () => {
               Download as Zip
             </Button>
           </div>
-          <div id="domResult">
+          <div className="result">
             {svgList.map((x, i) => (
-              <div className="item" key={i}>
-                <div
-                  className="icon"
-                  dangerouslySetInnerHTML={{ __html: x.svg }}></div>
-                <div className="text">{x.name}</div>
+              <div className="file" key={i}>
+                <div className="file-name" id={x.uid}>
+                  {x.name}
+                </div>
+                <div className="file-content">
+                  {x.list.map((y, j) => (
+                    <div className="item" key={j}>
+                      <div
+                        className="icon"
+                        dangerouslySetInnerHTML={{ __html: y.svg }}></div>
+                      <div className="text">{y.name}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
