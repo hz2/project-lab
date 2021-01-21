@@ -42,17 +42,27 @@ const SvgTool = () => {
   }
 
   const donwloadZip = () => {
+    if (!svgList.length) {
+      message.info('请上传 Svg Symbol')
+      return
+    }
     var zip = new JSZip()
-    const folder = zip.folder('svgList')
-    let nameArr = []
+    // const folder = zip.folder('svgList')
+    const FolderList = (list, folder) => {
+      let nameArr = []
+      list.forEach(x => {
+        let name = x.name || 'svg'
+        let newName = name
+        if (nameArr.includes(name)) {
+          newName += '_' + nameArr.filter(y => y === name).length
+        }
+        nameArr.push(name)
+        folder.file(newName + '.svg', x.svg)
+      })
+    }
     svgList.forEach(x => {
-      let name = x.name || 'svg'
-      let newName = name
-      if (nameArr.includes(name)) {
-        newName += '_' + nameArr.filter(y => y === name).length
-      }
-      nameArr.push(name)
-      folder.file(newName + '.svg', x.svg)
+      const folder = zip.folder(x.name.replace('.svg', ''))
+      FolderList(x.list, folder)
     })
     zip
       .generateAsync({ type: 'blob' })
