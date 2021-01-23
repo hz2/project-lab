@@ -153,7 +153,7 @@ const Bing = () => {
       <div className={menuShow ? 'mktList menuShow' : 'mktList'}>
         {mktList}
         <div className="item" onClick={e => downAll(e)}>
-          DownLoad
+          DownLoad All
         </div>
       </div>
     </div>
