@@ -1,20 +1,13 @@
 import React from 'react'
-import { push } from 'connected-react-router'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { Button, Divider } from 'antd'
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
 
 import './home.less'
 
+import ReduxPage from './redux'
+
 const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
 const cnverterList = ['encode', 'hex', 'queryString', 'svg']
-const analyzerList = ['ip']
+// const analyzerList = ['ip']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
@@ -31,12 +24,14 @@ const Home = props => (
     <div className="btn-list">{genBtn(generatorList, props.history)}</div>
     <h2>Converter</h2>
     <div className="btn-list">{genBtn(cnverterList, props.history)}</div>
-    <h2>Analyzer</h2>
-    <div className="btn-list">{genBtn(analyzerList, props.history)}</div>
-    <div className="github">
+    {/* <h2>Analyzer</h2>
+    <div className="btn-list">{genBtn(analyzerList, props.history)}</div> */}
+
+    <ReduxPage />
+    <footer className="github">
       <Divider>
         <span className="footertext">
-          <span>2020 - present</span>
+          <span>2020-present</span>
           <span className="splitcolor">\</span>
           <span>Made with </span>
           <span role="img" aria-label="sleep">
@@ -51,26 +46,8 @@ const Home = props => (
           </a>
         </span>
       </Divider>
-    </div>
+    </footer>
   </div>
 )
 
-const mapStateToProps = ({ counter }) => ({
-  count: counter.count,
-  isIncrementing: counter.isIncrementing,
-  isDecrementing: counter.isDecrementing
-})
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      increment,
-      incrementAsync,
-      decrement,
-      decrementAsync,
-      changePage: () => push('#/about')
-    },
-    dispatch
-  )
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home

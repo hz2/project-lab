@@ -12,7 +12,7 @@ import {
 
 const Home = props => (
   <div>
-    <h1>Home</h1>
+    <hr />
     <p>Count: {props.count}</p>
 
     <p>
@@ -42,15 +42,6 @@ const Home = props => (
     <p>
       <Button type="primary" onClick={() => props.changePage()}>
         Go to about page via redux
-      </Button>
-    </p>
-    <p>
-      <Button type="primary" onClick={() => props.history.push('/idc')}>
-        ID Card
-      </Button>{' '}
-      |{' '}
-      <Button type="primary" onClick={() => props.history.push('/qs')}>
-        QS
       </Button>
     </p>
   </div>
