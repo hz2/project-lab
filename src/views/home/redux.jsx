@@ -12,7 +12,7 @@ import {
 
 const Home = props => (
   <div>
-    <hr />
+    <br />
     <p>Count: {props.count}</p>
 
     <p>
