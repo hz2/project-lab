@@ -3,7 +3,7 @@ import { Button, Divider } from 'antd'
 
 import './home.less'
 
-import ReduxPage from './redux'
+// import ReduxPage from './redux'
 
 const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
 const cnverterList = ['encode', 'hex', 'queryString', 'svg']
@@ -27,7 +27,7 @@ const Home = props => (
     {/* <h2>Analyzer</h2>
     <div className="btn-list">{genBtn(analyzerList, props.history)}</div> */}
 
-    <ReduxPage />
+    {/* <ReduxPage /> */}
     <footer className="github">
       <Divider>
         <span className="footertext">
