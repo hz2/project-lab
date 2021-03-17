@@ -138,7 +138,7 @@ const ColorPage = () => {
       : [0, len / 2, len].map(x => fn(x * 1))
     ).join(',')
 
-  const tofixed4 = val => (val * 1).toFixed(4) * 100
+  const tofixed4 = val => ((val * 1).toFixed(4) * 100).toFixed(2)
 
   const colorPickerList = color => {
     const { h, s, l, a, r, g, b, h_, s_, l_ } = color
