@@ -133,55 +133,77 @@ const ColorPage = () => {
   useEffect(() => genColor(), [])
 
   const genArr = (len, fn) =>
-    Array.from(Array(len + 1), (x, i) => fn(i * 1)).join(',')
+    (len === 360
+      ? Array.from(Array(len + 1), (x, i) => fn(i * 1))
+      : [0, len / 2, len].map(x => fn(x * 1))
+    ).join(',')
+
+  const tofixed4 = val => ((val * 1).toFixed(4) * 100).toFixed(2)
 
   const colorPickerList = color => {
     const { h, s, l, a, r, g, b, h_, s_, l_ } = color
     const domList = [
       {
+        key: 'h',
         name: `Hue 色相 ( ${h_ / 100}° )`,
         val: h,
-        bgval: x => `hsla(${x},${s * 100}%,${l * 100}%,${a})`,
+        bgval: x => `hsla(${x},${tofixed4(s)}%,${tofixed4(l)}%,${a})`,
         max: 360,
         min: 1
       },
       {
+        key: 's',
         name: `Saturation 饱和度 ( ${s_}% )`,
         val: s * 100,
         bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
         max: 100
       },
       {
+        key: 'l',
         name: `Lightness 亮度 ( ${l_}% )`,
         val: l * 100,
         bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
         max: 100
       },
       {
+        key: 'a',
         name: `Alpha 透明度 ( ${a} )`,
         val: a * 100,
         bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
         max: 100
       },
       {
+        key: 'r',
         name: `红色 ( ${r} )`,
         val: r,
         bgval: x => `rgba(${x},${g},${b},${a})`,
         max: 255
       },
       {
+        key: 'g',
         name: `绿色 ( ${g} )`,
         val: g,
         bgval: x => `rgba(${r},${x},${b},${a})`,
         max: 255
       },
       {
+        key: 'b',
         name: `蓝色 ( ${b} )`,
         val: b,
         bgval: x => `rgba(${r},${g},${x},${a})`,
         max: 255
       }
     ]
+    // set css variable
+    let dom = document.querySelector('#colorList')
+
+    domList.forEach(x =>
+      dom.style.setProperty(
+        '--linear-' + x.key,
+        `linear-gradient(to right, ${genArr(x.max, x.bgval)})`
+      )
+    )
+
     // rgb
     setRGB(
       [domList.slice(0, 4), domList.slice(4)].map((w, h) => (
@@ -190,14 +212,7 @@ const ColorPage = () => {
             <div className="colorItem" key={i}>
               <div className="title">{x.name}</div>
               <div className="sliderBlock">
-                <div
-                  className={'list bg' + i}
-                  style={{
-                    backgroundImage: `linear-gradient(to right, ${genArr(
-                      x.max,
-                      x.bgval
-                    )})`
-                  }}></div>
+                <div className={'list bg_' + x.key}></div>
                 <Slider
                   key={i}
                   value={x.val}
@@ -366,7 +381,9 @@ const ColorPage = () => {
             </div>
           </CopyToClipboard>
         </div>
-        <div className="colorList">{hslRGB}</div>
+        <div className="colorList" id="colorList">
+          {hslRGB}
+        </div>
       </div>
       <div className="showList">{showListDom}</div>
       <div className={extendcode ? 'codebox showCode' : 'codebox'}>
