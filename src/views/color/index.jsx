@@ -134,7 +134,7 @@ const ColorPage = () => {
 
   const genArr = (len, fn) =>
     (len === 360
-      ? Array.from(Array(len + 1), (x, i) => fn(i * 1))
+      ? Array.from(Array(len / 20 + 1), (x, i) => fn(i * 20))
       : [0, len / 2, len].map(x => fn(x * 1))
     ).join(',')
 
