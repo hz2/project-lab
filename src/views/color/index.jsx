@@ -378,6 +378,16 @@ const ColorPage = () => {
                 style={{ color: colorSets.rgba, background: colorSets.text }}>
                 预览文字
               </div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.text})`
+                }}></div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.text})`
+                }}></div>
             </div>
           </CopyToClipboard>
         </div>
