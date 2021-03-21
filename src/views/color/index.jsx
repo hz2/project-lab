@@ -365,7 +365,7 @@ const ColorPage = () => {
           <CopyToClipboard
             text={colorSets.rgba}
             onCopy={() => message.success('颜色已复制！')}>
-            <div>
+            <div className="previewBox">
               <div
                 className="mainValue"
                 style={{
