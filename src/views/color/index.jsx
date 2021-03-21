@@ -134,7 +134,7 @@ const ColorPage = () => {
 
   const genArr = (len, fn) =>
     (len === 360
-      ? Array.from(Array(len + 1), (x, i) => fn(i * 1))
+      ? Array.from(Array(len / 20 + 1), (x, i) => fn(i * 20))
       : [0, len / 2, len].map(x => fn(x * 1))
     ).join(',')
 
@@ -331,6 +331,7 @@ const ColorPage = () => {
       rgba: `rgba(${[r, g, b, a].join(',')})`,
       hexa: ``,
       text: l > 0.7 ? '#000' : '#fff',
+      gradient: l > 0.25 ? '#fff' : '#000',
       h, // 1 - 360
       s, // 0 - 1
       l, // 0 - 1
@@ -378,6 +379,16 @@ const ColorPage = () => {
                 style={{ color: colorSets.rgba, background: colorSets.text }}>
                 预览文字
               </div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
             </div>
           </CopyToClipboard>
         </div>
