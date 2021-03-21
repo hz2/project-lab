@@ -331,6 +331,7 @@ const ColorPage = () => {
       rgba: `rgba(${[r, g, b, a].join(',')})`,
       hexa: ``,
       text: l > 0.7 ? '#000' : '#fff',
+      gradient: l > 0.25 ? '#fff' : '#000',
       h, // 1 - 360
       s, // 0 - 1
       l, // 0 - 1
@@ -381,12 +382,12 @@ const ColorPage = () => {
               <div
                 className="mainValue"
                 style={{
-                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.text})`
+                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
                 }}></div>
               <div
                 className="mainValue"
                 style={{
-                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.text})`
+                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
                 }}></div>
             </div>
           </CopyToClipboard>
