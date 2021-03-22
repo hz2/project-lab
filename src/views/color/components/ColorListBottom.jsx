@@ -57,7 +57,7 @@ const ColorListBottom = props => {
             <Radio.Button value="30">30</Radio.Button>
           </Radio.Group>
         </div>
-        <div className={'cats count' + showCount}>
+        <div className={'cats count' + val}>
           <div className="cat">{showH2}</div>
           <div className="cat">{showS2}</div>
           <div className="cat">{showL2}</div>
@@ -70,7 +70,7 @@ const ColorListBottom = props => {
 
   return (
     <>
-      <div className="colorList">{showListDom}</div>
+      <div className="colorListBottom">{showListDom}</div>
     </>
   )
 }

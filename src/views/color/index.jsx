@@ -175,54 +175,56 @@ const ColorPage = () => {
   }
 
   return (
-    <div className="colorPage">
-      <Input
-        className="item-input"
-        placeholder="生成颜色"
-        value={colorSets.rgba}
-        readOnly
-      />
-      <Button type="primary" onClick={genColor}>
-        生成
-      </Button>
-      <div className="actionList">
-        <div className="previewColor">
-          <CopyToClipboard
-            text={colorSets.rgba}
-            onCopy={() => message.success('颜色已复制！')}>
-            <div className="previewBox">
-              <div
-                className="mainValue"
-                style={{
-                  color: colorSets.text,
-                  backgroundColor: colorSets.rgba
-                }}>
-                预览文字
+    <>
+      <div className="colorPage">
+        <Input
+          className="item-input"
+          placeholder="生成颜色"
+          value={colorSets.rgba}
+          readOnly
+        />
+        <Button type="primary" onClick={genColor}>
+          生成
+        </Button>
+        <div className="actionList">
+          <div className="previewColor">
+            <CopyToClipboard
+              text={colorSets.rgba}
+              onCopy={() => message.success('颜色已复制！')}>
+              <div className="previewBox">
+                <div
+                  className="mainValue"
+                  style={{
+                    color: colorSets.text,
+                    backgroundColor: colorSets.rgba
+                  }}>
+                  预览文字
+                </div>
+                <div
+                  className="mainValue"
+                  style={{ color: colorSets.rgba, background: colorSets.text }}>
+                  预览文字
+                </div>
+                <div
+                  className="mainValue"
+                  style={{
+                    backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
+                  }}></div>
+                <div
+                  className="mainValue"
+                  style={{
+                    backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
+                  }}></div>
               </div>
-              <div
-                className="mainValue"
-                style={{ color: colorSets.rgba, background: colorSets.text }}>
-                预览文字
-              </div>
-              <div
-                className="mainValue"
-                style={{
-                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
-                }}></div>
-              <div
-                className="mainValue"
-                style={{
-                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
-                }}></div>
-            </div>
-          </CopyToClipboard>
-        </div>
-        <div className="colorList" id="colorList">
-          {hslRGB}
+            </CopyToClipboard>
+          </div>
+          <div className="colorList" id="colorList">
+            {hslRGB}
+          </div>
         </div>
       </div>
       <ColorListBottom val={colorSets} />
-    </div>
+    </>
   )
 }
 

@@ -131,14 +131,16 @@
 
 // color List Bottom
 
-.colorList {
+.colorListBottom {
+    position: fixed;
+    bottom: 0;
     .action {
-        margin: 10px 0 20px;
 
         .ant-switch {
             margin-left: 15px;
         }
     }
+
     .cats {
         display: flex;
     }
@@ -150,26 +152,34 @@
         display: inline-flex;
 
         .colorItem {
-            display: inline-block;
+            box-sizing: border-box;
             border-radius: 100%;
             border: 3px solid #e8e8e8;
             margin: 5px 0 5px -15px;
         }
     }
+
     .count10 .colorItem {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
     }
+
     .count15 .colorItem {
-        width: 55px;
-        height: 55px;
+        width: 44px;
+        height: 44px;
     }
+
     .count20 .colorItem {
-        width: 45px;
-        height: 45px;
+        width: 32px;
+        height: 32px;
+        margin-left: -10px;
+        border-width: 2px;
     }
+
     .count30 .colorItem {
-        width: 30px;
-        height: 30px;
+        width: 22px;
+        height: 22px;
+        margin-left: -5px;
+        border-width: 2px;
     }
 }
