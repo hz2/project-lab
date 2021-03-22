@@ -113,29 +113,6 @@
         box-sizing: content-box;
     }
 
-    .showList {
-        .action {
-            margin: 10px 0 20px;
-
-            .ant-switch {
-                margin-left: 15px;
-            }
-        }
-
-        .cat {
-            margin: 0px;
-            display: flex;
-
-            .colorItem {
-                width: 65px;
-                height: 65px;
-                display: inline-block;
-                border-radius: 100%;
-                border: 3px solid #e8e8e8;
-                margin: 5px 0 5px -15px;
-            }
-        }
-    }
 
     .codebox {
         margin: 20px 0 10px;
@@ -149,4 +126,50 @@
     }
 
 
+}
+
+
+// color List Bottom
+
+.colorList {
+    .action {
+        margin: 10px 0 20px;
+
+        .ant-switch {
+            margin-left: 15px;
+        }
+    }
+    .cats {
+        display: flex;
+    }
+
+    .cat {
+        margin: 5px;
+        width: 33%;
+        box-sizing: border-box;
+        display: inline-flex;
+
+        .colorItem {
+            display: inline-block;
+            border-radius: 100%;
+            border: 3px solid #e8e8e8;
+            margin: 5px 0 5px -15px;
+        }
+    }
+    .count10 .colorItem {
+        width: 65px;
+        height: 65px;
+    }
+    .count15 .colorItem {
+        width: 55px;
+        height: 55px;
+    }
+    .count20 .colorItem {
+        width: 45px;
+        height: 45px;
+    }
+    .count30 .colorItem {
+        width: 30px;
+        height: 30px;
+    }
 }
