@@ -213,6 +213,16 @@ const ColorPage = () => {
                 <div
                   className="mainValue"
                   style={{
+                    backgroundImage: `radial-gradient( circle at 100%, ${colorSets.rgba},${colorSets.gradient})`
+                  }}></div>
+                <div
+                  className="mainValue"
+                  style={{
+                    backgroundImage: `radial-gradient( ellipse at bottom right, ${colorSets.rgba},${colorSets.gradient})`
+                  }}></div>
+                <div
+                  className="mainValue"
+                  style={{
                     backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
                   }}></div>
               </div>
