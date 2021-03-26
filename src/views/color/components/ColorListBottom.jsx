@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { Radio, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { colorStr2arr, hsl2rgb, rgb2hsl } from './colors'
+import { hsl2rgb } from './colors'
 
 const ColorListBottom = props => {
   const color = props.val
@@ -50,7 +50,7 @@ const ColorListBottom = props => {
           <Radio.Group
             defaultValue="10"
             buttonStyle="solid"
-            onChange={({ target: { value } }) => genShowList(value * 1, color)}>
+            onChange={onChangeFn}>
             <Radio.Button value="10">10</Radio.Button>
             <Radio.Button value="15">15</Radio.Button>
             <Radio.Button value="20">20</Radio.Button>
@@ -66,7 +66,10 @@ const ColorListBottom = props => {
     )
   }
 
-  useEffect(() => genShowList(showCount, color), [color])
+  const onChangeFn = () => ({ target: { value } }) =>
+    genShowList(value * 1, color)
+
+  onChangeFn(showCount, color)
 
   return (
     <>
