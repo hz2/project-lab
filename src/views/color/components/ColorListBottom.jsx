@@ -7,7 +7,8 @@ import { hsl2rgb } from './colors'
 const genShowList = (val, color, setShowCount, setShowListDom) => {
   const { h, s, l } = color
 
-  const onChangeFn = ({ target: { value } }) => genShowList(value * 1, color)
+  const onChangeFn = ({ target: { value } }) =>
+    genShowList(value * 1, color, setShowCount, setShowListDom)
   setShowCount(val)
   const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
 
