@@ -13,23 +13,29 @@ const hsl2hex = arr =>
     .join('')
 const genHexList = (fn, val) => genArr2(val).map(x => hsl2hex(fn(x)))
 
-const CopyList2 = ({ fn, val }) => (
-  <div className="cat">
-    {genHexList(fn, val).map((x, i) => (
-      <CopyToClipboard
-        text={x}
-        title={x}
-        key={i}
-        onCopy={() => message.success('颜色已复制！')}>
-        <div
-          className="colorItem"
-          style={{
-            backgroundColor: x
-          }}></div>
-      </CopyToClipboard>
-    ))}
-  </div>
-)
+const CopyList2 = ({ fn, val }) => {
+  const [dom, genDom] = useState(null)
+  useEffect(() => {
+    genDom(
+      <div className="cat" id={'val' + val}>
+        {genHexList(fn, val).map((x, i) => (
+          <CopyToClipboard
+            text={x}
+            title={x}
+            key={i}
+            onCopy={() => message.success('颜色已复制！')}>
+            <div
+              className="colorItem"
+              style={{
+                backgroundColor: x
+              }}></div>
+          </CopyToClipboard>
+        ))}
+      </div>
+    )
+  }, [fn, val])
+  return <>{dom}</>
+}
 
 const ColorList = ({ val, color }) => {
   const [colorState, setColor] = useState(color)
