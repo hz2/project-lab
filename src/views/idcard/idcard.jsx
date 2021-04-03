@@ -118,7 +118,7 @@ class idcard extends React.Component {
       if (val && val.length === 18) {
         const b17 = val.substring(0, 17)
         const end = val.substring(17, 18)
-        isValidate = this.idcardCalc(b17) === end
+        isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
     }
     this.setState({
@@ -310,6 +310,7 @@ class idcard extends React.Component {
               placeholder="输入身份证号码"
               value={this.state.idcvalue}
               onChange={this.handleChange}
+              maxLength="18"
             />
             <CopyToClipboard
               text={this.state.idcvalue}
@@ -318,7 +319,14 @@ class idcard extends React.Component {
             </CopyToClipboard>
           </div>
           <div className="line">
-            <p>校验结果：{this.state.isValidate ? '✔️' : '❌'}</p>
+            <p>
+              {
+                {
+                  valid: '校验通过 ✔️',
+                  invalid: '校验未通过 ❌'
+                }[this.state.isValidate]
+              }
+            </p>
             <p>{this.state.resultArea}</p>
             <p>{this.state.resultBirth}</p>
             <p>{this.state.resultSex}</p>
