@@ -318,7 +318,7 @@ class idcard extends React.Component {
             </CopyToClipboard>
           </div>
           <div className="line">
-            <p>{this.state.isValidate}</p>
+            <p>校验结果：{this.state.isValidate ? '✔️' : '❌'}</p>
             <p>{this.state.resultArea}</p>
             <p>{this.state.resultBirth}</p>
             <p>{this.state.resultSex}</p>
