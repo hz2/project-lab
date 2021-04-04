@@ -1,4 +1,4 @@
-export default {
+const Gua = {
   qian: {
     trigrams: '☰',
     text: '乾',
@@ -168,3 +168,5 @@ export default {
     color: '#fdcd3c'
   }
 }
+
+export default Gua
