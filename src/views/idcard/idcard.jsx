@@ -40,6 +40,15 @@ class idcard extends React.Component {
       visible: false
     })
   } //
+
+  idcardCalc = b17 =>
+    [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2][
+      b17
+        .split('')
+        .map((x, i) => x * (Math.pow(2, 17 - i) % 11))
+        // .map((x, i) => x * (2 ** (17 - i) % 11))
+        .reduce((x, y) => x + y) % 11
+    ] + ''
   setResult = val => {
     let area = ''
     let birth = ''
@@ -79,6 +88,7 @@ class idcard extends React.Component {
     let tianArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
     let icon1 = ''
     let icon2 = ''
+    let isValidate = null
     if (val) {
       area =
         xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
@@ -105,6 +115,11 @@ class idcard extends React.Component {
         currentYear.zh
       }年 ${currentYear.icon2}`
       icon2 = currentYear.icon
+      if (val && val.length === 18) {
+        const b17 = val.substring(0, 17)
+        const end = val.substring(17, 18)
+        isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
+      }
     }
     this.setState({
       resultArea: area,
@@ -113,7 +128,8 @@ class idcard extends React.Component {
       resultAstrology: astrology,
       resultZodiac: zodiac,
       icon1: icon1,
-      icon2: icon2
+      icon2: icon2,
+      isValidate: isValidate
     })
   }
   handleChange = ({ target: { value } }) => {
@@ -175,13 +191,7 @@ class idcard extends React.Component {
     let rdmorder = ('0' + rdm(0, 99)).substr(-2)
     let rdmsex = rdm(0, 9) // 随机性别 奇数男 偶数女
     let b17 = `${rdmarea}${rdmdate}${rdmorder}${rdmsex}`
-    let endNum = [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2][
-      b17
-        .split('')
-        .map((x, i) => x * (Math.pow(2, 17 - i) % 11))
-        // .map((x, i) => x * (2 ** (17 - i) % 11))
-        .reduce((x, y) => x + y) % 11
-    ]
+    let endNum = this.idcardCalc(b17)
     return `${b17}${endNum}`
   }
   generateIDCardNO = () => {
@@ -300,6 +310,7 @@ class idcard extends React.Component {
               placeholder="输入身份证号码"
               value={this.state.idcvalue}
               onChange={this.handleChange}
+              maxLength="18"
             />
             <CopyToClipboard
               text={this.state.idcvalue}
@@ -308,6 +319,14 @@ class idcard extends React.Component {
             </CopyToClipboard>
           </div>
           <div className="line">
+            <p>
+              {
+                {
+                  valid: '校验通过 ✔️',
+                  invalid: '校验未通过 ❌'
+                }[this.state.isValidate]
+              }
+            </p>
             <p>{this.state.resultArea}</p>
             <p>{this.state.resultBirth}</p>
             <p>{this.state.resultSex}</p>
