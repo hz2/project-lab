@@ -80,3 +80,10 @@ export const hsl2rgb = hsla => {
   const m = l - C / 2
   return [...rgb_.map(x => Math.round((x + m) * 255)), a]
 }
+
+export const hsl2hex = arr =>
+  '#' +
+  hsl2rgb(arr)
+    .slice(0, 3)
+    .map(x => x.toString(16).padStart(2, 0))
+    .join('')
