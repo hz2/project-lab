@@ -4,20 +4,6 @@ import { Radio, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { hsl2hex } from './colors'
 
-const ColorArr = ({ fn, count }) => (
-  <div className="cat">
-    {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
-      <CopyToClipboard
-        text={x}
-        title={x}
-        key={i}
-        onCopy={() => message.success('颜色已复制！')}>
-        <div className="colorItem" style={{ backgroundColor: x }}></div>
-      </CopyToClipboard>
-    ))}
-  </div>
-)
-
 const ColorList = ({ count, color: { h, s, l } }) => (
   <div className={'cats count' + count}>
     {[
@@ -25,7 +11,17 @@ const ColorList = ({ count, color: { h, s, l } }) => (
       x => [h, ((100 / count) * x) / 100, l],
       x => [h, s, ((100 / count) * x) / 100]
     ].map((fn, i) => (
-      <ColorArr key={i} fn={fn} count={count} />
+      <div className="cat" key={i}>
+        {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
+          <CopyToClipboard
+            text={x}
+            title={x}
+            key={i}
+            onCopy={() => message.success('颜色已复制！')}>
+            <div className="colorItem" style={{ backgroundColor: x }}></div>
+          </CopyToClipboard>
+        ))}
+      </div>
     ))}
   </div>
 )
