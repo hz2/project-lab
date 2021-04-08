@@ -4,13 +4,9 @@ import { Radio, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { hsl2hex } from './colors'
 
-const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
-
-const genHexList = (fn, count) => genArr2(count * 1).map(x => hsl2hex(fn(x)))
-
 const ColorArr = ({ fn, count }) => (
   <div className="cat">
-    {genHexList(fn, count).map((x, i) => (
+    {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
       <CopyToClipboard
         text={x}
         title={x}
@@ -37,9 +33,9 @@ const ColorList = ({ count, color: { h, s, l } }) => (
 const Actiongroup = ({ onChangeFn }) => (
   <div className="showList">
     <div className="action">
-      <Radio.Group defaultValue="10" buttonStyle="solid" onChange={onChangeFn}>
+      <Radio.Group defaultValue={10} buttonStyle="solid" onChange={onChangeFn}>
         {[10, 15, 20, 30].map((x, i) => (
-          <Radio.Button value={x + ''} key={i}>
+          <Radio.Button value={x} key={i}>
             {x}
           </Radio.Button>
         ))}
