@@ -181,7 +181,7 @@ const ColorPage = () => {
           className="item-input"
           placeholder="生成颜色"
           value={colorSets.rgba}
-          readOnly
+          // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成
