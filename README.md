@@ -1,5 +1,10 @@
 [![pipeline status](https://gitlab.com/lzz/react-sync/badges/master/pipeline.svg)](https://gitlab.com/lzz/react-sync/commits/master) | [![coverage report](https://gitlab.com/lzz/react-sync/badges/master/coverage.svg)](https://gitlab.com/lzz/react-sync/commits/master)
 
+⚠️⚠️⚠️
+
+Do **NOT** contribute to this repo on github
+
+⚠️⚠️⚠️
 ## Deploy to
 
 | platform | link | status |
