@@ -89,7 +89,7 @@ class idcard extends React.Component {
     let icon1 = ''
     let icon2 = ''
     let isValidate = null
-    if (val) {
+    if (val && val.length > 14) {
       area =
         xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
       birth =
