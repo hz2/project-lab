@@ -7,7 +7,7 @@ import './home.less'
 
 const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
 const cnverterList = ['encode', 'hex', 'queryString', 'svg']
-// const analyzerList = ['ip']
+// const analyzerList = ['ipAddr']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
