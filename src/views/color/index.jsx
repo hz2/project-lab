@@ -4,7 +4,7 @@ import './color.less'
 import { Input, Button, Slider, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ColorListBottom from './components/ColorListBottom'
-import { colorStr2arr, hsl2rgb, rgb2hsl, rgb2hex } from './components/colors'
+import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 
 const ColorPage = () => {
   const [colorSets, setColor] = useState({
