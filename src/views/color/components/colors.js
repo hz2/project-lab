@@ -87,3 +87,12 @@ export const hsl2hex = arr =>
     .slice(0, 3)
     .map(x => x.toString(16).padStart(2, 0))
     .join('')
+
+export const rgb2hex = rgb =>
+  '#' +
+  rgb
+    .replace(/[rgba()]/g, '')
+    .split(',')
+    .map(x => parseInt(x).toString(16))
+    .join('')
+    .substring(0, 6)
