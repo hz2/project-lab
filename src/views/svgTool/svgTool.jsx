@@ -35,6 +35,7 @@ const SvgTool = () => {
     })
 
   const uploadSymbolOnChange = ({ fileList }) => {
+    console.log('fileList', fileList)
     const arr = fileList.map(x => LoadFile(x.originFileObj))
     Promise.all(arr).then(list => setSvgList(list))
   }
@@ -82,6 +83,11 @@ const SvgTool = () => {
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
+
+  const setSample = () => {
+    uploadSymbolOnChange({ fileList: [] })
+  }
+
   return (
     <div className="svgTool common-box">
       <Tabs
@@ -96,6 +102,9 @@ const SvgTool = () => {
             </Upload>
             <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
               Download as Zip
+            </Button>
+            <Button className="ml25" onClick={setSample}>
+              Sample
             </Button>
           </div>
           <div className="result">
