@@ -8,7 +8,7 @@ const Page = () => {
     setUrl(value)
   }
   return (
-    <div>
+    <div className="common-box">
       <Input value={url} onChange={urlChange} />
     </div>
   )
