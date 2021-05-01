@@ -10,6 +10,10 @@
   </rdf:RDF>
  </metadata>
  <defs>
+  <linearGradient id="linearGradient896" x1="18.179" x2="581.82" y1="391.18" y2="208.82" gradientTransform="translate(-15.723 -614.94)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#00a1a1" offset="0"/>
+   <stop stop-color="#008080" offset="1"/>
+  </linearGradient>
   <linearGradient id="linearGradient888" x1="207.6" x2="404.8" y1="210.1" y2="393.2" gradientUnits="userSpaceOnUse">
    <stop stop-color="#a5a5a5" offset="0"/>
    <stop stop-color="#dedede" stop-opacity="0" offset="1"/>
@@ -27,6 +31,7 @@
    <stop stop-color="#fdfdfd" stop-opacity="0" offset="1"/>
   </linearGradient>
  </defs>
+ <circle transform="rotate(92.929)" cx="284.28" cy="-314.94" r="281.25" fill="url(#linearGradient896)" />
  <g stroke-width="1.211">
   <path d="m243.6 289.9 114.5 83.79 166.8-112.9-98.04-37.08-69.67 86.36-114.5-83.79-167.8 112.6 98.97 37.44z" fill="#fff"/>
   <path d="m357.3 310.1-114.5-83.79 0.8697 63.66 114.5 83.79z" fill="url(#linearGradient888)"/>
