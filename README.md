@@ -18,4 +18,4 @@ Do **NOT** contribute to this repo on github
 
 ## Logo
 
-<img src="./public/LabRingSimpleColor.svg" alt="logo" width="200px" loading="lazy">
+<img src="./public/LabRectangle.svg" alt="logo" width="200px" loading="lazy">
