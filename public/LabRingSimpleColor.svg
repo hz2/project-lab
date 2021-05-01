@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="800" height="800" version="1" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="800" height="800" version="1" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
  <defs>
-  <linearGradient id="linearGradient888" x1="203.82" x2="391.41" y1="218.96" y2="395.06" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#dedede" offset="0"/>
+  <linearGradient id="linearGradient888" x1="207.6" x2="404.8" y1="210.1" y2="393.2" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#a5a5a5" offset="0"/>
    <stop stop-color="#dedede" stop-opacity="0" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient896" x1="18.179" x2="581.82" y1="391.18" y2="208.82" gradientTransform="translate(-15.723 -614.94)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient896" x1="18.18" x2="581.8" y1="391.2" y2="208.8" gradientTransform="translate(-15.72 -614.9)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#00a1a1" offset="0"/>
    <stop stop-color="#008080" offset="1"/>
   </linearGradient>
+  <linearGradient id="linearGradient905" x1="128.2" x2="243.1" y1="359" y2="251.1" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#e8e8e8" offset="0"/>
+   <stop stop-color="#fff" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient939" x1="357.7" x2="499.6" y1="338.5" y2="212.9" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#d7d7d7" offset="0"/>
+   <stop stop-color="#fdfdfd" stop-opacity="0" offset="1"/>
+  </linearGradient>
  </defs>
- <circle transform="rotate(92.929)" cx="284.28" cy="-314.94" r="281.25" fill="url(#linearGradient896)" />
- <g stroke-width="1.2108">
-  <path d="m243.65 289.93 114.52 83.788 166.83-112.94-98.038-37.084-69.667 86.363-114.52-83.787-167.78 112.59 98.97 37.439z" fill="#fff"/>
-  <path d="m357.3 310.06-114.52-83.787 0.8697 63.658 114.52 83.788z" fill="url(#linearGradient888)"/>
+ <g stroke-width="1.211">
+  <path d="m243.6 289.9 114.5 83.79 166.8-112.9-98.04-37.08-69.67 86.36-114.5-83.79-167.8 112.6 98.97 37.44z" fill="#fff"/>
+  <path d="m357.3 310.1-114.5-83.79 0.8697 63.66 114.5 83.79z" fill="url(#linearGradient888)"/>
+  <path d="m242.8 226.3-167.8 112.6 98.97 37.44 69.68-86.37z" fill="url(#linearGradient905)"/>
+  <path d="m358.2 373.7 166.8-112.9-98.04-37.08-69.67 86.36z" fill="url(#linearGradient939)"/>
  </g>
 </svg>

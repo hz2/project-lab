@@ -6,6 +6,7 @@ const pathList = {
   // generator
   person: 'idcard/idcard',
   bing: 'bing',
+  nasa: 'bing/nasa',
   color: 'color',
   lottery: 'lottery/lottery',
   // converter
@@ -16,6 +17,7 @@ const pathList = {
   svgpreview: 'svgpreview',
   svgEditor: 'svgEditor/svgEditor',
   plumFlower: 'plumFlower/plumFlower',
+  post: 'onlineService/post',
   ipAddr: 'onlineService/ip',
   svg: 'svgTool/svgTool'
 }
