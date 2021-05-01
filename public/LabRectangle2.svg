@@ -12,7 +12,7 @@
    version="1"
    viewBox="0 0 412.5 412.5"
    id="svg40"
-   sodipodi:docname="LabRectangle.svg"
+   sodipodi:docname="LabRectangle2.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -29,7 +29,7 @@
      showgrid="false"
      inkscape:zoom="1.5218182"
      inkscape:cx="275"
-     inkscape:cy="273.48208"
+     inkscape:cy="275"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -114,7 +114,7 @@
        x2="834"
        y1="138.1"
        y2="485.9"
-       gradientTransform="matrix(0.8989,0,0,0.9879,-469.87001,-100.627)"
+       gradientTransform="matrix(0.8989,0,0,0.9879,-469.87001,-138.127)"
        gradientUnits="userSpaceOnUse">
       <stop
          stop-color="#00b4a1"
@@ -129,10 +129,10 @@
   <rect
      style="fill:url(#linearGradient980);stroke-width:0.67460001"
      id="rect26"
-     ry="75"
-     height="300"
+     ry="187.5"
+     height="375"
      width="375"
-     y="56.25"
+     y="18.75"
      x="18.75" />
   <g
      style="stroke-width:1.21099997"
