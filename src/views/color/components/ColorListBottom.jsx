@@ -1,73 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { Radio, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { hsl2rgb } from './colors'
+import { hsl2hex } from './colors'
 
-const genArr2 = len => Array.from(Array(len + 1), (x, i) => i * 1)
-const hsl2hex = arr =>
-  '#' +
-  hsl2rgb(arr)
-    .slice(0, 3)
-    .map(x => x.toString(16).padStart(2, 0))
-    .join('')
-const genHexList = (fn, val) => genArr2(val).map(x => hsl2hex(fn(x)))
-
-const CopyList2 = ({ fn, val }) => (
-  <div className="cat">
-    {genHexList(fn, val).map((x, i) => (
-      <CopyToClipboard
-        text={x}
-        title={x}
-        key={i}
-        onCopy={() => message.success('颜色已复制！')}>
-        <div
-          className="colorItem"
-          style={{
-            backgroundColor: x
-          }}></div>
-      </CopyToClipboard>
+const ColorList = ({ count, color: { h, s, l } }) => (
+  <div className={'cats count' + count}>
+    {[
+      x => [(360 / count) * x, s, l],
+      x => [h, ((100 / count) * x) / 100, l],
+      x => [h, s, ((100 / count) * x) / 100]
+    ].map((fn, i) => (
+      <div className="cat" key={i}>
+        {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
+          <CopyToClipboard
+            text={x}
+            title={x}
+            key={i}
+            onCopy={() => message.success('颜色已复制！')}>
+            <div className="colorItem" style={{ backgroundColor: x }}></div>
+          </CopyToClipboard>
+        ))}
+      </div>
     ))}
   </div>
 )
 
-const ColorList = ({ val, color }) => {
-  const [colorState, setColor] = useState(color)
-  const [valState, setVal] = useState(val)
-
-  useEffect(() => {
-    setColor(color)
-    setVal(val)
-  }, [color, val])
-
-  return (
-    <>
-      <div className={'cats count' + valState}>
-        <CopyList2
-          fn={x => [(360 / valState) * x, colorState.s, colorState.l]}
-          val={valState}
-        />
-        <CopyList2
-          fn={x => [colorState.h, ((100 / val) * x) / 100, colorState.l]}
-          val={valState}
-        />
-        <CopyList2
-          fn={x => [colorState.h, colorState.s, ((100 / val) * x) / 100]}
-          val={valState}
-        />
-      </div>
-    </>
-  )
-}
-
 const Actiongroup = ({ onChangeFn }) => (
   <div className="showList">
     <div className="action">
-      <Radio.Group defaultValue="10" buttonStyle="solid" onChange={onChangeFn}>
-        <Radio.Button value="10">10</Radio.Button>
-        <Radio.Button value="15">15</Radio.Button>
-        <Radio.Button value="20">20</Radio.Button>
-        <Radio.Button value="30">30</Radio.Button>
+      <Radio.Group defaultValue={10} buttonStyle="solid" onChange={onChangeFn}>
+        {[10, 15, 20, 30].map((x, i) => (
+          <Radio.Button value={x} key={i}>
+            {x}
+          </Radio.Button>
+        ))}
       </Radio.Group>
     </div>
   </div>
@@ -78,12 +45,10 @@ const ColorListBottom = props => {
   const [showCount, setShowCount] = useState(10)
   const onChangeFn = ({ target: { value } }) => setShowCount(value)
   return (
-    <>
-      <div className="colorListBottom">
-        <Actiongroup onChangeFn={onChangeFn} />
-        <ColorList color={color} val={showCount} />
-      </div>
-    </>
+    <div className="colorListBottom">
+      <Actiongroup onChangeFn={onChangeFn} />
+      <ColorList color={color} count={showCount} />
+    </div>
   )
 }
 export default ColorListBottom

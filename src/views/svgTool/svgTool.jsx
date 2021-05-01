@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Tabs, Upload, Button, message } from 'antd'
-import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
+import {
+  UploadOutlined,
+  DownloadOutlined,
+  DeleteTwoTone
+} from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from '../../libs/common.js'
 const { TabPane } = Tabs
@@ -82,6 +86,28 @@ const SvgTool = () => {
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
+
+  const setSample = () => {
+    fetch('./svgsymbol2.svg', { mode: 'cors' })
+      .then(response => response.blob())
+      .then(blob => {
+        const name = 'svgsymbol2.svg'
+        blob.name = name
+        uploadSymbolOnChange({
+          fileList: [
+            {
+              originFileObj: blob,
+              name
+            }
+          ]
+        })
+      })
+  }
+
+  const removeItem = index => {
+    setSvgList(svgList.filter((x, i) => i !== index))
+  }
+
   return (
     <div className="svgTool common-box">
       <Tabs
@@ -97,12 +123,19 @@ const SvgTool = () => {
             <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
               Download as Zip
             </Button>
+            <Button className="ml25" onClick={setSample}>
+              Sample
+            </Button>
           </div>
           <div className="result">
             {svgList.map((x, i) => (
               <div className="file" key={i}>
                 <div className="file-name" id={x.uid}>
-                  {x.name}
+                  <span>{x.name}</span>
+                  <DeleteTwoTone
+                    className="ml45"
+                    onClick={() => removeItem(i)}
+                  />
                 </div>
                 <div className="file-content">
                   {x.list.map((y, j) => (

@@ -1,12 +1,12 @@
-import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import React from 'react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from 'react-router-dom';
+} from 'react-router-dom'
 
 /* you'll need this CSS somewhere
 .fade-enter {
@@ -49,8 +49,7 @@ function AnimationExample() {
                 <CSSTransition
                   key={location.key}
                   classNames="fade"
-                  timeout={300}
-                >
+                  timeout={300}>
                   <Switch location={location}>
                     <Route exact path="/hsl/:h/:s/:l" component={HSL} />
                     <Route exact path="/rgb/:r/:g/:b" component={RGB} />
@@ -66,7 +65,7 @@ function AnimationExample() {
         )}
       />
     </Router>
-  );
+  )
 }
 
 function NavLink(props) {
@@ -74,7 +73,7 @@ function NavLink(props) {
     <li style={styles.navItem}>
       <Link {...props} style={{ color: 'inherit' }} />
     </li>
-  );
+  )
 }
 
 function HSL({ match: { params } }) {
@@ -84,14 +83,13 @@ function HSL({ match: { params } }) {
         ...styles.fill,
         ...styles.hsl,
         background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
-      }}
-    >
+      }}>
       hsl(
       {params.h}, {params.s}
       %, {params.l}
       %)
     </div>
-  );
+  )
 }
 
 function RGB({ match: { params } }) {
@@ -101,15 +99,14 @@ function RGB({ match: { params } }) {
         ...styles.fill,
         ...styles.rgb,
         background: `rgb(${params.r}, ${params.g}, ${params.b})`
-      }}
-    >
+      }}>
       rgb(
       {params.r}, {params.g}, {params.b})
     </div>
-  );
+  )
 }
 
-const styles = {};
+const styles = {}
 
 styles.fill = {
   position: 'absolute',
@@ -117,13 +114,13 @@ styles.fill = {
   right: 0,
   top: 0,
   bottom: 0
-};
+}
 
 styles.content = {
   ...styles.fill,
   top: '40px',
   textAlign: 'center'
-};
+}
 
 styles.nav = {
   padding: 0,
@@ -133,27 +130,27 @@ styles.nav = {
   height: '40px',
   width: '100%',
   display: 'flex'
-};
+}
 
 styles.navItem = {
   textAlign: 'center',
   flex: 1,
   listStyleType: 'none',
   padding: '10px'
-};
+}
 
 styles.hsl = {
   ...styles.fill,
   color: 'white',
   paddingTop: '20px',
   fontSize: '30px'
-};
+}
 
 styles.rgb = {
   ...styles.fill,
   color: 'white',
   paddingTop: '20px',
   fontSize: '30px'
-};
+}
 
-export default AnimationExample;
+export default AnimationExample

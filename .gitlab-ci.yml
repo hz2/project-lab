@@ -20,6 +20,7 @@ pages:
     - cp "$labuploader" ./labuploader
     - chmod 0600 labuploader
     - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -Cr -i labuploader public labUploader@huching.cn:/var/www/lab/
+    - curl -X POST "${TG_URL}" -d "chat_id=${TG_CHAT_ID}&text=gitLab%20%E4%B8%8A%E7%9A%84%20project-react-sync%20%E5%B7%B2%E7%BB%8F%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90%E5%95%A6"
   artifacts:
     paths:
       - public

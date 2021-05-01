@@ -30,6 +30,12 @@ const ColorPage = () => {
     hslDom(arr)
   }
 
+  const handleColorChange = ({ target: { value: val } }) => {
+    if (val && val.length === 7 && val.startsWith('#')) {
+      hslDom(rgb2hsl(colorStr2arr(val)))
+    }
+  }
+
   const slidingVal = (x, i, colors) => {
     const { h, s, l, a, r, g, b } = colors
     const arr = [
@@ -155,7 +161,7 @@ const ColorPage = () => {
     const [r, g, b] = hsl2rgb([h, s, l, a])
     const color = {
       rgba: `rgba(${[r, g, b, a].join(',')})`,
-      hexa: ``,
+      hexa: '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join(''),
       text: l > 0.7 ? '#000' : '#fff',
       gradient: l > 0.25 ? '#fff' : '#000',
       h, // 1 - 360
@@ -180,12 +186,19 @@ const ColorPage = () => {
         <Input
           className="item-input"
           placeholder="生成颜色"
-          value={colorSets.rgba}
-          readOnly
+          value={colorSets.hexa}
+          onChange={handleColorChange}
+          // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成
         </Button>
+        <CopyToClipboard
+          text={colorSets.hexa}
+          className="ml25"
+          onCopy={() => message.success('颜色已复制！')}>
+          <Button>{colorSets.hexa}</Button>
+        </CopyToClipboard>
         <div className="actionList">
           <div className="previewColor">
             <CopyToClipboard
