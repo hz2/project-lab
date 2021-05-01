@@ -19,3 +19,11 @@ Do **NOT** contribute to this repo on github
 ## Logo
 
 <img src="./public/LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
+
+
+## Represents 
+
++ 山：巅峰、勇气
++ 水：波浪、流动
++ 绿色：自然、希望
++ 白色：空气、自由
