@@ -9,7 +9,7 @@ const Page = () => {
     fetch(url, { mode: 'cors' })
       .then(response => response.json())
       .then(r => {
-        console.log('r', r)
+        // console.log('r', r)
         if (r) {
           const { country, city, ip } = r
           setText(`${country} ${city} ==> ${ip}`)
