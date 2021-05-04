@@ -11,7 +11,12 @@ const getMap = loc => {
     x}%2C${lat - y}%2C${lon + x}%2C${lat +
     y}&layer=mapnik&marker=${lat}%2C${lon}`
   return (
-    <iframe width="500" height="350" frameBorder="0" src={iframeSrc}></iframe>
+    <iframe
+      width="500"
+      height="350"
+      frameBorder="0"
+      title="loc map"
+      src={iframeSrc}></iframe>
   )
 }
 const Page = () => {
