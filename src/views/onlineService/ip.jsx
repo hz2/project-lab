@@ -48,7 +48,7 @@ const getMap = loc => {
           !1m2
             !1s0x0%3A0x0
             !2z${b64}
-        !5e0`.replace(/[\r\ \t\n]+/g, '')}
+        !5e0`.replace(/[\r \t\n]+/g, '')}
         width="500"
         height="350"
         allowFullScreen=""
