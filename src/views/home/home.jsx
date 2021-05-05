@@ -39,10 +39,17 @@ const Home = props => (
           </span>
           <span> by </span>
           <a
-            href="https://github.com/hz2/project-notwiki-lab-mirror"
+            href="https://github.com/hz2/project-lab"
             target="_blank"
             rel="noopener noreferrer">
             Hz²
+          </a>
+          <span className="splitcolor">\</span>
+          <a
+            href="https://github.com/hz2/project-lab/discussions/new"
+            target="_blank"
+            rel="noopener noreferrer">
+            Feedback
           </a>
         </span>
       </Divider>
