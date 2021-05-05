@@ -17,9 +17,7 @@ const convertLoc = (lat, lon) => {
   const lonstr = transformLonlatToDD(lon) + (lon > 0 ? 'E' : 'W')
   return latstr + ' ' + lonstr
 }
-// http://blog.themillhousegroup.com/2016/08/deep-diving-into-google-pb-embedded-map.html
-// https://stackoverflow.com/questions/47017387/decoding-the-google-maps-embedded-parameters
-// https://medium.com/@supun1001/how-to-generate-google-embed-links-programmatically-for-iframes-for-routes-only-d6dc225e59e8
+
 const getMap = loc => {
   const locArr = loc.split(',')
   const [lat, lon] = locArr.map(x => x * 1)
@@ -54,6 +52,7 @@ const getMap = loc => {
         width="500"
         height="350"
         allowFullScreen=""
+        title="GoogleMap"
         loading="lazy"></iframe>
     </div>
   )
