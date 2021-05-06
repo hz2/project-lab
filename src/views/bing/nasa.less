@@ -1,0 +1,49 @@
+.nasa-content {
+    min-height: 100vh;
+
+    .transitionAll {
+        transition: all cubic-bezier(0.6, -0.28, 0.74, 0.05) 250ms;
+    }
+
+    .item {
+        background-color: #f0f0f0;
+
+        img {
+            width: 100%;
+        }
+
+        position: relative;
+        overflow: hidden;
+
+        .tips {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(20px);
+            color: #eee;
+            font-size: 14px;
+            width: inherit;
+            white-space: pre-wrap;
+            text-align: left;
+            transform: translateY(0);
+            .transitionAll;
+
+            .text {
+                line-height: 1.5;
+                padding: 15px;
+                white-space: normal;
+            }
+
+            .text2 {
+                line-height: 1.5;
+                padding: 0 15px 15px 15px;
+                text-align: justify;
+            }
+        }
+
+        &:hover {
+            .tips {
+                transform: translateY(-100%);
+            }
+        }
+    }
+}
