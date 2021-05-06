@@ -5,9 +5,16 @@ import './home.less'
 
 // import ReduxPage from './redux'
 
-const generatorList = ['person', 'bing', 'color', 'lottery', 'plumFlower']
+const generatorList = [
+  'person',
+  'bing',
+  'nasa',
+  'color',
+  'lottery',
+  'plumFlower'
+]
 const cnverterList = ['encode', 'hex', 'queryString', 'svg']
-// const analyzerList = ['ipAddr']
+const analyzerList = ['ipAddr']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
@@ -24,8 +31,8 @@ const Home = props => (
     <div className="btn-list">{genBtn(generatorList, props.history)}</div>
     <h2>Converter</h2>
     <div className="btn-list">{genBtn(cnverterList, props.history)}</div>
-    {/* <h2>Analyzer</h2>
-    <div className="btn-list">{genBtn(analyzerList, props.history)}</div> */}
+    <h2>Analyzer</h2>
+    <div className="btn-list">{genBtn(analyzerList, props.history)}</div>
 
     {/* <ReduxPage /> */}
     <footer className="github">
