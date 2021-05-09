@@ -1,11 +1,5 @@
 export const list = [
   {
-    country: '不丹',
-    text: '努扎姆',
-    currency: 'BTN',
-    code: '064'
-  },
-  {
     country: '中国',
     text: '人民币元',
     currency: 'CNY',
@@ -22,6 +16,66 @@ export const list = [
     text: '港元',
     currency: 'HKD',
     code: '344'
+  },
+  {
+    country: '台湾',
+    text: '新台币元',
+    currency: 'TWD',
+    code: '901'
+  },
+  {
+    country: '美国',
+    text: '美元',
+    currency: 'USD',
+    code: '840'
+  },
+  {
+    country: '欧盟',
+    text: '欧元',
+    currency: 'EUR',
+    code: '978'
+  },
+  {
+    country: '英国',
+    text: '英镑',
+    currency: 'GBP',
+    code: '826'
+  },
+  {
+    country: '日本',
+    text: '日元',
+    currency: 'JPY',
+    code: '392'
+  },
+  {
+    country: '韩国',
+    text: '韩元',
+    currency: 'KRW',
+    code: '410'
+  },
+  {
+    country: '比特币',
+    text: '比特币',
+    currency: 'BTC',
+    code: ''
+  },
+  {
+    country: '银',
+    text: '银（金衡盎司）',
+    currency: 'XAG',
+    code: '961'
+  },
+  {
+    country: '金',
+    text: '金（金衡盎司）',
+    currency: 'XAU',
+    code: '959'
+  },
+  {
+    country: '不丹',
+    text: '努扎姆',
+    currency: 'BTN',
+    code: '064'
   },
   {
     country: '中非',
@@ -240,12 +294,6 @@ export const list = [
     code: '192'
   },
   {
-    country: '台湾',
-    text: '新台币元',
-    currency: 'TWD',
-    code: '901'
-  },
-  {
     country: '吉尔吉斯斯坦',
     text: '索姆',
     currency: 'KGS',
@@ -382,12 +430,6 @@ export const list = [
     text: '多米尼加比索',
     currency: 'DOP',
     code: '214'
-  },
-  {
-    country: '英国',
-    text: '英镑',
-    currency: 'GBP',
-    code: '826'
   },
   {
     country: '委内瑞拉',
@@ -564,12 +606,6 @@ export const list = [
     code: '554'
   },
   {
-    country: '日本',
-    text: '日元',
-    currency: 'JPY',
-    code: '392'
-  },
-  {
     country: '智利',
     text: '智利资金',
     currency: 'CLF',
@@ -598,12 +634,6 @@ export const list = [
     text: '拉里',
     currency: 'GEL',
     code: '981'
-  },
-  {
-    country: '欧盟',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '毛里塔尼亚',
@@ -829,12 +859,6 @@ export const list = [
   },
   {
     country: '美国',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '美国',
     text: '美元（次日）',
     currency: 'USN',
     code: '997'
@@ -978,12 +1002,6 @@ export const list = [
     code: '965'
   },
   {
-    country: '韩国',
-    text: '韩元',
-    currency: 'KRW',
-    code: '410'
-  },
-  {
     country: '马其顿',
     text: '第纳尔',
     currency: 'MKD',
@@ -1018,24 +1036,6 @@ export const list = [
     text: '黎巴嫩镑',
     currency: 'LBP',
     code: '422'
-  },
-  {
-    country: '银',
-    text: '银（金衡盎司）',
-    currency: 'XAG',
-    code: '961'
-  },
-  {
-    country: '金',
-    text: '金（金衡盎司）',
-    currency: 'XAU',
-    code: '959'
-  },
-  {
-    country: '比特币',
-    text: '比特币',
-    currency: 'BTC',
-    code: ''
   },
   {
     country: '根西岛',
