@@ -54,6 +54,24 @@ export const list = [
     code: '410'
   },
   {
+    country: '澳大利亚',
+    text: '澳元',
+    currency: 'AUD',
+    code: '036'
+  },
+  {
+    country: '加拿大',
+    text: '加元',
+    currency: 'CAD',
+    code: '124'
+  },
+  {
+    country: '瑞士',
+    text: '瑞士法郎',
+    currency: 'CHF',
+    code: '756'
+  },
+  {
     country: '比特币',
     text: '比特币',
     currency: 'BTC',
@@ -214,12 +232,6 @@ export const list = [
     text: '利比里亚元',
     currency: 'LRD',
     code: '430'
-  },
-  {
-    country: '加拿大',
-    text: '加元',
-    currency: 'CAD',
-    code: '124'
   },
   {
     country: '加纳',
@@ -708,12 +720,6 @@ export const list = [
     code: '332'
   },
   {
-    country: '澳大利亚',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
-  },
-  {
     country: '牙买加',
     text: '牙买加元',
     currency: 'JMD',
@@ -748,12 +754,6 @@ export const list = [
     text: 'WIR欧元',
     currency: 'CHE',
     code: '947'
-  },
-  {
-    country: '瑞士',
-    text: '瑞士法郎',
-    currency: 'CHF',
-    code: '756'
   },
   {
     country: '瑞士',
