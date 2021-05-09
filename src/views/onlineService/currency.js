@@ -144,12 +144,6 @@ export const list = [
     code: '191'
   },
   {
-    country: '关岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '冈比亚',
     text: '达拉西',
     currency: 'GMD',
@@ -166,12 +160,6 @@ export const list = [
     text: '几内亚法郎',
     currency: 'GNF',
     code: '324'
-  },
-  {
-    country: '几内亚比绍',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
   },
   {
     country: '列支敦士顿',
@@ -228,22 +216,16 @@ export const list = [
     code: '348'
   },
   {
-    country: '北马里亚纳群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '南乔治亚岛和南桑威奇群岛',
     currency: '无统一',
     code: '',
-    text: '	'
+    text: '\t'
   },
   {
     country: '南极洲',
     currency: '无统一',
     code: '',
-    text: '	'
+    text: '\t'
   },
   {
     country: '南苏丹',
@@ -258,12 +240,6 @@ export const list = [
     code: '710'
   },
   {
-    country: '博内尔、圣尤斯塔提乌斯和萨巴',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '卡塔尔',
     text: '卡塔尔里亚尔',
     currency: 'QAR',
@@ -274,12 +250,6 @@ export const list = [
     text: '卢旺达法郎',
     currency: 'RWF',
     code: '646'
-  },
-  {
-    country: '卢森堡',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '印度',
@@ -298,12 +268,6 @@ export const list = [
     text: '格查尔',
     currency: 'GTQ',
     code: '320'
-  },
-  {
-    country: '厄瓜多尔',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
   },
   {
     country: '厄立特里亚国',
@@ -378,12 +342,6 @@ export const list = [
     code: '960'
   },
   {
-    country: '图瓦卢',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
-  },
-  {
     country: '土库曼斯坦',
     text: '土库曼斯坦新马纳特',
     currency: 'TMT',
@@ -414,28 +372,10 @@ export const list = [
     code: '930'
   },
   {
-    country: '圣巴托罗缪岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '圣文森特和格林纳丁斯',
     text: '东加勒比元',
     currency: 'XCD',
     code: '951'
-  },
-  {
-    country: '圣皮埃尔和密克隆群岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '圣诞岛',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
   },
   {
     country: '圣赫勒拿、阿森松与特里斯坦达库尼亚',
@@ -444,22 +384,10 @@ export const list = [
     code: '654'
   },
   {
-    country: '圣马丁（法属）',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '圣马丁（荷属）',
     text: '荷属安的列斯盾',
     currency: 'ANG',
     code: '532'
-  },
-  {
-    country: '圣马力诺',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '圭亚那',
@@ -486,22 +414,10 @@ export const list = [
     code: '230'
   },
   {
-    country: '基里巴斯',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
-  },
-  {
     country: '塔吉克斯坦',
     text: '索摩尼',
     currency: 'TJS',
     code: '972'
-  },
-  {
-    country: '塞内加尔',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
   },
   {
     country: '塞尔维亚',
@@ -514,12 +430,6 @@ export const list = [
     text: '利昂',
     currency: 'SLL',
     code: '694'
-  },
-  {
-    country: '塞浦路斯',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '塞舌尔',
@@ -564,18 +474,6 @@ export const list = [
     code: '826'
   },
   {
-    country: '奥兰群岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '奥地利',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '委内瑞拉玻利瓦尔共和国',
     text: '玻利瓦尔',
     currency: 'VEF',
@@ -606,18 +504,6 @@ export const list = [
     code: '951'
   },
   {
-    country: '安道尔',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '密克罗尼西亚联邦',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '尼加拉瓜',
     text: '尼加拉瓜新科多巴',
     currency: 'NIO',
@@ -630,12 +516,6 @@ export const list = [
     code: '566'
   },
   {
-    country: '尼日尔',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
-  },
-  {
     country: '尼泊尔',
     text: '尼泊尔卢比',
     currency: 'NPR',
@@ -645,7 +525,7 @@ export const list = [
     country: '巴勒斯坦国',
     currency: '无统一',
     code: '',
-    text: '	'
+    text: '\t'
   },
   {
     country: '巴哈马群岛',
@@ -684,12 +564,6 @@ export const list = [
     code: '590'
   },
   {
-    country: '巴拿马',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '巴林',
     text: '巴林第纳尔',
     currency: 'BHD',
@@ -702,12 +576,6 @@ export const list = [
     code: '986'
   },
   {
-    country: '布基纳法索',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
-  },
-  {
     country: '布维岛',
     text: '挪威克朗',
     currency: 'NOK',
@@ -718,24 +586,6 @@ export const list = [
     text: '布隆迪法郎',
     currency: 'BIF',
     code: '108'
-  },
-  {
-    country: '希腊',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '帕劳',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '帝汶-莱斯特',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
   },
   {
     country: '库克群岛',
@@ -756,18 +606,6 @@ export const list = [
     code: '136'
   },
   {
-    country: '德国',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '意大利',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '所罗门群岛',
     text: '所罗门群岛元',
     currency: 'SBD',
@@ -778,12 +616,6 @@ export const list = [
     text: '新西兰元',
     currency: 'NZD',
     code: '554'
-  },
-  {
-    country: '拉脱维亚',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '挪威',
@@ -810,12 +642,6 @@ export const list = [
     code: '504'
   },
   {
-    country: '摩纳哥',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '文莱达鲁萨兰国',
     text: '文莱元',
     currency: 'BND',
@@ -834,18 +660,6 @@ export const list = [
     code: '748'
   },
   {
-    country: '斯洛伐克',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '斯洛文尼亚',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '斯瓦尔巴群岛',
     text: '挪威克朗',
     currency: 'NOK',
@@ -862,12 +676,6 @@ export const list = [
     text: '新加坡元',
     currency: 'SGD',
     code: '702'
-  },
-  {
-    country: '新喀里多尼亚',
-    text: '非洲金融共同体法郎',
-    currency: 'XPF',
-    code: '953'
   },
   {
     country: '新西兰',
@@ -906,12 +714,6 @@ export const list = [
     code: '116'
   },
   {
-    country: '格恩西岛',
-    text: '英镑',
-    currency: 'GBP',
-    code: '826'
-  },
-  {
     country: '格林纳达',
     text: '东加勒比元',
     currency: 'XCD',
@@ -930,19 +732,7 @@ export const list = [
     code: '981'
   },
   {
-    country: '梵蒂冈',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '欧盟',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '比利时',
     text: '欧元',
     currency: 'EUR',
     code: '978'
@@ -972,24 +762,6 @@ export const list = [
     code: '682'
   },
   {
-    country: '法国',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '法属南部领土',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '法属圭亚那',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '法属玻利尼西亚',
     text: '非洲金融共同体法郎',
     currency: 'XPF',
@@ -1008,12 +780,6 @@ export const list = [
     code: '985'
   },
   {
-    country: '波多尼哥',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '波斯尼亚和黑塞哥维那',
     text: '可兑换马克',
     currency: 'BAM',
@@ -1024,12 +790,6 @@ export const list = [
     text: '泰铢',
     currency: 'THB',
     code: '764'
-  },
-  {
-    country: '泽西岛',
-    text: '英镑',
-    currency: 'GBP',
-    code: '826'
   },
   {
     country: '津巴布韦',
@@ -1050,40 +810,16 @@ export const list = [
     code: '332'
   },
   {
-    country: '海地',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '澳大利亚',
     text: '澳元',
     currency: 'AUD',
     code: '036'
   },
   {
-    country: '爱尔兰',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '爱沙尼亚',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '牙买加',
     text: '牙买加元',
     currency: 'JMD',
     code: '388'
-  },
-  {
-    country: '特克斯和凯科斯群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
   },
   {
     country: '特立达与多巴哥',
@@ -1102,12 +838,6 @@ export const list = [
     text: '玻利维亚资金',
     currency: 'BOV',
     code: '984'
-  },
-  {
-    country: '瑙鲁',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
   },
   {
     country: '瑞典',
@@ -1134,28 +864,10 @@ export const list = [
     code: '948'
   },
   {
-    country: '瓜德罗普岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '瓦利斯群岛和富图纳群岛',
-    text: '非洲金融共同体法郎',
-    currency: 'XPF',
-    code: '953'
-  },
-  {
     country: '瓦努阿图',
     text: '瓦图',
     currency: 'VUV',
     code: '548'
-  },
-  {
-    country: '留尼汪',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '白俄罗斯',
@@ -1188,12 +900,6 @@ export const list = [
     code: '238'
   },
   {
-    country: '科克斯（克林）群岛',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
-  },
-  {
     country: '科威特',
     text: '科威特第纳尔',
     currency: 'KWD',
@@ -1206,12 +912,6 @@ export const list = [
     code: '174'
   },
   {
-    country: '科特迪瓦',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
-  },
-  {
     country: '秘鲁',
     text: '新索尔',
     currency: 'PEN',
@@ -1222,12 +922,6 @@ export const list = [
     text: '突尼斯第纳尔',
     currency: 'TND',
     code: '788'
-  },
-  {
-    country: '立陶宛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '索马里',
@@ -1290,24 +984,6 @@ export const list = [
     code: '997'
   },
   {
-    country: '美属维京群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '美属萨摩亚',
-    text: '美元US Dollar',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '美属边疆群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '老挝人民’S民主共和国',
     text: '基普',
     currency: 'LAK',
@@ -1320,12 +996,6 @@ export const list = [
     code: '404'
   },
   {
-    country: '芬兰',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '苏丹',
     text: '苏丹镑',
     currency: 'SDG',
@@ -1336,30 +1006,6 @@ export const list = [
     text: '苏里南元',
     currency: 'SRD',
     code: '968'
-  },
-  {
-    country: '英国属地曼岛',
-    text: '英镑',
-    currency: 'GBP',
-    code: '826'
-  },
-  {
-    country: '英属印度洋领土',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '英属维京群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '荷兰',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '莫桑比克',
@@ -1392,22 +1038,10 @@ export const list = [
     code: '222'
   },
   {
-    country: '萨尔瓦多',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
     country: '萨摩亚',
     text: '塔拉',
     currency: 'WST',
     code: '882'
-  },
-  {
-    country: '葡萄牙',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '蒙古国',
@@ -1428,24 +1062,6 @@ export const list = [
     code: '504'
   },
   {
-    country: '西班牙',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '诺福克岛',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
-  },
-  {
-    country: '贝宁',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
-  },
-  {
     country: '赞比亚',
     text: '赞比亚克瓦查',
     currency: 'ZMW',
@@ -1456,12 +1072,6 @@ export const list = [
     text: '多哥非洲共同体法郎',
     currency: 'XAF',
     code: '950'
-  },
-  {
-    country: '赫德岛和麦克唐纳群岛',
-    text: '澳元',
-    currency: 'AUD',
-    code: '036'
   },
   {
     country: '越南',
@@ -1554,34 +1164,10 @@ export const list = [
     code: '454'
   },
   {
-    country: '马提尼克岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
     country: '马来西亚',
     text: '马来西亚林吉特',
     currency: 'MYR',
     code: '458'
-  },
-  {
-    country: '马约特岛',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
-  },
-  {
-    country: '马绍尔群岛',
-    text: '美元',
-    currency: 'USD',
-    code: '840'
-  },
-  {
-    country: '马耳他',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   },
   {
     country: '马达加斯加',
@@ -1590,21 +1176,11 @@ export const list = [
     code: '969'
   },
   {
-    country: '马里',
-    text: '多哥非洲共同体法郎',
-    currency: 'XOF',
-    code: '952'
-  },
-  {
     country: '黎巴嫩',
     text: '黎巴嫩镑',
     currency: 'LBP',
     code: '422'
-  },
-  {
-    country: '黑山共和国',
-    text: '欧元',
-    currency: 'EUR',
-    code: '978'
   }
 ]
+
+// export const get

@@ -19,6 +19,7 @@ const pathList = {
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
   ipAddr: 'onlineService/ip',
+  currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool'
 }
 const routesList = Object.entries(pathList).map((x, i) => (

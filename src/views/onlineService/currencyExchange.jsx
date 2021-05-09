@@ -1,3 +1,7 @@
+import React, { useEffect, useState } from 'react'
+import { Input, Select } from 'antd'
+import { list as Currency } from './currency'
+
 const obj = {
   success: true,
   timestamp: 1620399243,
@@ -176,3 +180,46 @@ const obj = {
 }
 
 // https://respok.com/fixer_io
+
+const Page = () => {
+  function onChange(value) {
+    console.log(`selected ${value}`)
+  }
+
+  const list = Currency.map(x => ({
+    label: `${x.country} ${x.text} ${x.currency} `,
+    value: x.currency
+  }))
+
+  const filterOption = (input, option) =>
+    option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+
+  return (
+    <div className="common-box flex start">
+      <Input.Group compact className="w320">
+        <Input className="w120" placeholder="请输入金额" />
+        <Select
+          showSearch
+          className="w200"
+          placeholder="选择货币"
+          defaultValue="CNY"
+          onChange={onChange}
+          filterOption={filterOption}
+          options={list}></Select>
+      </Input.Group>
+      <div className="eq mx15">=</div>
+
+      <Select
+        showSearch
+        className="w200"
+        placeholder="选择货币"
+        defaultValue="CNY"
+        onChange={onChange}
+        filterOption={filterOption}
+        options={list}
+        addonBefore={'qq'}></Select>
+    </div>
+  )
+}
+
+export default Page

@@ -63,6 +63,42 @@ code {
   }
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &.around {
+    justify-content: space-around;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.end {
+    justify-content: flex-end;
+  }
+
+  &.start {
+    justify-content: flex-start;
+  }
+
+  &.top {
+    align-items: flex-start;
+  }
+
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+}
+
 // space 
 
 
@@ -88,6 +124,26 @@ code {
     padding: (@size * 1px);
   }
 
+  .mx@{size} {
+    margin-left: (@size * 1px);
+    margin-right: (@size * 1px);
+  }
+
+  .my@{size} {
+    margin-top: (@size * 1px);
+    margin-bottom: (@size * 1px);
+  }
+
+  .px@{size} {
+    padding-left: (@size * 1px);
+    padding-right: (@size * 1px);
+  }
+
+  .py@{size} {
+    padding-top: (@size * 1px);
+    padding-bottom: (@size * 1px)
+  }
+
   each(@sides, .(@v, @k, @i) {
       .m@{k}@{size} {
         margin@{v}: (@size * 1px);
@@ -106,10 +162,12 @@ code {
 .gen-space(@sizes; @sides; length(@sizes));
 
 
-@widths: 60, 80, 90, 100, 120, 140, 150, 160, 170, 180, 200, 220, 250, 300, 320, 350, 400;
+@widths: 60, 80, 90, 100, 120, 140, 150, 160, 170, 180, 200, 220, 250, 300, 320, 350, 400, 450;
 
 each(@widths, {
-    .w@{value} {
+
+    .w@{value},
+    [class^="ant-"].w@{value} {
       width: (@value * 1px);
     }
 
