@@ -79,13 +79,13 @@ export const list = [
   },
   {
     country: '银',
-    text: '银（金衡盎司）',
+    text: '盎司',
     currency: 'XAG',
     code: '961'
   },
   {
     country: '金',
-    text: '金（金衡盎司）',
+    text: '盎司',
     currency: 'XAU',
     code: '959'
   },
@@ -124,12 +124,6 @@ export const list = [
     text: '乌干达先令',
     currency: 'UGX',
     code: '800'
-  },
-  {
-    country: '乌拉圭',
-    text: '乌拉圭比索',
-    currency: 'UYI',
-    code: '940'
   },
   {
     country: '乌拉圭',
@@ -246,12 +240,6 @@ export const list = [
     code: '348'
   },
   {
-    country: '南苏丹',
-    text: '南苏丹镑',
-    currency: 'SSP',
-    code: '728'
-  },
-  {
     country: '南非',
     text: '兰特',
     currency: 'ZAR',
@@ -356,12 +344,6 @@ export const list = [
   {
     country: '圣多美与普林希比',
     text: '多布拉',
-    currency: 'STN',
-    code: '930'
-  },
-  {
-    country: '圣多美与普林希比',
-    text: '多布拉',
     currency: 'STD',
     code: '678'
   },
@@ -424,12 +406,6 @@ export const list = [
     text: '墨西哥比索',
     currency: 'MXN',
     code: '484'
-  },
-  {
-    country: '墨西哥',
-    text: '墨西哥基金（UDI）',
-    currency: 'MXV',
-    code: '979'
   },
   {
     country: '多哥',
@@ -650,12 +626,6 @@ export const list = [
   {
     country: '毛里塔尼亚',
     text: '乌吉亚',
-    currency: 'MRU',
-    code: '929'
-  },
-  {
-    country: '毛里塔尼亚',
-    text: '乌吉亚',
     currency: 'MRO',
     code: '478'
   },
@@ -738,28 +708,10 @@ export const list = [
     code: '068'
   },
   {
-    country: '玻利维亚',
-    text: '玻利维亚资金',
-    currency: 'BOV',
-    code: '984'
-  },
-  {
     country: '瑞典',
     text: '瑞典克朗',
     currency: 'SEK',
     code: '752'
-  },
-  {
-    country: '瑞士',
-    text: 'WIR欧元',
-    currency: 'CHE',
-    code: '947'
-  },
-  {
-    country: '瑞士',
-    text: 'WIR法郎',
-    currency: 'CHW',
-    code: '948'
   },
   {
     country: '瓦努阿图',
@@ -856,12 +808,6 @@ export const list = [
     text: '罗马尼亚列伊',
     currency: 'RON',
     code: '946'
-  },
-  {
-    country: '美国',
-    text: '美元（次日）',
-    currency: 'USN',
-    code: '997'
   },
   {
     country: '老挝',
@@ -994,12 +940,6 @@ export const list = [
     text: '阿鲁巴弗洛林',
     currency: 'AWG',
     code: '533'
-  },
-  {
-    country: '非洲开发银行',
-    text: '非洲发展银行账户单位',
-    currency: 'XUA',
-    code: '965'
   },
   {
     country: '马其顿',
