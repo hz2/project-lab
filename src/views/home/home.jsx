@@ -13,7 +13,7 @@ const generatorList = [
   'lottery',
   'plumFlower'
 ]
-const cnverterList = ['encode', 'hex', 'queryString', 'svg']
+const cnverterList = ['encode', 'hex', 'currency', 'queryString', 'svg']
 const analyzerList = ['ipAddr']
 
 const genTitle = str =>
