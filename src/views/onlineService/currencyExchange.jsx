@@ -66,8 +66,8 @@ const Page = () => {
 
   return (
     <div className="common-box currency-page">
-      <div className="flex start ">
-        <Input.Group compact className="w320">
+      <div className="flex start">
+        <Input.Group className="left">
           <Input
             className="w120"
             value={bindVal.input}
@@ -77,7 +77,7 @@ const Page = () => {
           />
           <Select
             showSearch
-            className="w200"
+            className="w160"
             placeholder="选择货币"
             value={bindVal.key1}
             onChange={val => calc({ key1: val })}
@@ -85,13 +85,14 @@ const Page = () => {
             options={list}></Select>
         </Input.Group>
         <div
-          className="exchange mx15"
+          className="exchange mx15 py20"
           onClick={() => calc({ key2: bindVal.key1, key1: bindVal.key2 })}>
           💱
         </div>
-        <div className="w200">
+        <div className="w200 right">
           <Select
             showSearch
+            className="w160"
             placeholder="选择货币"
             value={bindVal.key2}
             onChange={val => calc({ key2: val })}

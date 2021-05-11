@@ -6,13 +6,13 @@ export const list = [
     code: '156'
   },
   {
-    country: '中国澳门',
+    country: '澳门',
     text: '澳元',
     currency: 'MOP',
     code: '446'
   },
   {
-    country: '中国香港',
+    country: '香港',
     text: '港元',
     currency: 'HKD',
     code: '344'
