@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Route, Switch, HashRouter } from 'react-router-dom'
 import Home from './views/home/home'
 
@@ -26,7 +26,7 @@ const routesList = Object.entries(pathList).map((x, i) => (
   <Route
     exact
     path={'/' + x[0]}
-    component={require('./views/' + x[1]).default}
+    component={lazy(() => import('./views/' + x[1]))}
     key={i}
   />
 ))
@@ -35,15 +35,17 @@ const Routers = () => {
   return (
     <HashRouter>
       <header></header>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route
-          exact
-          path="/rgb"
-          component={require('./sample/rgb.js').default}
-        />
-        {routesList}
-      </Switch>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/rgb"
+            component={require('./sample/rgb.js').default}
+          />
+          {routesList}
+        </Switch>
+      </Suspense>
     </HashRouter>
   )
 }
