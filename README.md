@@ -10,6 +10,7 @@ Do **NOT** contribute to this repo on github
 
 | platform | link | status |
 | ------ | ------ | ------ |
+| vercel | [https://lab.not.wiki](https://lab.not.wiki) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.not.wiki) |
 | gitlab page | [https://lab.huxi.pub](https://lab.huxi.pub) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.huxi.pub) |
 
 ## Flow chart
@@ -21,9 +22,9 @@ Do **NOT** contribute to this repo on github
 <img src="./public/LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
 
 
-## Represents 
+## Element 
 
-+ 山：巅峰、勇气
-+ 水：波浪、流动
-+ 绿色：自然、希望
-+ 白色：空气、自由
++ Mountain: peaks, courage
++ Water: waves, flow
++ Green: nature, hope
++ White: air, freedom
