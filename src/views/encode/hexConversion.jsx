@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Alert, Button, message } from 'antd'
+import './style.less'
 
 const HexConversion = () => {
   const [hexSet, setHexSet] = useState({ bin: '', oct: '', dec: '', hex: '' })

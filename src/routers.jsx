@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { Route, Switch, HashRouter } from 'react-router-dom'
+import { Spin } from 'antd'
 import Home from './views/home/home'
 
 const pathList = {
@@ -35,7 +36,10 @@ const Routers = () => {
   return (
     <HashRouter>
       <header></header>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <Spin className="fullpage" spinning={true} size="large"></Spin>
+        }>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
