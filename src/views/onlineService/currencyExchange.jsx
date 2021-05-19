@@ -51,6 +51,7 @@ const Page = () => {
 
   const list = Currency.map(x => ({
     label: `${x.country} ${x.text} ${x.currency} `,
+    currency: x.currency,
     value: x.currency
   }))
 
@@ -59,6 +60,11 @@ const Page = () => {
       .filter((x, i) => i < 15 && x.value !== key1)
       .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
     SetNewList(newList)
+  }
+
+  const currencyChange = currency => {
+    console.log('currency', currency)
+    calc({ key1: currency })
   }
 
   const filterOption = (input, option) =>
@@ -108,7 +114,11 @@ const Page = () => {
       </div>
       <div className="table ">
         {newList.map((x, i) => (
-          <Card title={x.label} className="item" key={i}>
+          <Card
+            title={x.label}
+            className="item pointer"
+            key={i}
+            onClick={() => currencyChange(x.currency)}>
             <div className="num">{x.num.toFixed(5)}</div>
           </Card>
         ))}
