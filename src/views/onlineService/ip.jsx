@@ -2,6 +2,7 @@
 // https://devpal.co/
 import React, { useEffect, useState } from 'react'
 import { getCountry } from './country'
+import { Spin } from 'antd'
 
 const transformLonlatToDD = coordinate => {
   const d = Math.floor(coordinate) //116.512885 转换成度（°）实则是取整
@@ -69,8 +70,10 @@ const Page = () => {
   const [text, setText] = useState({})
   const [countryObj, setCountryObj] = useState({})
   const [mapIframe, setMapIframe] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     const url = 'https://respok.com/ipinfo_io/default'
     fetch(url, { mode: 'cors' })
       .then(response => response.json())
@@ -89,6 +92,7 @@ const Page = () => {
         }
       })
       .catch(err => console.error(new Error(err)))
+      .finally(f => setLoading(false))
   }, [])
   return (
     <div className="p20">
@@ -101,20 +105,23 @@ const Page = () => {
       />
       <Button type="primary">查询</Button>
     </div> */}
-      <ul>
-        <li>IP: {text.ip || ''}</li>
-        <li>
-          地址：
-          {`${countryObj.emoji || ''} ${countryObj.zh ||
-            ''} ${countryObj.name || ''}`}
-        </li>
-        <li>区域: {`${text.region || ''} ${text.city || ''}`}</li>
-        <li>组织: {text.org}</li>
-        <li>邮编: {text.postal || ''}</li>
-        <li>坐标: {text.loc || ''}</li>
-        <li>时区: {text.timezone || ''}</li>
-      </ul>
-      {mapIframe}
+
+      <Spin spinning={loading} size="large">
+        <ul>
+          <li>IP: {text.ip || ''}</li>
+          <li>
+            地址：
+            {`${countryObj.emoji || ''} ${countryObj.zh ||
+              ''} ${countryObj.name || ''}`}
+          </li>
+          <li>区域: {`${text.region || ''} ${text.city || ''}`}</li>
+          <li>组织: {text.org}</li>
+          <li>邮编: {text.postal || ''}</li>
+          <li>坐标: {text.loc || ''}</li>
+          <li>时区: {text.timezone || ''}</li>
+        </ul>
+        {mapIframe}
+      </Spin>
     </div>
   )
 }
