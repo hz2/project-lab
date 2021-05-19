@@ -3,6 +3,17 @@ import { Input, Select, Statistic, Card } from 'antd'
 import { list as Currency } from './currency'
 import './currency-page.less'
 
+const list = Currency.map(x => ({
+  label: `${x.country} ${x.text} ${x.currency} `,
+  currency: x.currency,
+  value: x.currency
+}))
+
+const genNewList = (ratesVal, input, key1) =>
+  list
+    .filter((x, i) => i < 15 && x.value !== key1)
+    .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
+
 const Page = () => {
   const [bindVal, SetBindVal] = useState({
     input: 1,
@@ -29,43 +40,36 @@ const Page = () => {
       key2
     })
   }
+
   useEffect(() => {
     fetch('https://respok.com/fixer_io', { mode: 'cors' })
       .then(response => response.json())
       .then(r => {
         if (r && r.rates) {
-          SetRatesVal(r.rates)
+          const ratesVal = r.rates
+          SetRatesVal(ratesVal)
           const key1 = 'USD',
             key2 = 'CNY'
-          const val = (1 / r.rates[key1]) * r.rates[key2]
-          SetBindVal({
+          const obj = {
             input: 1,
             key1,
             key2,
-            value: val
-          })
+            value: (1 / ratesVal[key1]) * ratesVal[key2]
+          }
+          SetBindVal(obj)
+          const newList = genNewList(ratesVal, 1, key1)
+          SetNewList(newList)
         }
       })
       .catch(err => console.error(new Error(err)))
   }, [])
 
-  const list = Currency.map(x => ({
-    label: `${x.country} ${x.text} ${x.currency} `,
-    currency: x.currency,
-    value: x.currency
-  }))
-
-  const genTable = ({ input, key1, key2 }) => {
-    const newList = list
-      .filter((x, i) => i < 15 && x.value !== key1)
-      .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
+  const genTable = ({ input, key1 }) => {
+    const newList = genNewList(ratesVal, input, key1)
     SetNewList(newList)
   }
 
-  const currencyChange = currency => {
-    console.log('currency', currency)
-    calc({ key1: currency })
-  }
+  const currencyChange = currency => calc({ key1: currency })
 
   const filterOption = (input, option) =>
     option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
