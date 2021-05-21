@@ -14,7 +14,7 @@ const generatorList = [
   'plumFlower'
 ]
 const cnverterList = ['encode', 'hex', 'currency', 'queryString', 'svg']
-const analyzerList = ['ipAddr']
+const analyzerList = ['ipAddress']
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)

@@ -19,7 +19,7 @@ const pathList = {
   svgEditor: 'svgEditor/svgEditor',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
-  ipAddr: 'onlineService/ip',
+  ipAddress: 'onlineService/ip',
   currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool'
 }
