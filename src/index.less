@@ -19,6 +19,7 @@ code {
   height: 100vh;
   width: 100vw;
 }
+
 .ant-message .anticon {
   vertical-align: 0.05em;
 }
@@ -196,4 +197,13 @@ each(@pcts, {
 
   }
 
+);
+
+@grays: range(20);
+
+each(@grays, {
+    .gray@{value} {
+      color: color(hsl(0, 0%, @value / 20));
+    }
+  }
 );
