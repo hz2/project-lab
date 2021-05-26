@@ -182,7 +182,7 @@ const ColorPage = () => {
 
   return (
     <>
-      <div className="colorPage">
+      <div className="colorPage pb30">
         <Input
           className="item-input"
           placeholder="生成颜色"

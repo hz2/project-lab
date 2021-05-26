@@ -3,12 +3,78 @@ import { Input, Select, Statistic, Card } from 'antd'
 import { list as Currency } from './currency'
 import './currency-page.less'
 
+var digitUppercase = function(n) {
+  var fraction = ['毛', '分']
+  // var fraction = ['角', '分'];
+  var digit = [
+    // '零', '壹', '贰', '叁', '肆',
+    // '伍', '陆', '柒', '捌', '玖'
+    '零',
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+    '七',
+    '八',
+    '九'
+  ]
+  var unit = [
+    ['块', '万', '亿'],
+    ['', '十', '百', '千']
+    // ['元', '万', '亿'],
+    // ['', '拾', '佰', '仟']
+  ]
+  var head = n < 0 ? '欠' : ''
+  n = Math.abs(n)
+  var s = ''
+  for (let i = 0; i < fraction.length; i++) {
+    s += (digit[Math.floor(shiftRight(n, 1 + i)) % 10] + fraction[i]).replace(
+      /零./,
+      ''
+    )
+  }
+  s = s || '整'
+  n = Math.floor(n)
+  for (let i = 0; i < unit[0].length && n > 0; i++) {
+    var p = ''
+    for (var j = 0; j < unit[1].length && n > 0; j++) {
+      p = digit[n % 10] + unit[1][j] + p
+      n = Math.floor(shiftLeft(n, 1))
+    }
+    s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s
+  }
+  return (
+    head +
+    s
+      .replace(/(零.)*零元/, '元')
+      .replace(/(零.)+/g, '零')
+      .replace(/^整$/, '零元整')
+  )
+}
+
+// 向右移位
+function shiftRight(number, digit) {
+  digit = parseInt(digit, 10)
+  var value = number.toString().split('e')
+  return +(value[0] + 'e' + (value[1] ? +value[1] + digit : digit))
+}
+// 向左移位
+function shiftLeft(number, digit) {
+  digit = parseInt(digit, 10)
+  var value = number.toString().split('e')
+  return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
+}
+
 const list = Currency.map(x => ({
+  ...x,
   label: `${x.country} ${x.text} ${x.currency} `,
   currency: x.currency,
   value: x.currency
 }))
 
+const tranCurrency = currency => list.filter(x => x.currency === currency)[0]
 const genNewList = (ratesVal, input, key1) =>
   list
     .filter((x, i) => i < 15 && x.value !== key1)
@@ -82,6 +148,7 @@ const Page = () => {
             className="w120"
             value={bindVal.input}
             placeholder="请输入金额"
+            maxLength="9"
             onChange={({ target: { value } }) => calc({ input: value / 1 })}
             allowClear
           />
@@ -93,37 +160,44 @@ const Page = () => {
             onChange={val => calc({ key1: val })}
             filterOption={filterOption}
             options={list}></Select>
+          <div className="numText mt10 center">
+            <span className="num">{bindVal.input}</span>
+            <span className="unit">{tranCurrency(bindVal.key1).text}</span>
+            <span className="eq">等于</span>
+          </div>
         </Input.Group>
         <div
           className="exchange mx15 py20"
           onClick={() => calc({ key2: bindVal.key1, key1: bindVal.key2 })}>
           💱
         </div>
-        <div className="w200 right">
+        <div className="w300 right">
           <Select
             showSearch
-            className="w160"
+            className="w250"
             placeholder="选择货币"
             value={bindVal.key2}
             onChange={val => calc({ key2: val })}
             filterOption={filterOption}
             options={list}></Select>
-
-          <Statistic
-            className="mt10 center"
-            value={bindVal.value}
-            precision={5}
-          />
+          <div className="numText mt10 flex center">
+            <Statistic value={bindVal.value} precision={5} />
+            <span className="ml10 unit">{bindVal.key2}</span>
+          </div>
         </div>
       </div>
       <div className="table ">
         {newList.map((x, i) => (
           <Card
-            title={x.label}
+            title={x.country + ' ' + x.currency}
             className="item pointer"
             key={i}
             onClick={() => currencyChange(x.currency)}>
-            <div className="num">{x.num.toFixed(5)}</div>
+            <div>
+              <span className="num">{x.num.toFixed(5)}</span>
+              <span className="text ml5">{x.text}</span>
+            </div>
+            <div className="text gray12 my10">{digitUppercase(x.num)}</div>
           </Card>
         ))}
       </div>
