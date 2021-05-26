@@ -79,13 +79,13 @@ export const list = [
   },
   {
     country: '银',
-    text: '盎司',
+    text: '盎司银',
     currency: 'XAG',
     code: '961'
   },
   {
     country: '金',
-    text: '盎司',
+    text: '盎司金',
     currency: 'XAU',
     code: '959'
   },
