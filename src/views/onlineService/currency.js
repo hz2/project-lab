@@ -6,22 +6,10 @@ export const list = [
     code: '156'
   },
   {
-    country: '澳门',
-    text: '澳元',
-    currency: 'MOP',
-    code: '446'
-  },
-  {
-    country: '香港',
-    text: '港元',
-    currency: 'HKD',
-    code: '344'
-  },
-  {
-    country: '台湾',
-    text: '新台币元',
-    currency: 'TWD',
-    code: '901'
+    country: '比特币',
+    text: '比特币',
+    currency: 'BTC',
+    code: ''
   },
   {
     country: '美国',
@@ -40,6 +28,24 @@ export const list = [
     text: '英镑',
     currency: 'GBP',
     code: '826'
+  },
+  {
+    country: '澳门',
+    text: '澳元',
+    currency: 'MOP',
+    code: '446'
+  },
+  {
+    country: '香港',
+    text: '港元',
+    currency: 'HKD',
+    code: '344'
+  },
+  {
+    country: '台湾',
+    text: '新台币元',
+    currency: 'TWD',
+    code: '901'
   },
   {
     country: '日本',
@@ -70,12 +76,6 @@ export const list = [
     text: '瑞士法郎',
     currency: 'CHF',
     code: '756'
-  },
-  {
-    country: '比特币',
-    text: '比特币',
-    currency: 'BTC',
-    code: ''
   },
   {
     country: '银',

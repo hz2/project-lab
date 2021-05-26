@@ -4,6 +4,7 @@ import { list as Currency } from './currency'
 import './currency-page.less'
 
 const list = Currency.map(x => ({
+  ...x,
   label: `${x.country} ${x.text} ${x.currency} `,
   currency: x.currency,
   value: x.currency
@@ -123,7 +124,10 @@ const Page = () => {
             className="item pointer"
             key={i}
             onClick={() => currencyChange(x.currency)}>
-            <div className="num">{x.num.toFixed(5)}</div>
+            <div>
+              <span className="num">{x.num.toFixed(5)}</span>
+              <span className="text ml5">{x.text}</span>
+            </div>
           </Card>
         ))}
       </div>
