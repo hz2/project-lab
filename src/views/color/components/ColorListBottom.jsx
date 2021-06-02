@@ -29,7 +29,7 @@ const ColorList = ({ count, color: { h, s, l } }) => (
 const Actiongroup = ({ onChangeFn }) => (
   <div className="showList">
     <div className="action">
-      <Radio.Group defaultValue={10} buttonStyle="solid" onChange={onChangeFn}>
+      <Radio.Group defaultValue={20} buttonStyle="solid" onChange={onChangeFn}>
         {[10, 15, 20, 30].map((x, i) => (
           <Radio.Button value={x} key={i}>
             {x}

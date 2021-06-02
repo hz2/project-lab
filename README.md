@@ -21,7 +21,6 @@ Do **NOT** contribute to this repo on github
 
 <img src="./public/LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
 
-
 ## Element 
 
 + Mountain: peaks, courage
