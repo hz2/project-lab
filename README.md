@@ -19,24 +19,7 @@ Do **NOT** contribute to this repo on github
 
 ## Logo
 
-<style>.c1 {color:transparent;} .c2 {color:#0C8D7D;} </style>
-<code><span class="ascii c1">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@<span class="c2">##############</span>@@@@@@@@@@@@
-@@@@@@@@@@<span class="c2">#####################</span>@@@@@@@@@
-@@@@@@@<span class="c2">###########################</span>@@@@@@
-@@@@@<span class="c2">###############################</span>@@@@
-@@@@<span class="c2">#################################</span>@@@
-@@@<span class="c2">################</span>@@@@@<span class="c2">#############</span>@@@
-@@<span class="c2">#############</span>@@@@@@@@@@@@<span class="c2">########</span>@@@@@
-@@<span class="c2">#########</span>@@@@@@@@@@<span class="c2">##</span>@@@@@@@@<span class="c2">##</span>@@@@@@@
-@@<span class="c2">######</span>@@@@@@@@@@@<span class="c2">#######</span>@@@@@@@@@@@@@@
-@@@<span class="c2">#######</span>@@@@@@@<span class="c2">#############</span>@@@@@<span class="c2">###</span>@@
-@@@@<span class="c2">#################################</span>@@@
-@@@@@<span class="c2">###############################</span>@@@@
-@@@@@@@<span class="c2">###########################</span>@@@@@@
-@@@@@@@@@@<span class="c2">#####################</span>@@@@@@@@@
-@@@@@@@@@@@@@@<span class="c2">##############</span>@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span></code>
+<img src="./public/LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
 
 ## Element 
 
