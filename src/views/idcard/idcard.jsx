@@ -133,7 +133,7 @@ class idcard extends React.Component {
     })
   }
   handleChange = ({ target: { value } }) => {
-    console.log('value', value)
+    // console.log('value', value)
     this.setState({
       idcvalue: value
     })
