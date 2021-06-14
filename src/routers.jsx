@@ -12,6 +12,7 @@ const pathList = {
   lottery: 'lottery/lottery',
   // converter
   queryString: 'encode/qs',
+  qs: 'encode/qs',
   hex: 'encode/hexConversion',
   encode: 'encode/encodeDecode',
   emoji: 'emoji',
@@ -20,6 +21,7 @@ const pathList = {
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
   ipAddress: 'onlineService/ip',
+  ip: 'onlineService/ip',
   currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool'
 }
