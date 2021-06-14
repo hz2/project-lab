@@ -15,6 +15,7 @@ const pathList = {
   qs: 'encode/qs',
   hex: 'encode/hexConversion',
   encode: 'encode/encodeDecode',
+  dataURL: 'encode/dataURL',
   emoji: 'emoji',
   svgpreview: 'svgpreview',
   svgEditor: 'svgEditor/svgEditor',
