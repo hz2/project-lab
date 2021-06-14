@@ -13,7 +13,14 @@ const generatorList = [
   'lottery',
   'plumFlower'
 ]
-const cnverterList = ['encode', 'hex', 'currency', 'queryString', 'svg']
+const cnverterList = [
+  'encode',
+  'hex',
+  'currency',
+  'queryString',
+  'dataUrl',
+  'svg'
+]
 const analyzerList = ['ipAddress']
 
 const genTitle = str =>
@@ -40,7 +47,7 @@ const Home = props => (
         <span className="footertext">
           <span>2020-present</span>
           <span className="splitcolor">\</span>
-          <span>Made with </span>
+          <span>made with </span>
           <span role="img" aria-label="sleep">
             💤
           </span>
@@ -56,7 +63,7 @@ const Home = props => (
             href="https://github.com/hz2/project-lab/discussions/new"
             target="_blank"
             rel="noopener noreferrer">
-            Feedback
+            feedback
           </a>
         </span>
       </Divider>

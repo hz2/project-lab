@@ -3,8 +3,10 @@ import { Input } from 'antd'
 
 const Page = () => {
   // is still alive
-  const url = ''
-  const urlChange = ()=>{}
+  const [url, setUrl] = useState('')
+  const urlChange = () => {
+    setUrl(1)
+  }
   return (
     <div className="common-box">
       <Input value={url} onChange={urlChange} />
