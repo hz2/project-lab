@@ -35,6 +35,14 @@ const DataUrl = () => {
     setRadio(val)
   }
 
+  const genPreview = data => {
+    const type = data && data.split('/')[0]
+    return {
+      'data:image': <img alt="preview" src={data} />,
+      'data:text': <iframe title="preivew" src={data} />
+    }[type]
+  }
+
   return (
     <div className="p20">
       <div className="dataurl">
@@ -48,6 +56,7 @@ const DataUrl = () => {
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
         <TextArea placeholder="请选择文件" rows={15} value={b64Str} />
+        <div className="preview-box w450 h450 mt20">{genPreview(b64Str)}</div>
       </div>
     </div>
   )
