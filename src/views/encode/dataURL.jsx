@@ -4,8 +4,13 @@ import { UploadOutlined } from '@ant-design/icons'
 import './style.less'
 const { TextArea } = Input
 const DataUrl = () => {
-  const [b64Str, setB64Str] = useState('')
-  const [radio, setRadio] = useState('b64')
+  const [fileObj, setFileObj] = useState({
+    type: '',
+    size: '',
+    name: '',
+    url: ''
+  })
+  const [radio, setRadio] = useState('blob')
   const props = {
     name: 'file',
     maxCount: 1,
@@ -16,16 +21,30 @@ const DataUrl = () => {
         if (!file) {
           return
         }
-        const { originFileObj } = file
+        const { originFileObj, type, size, name } = file
         const reader = new FileReader()
-        if (radio === 'text') {
+        if (radio === 'blob') {
+          const objectURL = URL.createObjectURL(originFileObj)
+          setFileObj({
+            url: objectURL,
+            type,
+            size,
+            name
+          })
+          return
+        } else if (radio === 'text') {
           reader.readAsText(originFileObj, 'UTF-8')
-        } else {
-          reader.readAsDataURL(originFileObj, 'UTF-8')
+        } else if (radio === 'b64') {
+          reader.readAsDataURL(originFileObj)
         }
         reader.onload = () => {
           const result = reader.result
-          setB64Str(result)
+          setFileObj({
+            url: result,
+            type,
+            size,
+            name
+          })
         }
       }
     }
@@ -35,28 +54,30 @@ const DataUrl = () => {
     setRadio(val)
   }
 
-  const genPreview = data => {
-    const type = data && data.split('/')[0]
+  const genPreview = fileObj => {
+    const { type, url } = fileObj
+    const typeprefix = type && type.split('/')[0]
     return {
-      'data:image': <img alt="preview" src={data} />,
-      'data:text': <iframe title="preivew" src={data} />
-    }[type]
+      image: <img alt="preview" src={url} />,
+      text: <iframe title="preivew" src={url} />
+    }[typeprefix]
   }
 
   return (
     <div className="p20">
       <div className="dataurl">
         <h2>Data URLs 转换</h2>
-        <Radio.Group defaultValue="b64" buttonStyle="solid" onChange={setType}>
+        <Radio.Group defaultValue="blob" buttonStyle="solid" onChange={setType}>
           <Radio.Button value="text">Text</Radio.Button>
           <Radio.Button value="b64">Base64</Radio.Button>
+          <Radio.Button value="blob">blob</Radio.Button>
         </Radio.Group>
         <h4>请选择文件</h4>
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
-        <TextArea placeholder="请选择文件" rows={15} value={b64Str} />
-        <div className="preview-box w450 h450 mt20">{genPreview(b64Str)}</div>
+        <TextArea placeholder="请选择文件" rows={15} value={fileObj.url} />
+        <div className="preview-box w450 h450 mt20">{genPreview(fileObj)}</div>
       </div>
     </div>
   )
