@@ -14,6 +14,7 @@ const DataUrl = () => {
   const props = {
     name: 'file',
     maxCount: 1,
+    className: 'w450 inline-block',
     beforeUpload: file => false,
     onChange({ file, fileList }) {
       if (file.status !== 'uploading') {
