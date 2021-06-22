@@ -14,6 +14,7 @@ const DataUrl = () => {
   const props = {
     name: 'file',
     maxCount: 1,
+    className: 'w450 inline-block',
     beforeUpload: file => false,
     onChange({ file, fileList }) {
       if (file.status !== 'uploading') {
@@ -68,8 +69,8 @@ const DataUrl = () => {
       <div className="dataurl">
         <h2>Data URLs 转换</h2>
         <Radio.Group defaultValue="blob" buttonStyle="solid" onChange={setType}>
-          <Radio.Button value="text">Text</Radio.Button>
-          <Radio.Button value="b64">Base64</Radio.Button>
+          <Radio.Button value="text">text</Radio.Button>
+          <Radio.Button value="b64">base64</Radio.Button>
           <Radio.Button value="blob">blob</Radio.Button>
         </Radio.Group>
         <h4>请选择文件</h4>
