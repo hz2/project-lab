@@ -36,7 +36,7 @@
     "@craco/craco": "^5.5.0",
     "craco-less": "^1.17.1",
     "prettier": "^1.15.2",
-    "pub.css": "^0.0.10"
+    "pub.css": "^0.0.16"
   },
   "scripts": {
     "dev": "craco start",
