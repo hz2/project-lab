@@ -42,7 +42,7 @@ const Actiongroup = ({ onChangeFn }) => (
 
 const ColorListBottom = props => {
   const color = props.val
-  const [showCount, setShowCount] = useState(10)
+  const [showCount, setShowCount] = useState(20)
   const onChangeFn = ({ target: { value } }) => setShowCount(value)
   return (
     <div className="colorListBottom">
