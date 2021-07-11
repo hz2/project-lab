@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { Route, Switch, HashRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 import Home from './views/home/home'
+import Header from './views/components/Header'
 
 const pathList = {
   // generator
@@ -38,11 +39,11 @@ const routesList = Object.entries(pathList).map((x, i) => (
 const Routers = () => {
   return (
     <HashRouter>
-      <header></header>
       <Suspense
         fallback={
           <Spin className="fullpage" spinning={true} size="large"></Spin>
         }>
+        <Header />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
