@@ -1,5 +1,6 @@
 stages:
   - pages
+  - docker
 pages:
   image: node:14.0
   stage: pages
@@ -15,11 +16,6 @@ pages:
     - rm -rf public
     - mv build public
     - cd public
-    - cat "$dockerioToken" | docker login --username hzsq --password-stdin
-    - v=`date +'%F-%H-%M'`
-    - docker build -t huxi-lab:v${v} .
-    - docker tag huxi-lab:v${v} hzsq/huxi-lab:v${v}
-    - docker push hzsq/huxi-lab:v${v}
     # - ls
     # - cd ../
     # - cp "$labuploader" ./labuploader
@@ -31,3 +27,32 @@ pages:
       - public
   only:
     - master
+docker-build:
+  # Use the official docker image.
+  image: docker:latest
+  stage: docker
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+    - cat "$dockerioToken" | docker login --username hzsq --password-stdin
+  # Default branch leaves tag empty (= latest tag)
+  # All other branches are tagged with the escaped branch name (commit ref slug)
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag=""
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag=":$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - cd public
+    - docker build -t hzsq/huxi-lab:v${tag} .
+    - docker push hzsq/huxi-lab:v${tag}
+    - curl -X POST "${TG_URL}" -d "chat_id=${TG_CHAT_ID}&text=gitLab%20%E4%B8%8A%E7%9A%84%20project-react-sync docker %E6%8E%A8%E9%80%81%E5%AE%8C%E6%88%90%E4%BA%86"
+  # Run this job in a branch where a Dockerfile exists
+  # rules:
+  #   - if: $CI_COMMIT_BRANCH
+  #     exists:
+  #       - Dockerfile
