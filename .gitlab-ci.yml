@@ -8,7 +8,6 @@ pages:
     paths:
     - node_modules/
   before_script:
-    - docker info
     - node -v
     - npm -v
   script:
@@ -35,6 +34,7 @@ docker-build:
   services:
     - docker:dind
   before_script:
+    - docker info
     - cat "$dockerioToken" | docker login --username hzsq --password-stdin
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
