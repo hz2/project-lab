@@ -6,6 +6,16 @@ Do **NOT** contribute to this repo on github
 
 ⚠️⚠️⚠️
 
+## Build
+
+```bash
+cd build/
+cat ~/dockerioToken | docker login --username hzsq --password-stdin
+v=`date +'%F-%H-%M'`
+docker build -t huxi-lab:v${v} .
+docker tag huxi-lab:v${v} hzsq/huxi-lab:v${v}
+docker push hzsq/huxi-lab:v${v}
+```
 ## Deploy to
 
 | platform | link | status |
