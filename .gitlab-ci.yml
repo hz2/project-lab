@@ -48,11 +48,5 @@ docker-build:
         echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
       fi
     - cd public
-    - docker build -t hzsq/huxi-lab:v${tag} .
-    - docker push hzsq/huxi-lab:v${tag}
-    - curl -X POST "${TG_URL}" -d "chat_id=${TG_CHAT_ID}&text=gitLab%20%E4%B8%8A%E7%9A%84%20project-react-sync docker %E6%8E%A8%E9%80%81%E5%AE%8C%E6%88%90%E4%BA%86"
-  # Run this job in a branch where a Dockerfile exists
-  # rules:
-  #   - if: $CI_COMMIT_BRANCH
-  #     exists:
-  #       - Dockerfile
+    - docker build -t hzsq/huxi-lab:${tag} .
+    - docker push hzsq/huxi-lab:${tag}
