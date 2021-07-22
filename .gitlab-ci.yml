@@ -50,3 +50,4 @@ docker-build:
     - cd public
     - docker build -t hzsq/huxi-lab:${tag} .
     - docker push hzsq/huxi-lab:${tag}
+    - docker push hzsq/huxi-lab:${tag} hzsq/huxi-lab:latest
