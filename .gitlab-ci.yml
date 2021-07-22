@@ -44,6 +44,7 @@ docker-build:
     - echo hzsq/huxi-lab:${tag}
     - docker build -t hzsq/huxi-lab:${tag} .
     - docker push hzsq/huxi-lab:${tag}
-    - docker push hzsq/huxi-lab:${tag} hzsq/huxi-lab:latest
+    - docker tag  hzsq/huxi-lab:${tag} hzsq/huxi-lab:latest
+    - docker push hzsq/huxi-lab:latest
   only:
     - master
