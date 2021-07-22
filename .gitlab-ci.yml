@@ -48,6 +48,10 @@ docker-build:
         echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
       fi
     - cd public
+    - ls -al
+    - echo hzsq/huxi-lab:${tag}
     - docker build -t hzsq/huxi-lab:${tag} .
     - docker push hzsq/huxi-lab:${tag}
     - docker push hzsq/huxi-lab:${tag} hzsq/huxi-lab:latest
+  only:
+    - master
