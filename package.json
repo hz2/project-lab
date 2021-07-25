@@ -9,7 +9,7 @@
     "http-proxy-middleware": "^0.19.2",
     "husky": "^2.4.1",
     "jszip": "^3.7.0",
-    "lint-staged": "^8.1.0",
+    "lint-staged": "^11.1.1",
     "nprogress": "^0.2.0",
     "qrcode.react": "^1.0.1",
     "qs": "^6.10.1",
@@ -37,7 +37,7 @@
     "@craco/craco": "^5.5.0",
     "craco-less": "^1.18.0",
     "prettier": "^1.15.2",
-    "pub.css": "^0.0.16"
+    "pub.css": "0.0.18"
   },
   "scripts": {
     "dev": "craco start",
