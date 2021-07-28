@@ -12,9 +12,9 @@ Do **NOT** contribute to this repo on github
 cd build/
 cat ~/dockerioToken | docker login --username hzsq --password-stdin
 v=`date +'%F-%H-%M'`
-docker build -t lab:v${v} .
-docker tag lab:v${v} hzsq/lab:v${v}
-docker push hzsq/lab:v${v}
+docker build -t huxi-lab:v${v} .
+docker tag huxi-lab:v${v} hzsq/huxi-lab:v${v}
+docker push hzsq/huxi-lab:v${v}
 ```
 ## Deploy to
 
@@ -25,11 +25,11 @@ docker push hzsq/lab:v${v}
 
 ## Flow chart
 
-<img src="./flow.svg" alt="flow" width="80%" loading="lazy">
+<img src="./src/flow.svg" alt="flow" width="80%" loading="lazy">
 
 ## Logo
 
-<img src="./LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
+<img src="./public/LabRectangle2.svg" alt="logo" width="200px" loading="lazy">
 
 ## Element 
 
