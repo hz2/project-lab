@@ -14,7 +14,7 @@ const DataUrl = () => {
   const props = {
     name: 'file',
     maxCount: 1,
-    className: 'w450 inline-block',
+    className: 'w450 block',
     beforeUpload: file => false,
     onChange({ file, fileList }) {
       if (file.status !== 'uploading') {
@@ -73,10 +73,13 @@ const DataUrl = () => {
           <Radio.Button value="b64">base64</Radio.Button>
           <Radio.Button value="blob">blob</Radio.Button>
         </Radio.Group>
-        <h4>请选择文件</h4>
-        <Upload {...props}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
-        </Upload>
+        {/* <h4>请选择文件</h4> */}
+        <div className="block">
+          <span className="mr15">请选择文件</span>
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </div>
         <TextArea placeholder="请选择文件" rows={15} value={fileObj.url} />
         <div className="preview-box w450 h450 mt20">{genPreview(fileObj)}</div>
       </div>
