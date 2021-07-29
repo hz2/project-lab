@@ -40,6 +40,9 @@ docker-build:
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
     - cd public
+    - cp ../README.md ./
+    - cp ../flow.svg ./
+    - cp ../LabRectangle2.svg ./
     - docker build -t hzsq/lab:latest .
     - docker push hzsq/lab:latest
   only:
