@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Divider } from 'antd'
+import { Link } from 'react-router-dom'
 
 import './home.less'
 
@@ -28,9 +29,9 @@ const genTitle = str =>
 
 const genBtn = (list, history) =>
   list.map((x, i) => (
-    <Button type="primary" key={i} onClick={() => history.push('/' + x)}>
-      {genTitle(x)}
-    </Button>
+    <Link className="m10" key={i} to={location => '/' + x}>
+      <Button type="primary">{genTitle(x)}</Button>
+    </Link>
   ))
 const Home = props => (
   <div className="app-home">
