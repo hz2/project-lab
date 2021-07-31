@@ -27,7 +27,7 @@ const analyzerList = ['ipAddress']
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
 
-const genBtn = (list, history, key) =>
+const genBtn = (list, key) =>
   list.map((x, i) => (
     <Button className="m10" type="primary" key={key + i}>
       <Link to={location => '/' + x}>{genTitle(x)}</Link>
@@ -36,13 +36,11 @@ const genBtn = (list, history, key) =>
 const Home = props => (
   <div className="app-home">
     <h2>Generator</h2>
-    <div className="btn-list">
-      {genBtn(generatorList, props.history, 'gen')}
-    </div>
+    <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
     <h2>Converter</h2>
-    <div className="btn-list">{genBtn(cnverterList, props.history, 'cov')}</div>
+    <div className="btn-list">{genBtn(cnverterList, 'cov')}</div>
     <h2>Analyzer</h2>
-    <div className="btn-list">{genBtn(analyzerList, props.history, 'aly')}</div>
+    <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
 
     {/* <ReduxPage /> */}
     <footer className="github">
