@@ -33,12 +33,12 @@ const genTitle = str =>
 
 const genBtn = (list, history) =>
   list.map((x, i) => (
-    <>
+    <div className="item" key={i}>
       {iconObj[x]}
-      <Button type="primary" key={i} onClick={() => history.push('/' + x)}>
+      <Button type="primary" onClick={() => history.push('/' + x)}>
         {genTitle(x)}
       </Button>
-    </>
+    </div>
   ))
 const Home = props => (
   <div className="app-home">
