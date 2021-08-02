@@ -1,6 +1,21 @@
 import React from 'react'
-import { Button, Divider } from 'antd'
-import { IdcardTwoTone } from '@ant-design/icons'
+import { Divider } from 'antd'
+import {
+  ExperimentTwoTone,
+  IdcardTwoTone,
+  BuildTwoTone,
+  CameraTwoTone,
+  EyeTwoTone,
+  HourglassTwoTone,
+  FundTwoTone,
+  ControlTwoTone,
+  ApiTwoTone,
+  GiftTwoTone,
+  FireTwoTone,
+  FilterTwoTone,
+  HighlightTwoTone,
+  CompassTwoTone
+} from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 import './home.less'
@@ -8,39 +23,84 @@ import './home.less'
 // import ReduxPage from './redux'
 
 const generatorList = [
-  'person',
-  'bing',
-  'nasa',
-  'color',
-  'lottery',
-  'plumFlower'
+  {
+    name: 'person',
+    icon: <IdcardTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'bing',
+    icon: <CameraTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'nasa',
+    icon: <EyeTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'color',
+    icon: <ControlTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'lottery',
+    icon: <GiftTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'plumFlower',
+    icon: <FireTwoTone twoToneColor="#00bbbb" />
+  }
 ]
 const cnverterList = [
-  'encode',
-  'hex',
-  'currency',
-  'queryString',
-  'dataUrl',
-  'svg'
+  {
+    name: 'encode',
+    icon: <HourglassTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'hex',
+    icon: <BuildTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'currency',
+    icon: <FundTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'queryString',
+    icon: <ApiTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'dataUrl',
+    icon: <FilterTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'svg',
+    icon: <HighlightTwoTone twoToneColor="#00bbbb" />
+  }
 ]
-const analyzerList = ['ipAddress']
-
-const iconObj = {
-  person: <IdcardTwoTone />
-}
+const analyzerList = [
+  {
+    name: 'ipAddress',
+    icon: <CompassTwoTone twoToneColor="#00bbbb" />
+  }
+]
 
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
 
 const genBtn = (list, key) =>
   list.map((x, i) => (
-    <div className="m10" type="primary" key={key + i}>
-      {iconObj[x]}
-      <Link to={location => '/' + x}>{genTitle(x)}</Link>
-    </div>
+    <Link
+      className="item inline-block align-top center m10"
+      type="primary"
+      key={key + i}
+      to={location => '/' + x.name}>
+      <div className="block">{x.icon}</div>
+      {/* <Button type="link">{genTitle(x.name)}</Button> */}
+      <div className="text">{genTitle(x.name)}</div>
+    </Link>
   ))
 const Home = props => (
   <div className="app-home">
+    <h1 className="common-title page-title">
+      <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project Lab
+    </h1>
     <h2>Generator</h2>
     <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
     <h2>Converter</h2>

@@ -1,9 +1,23 @@
 .app-home {
     padding: 20px;
 
+    .page-title {
+        text-transform: inherit;
+        font-size: 26px;
+
+    }
+
     .btn-list {
-        button {
-            margin: 8px;
+        .item {
+            width: 70px;
+            svg {
+                width: 50px;
+                height: 50px;
+            }
+            .text {
+                margin: 8px auto;
+                line-height: 1.4;
+            }
         }
     }
 
@@ -12,6 +26,7 @@
         bottom: 20px;
         width: calc(100% - 40px);
     }
+
     .ant-divider-horizontal.ant-divider-with-text {
         color: rgba(0, 0, 0, 0.65);
         font-weight: initial;
@@ -22,7 +37,7 @@
         border-color: rgba(9, 60, 83, 0.1);
 
     }
-    
+
     .splitcolor {
         color: #bbb;
         margin: 0 10px;
