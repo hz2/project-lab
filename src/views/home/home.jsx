@@ -90,7 +90,8 @@ const genBtn = (list, key) =>
       className="item inline-block align-top center m10"
       type="primary"
       key={key + i}
-      to={location => '/' + x.name}>
+      to={location => '/' + x.name}
+      title={genTitle(x.name)}>
       <div className="block">{x.icon}</div>
       {/* <Button type="link">{genTitle(x.name)}</Button> */}
       <div className="text">{genTitle(x.name)}</div>
