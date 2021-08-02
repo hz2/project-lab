@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Divider } from 'antd'
+import { IdcardTwoTone } from '@ant-design/icons'
 
 import './home.less'
 
@@ -23,14 +24,21 @@ const cnverterList = [
 ]
 const analyzerList = ['ipAddress']
 
+const iconObj = {
+  person: <IdcardTwoTone />
+}
+
 const genTitle = str =>
   str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
 
 const genBtn = (list, history) =>
   list.map((x, i) => (
-    <Button type="primary" key={i} onClick={() => history.push('/' + x)}>
-      {genTitle(x)}
-    </Button>
+    <>
+      {iconObj[x]}
+      <Button type="primary" key={i} onClick={() => history.push('/' + x)}>
+        {genTitle(x)}
+      </Button>
+    </>
   ))
 const Home = props => (
   <div className="app-home">
