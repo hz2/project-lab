@@ -130,7 +130,7 @@ const SvgTool = () => {
           <div className="result">
             {svgList.map((x, i) => (
               <div className="file" key={i}>
-                <div className="file-name" id={x.uid}>
+                <div className="file-name common-title" id={x.uid}>
                   <span>{x.name}</span>
                   <DeleteTwoTone
                     className="ml45"
