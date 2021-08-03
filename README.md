@@ -25,7 +25,7 @@ docker push hzsq/lab:v${v}
 
 ## Flow chart
 
-<img src="./flow.svg" alt="flow" width="80%" loading="lazy">
+<img src="./flow.svg" alt="flow" width="85%" loading="lazy">
 
 ## Logo
 
