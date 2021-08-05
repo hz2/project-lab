@@ -99,16 +99,18 @@ const genBtn = (list, key) =>
   ))
 const Home = props => (
   <div className="app-home">
-    <h1 className="common-title page-title">
-      <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project Lab
-    </h1>
-    <h2>Generator</h2>
-    <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
-    <h2>Converter</h2>
-    <div className="btn-list">{genBtn(cnverterList, 'cov')}</div>
-    <h2>Analyzer</h2>
-    <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
-
+    <section className="home-container">
+      <h1 className="common-title page-title">
+        <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project
+        Lab
+      </h1>
+      <h2>Generator</h2>
+      <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
+      <h2>Converter</h2>
+      <div className="btn-list">{genBtn(cnverterList, 'cov')}</div>
+      <h2>Analyzer</h2>
+      <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
+    </section>
     {/* <ReduxPage /> */}
     <footer className="github">
       <Divider>
