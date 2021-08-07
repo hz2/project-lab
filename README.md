@@ -1,4 +1,4 @@
-[![pipeline status](https://gitlab.com/lzz/react-sync/badges/master/pipeline.svg)](https://gitlab.com/lzz/react-sync/commits/master) | [![coverage report](https://gitlab.com/lzz/react-sync/badges/master/coverage.svg)](https://gitlab.com/lzz/react-sync/commits/master)
+[![pipeline status](https://gitlab.com/lzz/react-sync/badges/master/pipeline.svg)](https://gitlab.com/lzz/react-sync/commits/master) | [![coverage report](https://gitlab.com/lzz/react-sync/badges/master/coverage.svg)](https://gitlab.com/lzz/react-sync/commits/master) | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhz2%2Fproject-lab.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhz2%2Fproject-lab?ref=badge_shield)
 
 ⚠️⚠️⚠️
 
@@ -37,3 +37,6 @@ docker push hzsq/lab:v${v}
 + Water: waves, flow
 + Green: nature, hope
 + White: air, freedom
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhz2%2Fproject-lab.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhz2%2Fproject-lab?ref=badge_large)
