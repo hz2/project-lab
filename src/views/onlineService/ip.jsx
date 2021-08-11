@@ -75,12 +75,14 @@ const Page = () => {
   useEffect(() => {
     setLoading(true)
     const url = 'https://respok.com/ipinfo_io/default'
+    // const url = 'https://cf.p0t.top/cf'
     fetch(url, { mode: 'cors' })
       .then(response => response.json())
       .then(r => {
         if (r) {
           const { country, loc } = r
           setText(r)
+          // const loc = [ r.latitude, r.longitude ].join(',')
           if (loc) {
             const mapIframe = getMap(loc)
             setMapIframe(mapIframe)
