@@ -4,7 +4,6 @@ import { Modal, Input, Button, Spin, message } from 'antd'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './idcard.less'
-import { out as xzqh, keysArr } from './xzqh'
 
 const rdm = (min, max) => {
   min = Math.ceil(min)
@@ -25,7 +24,8 @@ class idcard extends React.Component {
     icon1: '',
     icon2: '',
     phoneobj: {},
-    loading: false
+    loading: false,
+    keysArr: []
   }
 
   showModal = () => {
@@ -50,7 +50,6 @@ class idcard extends React.Component {
         .reduce((x, y) => x + y) % 11
     ] + ''
   setResult = val => {
-    let area = ''
     let birth = ''
     let sex = ''
     let astrology = ''
@@ -90,8 +89,7 @@ class idcard extends React.Component {
     let icon2 = ''
     let isValidate = null
     if (val && val.length >= 14) {
-      area =
-        xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
+      // area = xzqh[val.substr(0, 6)] && [...new Set(xzqh[val.substr(0, 6)])].join(' ')
       birth =
         val.substr(6, 4) +
         '年' +
@@ -120,9 +118,18 @@ class idcard extends React.Component {
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
+      this.citycode2Text(val.substr(0, 6))
+        .then(res => {
+          const area = [...new Set(res.city || [])].join(' ')
+          this.setState({
+            resultArea: area
+          })
+        })
+        .catch(err => {
+          console.log('err', err)
+        })
     }
     this.setState({
-      resultArea: area,
       resultBirth: birth,
       resultSex: sex,
       resultAstrology: astrology,
@@ -132,6 +139,7 @@ class idcard extends React.Component {
       isValidate: isValidate
     })
   }
+
   handleChange = ({ target: { value } }) => {
     // console.log('value', value)
     this.setState({
@@ -147,43 +155,7 @@ class idcard extends React.Component {
     })
   }
   randomNO() {
-    // let province = {
-    //   11: '北京',
-    //   12: '天津',
-    //   13: '河北',
-    //   14: '山西',
-    //   15: '内蒙古',
-    //   21: '辽宁',
-    //   22: '吉林',
-    //   23: '黑龙江',
-    //   31: '上海',
-    //   32: '江苏',
-    //   33: '浙江',
-    //   34: '安徽',
-    //   35: '福建',
-    //   36: '江西',
-    //   37: '山东',
-    //   41: '河南',
-    //   42: '湖北',
-    //   43: '湖南',
-    //   44: '广东',
-    //   45: '广西',
-    //   46: '海南',
-    //   50: '重庆',
-    //   51: '四川',
-    //   52: '贵州',
-    //   53: '云南',
-    //   54: '西藏',
-    //   61: '陕西',
-    //   62: '甘肃',
-    //   63: '青海',
-    //   64: '宁夏',
-    //   65: '新疆',
-    //   71: '台湾',
-    //   81: '香港',
-    //   82: '澳门',
-    //   91: '国外'
-    // }
+    const keysArr = this.state.keysArr
     let rdmarea = keysArr[rdm(0, keysArr.length)]
     let rdmdate = new Date(rdm(new Date('1950-01-01') / 1, new Date() / 1))
       .toISOString()
@@ -271,6 +243,27 @@ class idcard extends React.Component {
     this.setState({
       telvalue: phone
     })
+  }
+
+  citycode2Text = code => {
+    return fetch('https://cf.p0t.top/' + code, {
+      mode: 'cors'
+    }).then(response => response.json())
+    // const url = 'https://cf.p0t.top/cf'
+  }
+  cityList = () => {
+    fetch('https://cf.p0t.top/list', { mode: 'cors' })
+      .then(response => response.json())
+      .then(res => {
+        console.log('res', res)
+        this.setState({
+          keysArr: res
+        })
+      })
+      .catch(err => {})
+  }
+  componentDidMount() {
+    this.cityList()
   }
   queryPhoneNo = num => {
     this.setState({

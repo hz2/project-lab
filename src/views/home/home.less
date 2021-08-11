@@ -1,5 +1,10 @@
 .app-home {
     padding: 20px;
+    padding-bottom: 100px;
+
+    .home-container {
+        padding: 10px;
+    }
 
     .page-title {
         text-transform: inherit;
@@ -10,21 +15,32 @@
     .btn-list {
         .item {
             width: 70px;
+
             svg {
                 width: 50px;
                 height: 50px;
             }
+
             .text {
                 margin: 8px auto;
                 line-height: 1.4;
+            }
+
+            &:hover {
+                transition: all linear 0.2s;
+                transform: scale(1.12);
+                filter: hue-rotate(145deg);
             }
         }
     }
 
     .github {
         position: fixed;
-        bottom: 20px;
-        width: calc(100% - 40px);
+        padding: 20px;
+        width: 100%;
+        background: #fff;
+        bottom: 0;
+        left: 0;
     }
 
     .ant-divider-horizontal.ant-divider-with-text {

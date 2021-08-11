@@ -90,7 +90,8 @@ const genBtn = (list, key) =>
       className="item inline-block align-top center m10"
       type="primary"
       key={key + i}
-      to={location => '/' + x.name}>
+      to={location => '/' + x.name}
+      title={genTitle(x.name)}>
       <div className="block">{x.icon}</div>
       {/* <Button type="link">{genTitle(x.name)}</Button> */}
       <div className="text">{genTitle(x.name)}</div>
@@ -98,16 +99,18 @@ const genBtn = (list, key) =>
   ))
 const Home = props => (
   <div className="app-home">
-    <h1 className="common-title page-title">
-      <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project Lab
-    </h1>
-    <h2>Generator</h2>
-    <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
-    <h2>Converter</h2>
-    <div className="btn-list">{genBtn(cnverterList, 'cov')}</div>
-    <h2>Analyzer</h2>
-    <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
-
+    <section className="home-container">
+      <h1 className="common-title page-title">
+        <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project
+        Lab
+      </h1>
+      <h2>Generator</h2>
+      <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
+      <h2>Converter</h2>
+      <div className="btn-list">{genBtn(cnverterList, 'cov')}</div>
+      <h2>Analyzer</h2>
+      <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
+    </section>
     {/* <ReduxPage /> */}
     <footer className="github">
       <Divider>
