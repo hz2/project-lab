@@ -252,12 +252,14 @@ class idcard extends React.Component {
     // const url = 'https://cf.p0t.top/cf'
   }
   cityList = () => {
-    fetch('https://cf.p0t.top/list', { mode: 'cors' })
+    fetch('https://cf.p0t.top/all', { mode: 'cors' })
       .then(response => response.json())
       .then(res => {
         console.log('res', res)
+
+        let keysArr = Object.keys(res).filter(x => !x.endsWith('00'))
         this.setState({
-          keysArr: res
+          keysArr: keysArr
         })
       })
       .catch(err => {})
