@@ -25,7 +25,8 @@ class idcard extends React.Component {
     icon2: '',
     phoneobj: {},
     loading: false,
-    keysArr: []
+    keysArr: [],
+    xzqh: {}
   }
 
   showModal = () => {
@@ -118,16 +119,11 @@ class idcard extends React.Component {
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
-      this.citycode2Text(val.substr(0, 6))
-        .then(res => {
-          const area = [...new Set(res.city || [])].join(' ')
-          this.setState({
-            resultArea: area
-          })
-        })
-        .catch(err => {
-          console.log('err', err)
-        })
+      const cityText = this.citycode2Text(val.substr(0, 6))
+      const area = [...new Set(cityText || [])].join(' ')
+      this.setState({
+        resultArea: area
+      })
     }
     this.setState({
       resultBirth: birth,
@@ -163,7 +159,7 @@ class idcard extends React.Component {
     let rdmorder = ('0' + rdm(0, 99)).substr(-2)
     let rdmsex = rdm(0, 9) // 随机性别 奇数男 偶数女
     let b17 = `${rdmarea}${rdmdate}${rdmorder}${rdmsex}`
-    let endNum = this.idcardCalc(b17)
+    let endNum = this.idcardCalc(b17).toUpperCase()
     return `${b17}${endNum}`
   }
   generateIDCardNO = () => {
@@ -246,18 +242,21 @@ class idcard extends React.Component {
   }
 
   citycode2Text = code => {
-    return fetch('https://cf.p0t.top/' + code, {
-      mode: 'cors'
-    }).then(response => response.json())
+    const xzqh = this.state.xzqh || {}
+    return xzqh[code]
+    // return fetch('https://cf.p0t.top/' + code, {
+    //   mode: 'cors'
+    // }).then(response => response.json())
     // const url = 'https://cf.p0t.top/cf'
   }
   cityList = () => {
-    fetch('https://cf.p0t.top/list', { mode: 'cors' })
+    fetch('https://cf.p0t.top/all', { mode: 'cors' })
       .then(response => response.json())
       .then(res => {
-        console.log('res', res)
+        let keysArr = Object.keys(res).filter(x => !x.endsWith('00'))
         this.setState({
-          keysArr: res
+          keysArr: keysArr,
+          xzqh: res
         })
       })
       .catch(err => {})
