@@ -250,10 +250,22 @@ class idcard extends React.Component {
     // const url = 'https://cf.p0t.top/cf'
   }
   cityList = () => {
+    const res2Key = res => Object.keys(res).filter(x => !x.endsWith('00'))
+    const xzqhLoc = window.localStorage.getItem('xzqh')
+    if (xzqhLoc) {
+      const json = JSON.parse(xzqhLoc)
+      let keysArr = res2Key(json)
+      this.setState({
+        keysArr: keysArr,
+        xzqh: json
+      })
+      return
+    }
     fetch('https://cf.p0t.top/all', { mode: 'cors' })
       .then(response => response.json())
       .then(res => {
-        let keysArr = Object.keys(res).filter(x => !x.endsWith('00'))
+        let keysArr = res2Key(res)
+        window.localStorage.setItem('xzqh', JSON.stringify(res))
         this.setState({
           keysArr: keysArr,
           xzqh: res
