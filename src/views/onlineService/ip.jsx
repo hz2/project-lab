@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCountry } from './country'
 import { Spin } from 'antd'
+import './ip.less'
 
 const transformLonlatToDD = coordinate => {
   const d = Math.floor(coordinate) //116.512885 转换成度（°）实则是取整
@@ -97,7 +98,7 @@ const Page = () => {
       .finally(f => setLoading(false))
   }, [])
   return (
-    <div className="p20">
+    <div className="ip-page p20">
       {/* <div className="flex">
       <Input
         className="m15"
