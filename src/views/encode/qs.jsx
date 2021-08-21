@@ -11,6 +11,7 @@ const QsPage = () => {
     <div className="encodePage">
       <div className="qscover">
         <h2>Query String 转换</h2>
+        <h4>Query String</h4>
         <TextArea
           placeholder={'id=1&name=querystring'}
           rows={6}
@@ -29,6 +30,7 @@ const QsPage = () => {
             }
           }}
         />
+        <h4>JSON</h4>
         <TextArea
           placeholder={'{"id":"1","name":"querystring"}'}
           rows={6}
