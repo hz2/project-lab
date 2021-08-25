@@ -81,7 +81,7 @@ const DataUrl = () => {
           </Upload>
         </div>
         <TextArea placeholder="请选择文件" rows={15} value={fileObj.url} />
-        <div className="preview-box w450 h450 mt20">{genPreview(fileObj)}</div>
+        <div className="preview-box w400 h400 mt20">{genPreview(fileObj)}</div>
       </div>
     </div>
   )
