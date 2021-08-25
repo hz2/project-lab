@@ -101,7 +101,7 @@ const Home = props => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
-        <ExperimentTwoTone className="mr10" twoToneColor="#00bbbb" /> project
+        <img src="./logo-lab-thin.svg" className="lab-logo" /> project
         Lab
       </h1>
       <h2>Generator</h2>
