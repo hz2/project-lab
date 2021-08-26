@@ -1,7 +1,6 @@
 import React from 'react'
 import { Divider } from 'antd'
 import {
-  ExperimentTwoTone,
   IdcardTwoTone,
   BuildTwoTone,
   CameraTwoTone,
@@ -101,7 +100,7 @@ const Home = props => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
-        <img src="./logo-lab-thin.svg" className="lab-logo" /> project
+        <img src="./logo-lab-thin.svg" alt="lab-logo" className="lab-logo" /> project
         Lab
       </h1>
       <h2>Generator</h2>
