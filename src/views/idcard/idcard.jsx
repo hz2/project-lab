@@ -323,6 +323,7 @@ class idcard extends React.Component {
             </CopyToClipboard>
           </div>
           <div className="line">
+            <p>姓名：todo</p>
             <p>
               {
                 {
