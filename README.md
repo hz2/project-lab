@@ -22,6 +22,7 @@ docker push hzsq/lab:v${v}
 | ------ | ------ | ------ |
 | vercel | [https://lab.not.wiki](https://lab.not.wiki) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.not.wiki) |
 | gitlab page | [https://lab.huxi.pub](https://lab.huxi.pub) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.huxi.pub) |
+| cloudflare | [https://lab.p0t.top](https://lab.p0t.top) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.p0t.top) |
 
 ## Flow chart
 
