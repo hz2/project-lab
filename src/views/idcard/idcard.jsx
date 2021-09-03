@@ -162,6 +162,10 @@ class idcard extends React.Component {
     let endNum = this.idcardCalc(b17).toUpperCase()
     return `${b17}${endNum}`
   }
+  genPerson = () => {
+    generateIDCardNO()
+    generateMobile()
+  }
   generateIDCardNO = () => {
     let out = this.randomNO()
     this.setState({ idcvalue: out })
