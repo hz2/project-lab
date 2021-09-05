@@ -274,7 +274,8 @@ class idcard extends React.Component {
       .catch(err => {})
   }
   componentDidMount() {
-    this.cityList()
+    // this.cityList()
+    // todo
   }
   queryPhoneNo = num => {
     this.setState({
