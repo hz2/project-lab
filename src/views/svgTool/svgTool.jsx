@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from '../../libs/common.js'
+import Svg2bg from "./svg2bg";
 const { TabPane } = Tabs
 const JSZip = require('jszip')
 const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
@@ -113,7 +114,7 @@ const SvgTool = () => {
       <Tabs
         defaultActiveKey="1"
         onChange={() => {
-          console.log(11)
+          // console.log(11)
         }}>
         <TabPane tab="Svg Symbol" key="1">
           <div className="btngroup">
@@ -151,6 +152,9 @@ const SvgTool = () => {
             ))}
           </div>
         </TabPane>
+        <TabPane tab="Svg Background" key="2">
+          <Svg2bg />
+        </TabPane>        
       </Tabs>
     </div>
   )
