@@ -75,7 +75,7 @@ const Page = () => {
         <div className="text">输入 SVG 代码</div>
         <TextArea
           rows={6}
-          className="pct33"
+          className="pct33 code"
           placeholder='<?xml version=\"1.0\" encoding=\"UTF-8\"?>'
           value={inputObj.text}
           onChange={origTextInput}
@@ -84,7 +84,7 @@ const Page = () => {
         <div className="text">转换结果</div>
         <TextArea
           rows={6}
-          className="pct33"
+          className="pct33 code"
           placeholder="data:image/svg+xml"
           value={inputObj.dataUrl}
           onChange={dataUrlInput}
