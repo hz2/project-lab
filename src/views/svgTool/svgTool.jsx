@@ -119,13 +119,13 @@ const SvgTool = () => {
         <TabPane tab="Svg Symbol" key="1">
           <div className="btngroup">
             <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Upload Symbol</Button>
+              <Button icon={<UploadOutlined />}>上传图标(Symbol)</Button>
             </Upload>
             <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
-              Download as Zip
+              下载 Zip
             </Button>
             <Button className="ml25" onClick={setSample}>
-              Sample
+              示例
             </Button>
           </div>
           <div className="result">
