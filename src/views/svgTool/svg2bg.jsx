@@ -59,12 +59,12 @@ const Page = () => {
 
 
   return (
-    <>
+    <div className="svgBg">
       <div className="btngroup">
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>上传图标</Button>
         </Upload>
-        <Button icon={<BulbOutlined />} >
+        <Button icon={<BulbOutlined />} onClick={setSample}>
           点击测试
         </Button>
         <Button className="ml25" onClick={setSample}>
@@ -72,25 +72,25 @@ const Page = () => {
         </Button>
       </div>
       <div className="common-box">
-        <div className="text">输入 SVG 代码</div>
+        <div className="title-text">输入 SVG 代码</div>
         <TextArea
           rows={6}
-          className="pct33 code"
+          className="inputbox code"
           placeholder='<?xml version=\"1.0\" encoding=\"UTF-8\"?>'
           value={inputObj.text}
           onChange={origTextInput}
         />
 
-        <div className="text">转换结果</div>
+        <div className="title-text">转换结果</div>
         <TextArea
           rows={6}
-          className="pct33 code"
+          className="inputbox code"
           placeholder="data:image/svg+xml"
           value={inputObj.dataUrl}
           onChange={dataUrlInput}
         />
       </div>
-    </>
+    </div>
   )
 }
 
