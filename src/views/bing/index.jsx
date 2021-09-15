@@ -131,10 +131,10 @@ const Bing = () => {
     imglist.forEach(x => {
       const name = x.urlbase.split('=')[1] + '.jpg'
       const url = `https://www.bing.com${x.urlbase}_UHD.jpg`
-      const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
-      const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
+      // const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
+      // const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
       openDown(name, url, e)
-      openDown(name2, url2, e)
+      // openDown(name2, url2, e)
     })
 
   return (
