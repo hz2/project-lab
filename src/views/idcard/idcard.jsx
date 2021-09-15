@@ -273,9 +273,15 @@ class idcard extends React.Component {
       })
       .catch(err => {})
   }
+  genPerson = () => {
+    // this.generateIDCardNO()
+    // this.generateMobile()
+  }
   componentDidMount() {
     // this.cityList()
     // todo
+    this.cityList()
+    this.genPerson()
   }
   queryPhoneNo = num => {
     this.setState({

@@ -28,10 +28,10 @@ const Nasa = () => {
     <div className="item" key={i}>
       <img src={x.hdurl} alt={x.title} />
       <div className="tips">
-        <div className="text">
+        <div className="text" title={x.explanation}>
           {x.date + ' ' + x.title} {x.copyright ? ` © ${x.copyright}` : ''}
         </div>
-        <div className="text2">{x.explanation}</div>
+        {/* <div className="text2">{x.explanation}</div> */}
       </div>
     </div>
   ))
