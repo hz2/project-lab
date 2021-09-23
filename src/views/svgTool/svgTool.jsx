@@ -14,7 +14,7 @@ const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => {}, [])
+  useEffect(() => { }, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -83,6 +83,7 @@ const SvgTool = () => {
   const props = {
     name: 'file',
     multiple: true,
+    accept: ".svg",
     onChange: uploadSymbolOnChange,
     beforeUpload: () => false,
     onPreview: scrollToDom
@@ -154,7 +155,7 @@ const SvgTool = () => {
         </TabPane>
         <TabPane tab="Svg Background" key="2">
           <Svg2bg />
-        </TabPane>        
+        </TabPane>
       </Tabs>
     </div>
   )

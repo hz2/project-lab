@@ -32,19 +32,47 @@ const Page = () => {
     //     })
     //   })
     setInputObj({
-      text:`<svg opacity="1.0" fill="none" width="32" height="32" stroke-linecap="round" stroke-linejoin="round" stroke="#777" stroke-width="2" viewBox="0 0 32 32"><path d="M14 2 L14 6 M14 18 L14 30 M2 6 L2 18 24 18 30 12 24 6Z"></path></svg>`
+      text: `<svg opacity="1.0" fill="none" width="32" height="32" stroke-linecap="round" stroke-linejoin="round" stroke="#777" stroke-width="2" viewBox="0 0 32 32"><path d="M14 2 L14 6 M14 18 L14 30 M2 6 L2 18 24 18 30 12 24 6Z"></path></svg>`
     })
   }
 
+  const LoadFile = file =>
+    new Promise((resolve, reject) => {
+      if (!file) reject('no file')
+      const reader = new FileReader()
+      reader.readAsText(file, 'UTF-8')
+      reader.onload = ({ target: { result } }) => {
+        resolve({
+          name: file.name,
+          uid: file.uid,
+          size: file.size,
+          type: file.type,
+          file: result
+        })
+      }
+      reader.onerror = e => reject(e)
+    })
 
+  const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
+    const svgContent = await LoadFile(originFileObj)
+    const obj = {
+      ...inputObj,
+      text: svgContent.file
+    }
+    setInputObj(obj)
+  }
 
   const props = {
     name: 'file',
-    multiple: true,
-    onChange: () => false,
+    multiple: false,
+    accept: ".svg",
+    maxCount: 1,
+    showUploadList: false,
+    onChange: uploadChange,
     beforeUpload: () => false,
     onPreview: () => false,
   }
+
 
   const [inputObj, setInputObj] = useState({
     text: '',
@@ -52,7 +80,7 @@ const Page = () => {
 
   })
 
-  const origTextInput = () => { 
+  const origTextInput = () => {
     setInputObj()
   }
   const dataUrlInput = () => { }
@@ -76,7 +104,7 @@ const Page = () => {
         <TextArea
           rows={6}
           className="inputbox code"
-          placeholder='<?xml version=\"1.0\" encoding=\"UTF-8\"?>'
+          placeholder='<?xml version="1.0" encoding="UTF-8"?>'
           value={inputObj.text}
           onChange={origTextInput}
         />
