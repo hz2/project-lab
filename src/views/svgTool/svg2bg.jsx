@@ -14,11 +14,26 @@ const Page = () => {
     setUrl(value)
   }
 
+  const bgstyle = str => {
+    return {
+      height: '200px',
+      width: '200px',
+      backgroundColor: 'rgb(238, 238, 238)',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url('${str}')`
+    }
+  }
+  const bgstyle2 = str => `height: 200px;\nwidth: 200px;\nbackground-color: rgb(238, 238, 238);\nbackground-size: contain;\nbackground-repeat: no-repeat;\nbackground-image: url('${str}');`
+
+
   const setSample = () => {
     const str = `<svg opacity="1.0" fill="none" width="32" height="32" stroke-linecap="round" stroke-linejoin="round" stroke="#777" stroke-width="2" viewBox="0 0 32 32"><path d="M14 2 L14 6 M14 18 L14 30 M2 6 L2 18 24 18 30 12 24 6Z"></path></svg>`
     setInputObj({
       text: str,
-      dataUrl: svgStr2b64(str)
+      dataUrl: svgStr2b64(str),
+      bgstyle: bgstyle(svgStr2b64(str)),
+      bgstyle2: bgstyle2(svgStr2b64(str))
     })
   }
 
@@ -54,9 +69,12 @@ const Page = () => {
   })
   const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
     const svgContent = await LoadFile(originFileObj)
+    const str = svgContent.file
     const obj = {
-      text: svgContent.file,
-      dataUrl: svgStr2b64(svgContent.file)
+      text: str,
+      dataUrl: svgStr2b64(str),
+      bgstyle: bgstyle(svgStr2b64(str)),
+      bgstyle2: bgstyle2(svgStr2b64(str))
     }
     setInputObj(obj)
   }
@@ -106,18 +124,11 @@ const Page = () => {
         />
         <div className="title-text">预览结果</div>
         <div className="flex start">
-          <div className="w200 h200" style={{
-            height: '200px',
-            width: '200px',
-            backgroundColor: 'rgb(238, 238, 238)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundImage: `url('${inputObj.dataUrl}')`
-          }}></div>
+          <div className="w200 h200" style={inputObj.bgstyle}></div>
           <div className="pct60">
             <TextArea
               className="inputbox code"
-              value={`height: 200px;\nwidth: 200px;\nbackground-color: rgb(238, 238, 238);\nbackground-size: contain;\nbackground-repeat: no-repeat;\nbackground-image: url('${inputObj.dataUrl}');`}
+              value={inputObj.bgstyle2}
             />
 
           </div>
