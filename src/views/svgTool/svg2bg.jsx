@@ -32,10 +32,13 @@ const Page = () => {
     setInputObj({
       text: str,
       dataUrl: svgStr2b64(str),
-      bgstyle: bgstyle(svgStr2b64(str)),
+      bgstyle: new bgstyle(svgStr2b64(str)),
       bgstyle2: bgstyle2(svgStr2b64(str))
     })
-  }
+
+    
+    document.querySelector('#preview').style.backgroundImage = `url('${svgStr2b64(str)
+    }')`}
 
   const LoadFile = file =>
     new Promise((resolve, reject) => {
@@ -69,14 +72,16 @@ const Page = () => {
   })
   const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
     const svgContent = await LoadFile(originFileObj)
-    const str = svgContent.file
+    const str = svgContent.file;
+    const datesrt = svgStr2b64(str)
     const obj = {
       text: str,
-      dataUrl: svgStr2b64(str),
-      bgstyle: bgstyle(svgStr2b64(str)),
-      bgstyle2: bgstyle2(svgStr2b64(str))
+      dataUrl: datesrt,
+      bgstyle: new bgstyle(datesrt),
+      bgstyle2: bgstyle2(datesrt)
     }
     setInputObj(obj)
+    document.querySelector('#preview').style.backgroundImage = `url('${datesrt}')`
   }
 
   const props = {
@@ -124,7 +129,7 @@ const Page = () => {
         />
         <div className="title-text">预览结果</div>
         <div className="flex start">
-          <div className="w200 h200" style={inputObj.bgstyle}></div>
+          <div className="w200 h200" id="preview" ></div>
           <div className="pct60">
             <TextArea
               className="inputbox code"
