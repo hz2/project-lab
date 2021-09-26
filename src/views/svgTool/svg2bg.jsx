@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Input, Upload, Button, message } from 'antd'
+import { Input, Upload, Button } from 'antd'
 import {
   UploadOutlined,
-  BulbOutlined,
-  DeleteTwoTone
+  BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
 const { TextArea } = Input
@@ -37,7 +36,7 @@ const Page = () => {
 
   const svgStr2b64 = str => {
     let out = str;
-    if (! /http\:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
+    if (! /http:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
       out = str.replace(/<svg/i, '<svg xmlns="http://www.w3.org/2000/svg"')
     }
     return 'data:image/svg+xml,' + out.replace(/>[\n\r \t]+</g, '><').replace(/[<>#]/g, x => encodeURIComponent(x)).replace(/[\n\r \t]+/g, ' ')
