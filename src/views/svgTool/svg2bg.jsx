@@ -8,37 +8,15 @@ import {
 import './svgTool.less'
 const { TextArea } = Input
 const Page = () => {
-  const [url, setUrl] = useState('')
-  const urlChange = ({ target: { value } }) => {
-    console.log('val', value)
-    setUrl(value)
-  }
-
-  const bgstyle = str => {
-    return {
-      height: '200px',
-      width: '200px',
-      backgroundColor: 'rgb(238, 238, 238)',
-      backgroundSize: 'contain',
-      backgroundRepeat: 'no-repeat',
-      backgroundImage: `url('${str}')`
-    }
-  }
-  const bgstyle2 = str => `height: 200px;\nwidth: 200px;\nbackground-color: rgb(238, 238, 238);\nbackground-size: contain;\nbackground-repeat: no-repeat;\nbackground-image: url('${str}');`
-
 
   const setSample = () => {
     const str = `<svg opacity="1.0" fill="none" width="32" height="32" stroke-linecap="round" stroke-linejoin="round" stroke="#777" stroke-width="2" viewBox="0 0 32 32"><path d="M14 2 L14 6 M14 18 L14 30 M2 6 L2 18 24 18 30 12 24 6Z"></path></svg>`
     setInputObj({
       text: str,
-      dataUrl: svgStr2b64(str),
-      bgstyle: new bgstyle(svgStr2b64(str)),
-      bgstyle2: bgstyle2(svgStr2b64(str))
+      dataUrl: svgStr2b64(str)
     })
 
-    
-    document.querySelector('#preview').style.backgroundImage = `url('${svgStr2b64(str)
-    }')`}
+  }
 
   const LoadFile = file =>
     new Promise((resolve, reject) => {
@@ -62,7 +40,7 @@ const Page = () => {
     if (! /http\:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
       out = str.replace(/<svg/i, '<svg xmlns="http://www.w3.org/2000/svg"')
     }
-    return 'data:image/svg+xml,' + out.replace(/[<>#]/g, x => encodeURIComponent(x))
+    return 'data:image/svg+xml,' + out.replace(/>[\n\r \t]+</g, '><').replace(/[<>#]/g, x => encodeURIComponent(x)).replace(/[\n\r \t]+/g, ' ')
   }
 
   const [inputObj, setInputObj] = useState({
@@ -73,16 +51,16 @@ const Page = () => {
   const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
     const svgContent = await LoadFile(originFileObj)
     const str = svgContent.file;
-    const datesrt = svgStr2b64(str)
+    const datastr = svgStr2b64(str)
     const obj = {
       text: str,
-      dataUrl: datesrt,
-      bgstyle: new bgstyle(datesrt),
-      bgstyle2: bgstyle2(datesrt)
+      dataUrl: datastr
     }
     setInputObj(obj)
-    document.querySelector('#preview').style.backgroundImage = `url('${datesrt}')`
   }
+
+  const genPreviewDom = (datastr) => (<div className="w200 h200" id="preview" style={{ backgroundImage: `url('${datastr}')` }}></div>)
+  const genPreviewText = (datastr) => `height: 200px;\nwidth: 200px;\nbackground-color: rgb(238, 238, 238);\nbackground-size: contain;\nbackground-repeat: no-repeat;\nbackground-position: center;\nbackground-image: url('${datastr}');`
 
   const props = {
     name: 'file',
@@ -95,10 +73,18 @@ const Page = () => {
     onPreview: () => false,
   }
 
-  const origTextInput = () => {
-    setInputObj()
+  const origTextInput = ({ target: { value } }) => {
+    setInputObj({
+      text: value,
+      dataUrl: svgStr2b64(value)
+    })
   }
-  const dataUrlInput = () => { }
+  const dataUrlInput = ({ target: { value } }) => {
+    setInputObj({
+      text: value,
+      dataUrl: value
+    })
+  }
 
 
   return (
@@ -129,11 +115,11 @@ const Page = () => {
         />
         <div className="title-text">预览结果</div>
         <div className="flex start">
-          <div className="w200 h200" id="preview" ></div>
+          {genPreviewDom(inputObj.dataUrl)}
           <div className="pct60">
             <TextArea
               className="inputbox code"
-              value={inputObj.bgstyle2}
+              value={genPreviewText(inputObj.dataUrl)}
             />
 
           </div>
