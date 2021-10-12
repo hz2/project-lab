@@ -25,7 +25,8 @@ const pathList = {
   ipAddress: 'onlineService/ip',
   ip: 'onlineService/ip',
   currency: 'onlineService/currencyExchange',
-  svg: 'svgTool/svgTool'
+  svg: 'svgTool/svgTool',
+  toy: 'toy/toy',
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route
