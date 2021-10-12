@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, Upload, Button } from 'antd'
+import { Input, Checkbox, Upload, Button } from 'antd'
 import {
   UploadOutlined,
   BulbOutlined
@@ -34,32 +34,37 @@ const Page = () => {
       reader.onerror = e => reject(e)
     })
 
-  const svgStr2b64 = str => {
-    let out = str;
+  const svgStr2b64 = (str,val= isb64 ) => {
+    let out = str.replace(/(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)|( id=[^<>\s]+)/g, '').replace(/(\n +)|[\n\r\t]+/g, ' ')
     if (! /http:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
       out = str.replace(/<svg/i, '<svg xmlns="http://www.w3.org/2000/svg"')
     }
-    return 'data:image/svg+xml,' + out.replace(/>[\n\r \t]+</g, '><').replace(/[<>#]/g, x => encodeURIComponent(x)).replace(/[\n\r \t]+/g, ' ')
+    const output = out.replace(/>[\n\r \t]+</g, '><').replace(/[\n\r \t]+/g, ' ')
+
+    if (val) {
+      return 'data:image/svg+xml;base64,' + window.btoa(output)
+    } else {
+      return 'data:image/svg+xml,' + output.replace(/[^\d\w ="'/]/g, x => encodeURIComponent(x))
+    }
   }
 
   const [inputObj, setInputObj] = useState({
     text: '',
     dataUrl: ""
-
   })
+  const [isb64, setB64] = useState(false)
   const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
     const svgContent = await LoadFile(originFileObj)
     const str = svgContent.file;
-    const datastr = svgStr2b64(str)
     const obj = {
       text: str,
-      dataUrl: datastr
+      dataUrl: svgStr2b64(str)
     }
     setInputObj(obj)
   }
 
   const genPreviewDom = (datastr) => (<div className="w200 h200" id="preview" style={{ backgroundImage: `url('${datastr}')` }}></div>)
-  const genPreviewText = (datastr) => `height: 200px;\nwidth: 200px;\nbackground-color: rgb(238, 238, 238);\nbackground-size: contain;\nbackground-repeat: no-repeat;\nbackground-position: center;\nbackground-image: url('${datastr}');`
+  const genPreviewText = (datastr) => `background-image: url('${datastr}');`
 
   const props = {
     name: 'file',
@@ -85,6 +90,15 @@ const Page = () => {
     })
   }
 
+  const b64Change = ({ target: { checked } }) => {
+    setB64(checked)
+    const str = inputObj.text
+    setInputObj({
+      text: str,
+      dataUrl: svgStr2b64(str,checked)
+    })
+  }
+
 
   return (
     <div className="svgBg">
@@ -105,7 +119,10 @@ const Page = () => {
           onChange={origTextInput}
         />
 
-        <div className="title-text">转换结果</div>
+        <div className="title-text flex start">
+          <div className="text mr15">转换结果</div>
+          <Checkbox onChange={b64Change}>base64 加密</Checkbox>
+        </div>
         <TextArea
           className="inputbox2 code"
           placeholder="data:image/svg+xml"
