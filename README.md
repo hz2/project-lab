@@ -30,7 +30,7 @@ docker push hzsq/lab:v${v}
 
 ## Logo
 
-<img src="./public/logo-lab-thin.svg" alt="logo" width="200px" loading="lazy">
+<img src="./public/logo-lab-c.svg" alt="logo" width="120px" loading="lazy">
 
 ## Element 
 
