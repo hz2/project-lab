@@ -107,6 +107,10 @@ const Page = () => {
 
     const [radio, setRadio] = useState('aliyun');
 
+    const [packname, setPackName] = useState('')
+    const [version, setVersion] = useState('')
+    const [currentPath, setPath] = useState('')
+
     const onChangeFn = ({ target: { value } }) => {
         const item = typeList.find(x => x.name === value) || {}
         setObj(item)
@@ -131,6 +135,10 @@ const Page = () => {
             <div>Windows</div>
 
             <pre className="code-block">{`type ${obj.passwdfile} | docker login -u ${obj.user} ${obj.reg} --password-stdin`}</pre>
+
+            <div className="my20">打包和推送</div>
+            <pre className="code-block">{`docker tag ${packname}:${version} ${obj.reg}/${currentPath}/${packname}:${version}
+docker push ${obj.reg}/${currentPath}/${packname}:${version}`}</pre>
 
             {/* {url.text ? <>
                 <div className="my20">协议说明：</div>
