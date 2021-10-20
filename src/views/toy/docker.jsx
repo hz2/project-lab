@@ -173,7 +173,7 @@ const Page = () => {
             <pre className="code-block" onClick={codeClick}>{`type ${obj.passwdfile} | docker login -u ${obj.user} ${obj.reg} --password-stdin`}</pre>
 
             <div className="my20">构建</div>
-            <pre className="code-block" onClick={codeClick}>{`tdocker build -t ${name} .`}</pre>
+            <pre className="code-block" onClick={codeClick}>{`docker build -t ${name} .`}</pre>
 
             <div className="my20">打包和推送</div>
             <div className="my20 flex start">
