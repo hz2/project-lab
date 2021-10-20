@@ -27,6 +27,7 @@ const pathList = {
   currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool',
   toy: 'toy/toy',
+  docker: 'toy/docker',
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route
