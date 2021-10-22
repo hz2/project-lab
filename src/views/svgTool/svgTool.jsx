@@ -6,7 +6,7 @@ import {
   DeleteTwoTone
 } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob } from '../../libs/common.js'
+import { downloadBlob } from "@libs/common"
 import Svg2bg from "./svg2bg";
 const { TabPane } = Tabs
 const JSZip = require('jszip')

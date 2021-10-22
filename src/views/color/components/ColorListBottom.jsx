@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { Radio, message } from 'antd'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { copyText } from "@libs/common"
+import { Radio } from 'antd'
 import { hsl2hex } from './colors'
 
 const ColorList = ({ count, color: { h, s, l } }) => (
@@ -13,13 +13,10 @@ const ColorList = ({ count, color: { h, s, l } }) => (
     ].map((fn, i) => (
       <div className="cat" key={i}>
         {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
-          <CopyToClipboard
-            text={x}
+          <div className="colorItem"
             title={x}
             key={i}
-            onCopy={() => message.success('颜色已复制！')}>
-            <div className="colorItem" style={{ backgroundColor: x }}></div>
-          </CopyToClipboard>
+            onClick={() => copyText(x, '颜色已复制！')} style={{ backgroundColor: x }}></div>
         ))}
       </div>
     ))}

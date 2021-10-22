@@ -1,15 +1,17 @@
 // @flow
 import React, { useState, useEffect } from 'react'
 import './color.less'
-import { Input, Button, Slider, message } from 'antd'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Input, Button, Slider } from 'antd'
 import ColorListBottom from './components/ColorListBottom'
 import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
+
+import { copyText } from "@libs/common"
 
 const ColorPage = () => {
   const [colorSets, setColor] = useState({
     rgba: '',
     text: '#000',
+    hexa:'',
     h: 1,
     s: 0,
     l: 0,
@@ -180,8 +182,6 @@ const ColorPage = () => {
     colorPickerList(color)
   }
 
-  const copyText = (text)=> navigator.clipboard.writeText(text).then(() => message.success('颜色已复制！'))
-
   return (
     <>
       <div className="colorPage pb30">
@@ -190,53 +190,49 @@ const ColorPage = () => {
           placeholder="生成颜色"
           value={colorSets.hexa}
           onChange={handleColorChange}
-          // readOnly
+        // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成
         </Button>
-        <Button className="ml25" onClick={() => copyText(colorSets.hexa)}>{colorSets.hexa}</Button>          
+        <Button className="ml25" onClick={() => copyText(colorSets.hexa, '颜色已复制！')}>{colorSets.hexa}</Button>
         <div className="actionList">
           <div className="previewColor">
-            <CopyToClipboard
-              text={colorSets.rgba}
-              onCopy={() => message.success('颜色已复制！')}>
-              <div className="previewBox">
-                <div
-                  className="mainValue"
-                  style={{
-                    color: colorSets.text,
-                    backgroundColor: colorSets.rgba
-                  }}>
-                  预览文字
-                </div>
-                <div
-                  className="mainValue"
-                  style={{ color: colorSets.rgba, background: colorSets.text }}>
-                  预览文字
-                </div>
-                <div
-                  className="mainValue"
-                  style={{
-                    backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
-                  }}></div>
-                <div
-                  className="mainValue"
-                  style={{
-                    backgroundImage: `radial-gradient( circle at 100%, ${colorSets.rgba},${colorSets.gradient})`
-                  }}></div>
-                <div
-                  className="mainValue"
-                  style={{
-                    backgroundImage: `radial-gradient( ellipse at bottom right, ${colorSets.rgba},${colorSets.gradient})`
-                  }}></div>
-                <div
-                  className="mainValue"
-                  style={{
-                    backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
-                  }}></div>
+            <div className="previewBox" onCopy={() => copyText(colorSets.rgba, '颜色已复制！')}>
+              <div
+                className="mainValue"
+                style={{
+                  color: colorSets.text,
+                  backgroundColor: colorSets.rgba
+                }}>
+                预览文字
               </div>
-            </CopyToClipboard>
+              <div
+                className="mainValue"
+                style={{ color: colorSets.rgba, background: colorSets.text }}>
+                预览文字
+              </div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `linear-gradient( 135deg ,${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `radial-gradient( circle at 100%, ${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `radial-gradient( ellipse at bottom right, ${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
+              <div
+                className="mainValue"
+                style={{
+                  backgroundImage: `conic-gradient( from 135deg at 65% 65%, ${colorSets.rgba},${colorSets.gradient})`
+                }}></div>
+            </div>
           </div>
           <div className="colorList" id="colorList">
             {hslRGB}
