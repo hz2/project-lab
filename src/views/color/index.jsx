@@ -180,6 +180,8 @@ const ColorPage = () => {
     colorPickerList(color)
   }
 
+  const copyText = (text)=> navigator.clipboard.writeText(text).then(() => message.success('颜色已复制！'))
+
   return (
     <>
       <div className="colorPage pb30">
@@ -193,12 +195,7 @@ const ColorPage = () => {
         <Button type="primary" onClick={genColor}>
           生成
         </Button>
-        <CopyToClipboard
-          text={colorSets.hexa}
-          className="ml25"
-          onCopy={() => message.success('颜色已复制！')}>
-          <Button>{colorSets.hexa}</Button>
-        </CopyToClipboard>
+        <Button className="ml25" onClick={() => copyText(colorSets.hexa)}>{colorSets.hexa}</Button>          
         <div className="actionList">
           <div className="previewColor">
             <CopyToClipboard
