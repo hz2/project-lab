@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-import { copyText } from "@libs/common"
-import { Radio } from 'antd'
+import { copyText } from '@libs/common'
+import { Button, Radio } from 'antd'
+import { CopyOutlined } from '@ant-design/icons'
 import { hsl2hex } from './colors'
 
 const ColorList = ({ count, color: { h, s, l } }) => (
@@ -13,13 +14,22 @@ const ColorList = ({ count, color: { h, s, l } }) => (
     ].map((fn, i) => (
       <div className="cat" key={i}>
         {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
-          <div className="colorItem"
+          <div
+            className="colorItem"
             title={x}
             key={i}
-            onClick={() => copyText(x, '颜色已复制！')} style={{ backgroundColor: x }}></div>
+            onClick={() => copyText(x, '颜色已复制！')}
+            style={{ backgroundColor: x }}></div>
         ))}
       </div>
     ))}
+    <Button
+      type="primary"
+      className="ml15"
+      icon={<CopyOutlined />}
+      onClick={() => copyText('', '颜色已复制！')}>
+      复制全部
+    </Button>
   </div>
 )
 
@@ -43,7 +53,7 @@ const ColorListBottom = props => {
   const onChangeFn = ({ target: { value } }) => setShowCount(value)
   return (
     <div className="colorListBottom">
-      <Actiongroup onChangeFn={onChangeFn} />
+      <Actiongroup onChangeFn={onChangeFn}>qq</Actiongroup>
       <ColorList color={color} count={showCount} />
     </div>
   )
