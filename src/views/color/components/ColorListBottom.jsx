@@ -24,7 +24,7 @@ const ColorList = ({ count, color: { h, s, l } }) => (
         ))}
         <div className="colorItem flex center bgcf0 c5"
           onClick={() => copyText(JSON.stringify(list), '颜色已复制！')}>
-          <CopyTwoTone />5
+          <CopyTwoTone />
         </div>
       </div>
     }
