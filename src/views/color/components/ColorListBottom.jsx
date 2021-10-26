@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 import { copyText } from '@libs/common'
-import { Button, Radio } from 'antd'
-import { CopyOutlined } from '@ant-design/icons'
+import { Radio } from 'antd'
+import { CopyTwoTone } from '@ant-design/icons'
 import { hsl2hex } from './colors'
 
 const ColorList = ({ count, color: { h, s, l } }) => (
@@ -11,9 +11,10 @@ const ColorList = ({ count, color: { h, s, l } }) => (
       x => [(360 / count) * x, s, l],
       x => [h, ((100 / count) * x) / 100, l],
       x => [h, s, ((100 / count) * x) / 100]
-    ].map((fn, i) => (
-      <div className="cat" key={i}>
-        {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
+    ].map((fn, i) => {
+      const list = Array.from({ length: count }, (x, i) => hsl2hex(fn(i)))
+      return <div className="cat" key={i}>
+        {list.map((x, i) => (
           <div
             className="colorItem"
             title={x}
@@ -21,15 +22,13 @@ const ColorList = ({ count, color: { h, s, l } }) => (
             onClick={() => copyText(x, '颜色已复制！')}
             style={{ backgroundColor: x }}></div>
         ))}
+        <div className="colorItem flex center bgcf0 c5"
+          onClick={() => copyText(JSON.stringify(list), '颜色已复制！')}>
+          <CopyTwoTone />5
+        </div>
       </div>
-    ))}
-    <Button
-      type="primary"
-      className="ml15"
-      icon={<CopyOutlined />}
-      onClick={() => copyText('', '颜色已复制！')}>
-      复制全部
-    </Button>
+    }
+    )}
   </div>
 )
 
@@ -53,7 +52,7 @@ const ColorListBottom = props => {
   const onChangeFn = ({ target: { value } }) => setShowCount(value)
   return (
     <div className="colorListBottom">
-      <Actiongroup onChangeFn={onChangeFn}>qq</Actiongroup>
+      <Actiongroup onChangeFn={onChangeFn} />
       <ColorList color={color} count={showCount} />
     </div>
   )
