@@ -7,8 +7,12 @@ import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 
 import { copyText } from "@libs/common"
 
+const input = <Input className="w120" />
+
+const addItem = <Button icon="add">addItem</Button>
+
 const GradientPage = () => {
-    return <>GradientPage</>
+    return <>{input}{addItem}</>
 }
     
 export default GradientPage
