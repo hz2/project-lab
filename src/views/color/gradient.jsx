@@ -13,9 +13,9 @@ const input = <Input className="w120" />
 
 
 const GradientPage = () => {
-    return <>
+    return <div className="p50">
         <ColorPicker />
-        {input}</>
+        {input}</div>
 }
 
 export default GradientPage
