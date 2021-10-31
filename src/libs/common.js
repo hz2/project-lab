@@ -1,3 +1,6 @@
+
+import { message } from 'antd'
+
 export const downloadBlob = (blob, name) => {
   const blobUrl = URL.createObjectURL(blob)
   const el = document.createElement('a')
@@ -11,3 +14,14 @@ export const downloadBlob = (blob, name) => {
     el.click()
   }
 }
+
+
+/**
+ * 
+ * @param {*} text 
+ * @param {*} msg 
+ * @returns 
+ */
+export const copyText = (text, msg) => navigator.clipboard.writeText(text).then(() => message.success(msg)).catch(e => {
+  console.log('copy err: ', e);
+})

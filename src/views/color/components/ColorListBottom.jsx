@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-import { Radio, message } from 'antd'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { copyText } from '@libs/common'
+import { Radio } from 'antd'
+import { CopyTwoTone } from '@ant-design/icons'
 import { hsl2hex } from './colors'
 
 const ColorList = ({ count, color: { h, s, l } }) => (
@@ -10,19 +11,24 @@ const ColorList = ({ count, color: { h, s, l } }) => (
       x => [(360 / count) * x, s, l],
       x => [h, ((100 / count) * x) / 100, l],
       x => [h, s, ((100 / count) * x) / 100]
-    ].map((fn, i) => (
-      <div className="cat" key={i}>
-        {Array.from({ length: count }, (x, i) => hsl2hex(fn(i))).map((x, i) => (
-          <CopyToClipboard
-            text={x}
+    ].map((fn, i) => {
+      const list = Array.from({ length: count }, (x, i) => hsl2hex(fn(i)))
+      return <div className="cat" key={i}>
+        {list.map((x, i) => (
+          <div
+            className="colorItem"
             title={x}
             key={i}
-            onCopy={() => message.success('颜色已复制！')}>
-            <div className="colorItem" style={{ backgroundColor: x }}></div>
-          </CopyToClipboard>
+            onClick={() => copyText(x, '颜色已复制！')}
+            style={{ backgroundColor: x }}></div>
         ))}
+        <div className="colorItem flex center bgcf0 c5"
+          onClick={() => copyText(JSON.stringify(list), '颜色已复制！')}>
+          <CopyTwoTone />
+        </div>
       </div>
-    ))}
+    }
+    )}
   </div>
 )
 

@@ -177,7 +177,7 @@ const Page = () => {
 
             <div className="my20">打包和推送</div>
             <div className="my20 flex start">
-                <span className="mx15" >命名空间</span>
+                <span className="m15" >命名空间</span>
                 <Select
                     showSearch
                     className="w150"
@@ -188,9 +188,9 @@ const Page = () => {
                         label: `${x.path} (${x.remark})`,
                         value: x.path,
                     }))}></Select>
-                <span className="mx15" >包名</span>
+                <span className="m15" >包名</span>
                 <Input value={name} onChange={e => inputChange(e, 'name')} placeholder="packname" className="w150" />
-                <span className="mx15">版本号</span>
+                <span className="m15">版本号</span>
                 <Input value={version} onChange={e => inputChange(e, 'version')} placeholder="v0.1" className="w150" />
             </div>
             <pre className="code-block" onClick={codeClick}>{`docker tag ${name}:${version} ${reg2}${namespace}/${name}:${version}

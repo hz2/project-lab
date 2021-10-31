@@ -10,7 +10,7 @@ const Page = () => {
         { protocol: 'sms:', value: '13800138000', text: '' },
         { protocol: 'mailto://', value: 'qq@qq.com', text: '' },
         { protocol: 'magnet://', value: '', text: '' },
-        { protocol: 'javascript:', value: 'alert("hello")', text: '' },
+        // { protocol: 'javascript:', value: 'alert("hello")', text: '' },
         { protocol: 'tg://', value: '', text: '' },
         { protocol: 'vscode://', value: '', text: '' },
         { protocol: 'vscode-insider://', value: '', text: '' },

@@ -1,8 +1,8 @@
 import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
-import { Modal, Input, Button, Spin, message } from 'antd'
+import { Modal, Input, Button, Spin } from 'antd'
 
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { copyText } from "@libs/common"
 import './idcard.less'
 
 const rdm = (min, max) => {
@@ -323,11 +323,7 @@ class idcard extends React.Component {
               onChange={this.handleChange}
               maxLength="18"
             />
-            <CopyToClipboard
-              text={this.state.idcvalue}
-              onCopy={() => message.success('复制成功！')}>
-              <Button type="primary">复制</Button>
-            </CopyToClipboard>
+            <Button type="primary" onClick={() => copyText(this.state.idcvalue, '复制成功！')}>复制</Button>
           </div>
           <div className="line">
             <p>姓名：todo</p>
@@ -366,11 +362,7 @@ class idcard extends React.Component {
               maxLength="11"
               onChange={this.handleTelChange}
             />
-            <CopyToClipboard
-              text={this.state.telvalue}
-              onCopy={() => message.success('复制成功！')}>
-              <Button type="primary">复制</Button>
-            </CopyToClipboard>
+            <Button type="primary" onClick={() => copyText(this.state.telvalue, '复制成功！')}>复制</Button>
           </div>
           <div className="line">
             <Spin spinning={this.state.loading}>

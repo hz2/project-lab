@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
 import Qs from 'qs'
 import './bing.less'
-import { downloadBlob } from '../../libs/common.js'
+import { downloadBlob } from "@libs/common"
 
 const req = (mkt, index) =>
   new Promise((resolve, reject) => {
