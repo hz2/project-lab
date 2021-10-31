@@ -23,7 +23,8 @@ const QsPage = () => {
               return
             }
             try {
-              setQsObj(JSON.stringify(Qs.parse(value), null, 4))
+              const str = value.split('?')[1]
+              setQsObj(JSON.stringify(Qs.parse(str), null, 4))
             } catch (error) {
               console.log('error', error)
               message.error('输入有误')
