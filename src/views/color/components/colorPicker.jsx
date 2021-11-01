@@ -8,6 +8,7 @@ import './colorPicker.less'
 const colorPicker = () => {
     return <div className="color-picker">
         <div className="current-color"></div>
+        <div className="popover"></div>
     </div>
 }
     
