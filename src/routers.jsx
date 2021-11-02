@@ -10,6 +10,7 @@ const pathList = {
   bing: 'bing',
   nasa: 'bing/nasa',
   color: 'color',
+  gradient: 'color/gradient',
   lottery: 'lottery/lottery',
   // converter
   queryString: 'encode/qs',

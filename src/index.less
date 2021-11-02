@@ -1,6 +1,10 @@
 @import '~antd/dist/antd.less';
 @import '~pub.css/less/index.less';
 
+:root {
+  --lab-conic-bgi: conic-gradient(#ddd 0.25turn, #999 0.25turn 0.5turn, #ddd 0.5turn 0.75turn, #999 0.75turn);
+
+}
 
 body {
   margin: 0;
@@ -12,12 +16,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code ,
+code,
 .code {
   font-family: source-code-pro, Monaco, Consolas, monospace;
 }
 
-.fullpage {  
+.fullpage {
   height: 100vh;
   width: 100vw;
   display: grid;
