@@ -13,22 +13,24 @@ const ColorList = ({ count, color: { h, s, l } }) => (
       x => [h, s, ((100 / count) * x) / 100]
     ].map((fn, i) => {
       const list = Array.from({ length: count }, (x, i) => hsl2hex(fn(i)))
-      return <div className="cat" key={i}>
-        {list.map((x, i) => (
+      return (
+        <div className="cat" key={i}>
+          {list.map((x, i) => (
+            <div
+              className="colorItem"
+              title={x}
+              key={i}
+              onClick={() => copyText(x, '颜色已复制！')}
+              style={{ backgroundColor: x }}></div>
+          ))}
           <div
-            className="colorItem"
-            title={x}
-            key={i}
-            onClick={() => copyText(x, '颜色已复制！')}
-            style={{ backgroundColor: x }}></div>
-        ))}
-        <div className="colorItem flex center bgcf0 c5"
-          onClick={() => copyText(JSON.stringify(list), '颜色已复制！')}>
-          <CopyTwoTone />
+            className="colorItem flex center bgcf c5"
+            onClick={() => copyText(JSON.stringify(list), '颜色已复制！')}>
+            <CopyTwoTone />
+          </div>
         </div>
-      </div>
-    }
-    )}
+      )
+    })}
   </div>
 )
 
