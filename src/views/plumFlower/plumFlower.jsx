@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import guaJson from './guaText'
 import HeluoComp from './heluo'
-import { downloadBlob } from "@libs/common"
+import { downloadBlob } from "@libs/common.js"
 
 const w = 1000
 const half = w / 2

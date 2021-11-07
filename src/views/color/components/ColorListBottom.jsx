@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { copyText } from '@libs/common'
+import { copyText } from '@libs/common.js'
 import { Radio } from 'antd'
 import { CopyTwoTone } from '@ant-design/icons'
 import { hsl2hex } from './colors'

@@ -5,7 +5,7 @@ import { Input, Button, Slider } from 'antd'
 import ColorListBottom from './components/ColorListBottom'
 import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 
-import { copyText } from "@libs/common"
+import { copyText } from "@libs/common.js"
 
 import ColorPicker from './components/colorPicker'
 
