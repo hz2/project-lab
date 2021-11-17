@@ -5,6 +5,7 @@ import {
   BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
+import { svgStr2b64 as svgStr2b64Orgi } from './svgFn'
 const { TextArea } = Input
 const Page = () => {
 
@@ -34,25 +35,12 @@ const Page = () => {
       reader.onerror = e => reject(e)
     })
 
-  const svgStr2b64 = (str,val= isb64 ) => {
-    let out = str.replace(/(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)|( id=[^<>\s]+)/g, '').replace(/(\n +)|[\n\r\t]+/g, ' ')
-    if (! /http:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
-      out = str.replace(/<svg/i, '<svg xmlns="http://www.w3.org/2000/svg"')
-    }
-    const output = out.replace(/>[\n\r \t]+</g, '><').replace(/[\n\r \t]+/g, ' ')
-
-    if (val) {
-      return 'data:image/svg+xml;base64,' + window.btoa(output)
-    } else {
-      return 'data:image/svg+xml,' + output.replace(/[^\d\w ="'/]/g, x => encodeURIComponent(x))
-    }
-  }
-
   const [inputObj, setInputObj] = useState({
     text: '',
     dataUrl: ""
   })
   const [isb64, setB64] = useState(false)
+  const svgStr2b64 = (str, val = isb64) => svgStr2b64Orgi(str, val)
   const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
     const svgContent = await LoadFile(originFileObj)
     const str = svgContent.file;
@@ -95,7 +83,7 @@ const Page = () => {
     const str = inputObj.text
     setInputObj({
       text: str,
-      dataUrl: svgStr2b64(str,checked)
+      dataUrl: svgStr2b64(str, checked)
     })
   }
 

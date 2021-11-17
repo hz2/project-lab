@@ -3,11 +3,12 @@ import { Tabs, Upload, Button, message } from 'antd'
 import {
   UploadOutlined,
   DownloadOutlined,
-  DeleteTwoTone
+  DeleteTwoTone, BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from "@libs/common"
 import Svg2bg from "./svg2bg";
+import SvgO from "./svgO";
 const { TabPane } = Tabs
 const JSZip = require('jszip')
 const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
@@ -30,7 +31,7 @@ const SvgTool = () => {
             resolve({
               name: file.name,
               uid: file.uid,
-              list: svg.symbol.map(x => ({
+              list: (svg.symbol || []).map(x => ({
                 svg: builder.buildObject({ svg: x }),
                 name: x.$ && x.$.id
               }))
@@ -125,7 +126,7 @@ const SvgTool = () => {
             <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
               下载 Zip
             </Button>
-            <Button className="ml25" onClick={setSample}>
+            <Button className="ml25" icon={<BulbOutlined />} onClick={setSample}>
               示例
             </Button>
           </div>
@@ -153,7 +154,11 @@ const SvgTool = () => {
             ))}
           </div>
         </TabPane>
-        <TabPane tab="Svg Background" key="2">
+
+        <TabPane tab="Svg Optimize" key="2">
+          <SvgO />
+        </TabPane>
+        <TabPane tab="Svg Background" key="3">
           <Svg2bg />
         </TabPane>
       </Tabs>

@@ -27,6 +27,8 @@ const pathList = {
   ip: 'onlineService/ip',
   currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool',
+  svgo: 'svgTool/svgO',
+  svgbg: 'svgTool/svg2bg',
   toy: 'toy/toy',
   docker: 'toy/docker',
 }
