@@ -2,7 +2,7 @@ import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, Spin } from 'antd'
 
-import { copyText } from "@libs/common"
+import { copyText } from "@libs/common.js"
 import './idcard.less'
 
 const rdm = (min, max) => {
