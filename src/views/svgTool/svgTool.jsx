@@ -6,7 +6,7 @@ import {
   DeleteTwoTone, BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob } from "@libs/common"
+import { downloadBlob } from "@libs/common.js"
 import Svg2bg from "./svg2bg";
 import SvgO from "./svgO";
 const { TabPane } = Tabs
