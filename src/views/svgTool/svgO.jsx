@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Upload, Button, message } from 'antd'
-import {
-  UploadOutlined,
-  DownloadOutlined
-} from '@ant-design/icons'
+import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob, formatBytes, copyText } from "@libs/common"
+import { downloadBlob, formatBytes, copyText } from '@libs/common'
 import { svgStr2b64 } from './svgFn'
-const { optimize } = require('svgo');
+// const { optimize } = require('svgo');
+
+import { optimize } from 'svgo'
 
 const JSZip = require('jszip')
 const SvgO = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => { }, [])
+  useEffect(() => {}, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -23,9 +22,9 @@ const SvgO = () => {
           // optional but recommended field
           path: 'path-to.svg',
           // all config fields are also available here
-          multipass: true,
-        });
-        const optimizedSvgString = result.data;
+          multipass: true
+        })
+        const optimizedSvgString = result.data
         resolve({
           name: file.name,
           svg: optimizedSvgString,
@@ -43,7 +42,7 @@ const SvgO = () => {
     Promise.all(arr).then(list => setSvgList(list))
 
     setTimeout(() => {
-      console.log(svgList);
+      console.log(svgList)
     }, 1000)
   }
 
@@ -86,13 +85,12 @@ const SvgO = () => {
   const props = {
     name: 'file',
     multiple: true,
-    accept: ".svg",
+    accept: '.svg',
     showUploadList: false,
     onChange: uploadSymbolOnChange,
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
-
 
   // const removeItem = index => {
   //   setSvgList(svgList.filter((x, i) => i !== index))
@@ -117,13 +115,18 @@ const SvgO = () => {
                 dangerouslySetInnerHTML={{ __html: y.svg }}></div>
               <div className="text">{y.name}</div>
               <div className="">
-                <span className="red">{formatBytes(y.s2)}</span> -&gt; <span className="green">{formatBytes(y.s3)}</span></div>
+                <span className="red">{formatBytes(y.s2)}</span> -&gt;
+                <span className="green">{formatBytes(y.s3)}</span>
+              </div>
               <div className="">-{formatBytes(y.reduce)}</div>
               <Button onClick={() => copyText(y.svg)}>data</Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>bg</Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>b64</Button>
+              <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>
+                bg
+              </Button>
+              <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>
+                b64
+              </Button>
             </div>
-
           ))}
         </div>
       </div>
