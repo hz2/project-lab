@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Tabs, Upload, Button, message } from 'antd'
+import { Upload, Button, message } from 'antd'
 import {
   UploadOutlined,
   DownloadOutlined,
@@ -8,15 +8,12 @@ import {
 } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob } from '@libs/common.js'
-import Svg2bg from './svg2bg'
-import SvgO from './svgO'
-const { TabPane } = Tabs
 const JSZip = require('jszip')
 const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => {}, [])
+  useEffect(() => { }, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -113,60 +110,45 @@ const SvgTool = () => {
   }
 
   return (
-    <div className="svgTool common-box">
-      <Tabs
-        defaultActiveKey="1"
-        onChange={() => {
-          // console.log(11)
-        }}>
-        <TabPane tab="Svg Symbol" key="1">
-          <div className="btngroup">
-            <Upload {...props}>
-              <Button icon={<UploadOutlined />}>上传图标(Symbol)</Button>
-            </Upload>
-            <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
-              下载 Zip
-            </Button>
-            <Button
-              className="ml25"
-              icon={<BulbOutlined />}
-              onClick={setSample}>
-              示例
-            </Button>
-          </div>
-          <div className="result">
-            {svgList.map((x, i) => (
-              <div className="file" key={i}>
-                <div className="file-name common-title" id={x.uid}>
-                  <span>{x.name}</span>
-                  <DeleteTwoTone
-                    className="ml45"
-                    onClick={() => removeItem(i)}
-                  />
+    <>
+      <div className="btngroup">
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>上传图标(Symbol)</Button>
+        </Upload>
+        <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
+          下载 Zip
+        </Button>
+        <Button
+          className="ml25"
+          icon={<BulbOutlined />}
+          onClick={setSample}>
+          示例
+        </Button>
+      </div>
+      <div className="result">
+        {svgList.map((x, i) => (
+          <div className="file" key={i}>
+            <div className="file-name common-title" id={x.uid}>
+              <span>{x.name}</span>
+              <DeleteTwoTone
+                className="ml45"
+                onClick={() => removeItem(i)}
+              />
+            </div>
+            <div className="file-content">
+              {x.list.map((y, j) => (
+                <div className="item" key={j}>
+                  <div
+                    className="icon"
+                    dangerouslySetInnerHTML={{ __html: y.svg }}></div>
+                  <div className="text">{y.name}</div>
                 </div>
-                <div className="file-content">
-                  {x.list.map((y, j) => (
-                    <div className="item" key={j}>
-                      <div
-                        className="icon"
-                        dangerouslySetInnerHTML={{ __html: y.svg }}></div>
-                      <div className="text">{y.name}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </TabPane>
-
-        <TabPane tab="Svg Optimize" key="2">
-          <SvgO />
-        </TabPane>
-        <TabPane tab="Svg Background" key="3">
-          <Svg2bg />
-        </TabPane>
-      </Tabs>
-    </div>
+        ))}
+      </div>
+    </>
   )
 }
 

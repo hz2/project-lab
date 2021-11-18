@@ -14,11 +14,11 @@ const SvgTool = () => {
         <TabPane tab="Svg Optimize" key="1">
           <SvgO />
         </TabPane>
-        <TabPane tab="Svg Symbol" key="2">
-          <SvgSymbol />
-        </TabPane>
-        <TabPane tab="Svg Background" key="3">
+        <TabPane tab="Svg Background" key="2">
           <Svg2bg />
+        </TabPane>
+        <TabPane tab="Svg Symbol" key="3">
+          <SvgSymbol />
         </TabPane>
       </Tabs>
     </div>
