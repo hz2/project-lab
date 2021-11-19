@@ -20,6 +20,13 @@ const svg2url = svgstr => {
   return svgStr2BlobUrl(out)
 }
 
+// const parser = new DOMParser();
+// parser.parseFromString( a , "image/svg+xml");
+
+// var s = new XMLSerializer();
+// var d = document;
+// var str = s.serializeToString(d);
+// saveXML(str);
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
   useEffect(() => { }, [])
