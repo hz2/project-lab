@@ -104,7 +104,7 @@ const Page = () => {
           placeholder='<?xml version="1.0" encoding="UTF-8"?>'
           value={inputObj.text}
           onChange={origTextInput}
-          spellcheck="false"
+          spellCheck="false"
         />
 
         <div className="title-text flex start">
@@ -116,7 +116,7 @@ const Page = () => {
           placeholder="data:image/svg+xml"
           value={inputObj.dataUrl}
           onChange={dataUrlInput}
-          spellcheck="false"
+          spellCheck="false"
         />
         <div className="title-text">预览结果</div>
         <div className="flex start">
@@ -125,7 +125,7 @@ const Page = () => {
             <TextArea
               className="inputbox code"
               value={genPreviewText(inputObj.dataUrl)}
-              spellcheck="false"
+              spellCheck="false"
             />
           </div>
         </div>

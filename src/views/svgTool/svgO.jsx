@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Upload, Button, message } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob, formatBytes, copyText } from '@libs/common'
+import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl } from '@libs/common'
 import { svgStr2b64 } from './svgFn'
 // const { optimize } = require('svgo');
 
@@ -11,7 +11,7 @@ import { optimize } from 'svgo'
 const JSZip = require('jszip')
 const SvgO = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => {}, [])
+  useEffect(() => { }, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -24,9 +24,10 @@ const SvgO = () => {
           // all config fields are also available here
           multipass: true
         })
-        const optimizedSvgString = result.data
+        const optimizedSvgString = result.data;
         resolve({
           name: file.name,
+          bloburl: svgStr2BlobUrl(optimizedSvgString),
           svg: optimizedSvgString,
           s1: file.size,
           s2: svgString.length,
@@ -111,11 +112,13 @@ const SvgO = () => {
           {svgList.map((y, j) => (
             <div className="item" key={j}>
               <div
-                className="icon"
-                dangerouslySetInnerHTML={{ __html: y.svg }}></div>
+                className="icon">
+                <img src={y.bloburl} alt={y.name} srcSet="" />
+              </div>
               <div className="text">{y.name}</div>
               <div className="">
-                <span className="red">{formatBytes(y.s2)}</span> -&gt;
+                <span className="red">{formatBytes(y.s2)}</span>
+                <span className="gray"> -&gt; </span>
                 <span className="green">{formatBytes(y.s3)}</span>
               </div>
               <div className="">-{formatBytes(y.reduce)}</div>
