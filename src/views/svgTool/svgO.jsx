@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Upload, Button, message } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl } from '@libs/common'
-import { svgStr2b64 } from './svgFn'
+import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
 // const { optimize } = require('svgo');
 
 import { optimize } from 'svgo'

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Checkbox, Upload, Button } from 'antd'
 import { UploadOutlined, BulbOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { svgStr2b64 as svgStr2b64Orgi } from './svgFn'
+import { svgStr2b64 as svgStr2b64Orgi } from  '@libs/common'
 const { TextArea } = Input
 const Page = () => {
   const setSample = () => {

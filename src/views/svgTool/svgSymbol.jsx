@@ -7,9 +7,18 @@ import {
   BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob } from '@libs/common.js'
+// import { optimize } from 'svgo'
+import { downloadBlob, svgStr2BlobUrl } from '@libs/common.js'
 const JSZip = require('jszip')
 const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
+
+const svg2url = svgstr => {
+  let out = svgstr;
+  if (svgstr.includes('xlink:href') && !svgstr.includes('xmlns:xlink')) {
+    out = out.replace('xmlns="http://www.w3.org/2000/svg"', 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
+  }
+  return svgStr2BlobUrl(out)
+}
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
@@ -31,6 +40,7 @@ const SvgTool = () => {
               uid: file.uid,
               list: (svg.symbol || []).map(x => ({
                 svg: builder.buildObject({ svg: x }),
+                bloburl: svg2url(builder.buildObject({ svg: x })),
                 name: x.$ && x.$.id
               }))
             })
@@ -139,8 +149,9 @@ const SvgTool = () => {
               {x.list.map((y, j) => (
                 <div className="item" key={j}>
                   <div
-                    className="icon"
-                    dangerouslySetInnerHTML={{ __html: y.svg }}></div>
+                    className="icon" >
+                    <img src={y.bloburl} alt={y.name} srcSet="" />
+                  </div>
                   <div className="text">{y.name}</div>
                 </div>
               ))}

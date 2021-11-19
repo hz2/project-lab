@@ -53,7 +53,7 @@ export const formatBytes = (bytes, decimals = 2) => {
 export const svgStr2b64 = (str, val = false) => {
   let out = str
     .replace(
-      /(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)|( id=[^<>\s]+)/g,
+      /(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)/g,
       ''
     )
     .replace(/(\n +)|[\n\r\t]+/g, ' ')
