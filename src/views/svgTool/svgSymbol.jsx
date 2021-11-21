@@ -10,23 +10,22 @@ import './svgTool.less'
 // import { optimize } from 'svgo'
 import { downloadBlob, svgStr2BlobUrl } from '@libs/common.js'
 const JSZip = require('jszip')
-const { parseString: xmlParser, Builder: XmlBuilder } = require('xml2js')
 
-const svg2url = svgstr => {
-  let out = svgstr;
-  if (svgstr.includes('xlink:href') && !svgstr.includes('xmlns:xlink')) {
-    out = out.replace('xmlns="http://www.w3.org/2000/svg"', 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
-  }
-  return svgStr2BlobUrl(out)
+const dom2ostr = dom => {
+  const s = new XMLSerializer();
+  const svgString = s.serializeToString(dom)
+  return svgString.replace(/symbol/ig, 'svg')
+  // const result = optimize(svgString.replace(/symbol/ig, 'svg'), {
+  //   multipass: true
+  // })
+  // return result.data;
 }
 
-// const parser = new DOMParser();
-// parser.parseFromString( a , "image/svg+xml");
+const str2dom = str => {
+  const parser = new DOMParser();
+  return parser.parseFromString(str, "image/svg+xml");
+}
 
-// var s = new XMLSerializer();
-// var d = document;
-// var str = s.serializeToString(d);
-// saveXML(str);
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
   useEffect(() => { }, [])
@@ -34,24 +33,17 @@ const SvgTool = () => {
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
       const reader = new FileReader()
-      const builder = new XmlBuilder()
       reader.readAsText(file, 'UTF-8')
       reader.onload = ({ target: { result } }) =>
-        xmlParser(
-          result,
-          { trim: true },
-          (err, { svg }) =>
-            !err &&
-            resolve({
-              name: file.name,
-              uid: file.uid,
-              list: (svg.symbol || []).map(x => ({
-                svg: builder.buildObject({ svg: x }),
-                bloburl: svg2url(builder.buildObject({ svg: x })),
-                name: x.$ && x.$.id
-              }))
-            })
-        )
+        resolve({
+          name: file.name,
+          uid: file.uid,
+          list: [...(str2dom(result)).querySelectorAll('symbol')].map(symbol => ({
+            svg: dom2ostr(symbol),
+            bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
+            name: symbol.id
+          }))
+        })
       reader.onerror = e => reject(e)
     })
 
