@@ -2,10 +2,8 @@ import { HomeOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 import './header.less'
 
-
-
 const HeaderBar = () => {
-  const location = useLocation();
+  const location = useLocation()
   if (location.pathname !== '/') {
     return (
       <div className="headerIcon">

@@ -2,7 +2,7 @@ import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, Spin } from 'antd'
 
-import { copyText } from "@libs/common.js"
+import { copyText } from '@libs/common.js'
 import './idcard.less'
 
 const rdm = (min, max) => {
@@ -323,7 +323,11 @@ class idcard extends React.Component {
               onChange={this.handleChange}
               maxLength="18"
             />
-            <Button type="primary" onClick={() => copyText(this.state.idcvalue, '复制成功！')}>复制</Button>
+            <Button
+              type="primary"
+              onClick={() => copyText(this.state.idcvalue, '复制成功！')}>
+              复制
+            </Button>
           </div>
           <div className="line">
             <p>姓名：todo</p>
@@ -362,7 +366,11 @@ class idcard extends React.Component {
               maxLength="11"
               onChange={this.handleTelChange}
             />
-            <Button type="primary" onClick={() => copyText(this.state.telvalue, '复制成功！')}>复制</Button>
+            <Button
+              type="primary"
+              onClick={() => copyText(this.state.telvalue, '复制成功！')}>
+              复制
+            </Button>
           </div>
           <div className="line">
             <Spin spinning={this.state.loading}>

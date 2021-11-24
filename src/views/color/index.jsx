@@ -5,13 +5,13 @@ import { Input, Button, Slider } from 'antd'
 import ColorListBottom from './components/ColorListBottom'
 import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 
-import { copyText } from "@libs/common.js"
+import { copyText } from '@libs/common.js'
 
 const ColorPage = () => {
   const [colorSets, setColor] = useState({
     rgba: '',
     text: '#000',
-    hexa:'',
+    hexa: '',
     h: 1,
     s: 0,
     l: 0,
@@ -190,15 +190,21 @@ const ColorPage = () => {
           placeholder="生成颜色"
           value={colorSets.hexa}
           onChange={handleColorChange}
-        // readOnly
+          // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成
         </Button>
-        <Button className="ml25" onClick={() => copyText(colorSets.hexa, '颜色已复制！')}>{colorSets.hexa}</Button>
+        <Button
+          className="ml25"
+          onClick={() => copyText(colorSets.hexa, '颜色已复制！')}>
+          {colorSets.hexa}
+        </Button>
         <div className="actionList">
           <div className="previewColor">
-            <div className="previewBox" onCopy={() => copyText(colorSets.rgba, '颜色已复制！')}>
+            <div
+              className="previewBox"
+              onCopy={() => copyText(colorSets.rgba, '颜色已复制！')}>
               <div
                 className="mainValue"
                 style={{

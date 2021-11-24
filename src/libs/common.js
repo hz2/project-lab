@@ -1,5 +1,6 @@
-
-import { message } from 'antd'
+import {
+  message
+} from 'antd'
 
 export const downloadBlob = (blob, name) => {
   const blobUrl = URL.createObjectURL(blob)
@@ -15,13 +16,67 @@ export const downloadBlob = (blob, name) => {
   }
 }
 
+/**
+ *
+ * @param {*} text
+ * @param {*} msg
+ * @returns
+ */
+export const copyText = (text, msg = '复制成功！') =>
+  navigator.clipboard
+  .writeText(text)
+  .then(() => message.success(msg))
+  .catch(e => {
+    console.log('copy err: ', e)
+  })
 
 /**
- * 
- * @param {*} text 
- * @param {*} msg 
- * @returns 
+ *
+ * @param {*} bytes
+ * @param {*} decimals
+ * @returns
  */
-export const copyText = (text, msg) => navigator.clipboard.writeText(text).then(() => message.success(msg)).catch(e => {
-  console.log('copy err: ', e);
-})
+
+export const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  // const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const sizes = ['b', 'k', 'm']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
+
+export const svgStr2b64 = (str, val = false) => {
+  let out = str
+    .replace(
+      /(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)/g,
+      ''
+    )
+    .replace(/(\n +)|[\n\r\t]+/g, ' ')
+  if (!/http:\/\/\www\.w3\.org\/2000\/svg/i.test(str)) {
+    out = str.replace(/<svg/i, '<svg xmlns="http://www.w3.org/2000/svg"')
+  }
+  const output = out.replace(/>[\n\r \t]+</g, '><').replace(/[\n\r \t]+/g, ' ')
+
+  if (val === 'orgin') {
+    return output
+  } else if (val) {
+    return 'data:image/svg+xml;base64,' + window.btoa(output)
+  } else {
+    return 'data:image/svg+xml,' + output.replace(/[^\d\w ="'/]/g, x => encodeURIComponent(x))
+
+  }
+}
+
+
+export const svgStr2BlobUrl = (str) => {
+  let out = svgStr2b64(str, 'orgin')
+  const blob = new Blob([out], {
+    type: 'image/svg+xml'
+  });
+  return URL.createObjectURL(blob)
+}
