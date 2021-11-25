@@ -50,7 +50,7 @@ export const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
-export const svgStr2b64 = (str, val = false) => {
+export const svgStr2b64 = (str = '', val = false) => {
   let out = str
     .replace(
       /(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)/g,
