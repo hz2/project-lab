@@ -37,13 +37,9 @@ const SvgO = () => {
       reader.onerror = e => reject(e)
     })
 
-  const uploadSymbolOnChange = ({ fileList }) => {
+  const uploadOnChange = ({ fileList }) => {
     const arr = fileList.map(x => LoadFile(x.originFileObj))
     Promise.all(arr).then(list => setSvgList(list))
-
-    setTimeout(() => {
-      console.log(svgList)
-    }, 1000)
   }
 
   const donwloadZip = () => {
@@ -87,7 +83,7 @@ const SvgO = () => {
     multiple: true,
     accept: '.svg',
     showUploadList: false,
-    onChange: uploadSymbolOnChange,
+    onChange: uploadOnChange,
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
@@ -95,6 +91,20 @@ const SvgO = () => {
   // const removeItem = index => {
   //   setSvgList(svgList.filter((x, i) => i !== index))
   // }
+
+  const [draging, setDraging] = useState(false)
+
+  const DragEventOver = (ev) => {
+    ev.preventDefault()
+    setDraging(true)
+  }
+
+  const DropEvent = (ev) => {
+    ev.preventDefault()
+    setDraging(false)
+    const arr = [...ev.dataTransfer.items].map(x => LoadFile(x.getAsFile()));
+    Promise.all(arr).then(list => setSvgList(list))
+  }
 
   return (
     <>
@@ -131,6 +141,8 @@ const SvgO = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className={`${draging ? ' drag-zone draging' : 'drag-zone'}`} onDragOver={DragEventOver} onDrop={DropEvent}>
       </div>
     </>
   )
