@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Upload, Button, message, Spin } from 'antd'
+import { Upload, Button, message, Spin, Menu, Dropdown } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
@@ -115,6 +115,24 @@ const SvgO = () => {
     })
   }
 
+  const handleMenuClick = ({ key }, str) => {
+    if (key === 'uri') {
+      copyText(svgStr2b64(str, true))
+    } else if (key === 'base64') {
+      copyText(svgStr2b64(str, true))
+    } else if (key === 'content') {
+      copyText(str)
+    }
+  }
+
+  const menu = str => (
+    <Menu onClick={e => handleMenuClick(e, str)}>
+      <Menu.Item key="uri">data URI</Menu.Item>
+      <Menu.Item key="base64">base64</Menu.Item>
+      <Menu.Item key="content">content</Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <Spin spinning={loading} size="large">
@@ -141,14 +159,7 @@ const SvgO = () => {
                     <span className="gray"> -&gt; </span>
                     <span className="green">{formatBytes(y.s3)}</span>
                   </div>
-                  <div className="">-{formatBytes(y.reduce)}</div>
-                  <Button onClick={() => copyText(y.svg)}>data</Button>
-                  <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>
-                    bg
-                  </Button>
-                  <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>
-                    b64
-                  </Button>
+                  <Dropdown.Button className='mb15' overlay={menu(y.svg)} >-{formatBytes(y.reduce)}</Dropdown.Button>
                 </div>
               ))}
             </div>
