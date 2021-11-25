@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Upload, Button, message } from 'antd'
+import { Upload, Button, message, Spin } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
@@ -10,6 +10,7 @@ import { optimize } from 'svgo'
 const JSZip = require('jszip')
 const SvgO = () => {
   const [svgList, setSvgList] = useState([])
+  const [loading, setLoading] = useState(false)
   useEffect(() => { }, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
@@ -23,7 +24,7 @@ const SvgO = () => {
           // all config fields are also available here
           multipass: true
         })
-        const optimizedSvgString = result.data;
+        const optimizedSvgString = result.data || '';
         resolve({
           name: file.name,
           bloburl: svgStr2BlobUrl(optimizedSvgString),
@@ -38,8 +39,12 @@ const SvgO = () => {
     })
 
   const uploadOnChange = ({ fileList }) => {
+    setLoading(true)
     const arr = fileList.map(x => LoadFile(x.originFileObj))
-    Promise.all(arr).then(list => setSvgList(list))
+    Promise.all(arr).then(list => {
+      setSvgList(list)
+      setLoading(false)
+    })
   }
 
   const donwloadZip = () => {
@@ -102,48 +107,54 @@ const SvgO = () => {
   const DropEvent = (ev) => {
     ev.preventDefault()
     setDraging(false)
+    setLoading(true)
     const arr = [...ev.dataTransfer.items].map(x => LoadFile(x.getAsFile()));
-    Promise.all(arr).then(list => setSvgList(list))
+    Promise.all(arr).then(list => {
+      setSvgList(list)
+      setLoading(false)
+    })
   }
 
   return (
     <>
-      <div className="btngroup">
-        <Upload {...props}>
-          <Button icon={<UploadOutlined />}>上传图标</Button>
-        </Upload>
-        <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
-          下载 Zip
-        </Button>
-      </div>
-      <div className="result">
-        <div className="file-content">
-          {svgList.map((y, j) => (
-            <div className="item" key={j}>
-              <div
-                className="icon">
-                <img src={y.bloburl} alt={y.name} srcSet="" />
-              </div>
-              <div className="text">{y.name}</div>
-              <div className="">
-                <span className="red">{formatBytes(y.s2)}</span>
-                <span className="gray"> -&gt; </span>
-                <span className="green">{formatBytes(y.s3)}</span>
-              </div>
-              <div className="">-{formatBytes(y.reduce)}</div>
-              <Button onClick={() => copyText(y.svg)}>data</Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>
-                bg
-              </Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>
-                b64
-              </Button>
-            </div>
-          ))}
+      <Spin spinning={loading} size="large">
+        <div className="btngroup">
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>上传图标</Button>
+          </Upload>
+          <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
+            下载 Zip
+          </Button>
         </div>
-      </div>
-      <div className={`${draging ? ' drag-zone draging' : 'drag-zone'}`} onDragOver={DragEventOver} onDrop={DropEvent}>
-      </div>
+        <div className={`${draging ? ' drag-zone draging' : 'drag-zone'}`} onDragOver={DragEventOver} onDrop={DropEvent}>
+          <div className="result">
+            <div className="file-content">
+              {svgList.map((y, j) => (
+                <div className="item" key={j}>
+                  <div
+                    className="icon">
+                    <img src={y.bloburl} alt={y.name} srcSet="" />
+                  </div>
+                  <div className="text">{y.name}</div>
+                  <div className="">
+                    <span className="red">{formatBytes(y.s2)}</span>
+                    <span className="gray"> -&gt; </span>
+                    <span className="green">{formatBytes(y.s3)}</span>
+                  </div>
+                  <div className="">-{formatBytes(y.reduce)}</div>
+                  <Button onClick={() => copyText(y.svg)}>data</Button>
+                  <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>
+                    bg
+                  </Button>
+                  <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>
+                    b64
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Spin>
     </>
   )
 }
