@@ -13,11 +13,13 @@ import ColorPicker from './components/colorPicker'
 
 const input = <Input className="w120" />
 
-
 const GradientPage = () => {
-    return <div className="p50">
-        <ColorPicker />
-        {input}</div>
+  return (
+    <div className="p50">
+      <ColorPicker />
+      {input}
+    </div>
+  )
 }
 
 export default GradientPage

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Upload, Button, message } from 'antd'
-import {
-  UploadOutlined,
-  DownloadOutlined
-} from '@ant-design/icons'
+import { Upload, Button, message, Spin, Menu, Dropdown } from 'antd'
+import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob, formatBytes, copyText } from "@libs/common"
-import { svgStr2b64 } from './svgFn'
-const { optimize } = require('svgo');
+import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
+// const { optimize } = require('svgo');
+
+import { optimize } from 'svgo'
 
 const JSZip = require('jszip')
 const SvgO = () => {
   const [svgList, setSvgList] = useState([])
+  const [loading, setLoading] = useState(false)
   useEffect(() => { }, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
@@ -23,11 +22,12 @@ const SvgO = () => {
           // optional but recommended field
           path: 'path-to.svg',
           // all config fields are also available here
-          multipass: true,
-        });
-        const optimizedSvgString = result.data;
+          multipass: true
+        })
+        const optimizedSvgString = result.data || '';
         resolve({
           name: file.name,
+          bloburl: svgStr2BlobUrl(optimizedSvgString),
           svg: optimizedSvgString,
           s1: file.size,
           s2: svgString.length,
@@ -38,13 +38,13 @@ const SvgO = () => {
       reader.onerror = e => reject(e)
     })
 
-  const uploadSymbolOnChange = ({ fileList }) => {
+  const uploadOnChange = ({ fileList }) => {
+    setLoading(true)
     const arr = fileList.map(x => LoadFile(x.originFileObj))
-    Promise.all(arr).then(list => setSvgList(list))
-
-    setTimeout(() => {
-      console.log(svgList);
-    }, 1000)
+    Promise.all(arr).then(list => {
+      setSvgList(list)
+      setLoading(false)
+    })
   }
 
   const donwloadZip = () => {
@@ -65,13 +65,11 @@ const SvgO = () => {
         folder.file(newName + '.svg', x.svg)
       })
     }
-    svgList.forEach(x => {
-      const folder = zip.folder(x.name.replace('.svg', ''))
-      FolderList(x.list, folder)
-    })
+    const folder = zip.folder('svg optimize')
+    FolderList(svgList, folder)
     zip
       .generateAsync({ type: 'blob' })
-      .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
+      .then(blob => downloadBlob(blob, 'svgOptimize.zip'))
   }
 
   const scrollToDom = ({ uid }) => {
@@ -86,47 +84,86 @@ const SvgO = () => {
   const props = {
     name: 'file',
     multiple: true,
-    accept: ".svg",
+    accept: '.svg',
     showUploadList: false,
-    onChange: uploadSymbolOnChange,
+    onChange: uploadOnChange,
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
-
 
   // const removeItem = index => {
   //   setSvgList(svgList.filter((x, i) => i !== index))
   // }
 
+  const [draging, setDraging] = useState(false)
+
+  const DragEventOver = (ev) => {
+    ev.preventDefault()
+    setDraging(true)
+  }
+
+  const DropEvent = (ev) => {
+    ev.preventDefault()
+    setDraging(false)
+    setLoading(true)
+    const arr = [...ev.dataTransfer.items].map(x => LoadFile(x.getAsFile()));
+    Promise.all(arr).then(list => {
+      setSvgList(list)
+      setLoading(false)
+    })
+  }
+
+  const handleMenuClick = ({ key }, str) => {
+    if (key === 'uri') {
+      copyText(svgStr2b64(str, false), '复制 数据 URL 成功！')
+    } else if (key === 'base64') {
+      copyText(svgStr2b64(str, true), '复制 base64 编码 成功！')
+    } else if (key === 'content') {
+      copyText(str, '复制文件内容成功！')
+    }
+  }
+
+  const menu = str => (
+    <Menu onClick={e => handleMenuClick(e, str)}>
+      <Menu.Item key="uri">data URI</Menu.Item>
+      <Menu.Item key="base64">base64</Menu.Item>
+      <Menu.Item key="content">content</Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
-      <div className="btngroup">
-        <Upload {...props}>
-          <Button icon={<UploadOutlined />}>上传图标</Button>
-        </Upload>
-        <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
-          下载 Zip
-        </Button>
-      </div>
-      <div className="result">
-        <div className="file-content">
-          {svgList.map((y, j) => (
-            <div className="item" key={j}>
-              <div
-                className="icon"
-                dangerouslySetInnerHTML={{ __html: y.svg }}></div>
-              <div className="text">{y.name}</div>
-              <div className="">
-                <span className="red">{formatBytes(y.s2)}</span> -&gt; <span className="green">{formatBytes(y.s3)}</span></div>
-              <div className="">-{formatBytes(y.reduce)}</div>
-              <Button onClick={() => copyText(y.svg)}>data</Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, false))}>bg</Button>
-              <Button onClick={() => copyText(svgStr2b64(y.svg, true))}>b64</Button>
-            </div>
-
-          ))}
+      <Spin spinning={loading} size="large">
+        <div className="btngroup">
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>上传图标</Button>
+          </Upload>
+          <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
+            下载 Zip
+          </Button>
         </div>
-      </div>
+        <div className={`${draging ? ' drag-zone draging' : 'drag-zone'}`} onDragOver={DragEventOver} onDrop={DropEvent}>
+          <div className="result">
+            <div className="file-content">
+              {svgList.map((y, j) => (
+                <div className="item" key={j}>
+                  <div
+                    className="icon">
+                    <img src={y.bloburl} alt={y.name} srcSet="" />
+                  </div>
+                  <div className="text">{y.name}</div>
+                  <div className="">
+                    <span className="red">{formatBytes(y.s2)}</span>
+                    <span className="gray"> -&gt; </span>
+                    <span className="green">{formatBytes(y.s3)}</span>
+                  </div>
+                  <Dropdown.Button className='my10' overlay={menu(y.svg)} >-{formatBytes(y.reduce)}</Dropdown.Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Spin>
     </>
   )
 }

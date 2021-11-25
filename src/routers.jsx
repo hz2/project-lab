@@ -30,7 +30,7 @@ const pathList = {
   svgo: 'svgTool/svgO',
   svgbg: 'svgTool/svg2bg',
   toy: 'toy/toy',
-  docker: 'toy/docker',
+  docker: 'toy/docker'
 }
 const routesList = Object.entries(pathList).map((x, i) => (
   <Route

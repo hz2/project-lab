@@ -1,105 +1,125 @@
 .result {
-    .file {
-        margin: 25px 0;
+  .file {
+    margin: 25px 0;
 
-        .file-name {
-            .anticon {
-                cursor: pointer;
+    .file-name {
+      .anticon {
+        cursor: pointer;
 
-                &:active {
-                    color: red;
-                }
-            }
+        &:active {
+          color: red;
         }
-
-        .file-content {
-            padding: 15px 10px;
-
-        }
+      }
     }
 
-    .item {
-        display: inline-block;
-        vertical-align: top;
-        text-align: center;
-        margin: 5px;
-        width: 150px;
-        border-radius: 8px;
-        overflow: hidden;
+    .file-content {
+      padding: 15px 10px;
 
-        .icon {
-            margin: auto;
-            padding: 10px;
-
-            svg {
-                width: 130px;
-                height: 130px;
-            }
-        }
-
-        .text {
-            padding: 10px;
-            font-size: 13px;
-            color: #999;
-        }
-
-        &:hover {
-            background-color: #eee;
-
-            .icon {
-                box-shadow: inset 5px 5px 20px rgba(26, 26, 26, 0.5);
-                background: var(--lab-conic-bgi) top left / 25px 25px repeat;
-            }
-        }
     }
+  }
+
+  .item {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 5px;
+    width: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .icon {
+      margin: auto;
+      padding: 10px;
+      height: 150px;
+      width: 150px;
+      display: grid;
+      place-items: center;
+
+      svg,
+      img {
+        max-width: 130px;
+        max-height: 130px;
+        object-fit: contain;
+      }
+    }
+
+    .text {
+      padding: 10px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    &:hover {
+      background-color: #eee;
+
+      .icon {
+        box-shadow: inset 5px 5px 20px rgba(26, 26, 26, 0.5);
+        background: var(--lab-conic-bgi) top left / 25px 25px repeat;
+      }
+    }
+  }
 
 }
 
 .svgTool {
-    .btngroup {
-        display: flex;
+  .btngroup {
+    display: flex;
 
-        button {
-            margin-left: 15px;
+    button {
+      margin-left: 15px;
 
-            .anticon {
-                vertical-align: .1em;
-            }
-        }
-
+      .anticon {
+        vertical-align: .1em;
+      }
     }
+
+  }
 }
 
 .svgBg {
-    .common-box {
-        padding: 20px;
-    }
+  .common-box {
+    padding: 20px;
+  }
 
-    .title-text {
-        font-size: 16px;
-        margin: 10px 5px 5px;
-    }
+  .title-text {
+    font-size: 16px;
+    margin: 10px 5px 5px;
+  }
 
-    .inputbox {
-        width: 500px;
-        max-width: 100%;
-        color: #777;
-        height: 200px;
-    }
+  .inputbox {
+    width: 500px;
+    max-width: 100%;
+    color: #777;
+    height: 200px;
+  }
 
-    .inputbox2 {
-        width: 700px;
-        max-width: 100%;
-        color: #777;
-        height: 200px;
-    }
+  .inputbox2 {
+    width: 700px;
+    max-width: 100%;
+    color: #777;
+    height: 200px;
+  }
 
-    #preview {
-        height: 200px;
-        width: 200px;
-        background-color: rgb(238, 238, 238);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+  #preview {
+    height: 200px;
+    width: 200px;
+    background-color: rgb(238, 238, 238);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.drag-zone {
+  background-color: transparent;
+  width: 100%;
+  height: calc(100vh - 180px);
+  margin-top: 20px;
+  border: 5px dashed transparent;
+  border-radius: 8px;
+
+  &.draging {
+    background-color: #efffff;
+    border: 5px dashed #aee7e7;
+  }
 }

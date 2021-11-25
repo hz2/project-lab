@@ -100,8 +100,8 @@ const Home = props => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
-        <img src="./logo-lab-thin.svg" alt="lab-logo" className="lab-logo" /> project
-        Lab
+        <img src="./logo-lab-thin.svg" alt="lab-logo" className="lab-logo" />
+        project Lab
       </h1>
       <h2>Generator</h2>
       <div className="btn-list">{genBtn(generatorList, 'gen')}</div>
