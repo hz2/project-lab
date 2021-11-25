@@ -65,13 +65,11 @@ const SvgO = () => {
         folder.file(newName + '.svg', x.svg)
       })
     }
-    svgList.forEach(x => {
-      const folder = zip.folder(x.name.replace('.svg', ''))
-      FolderList(x.list, folder)
-    })
+    const folder = zip.folder('svg optimize')
+    FolderList(svgList, folder)
     zip
       .generateAsync({ type: 'blob' })
-      .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
+      .then(blob => downloadBlob(blob, 'svgOptimize.zip'))
   }
 
   const scrollToDom = ({ uid }) => {
@@ -117,11 +115,11 @@ const SvgO = () => {
 
   const handleMenuClick = ({ key }, str) => {
     if (key === 'uri') {
-      copyText(svgStr2b64(str, true))
+      copyText(svgStr2b64(str, false), '复制 数据 URL 成功！')
     } else if (key === 'base64') {
-      copyText(svgStr2b64(str, true))
+      copyText(svgStr2b64(str, true), '复制 base64 编码 成功！')
     } else if (key === 'content') {
-      copyText(str)
+      copyText(str, '复制文件内容成功！')
     }
   }
 
@@ -159,7 +157,7 @@ const SvgO = () => {
                     <span className="gray"> -&gt; </span>
                     <span className="green">{formatBytes(y.s3)}</span>
                   </div>
-                  <Dropdown.Button className='mb15' overlay={menu(y.svg)} >-{formatBytes(y.reduce)}</Dropdown.Button>
+                  <Dropdown.Button className='my10' overlay={menu(y.svg)} >-{formatBytes(y.reduce)}</Dropdown.Button>
                 </div>
               ))}
             </div>
