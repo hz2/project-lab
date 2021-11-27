@@ -64,10 +64,10 @@ const cnverterList = [
     name: 'queryString',
     icon: <ApiTwoTone twoToneColor="#00bbbb" />
   },
-  {
-    name: 'dataUrl',
-    icon: <FilterTwoTone twoToneColor="#00bbbb" />
-  },
+  // {
+  //   name: 'dataUrl',
+  //   icon: <FilterTwoTone twoToneColor="#00bbbb" />
+  // },
   {
     name: 'svg',
     icon: <HighlightTwoTone twoToneColor="#00bbbb" />
