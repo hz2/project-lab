@@ -24,16 +24,7 @@ const DataUrl = () => {
         }
         const { originFileObj, type, size, name } = file
         const reader = new FileReader()
-        if (radio === 'blob') {
-          const objectURL = URL.createObjectURL(originFileObj)
-          setFileObj({
-            url: objectURL,
-            type,
-            size,
-            name
-          })
-          return
-        } else if (radio === 'text') {
+        if (radio === 'text') {
           reader.readAsText(originFileObj, 'UTF-8')
         } else if (radio === 'b64') {
           reader.readAsDataURL(originFileObj)
@@ -71,7 +62,7 @@ const DataUrl = () => {
         <Radio.Group defaultValue="blob" buttonStyle="solid" onChange={setType}>
           <Radio.Button value="text">text</Radio.Button>
           <Radio.Button value="b64">base64</Radio.Button>
-          <Radio.Button value="blob">blob</Radio.Button>
+          {/* <Radio.Button value="blob">blob</Radio.Button> */}
         </Radio.Group>
         {/* <h4>请选择文件</h4> */}
         <div className="block">
