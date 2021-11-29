@@ -4,6 +4,12 @@ import { Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
 
+import store from './store'
+import history from './modules/history'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+
+
 const pathList = {
   // generator
   person: 'idcard/idcard',
@@ -63,4 +69,10 @@ const Routers = () => {
   )
 }
 
-export default Routers
+const r2 = (<Provider store={store}>
+  <ConnectedRouter history={history}>
+    <Routers />
+  </ConnectedRouter>
+</Provider>)
+
+export default r2
