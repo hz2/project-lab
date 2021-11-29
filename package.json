@@ -5,8 +5,6 @@
   "dependencies": {
     "@types/jest": "^26.0.24",
     "@types/node": "^16.11.9",
-    "@types/react": "^17.0.36",
-    "@types/react-dom": "^17.0.11",
     "antd": "^4.16.13",
     "connected-react-router": "^6.9.1",
     "history": "^4.7.2",
@@ -37,6 +35,9 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.0",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-router-dom": "^5.3.2",
     "craco-less": "^1.20.0",
     "prettier": "^1.15.2",
     "pub.css": "^0.0.27"

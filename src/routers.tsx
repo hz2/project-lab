@@ -47,8 +47,8 @@ const routesList = Object.entries(pathList).map((x, i) => (
   />
 ))
 
-const Routers = () => {
-  return (
+const Routers = <Provider store={store}>
+  <ConnectedRouter history={history}>
     <HashRouter>
       <Suspense
         fallback={
@@ -66,13 +66,7 @@ const Routers = () => {
         </Switch>
       </Suspense>
     </HashRouter>
-  )
-}
-
-const r2 = (<Provider store={store}>
-  <ConnectedRouter history={history}>
-    <Routers />
   </ConnectedRouter>
-</Provider>)
+</Provider>
 
-export default r2
+export default Routers

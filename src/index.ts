@@ -1,5 +1,4 @@
 // @flow
-import React from 'react'
 import { render } from 'react-dom'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
@@ -10,7 +9,6 @@ import './index.less'
 import Routers from './routers'
 
 const target = document.querySelector('#root')
-
 
 render(Routers, target)
 
