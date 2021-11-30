@@ -1,8 +1,8 @@
 // https://reqbin.com/lib/ipInfo-api/yel1uw4m/ip-geolocation-api-example
 // https://devpal.co/
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { getCountry } from './country'
-import { Spin, Input, Button } from 'antd'
+import { Spin, Input } from 'antd'
 import './ip.less'
 
 const transformLonlatToDD = coordinate => {
@@ -84,28 +84,8 @@ const Page = () => {
   const [mapIframe, setMapIframe] = useState('')
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  const queryIp = useCallback(() => {
     setLoading(true)
-    getIpInfo().then(r => {
-      if (r) {
-        const { country, loc } = r
-        setText(r)
-        // const loc = [ r.latitude, r.longitude ].join(',')
-        if (loc) {
-          const mapIframe = getMap(loc)
-          setMapIframe(mapIframe)
-        }
-        if (country) {
-          const countryObj = getCountry(country)
-          setCountryObj(countryObj)
-        }
-      }
-    })
-      .catch(err => console.error(new Error(err)))
-      .finally(f => setLoading(false))
-  }, [])
-
-  const queryIp = () => {
     getIpInfo(ip).then(r => {
       if (r) {
         const { country, loc } = r
@@ -122,8 +102,12 @@ const Page = () => {
     })
       .catch(err => console.error(new Error(err)))
       .finally(f => setLoading(false))
-  }
+  }, [ip])
 
+
+  useEffect(() => {
+    queryIp()
+  }, [queryIp])
 
 
 
@@ -134,9 +118,10 @@ const Page = () => {
           className="w250 m15"
           placeholder="输入 IP 地址"
           value={ip}
+          allowClear
           onChange={({ target: { value } }) => setIp(value)}
         />
-        <Button type="primary" onClick={() => queryIp()}>查询</Button>
+        {/* <Button type="primary" onClick={() => queryIp()}>查询</Button> */}
       </div>
       <Spin spinning={loading} size="large">
         <ul>
@@ -159,7 +144,3 @@ const Page = () => {
 }
 
 export default Page
-
-// https://respok.com/ipinfo_io/
-
-// https://respok.com/ipinfo_io/default
