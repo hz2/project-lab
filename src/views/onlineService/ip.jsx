@@ -1,8 +1,8 @@
 // https://reqbin.com/lib/ipInfo-api/yel1uw4m/ip-geolocation-api-example
 // https://devpal.co/
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { getCountry } from './country'
-import { Spin } from 'antd'
+import { Spin, Input } from 'antd'
 import './ip.less'
 
 const transformLonlatToDD = coordinate => {
@@ -67,48 +67,62 @@ const getMap = loc => {
   // !1m3
   // !1d13705818.681931842!2d138.42930715!3d32.999896050000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-CN!2sjp!4v1620183206669!5m2!1szh-CN!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 }
+
+const getIpInfo = (ip = 'default') => {
+  const url = 'https://respok.com/ipinfo_io/' + ip
+  // const url = 'https://cf.p0t.top/cf'
+  return fetch(url, { mode: 'cors' })
+    .then(response => response.json())
+
+}
+
+
 const Page = () => {
   const [text, setText] = useState({})
+  const [ip, setIp] = useState('')
   const [countryObj, setCountryObj] = useState({})
   const [mapIframe, setMapIframe] = useState('')
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  const queryIp = useCallback(() => {
     setLoading(true)
-    const url = 'https://respok.com/ipinfo_io/default'
-    // const url = 'https://cf.p0t.top/cf'
-    fetch(url, { mode: 'cors' })
-      .then(response => response.json())
-      .then(r => {
-        if (r) {
-          const { country, loc } = r
-          setText(r)
-          // const loc = [ r.latitude, r.longitude ].join(',')
-          if (loc) {
-            const mapIframe = getMap(loc)
-            setMapIframe(mapIframe)
-          }
-          if (country) {
-            const countryObj = getCountry(country)
-            setCountryObj(countryObj)
-          }
+    getIpInfo(ip).then(r => {
+      if (r) {
+        const { country, loc } = r
+        setText(r)
+        if (loc) {
+          const mapIframe = getMap(loc)
+          setMapIframe(mapIframe)
         }
-      })
+        if (country) {
+          const countryObj = getCountry(country)
+          setCountryObj(countryObj)
+        }
+      }
+    })
       .catch(err => console.error(new Error(err)))
       .finally(f => setLoading(false))
-  }, [])
+  }, [ip])
+
+
+  useEffect(() => {
+    queryIp()
+  }, [queryIp])
+
+
+
   return (
     <div className="ip-page p20">
-      {/* <div className="flex">
-      <Input
-        className="m15"
-        placeholder="输入 IP 地址"
-        value={this.state.idcvalue}
-        onChange={this.handleChange}
-      />
-      <Button type="primary">查询</Button>
-    </div> */}
-
+      <div className="flex start">
+        <Input
+          className="w250 m15"
+          placeholder="输入 IP 地址"
+          value={ip}
+          allowClear
+          onChange={({ target: { value } }) => setIp(value)}
+        />
+        {/* <Button type="primary" onClick={() => queryIp()}>查询</Button> */}
+      </div>
       <Spin spinning={loading} size="large">
         <ul>
           <li>IP: {text.ip || ''}</li>
@@ -130,7 +144,3 @@ const Page = () => {
 }
 
 export default Page
-
-// https://respok.com/ipinfo_io/
-
-// https://respok.com/ipinfo_io/default
