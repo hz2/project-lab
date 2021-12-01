@@ -68,10 +68,10 @@ const getMap = (loc: string) => {
 
   // https://www.google.com/maps/@32.9998961,138.4293071,5z/data=!4m2!7m1!2e1
   // <iframe src="https://www.google.com/maps/embed?pb=
-  // !1m14
-  // !1m12
-  // !1m3
-  // !1d13705818.681931842!2d138.42930715!3d32.999896050000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-CN!2sjp!4v1620183206669!5m2!1szh-CN!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  // \!1m14
+  // \!1m12
+  // \!1m3
+  // \!1d13705818.681931842!2d138.42930715!3d32.999896050000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-CN!2sjp!4v1620183206669!5m2!1szh-CN!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 }
 
 const getIpInfo = (ip = 'default') => {
