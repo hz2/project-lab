@@ -29,8 +29,8 @@ const pathList = {
   svgEditor: 'svgEditor/svgEditor',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
-  ipAddress: 'onlineService/ip',
-  ip: 'onlineService/ip',
+  ipAddress: 'onlineService/ip.tsx',
+  ip: 'onlineService/ip.tsx',
   currency: 'onlineService/currencyExchange',
   svg: 'svgTool/svgTool',
   svgo: 'svgTool/svgO',
@@ -38,11 +38,11 @@ const pathList = {
   toy: 'toy/toy',
   docker: 'toy/docker'
 }
-const routesList = Object.entries(pathList).map((x, i) => (
+const routesList = Object.entries(pathList).map(([path,file], i) => (
   <Route
     exact
-    path={'/' + x[0]}
-    component={lazy(() => import('./views/' + x[1]))}
+    path={'/' + path}
+    component={lazy(() => import('./views/' + file))}
     key={i}
   />
 ))

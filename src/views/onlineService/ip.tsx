@@ -1,11 +1,17 @@
 // https://reqbin.com/lib/ipInfo-api/yel1uw4m/ip-geolocation-api-example
 // https://devpal.co/
 import React, { useEffect, useState, useCallback } from 'react'
-import { getCountry } from './country'
+import Country from './country.json'
 import { Spin, Input } from 'antd'
 import './ip.less'
 
-const transformLonlatToDD = coordinate => {
+
+const list = Country.list;
+const getCountry = (iso: string) => list.filter(x => x.iso === iso)[0]
+
+
+
+const transformLonlatToDD = (coordinate: number) => {
   const d = Math.floor(coordinate) //116.512885 转换成度（°）实则是取整
   const m = Math.floor((coordinate % 1) * 60) //0.512885 转换成分(') 实则是0.512885 * 60 后取整。
   const s = ((((coordinate % 1) * 60) % 1) * 60).toFixed(1)
@@ -14,15 +20,15 @@ const transformLonlatToDD = coordinate => {
   return `${d}°${m}'${s}"`
 }
 
-const convertLoc = (lat, lon) => {
+const convertLoc = (lat: number, lon: number) => {
   const latstr = transformLonlatToDD(lat) + (lat > 0 ? 'N' : 'S')
   const lonstr = transformLonlatToDD(lon) + (lon > 0 ? 'E' : 'W')
   return latstr + ' ' + lonstr
 }
 
-const getMap = loc => {
+const getMap = (loc: string) => {
   const locArr = loc.split(',')
-  const [lat, lon] = locArr.map(x => x * 1)
+  const [lat, lon] = locArr.map((x: string) => Number(x))
   const [x, y] = [7, 6]
   const iframeSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${lon -
     x}%2C${lat - y}%2C${lon + x}%2C${lat +
@@ -53,7 +59,7 @@ const getMap = loc => {
         !5e0`.replace(/[\r \t\n]+/g, '')}
         width="500"
         height="350"
-        allowFullScreen=""
+        allowFullScreen={true}
         title="GoogleMap"
         loading="lazy"></iframe>
     </div>
@@ -78,30 +84,37 @@ const getIpInfo = (ip = 'default') => {
 
 
 const Page = () => {
-  const [text, setText] = useState({})
+  const [text, setText] = useState({
+    ip: '',
+    city: '',
+    region: '',
+    org: '',
+    timezone: '',
+    postal: '',
+    loc: '',
+  })
   const [ip, setIp] = useState('')
-  const [countryObj, setCountryObj] = useState({})
-  const [mapIframe, setMapIframe] = useState('')
+  const [countryObj, setCountryObj] = useState({
+    name: '',
+    emoji: '',
+    zh: '',
+  })
   const [loading, setLoading] = useState(false)
 
   const queryIp = useCallback(() => {
     setLoading(true)
     getIpInfo(ip).then(r => {
       if (r) {
-        const { country, loc } = r
+        const { country } = r
         setText(r)
-        if (loc) {
-          const mapIframe = getMap(loc)
-          setMapIframe(mapIframe)
-        }
         if (country) {
-          const countryObj = getCountry(country)
+          Object.assign(countryObj, getCountry(country))
           setCountryObj(countryObj)
         }
       }
     })
       .catch(err => console.error(new Error(err)))
-      .finally(f => setLoading(false))
+      .finally(() => setLoading(false))
   }, [ip])
 
 
@@ -125,19 +138,19 @@ const Page = () => {
       </div>
       <Spin spinning={loading} size="large">
         <ul>
-          <li>IP: {text.ip || ''}</li>
+          <li>IP: {text.ip}</li>
           <li>
             地址：
-            {`${countryObj.emoji || ''} ${countryObj.zh ||
-              ''} ${countryObj.name || ''}`}
+            {`${countryObj.emoji} ${countryObj.zh ||
+              ''} ${countryObj.name}`}
           </li>
-          <li>区域: {`${text.region || ''} ${text.city || ''}`}</li>
+          <li>区域: {`${text.region} ${text.city}`}</li>
           <li>组织: {text.org}</li>
-          <li>邮编: {text.postal || ''}</li>
-          <li>坐标: {text.loc || ''}</li>
-          <li>时区: {text.timezone || ''}</li>
+          <li>邮编: {text.postal}</li>
+          <li>坐标: {text.loc}</li>
+          <li>时区: {text.timezone}</li>
         </ul>
-        {mapIframe}
+        {getMap(text.loc)}
       </Spin>
     </div>
   )
