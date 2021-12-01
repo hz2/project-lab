@@ -108,8 +108,7 @@ const Page = () => {
         const { country } = r
         setText(r)
         if (country) {
-          Object.assign(countryObj, getCountry(country))
-          setCountryObj(countryObj)
+          setCountryObj(getCountry(country))
         }
       }
     })
