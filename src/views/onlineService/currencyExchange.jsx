@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Select, Statistic, Card } from 'antd'
+import { Input, Select, Statistic, Card, Tooltip } from 'antd'
+import {
+  LeftOutlined,
+  RightOutlined,
+} from '@ant-design/icons'
 import { list as Currency } from './currency'
 import './currency-page.less'
 
-var digitUppercase = function(n) {
+var digitUppercase = function (n) {
   var fraction = ['毛', '分']
   // var fraction = ['角', '分'];
   var digit = [
@@ -136,9 +140,17 @@ const Page = () => {
   }
 
   const currencyChange = currency => calc({ key1: currency })
+  const rightChange = currency => calc({ key2: currency })
 
   const filterOption = (input, option) =>
     option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+
+  const currencyValInput = ({ target: { value } }) => {
+    const val = Number(value)
+    if (!isNaN(val)) {
+      calc({ input: val })
+    }
+  }
 
   return (
     <div className="common-box currency-page">
@@ -149,7 +161,7 @@ const Page = () => {
             value={bindVal.input}
             placeholder="请输入金额"
             maxLength="9"
-            onChange={({ target: { value } }) => calc({ input: value / 1 })}
+            onChange={currencyValInput}
             allowClear
           />
           <Select
@@ -163,13 +175,16 @@ const Page = () => {
           <div className="numText mt10 center">
             <span className="num">{bindVal.input}</span>
             <span className="unit">{tranCurrency(bindVal.key1).text}</span>
-            <span className="eq">等于</span>
           </div>
         </Input.Group>
         <div
-          className="exchange mx15 py20"
-          onClick={() => calc({ key2: bindVal.key1, key1: bindVal.key2 })}>
-          💱
+          className="mx15 py20">
+          <div
+            className="exchange"
+            onClick={() => calc({ key2: bindVal.key1, key1: bindVal.key2 })}>
+            <span>💱</span>
+          </div>
+          <div className="center eq">等于</div>
         </div>
         <div className="w300 right">
           <Select
@@ -182,21 +197,32 @@ const Page = () => {
             options={list}></Select>
           <div className="numText mt10 flex center">
             <Statistic value={bindVal.value} precision={5} />
-            <span className="ml10 unit">{bindVal.key2}</span>
+            <span className="ml10 unit">{tranCurrency(bindVal.key2).text}</span>
           </div>
         </div>
       </div>
+
       <div className="table ">
         {newList.map((x, i) => (
           <Card
             title={x.country + ' ' + x.currency}
             className="item pointer"
             key={i}
-            onClick={() => currencyChange(x.currency)}>
-            <div>
+            actions={[
+              <Tooltip placement="top" title={`${bindVal.input} ${x.text}等于 ? ${tranCurrency(bindVal.key2).text}`}>
+                <LeftOutlined onClick={() => currencyChange(x.currency)} />
+              </Tooltip>
+              ,
+              <Tooltip placement="top" title={`${bindVal.input} ${tranCurrency(bindVal.key1).text}等于 ? ${x.text}`}>
+                <RightOutlined onClick={() => rightChange(x.currency)} />
+              </Tooltip>
+            ]}
+          >
+            <>
               <span className="num">{x.num.toFixed(5)}</span>
               <span className="text ml5">{x.text}</span>
-            </div>
+            </>
+
             <div className="text gray12 my10">{digitUppercase(x.num)}</div>
           </Card>
         ))}
