@@ -4,6 +4,12 @@ import { Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
 
+import store from './store'
+import history from './modules/history'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+
+
 const pathList = {
   // generator
   person: 'idcard/idcard',
@@ -23,26 +29,26 @@ const pathList = {
   svgEditor: 'svgEditor/svgEditor',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
-  ipAddress: 'onlineService/ip',
-  ip: 'onlineService/ip',
-  currency: 'onlineService/currencyExchange',
+  ipAddress: 'onlineService/ip.tsx',
+  ip: 'onlineService/ip.tsx',
+  currency: 'onlineService/currencyExchange.tsx',
   svg: 'svgTool/svgTool',
   svgo: 'svgTool/svgO',
   svgbg: 'svgTool/svg2bg',
   toy: 'toy/toy',
   docker: 'toy/docker'
 }
-const routesList = Object.entries(pathList).map((x, i) => (
+const routesList = Object.entries(pathList).map(([path,file], i) => (
   <Route
     exact
-    path={'/' + x[0]}
-    component={lazy(() => import('./views/' + x[1]))}
+    path={'/' + path}
+    component={lazy(() => import('./views/' + file))}
     key={i}
   />
 ))
 
-const Routers = () => {
-  return (
+const Routers = <Provider store={store}>
+  <ConnectedRouter history={history}>
     <HashRouter>
       <Suspense
         fallback={
@@ -60,7 +66,7 @@ const Routers = () => {
         </Switch>
       </Suspense>
     </HashRouter>
-  )
-}
+  </ConnectedRouter>
+</Provider>
 
 export default Routers

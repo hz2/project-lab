@@ -1,8 +1,10 @@
 {
-  "name": "project-lab-react",
+  "name": "project-lab-ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.11.9",
     "antd": "^4.16.13",
     "connected-react-router": "^6.9.1",
     "history": "^4.7.2",
@@ -23,7 +25,8 @@
     "sanitize.css": "^10.0.0",
     "source-map-explorer": "^2.5.0",
     "svgo": "^2.8.0",
-    "web-vitals": "^0.2.4",
+    "typescript": "^4.5.2",
+    "web-vitals": "^1.1.2",
     "workbox-core": "^5.1.3",
     "workbox-expiration": "^5.1.3",
     "workbox-precaching": "^5.1.3",
@@ -32,6 +35,9 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.0",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-router-dom": "^5.3.2",
     "craco-less": "^1.20.0",
     "prettier": "^1.15.2",
     "pub.css": "^0.0.27"
@@ -46,7 +52,10 @@
     "lint": "prettier --single-quote --write src/**/*.{js,jsx,json,css}"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "husky": {
     "hooks": {
@@ -59,8 +68,16 @@
       "git add"
     ]
   },
-  "browserslist": [
-    "last 1 version",
-    "> 5%"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
