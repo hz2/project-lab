@@ -1,10 +1,5 @@
 // @flow
-import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
-import store from './store'
-import history from './modules/history'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
@@ -15,20 +10,13 @@ import Routers from './routers'
 
 const target = document.querySelector('#root')
 
-render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Routers />
-    </ConnectedRouter>
-  </Provider>,
-  target
-)
+render(Routers, target)
 
 serviceWorkerRegistration.register({
-  onUpdate: registration => {
+  onUpdate: (registration: any) => {
     console.log('PWA Update => ', registration)
   },
-  onSuccess: registration => {
+  onSuccess: (registration: any) => {
     console.log('PWA Success => ', registration)
   }
 })
