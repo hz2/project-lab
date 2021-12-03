@@ -4,10 +4,11 @@ import {
   LeftOutlined,
   RightOutlined,
 } from '@ant-design/icons'
-import { list as Currency } from './currency'
+
+import Currency from './currency.json'
 import './currency-page.less'
 
-var digitUppercase = function (n) {
+var digitUppercase = function (n: number) {
   var fraction = ['毛', '分']
   // var fraction = ['角', '分'];
   var digit = [
@@ -59,27 +60,31 @@ var digitUppercase = function (n) {
 }
 
 // 向右移位
-function shiftRight(number, digit) {
-  digit = parseInt(digit, 10)
+function shiftRight(number: number, digit: string | number) {
+  if ( typeof digit === 'string' ) {
+    digit = parseInt(digit, 10)
+  }
   var value = number.toString().split('e')
   return +(value[0] + 'e' + (value[1] ? +value[1] + digit : digit))
 }
 // 向左移位
-function shiftLeft(number, digit) {
-  digit = parseInt(digit, 10)
+function shiftLeft(number: number, digit: string | number) {
+  if ( typeof digit === 'string' ) {
+    digit = parseInt(digit, 10)
+  }
   var value = number.toString().split('e')
   return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
 }
 
-const list = Currency.map(x => ({
+const list = Currency.list.map((x: { country: any; text: any; currency: any }) => ({
   ...x,
   label: `${x.country} ${x.text} ${x.currency} `,
   currency: x.currency,
   value: x.currency
 }))
 
-const tranCurrency = currency => list.filter(x => x.currency === currency)[0]
-const genNewList = (ratesVal, input, key1) =>
+const tranCurrency = (currency: string) => list.filter(x => x.currency === currency)[0]
+const genNewList = (ratesVal: { [x: string]: number }, input: number, key1: string) =>
   list
     .filter((x, i) => i < 15 && x.value !== key1)
     .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
@@ -95,7 +100,7 @@ const Page = () => {
   const [ratesVal, SetRatesVal] = useState({})
 
   const [newList, SetNewList] = useState([])
-  const calc = obj => {
+  const calc = (obj: { key1?: any; key2?: any; input?: number }) => {
     const { input, key1, key2 } = Object.assign({}, bindVal, obj)
     const val = (input / ratesVal[key1]) * ratesVal[key2]
     SetBindVal({
@@ -139,10 +144,10 @@ const Page = () => {
     SetNewList(newList)
   }
 
-  const currencyChange = currency => calc({ key1: currency })
-  const rightChange = currency => calc({ key2: currency })
+  const currencyChange = (currency: any) => calc({ key1: currency })
+  const rightChange = (currency: any) => calc({ key2: currency })
 
-  const filterOption = (input, option) =>
+  const filterOption = (input: string, option: { label: string }) =>
     option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
 
   const currencyValInput = ({ target: { value } }) => {
@@ -160,7 +165,7 @@ const Page = () => {
             className="w120"
             value={bindVal.input}
             placeholder="请输入金额"
-            maxLength="9"
+            maxLength={9}
             onChange={currencyValInput}
             allowClear
           />

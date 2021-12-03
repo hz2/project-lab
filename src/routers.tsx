@@ -31,7 +31,7 @@ const pathList = {
   post: 'onlineService/post',
   ipAddress: 'onlineService/ip.tsx',
   ip: 'onlineService/ip.tsx',
-  currency: 'onlineService/currencyExchange',
+  currency: 'onlineService/currencyExchange.tsx',
   svg: 'svgTool/svgTool',
   svgo: 'svgTool/svgO',
   svgbg: 'svgTool/svg2bg',

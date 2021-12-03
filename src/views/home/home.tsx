@@ -11,7 +11,6 @@ import {
   ApiTwoTone,
   GiftTwoTone,
   FireTwoTone,
-  FilterTwoTone,
   HighlightTwoTone,
   CompassTwoTone
 } from '@ant-design/icons'
@@ -64,10 +63,6 @@ const cnverterList = [
     name: 'queryString',
     icon: <ApiTwoTone twoToneColor="#00bbbb" />
   },
-  // {
-  //   name: 'dataUrl',
-  //   icon: <FilterTwoTone twoToneColor="#00bbbb" />
-  // },
   {
     name: 'svg',
     icon: <HighlightTwoTone twoToneColor="#00bbbb" />
@@ -80,11 +75,13 @@ const analyzerList = [
   }
 ]
 
-const genTitle = str =>
-  str[0].toUpperCase() + str.slice(1).replace(/[A-Z]/g, x => ' ' + x)
+const genTitle = (str: string) => {
+  const FirstLetter = str.slice(0, 1).toUpperCase()
+  return FirstLetter + str.slice(1).replace(/[A-Z]/g, (x: string) => ' ' + x)
+}
 
-const genBtn = (list, key) =>
-  list.map((x, i) => (
+const genBtn = (list: any[], key: string) =>
+  list.map((x: { name: string; icon: React.ReactChild }, i: number) => (
     <Link
       className="item inline-block align-top center m10"
       type="primary"
@@ -92,11 +89,10 @@ const genBtn = (list, key) =>
       to={location => '/' + x.name}
       title={genTitle(x.name)}>
       <div className="block">{x.icon}</div>
-      {/* <Button type="link">{genTitle(x.name)}</Button> */}
       <div className="text">{genTitle(x.name)}</div>
     </Link>
   ))
-const Home = props => (
+const Home = (props: any) => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
@@ -110,17 +106,12 @@ const Home = props => (
       <h2>Analyzer</h2>
       <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
     </section>
-    {/* <ReduxPage /> */}
     <footer className="github">
       <Divider>
         <span className="footertext">
           <span>2020-present</span>
           <span className="splitcolor">\</span>
-          <span>made with </span>
-          <span role="img" aria-label="sleep">
-            💤
-          </span>
-          <span> by </span>
+          <span>made by </span>
           <a
             href="https://github.com/hz2/project-lab"
             target="_blank"
