@@ -61,7 +61,7 @@ var digitUppercase = function (n: number) {
 
 // 向右移位
 function shiftRight(number: number, digit: string | number) {
-  if ( typeof digit === 'string' ) {
+  if (typeof digit === 'string') {
     digit = parseInt(digit, 10)
   }
   var value = number.toString().split('e')
@@ -69,22 +69,37 @@ function shiftRight(number: number, digit: string | number) {
 }
 // 向左移位
 function shiftLeft(number: number, digit: string | number) {
-  if ( typeof digit === 'string' ) {
+  if (typeof digit === 'string') {
     digit = parseInt(digit, 10)
   }
   var value = number.toString().split('e')
   return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
 }
+interface ICurrency {
+  label: string;
+  currency: any;
+  value: any;
+  country: any;
+  text: any;
+  num: number;
+}
 
-const list = Currency.list.map((x: { country: any; text: any; currency: any }) => ({
+type CurrencyList = ICurrency[]
+
+interface IRates {
+  [key: string]: number;
+}
+
+const list: CurrencyList = Currency.list.map((x: { country: any; text: any; currency: any }) => ({
   ...x,
+  num: 0,
   label: `${x.country} ${x.text} ${x.currency} `,
   currency: x.currency,
   value: x.currency
 }))
 
 const tranCurrency = (currency: string) => list.filter(x => x.currency === currency)[0]
-const genNewList = (ratesVal: { [x: string]: number }, input: number, key1: string) =>
+const genNewList = (ratesVal: { [x: string]: number }, input: number, key1: string): CurrencyList =>
   list
     .filter((x, i) => i < 15 && x.value !== key1)
     .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
@@ -97,12 +112,14 @@ const Page = () => {
     value: 0
   })
 
-  const [ratesVal, SetRatesVal] = useState({})
+  const [ratesVal, SetRatesVal] = useState<IRates>({})
 
-  const [newList, SetNewList] = useState([])
-  const calc = (obj: { key1?: any; key2?: any; input?: number }) => {
+  const [newList, SetNewList] = useState<CurrencyList>([])
+  const calc = (obj: { key1?: string; key2?: string; input?: string | number }) => {
     const { input, key1, key2 } = Object.assign({}, bindVal, obj)
-    const val = (input / ratesVal[key1]) * ratesVal[key2]
+    const r1 = ratesVal[key1]
+    const r2 = ratesVal[key1]
+    const val = (input / r1) * r2
     SetBindVal({
       input,
       key1,
@@ -111,8 +128,7 @@ const Page = () => {
     })
     genTable({
       input,
-      key1,
-      key2
+      key1
     })
   }
 
@@ -139,7 +155,7 @@ const Page = () => {
       .catch(err => console.error(new Error(err)))
   }, [])
 
-  const genTable = ({ input, key1 }) => {
+  const genTable = ({ input, key1 }: { input: number, key1: string }) => {
     const newList = genNewList(ratesVal, input, key1)
     SetNewList(newList)
   }
@@ -147,10 +163,12 @@ const Page = () => {
   const currencyChange = (currency: any) => calc({ key1: currency })
   const rightChange = (currency: any) => calc({ key2: currency })
 
-  const filterOption = (input: string, option: { label: string }) =>
-    option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+  const filterOption = (input: string, option: any): boolean => {
+    return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+  }
 
-  const currencyValInput = ({ target: { value } }) => {
+
+  const currencyValInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(value)
     if (!isNaN(val)) {
       calc({ input: val })
