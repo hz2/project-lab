@@ -7,7 +7,7 @@ import {
   BulbOutlined
 } from '@ant-design/icons'
 import './svgTool.less'
-// import { optimize } from 'svgo'
+
 import { downloadBlob, svgStr2BlobUrl } from '@libs/common.js'
 const JSZip = require('jszip')
 
