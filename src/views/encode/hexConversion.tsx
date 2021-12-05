@@ -2,15 +2,69 @@ import React, { useState } from 'react'
 import { Input, Alert, Button, message } from 'antd'
 import './style.less'
 
+interface IHexType {
+  bin?: string | number;
+  oct?: string | number;
+  dec?: string | number;
+  hex?: string | number;
+}
+
+type ETypes = 'bin' | 'oct' | 'dec' | 'hex';
+
+interface IHexInfo {
+  text: string;
+  type: "info" | "error" | "success" | "warning";
+}
+
+interface ILoopItem {
+  zh: string;
+  key: ETypes;
+  pattern: string;
+  placeholder: string;
+
+}
+
+// type LoopList = Array<ILoopItem>;
+
+type LoopList = ILoopItem[];
+
+const loopList: LoopList = [
+  {
+    zh: '二进制',
+    key: 'bin',
+    pattern: '[0-1]+',
+    placeholder: '1010'
+  },
+  {
+    zh: '八进制',
+    key: 'oct',
+    pattern: '[0-7]+',
+    placeholder: '12'
+  },
+  {
+    zh: '十进制',
+    key: 'dec',
+    pattern: '[0-9]+',
+    placeholder: '18'
+  },
+  {
+    zh: '十六进制',
+    key: 'hex',
+    pattern: '[0-9A-Fa-f]+',
+    placeholder: 'A'
+  }
+
+]
+
 const HexConversion = () => {
-  const [hexSet, setHexSet] = useState({ bin: '', oct: '', dec: '', hex: '' })
-  const [hexInfo, setHexInfo] = useState({
+  const [hexSet, setHexSet] = useState<IHexType>({ bin: '', oct: '', dec: '', hex: '' })
+  const [hexInfo, setHexInfo] = useState<IHexInfo>({
     text: '输入数字，自动转化成其他进制',
     type: 'info'
   })
   const [origIp, setOrigIp] = useState('')
   const [ip2Num, setIp2Num] = useState('')
-  const hexConvert = ({ target: { value } }, key) => {
+  const hexConvert = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>, key: ETypes) => {
     let tempSet = {
       ...hexSet
     }
@@ -116,32 +170,7 @@ const HexConversion = () => {
           type={hexInfo.type}
         />
         <div className="inputList">
-          {[
-            {
-              zh: '二进制',
-              key: 'bin',
-              pattern: '[0-1]+',
-              placeholder: '1010'
-            },
-            {
-              zh: '八进制',
-              key: 'oct',
-              pattern: '[0-7]+',
-              placeholder: '12'
-            },
-            {
-              zh: '十进制',
-              key: 'dec',
-              pattern: '[0-9]+',
-              placeholder: '18'
-            },
-            {
-              zh: '十六进制',
-              key: 'hex',
-              pattern: '[0-9A-Fa-f]+',
-              placeholder: 'A'
-            }
-          ].map(x => (
+          {loopList.map(x => (
             <div className="item" key={x.key}>
               <div className="title">{x.zh}</div>
               <Input
@@ -169,15 +198,15 @@ const HexConversion = () => {
             onClick={() =>
               origIp
                 ? setIp2Num(
-                    origIp
-                      .split('.')
-                      .map(x =>
-                        parseInt(x, 10)
-                          .toString(16)
-                          .padStart(2, '0')
-                      )
-                      .join('')
-                  )
+                  origIp
+                    .split('.')
+                    .map(x =>
+                      parseInt(x, 10)
+                        .toString(16)
+                        .padStart(2, '0')
+                    )
+                    .join('')
+                )
                 : message.info('请输入 IP 地址')
             }>
             转换

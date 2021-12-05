@@ -3,6 +3,8 @@ import { Input, Checkbox, Card, message } from 'antd'
 import './style.less'
 const { TextArea } = Input
 
+type TCheckBox = { target: { checked: boolean } }
+
 const Encode = () => {
   const [checkbox, setCheckbox] = useState(false)
   const [encodeObj, updateEncodeObj] = useState({
@@ -13,10 +15,10 @@ const Encode = () => {
     html: ''
   })
   // input event
-  const checkboxChange = ({ target: { checked } }) => {
+  const checkboxChange = ({ target: { checked } }: TCheckBox) => {
     setCheckbox(checked)
   }
-  const origTextInput = ({ target: { value } }) => {
+  const origTextInput = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateEncodeObj({
       text: value,
       url: checkbox ? encodeURIComponent(value) : encodeURI(value),
@@ -27,18 +29,18 @@ const Encode = () => {
           val =>
             '\\u' +
             val
-              .charCodeAt()
+              .charCodeAt(0)
               .toString(16)
-              .padStart(4, 0)
+              .padStart(4, '0')
         )
         .join(''),
       html: value
         .split('')
-        .map(val => '&#' + val.charCodeAt() + ';')
+        .map(val => '&#' + val.charCodeAt(0) + ';')
         .join('')
     })
   }
-  const decodeUrl = ({ target: { value } }) => {
+  const decodeUrl = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -55,7 +57,7 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeB64 = ({ target: { value } }) => {
+  const decodeB64 = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -72,7 +74,7 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeUni = ({ target: { value } }) => {
+  const decodeUni = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -98,7 +100,7 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeHtml = ({ target: { value } }) => {
+  const decodeHtml = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -111,12 +113,12 @@ const Encode = () => {
       tempObj.text = value
         .split(/\W+/g)
         .filter(x => x !== '')
-        .map(x => String.fromCharCode(x))
+        .map(x => String.fromCharCode(Number(x)))
         .join('')
       tempObj.unicode = value
         .split(/\W+/g)
         .filter(x => x !== '')
-        .map(x => '\\u' + (x * 1).toString(16).padStart(4, 0))
+        .map(x => '\\u' + (Number(x) * 1).toString(16).padStart(4, '0'))
         .join('')
 
       updateEncodeObj(tempObj)
