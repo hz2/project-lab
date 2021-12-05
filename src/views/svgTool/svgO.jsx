@@ -3,9 +3,8 @@ import { Upload, Button, message, Spin, Menu, Dropdown } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
-// const { optimize } = require('svgo');
-
-import { optimize } from 'svgo'
+const svgo = require('svgo');
+const { optimize } = svgo;
 
 const JSZip = require('jszip')
 const SvgO = () => {

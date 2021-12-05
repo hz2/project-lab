@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
-import { Upload, Input, Button, Radio } from 'antd'
+import { Upload, Input, Button, Radio, RadioChangeEvent, UploadProps } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import './style.less'
 const { TextArea } = Input
+
+interface IFileObj {
+  type: string | undefined;
+  size: number | undefined;
+  name: string;
+  url: string | ArrayBuffer | null;
+}
+
+
 const DataUrl = () => {
-  const [fileObj, setFileObj] = useState({
+  const [fileObj, setFileObj] = useState<IFileObj>({
     type: '',
-    size: '',
+    size: 0,
     name: '',
     url: ''
   })
   const [radio, setRadio] = useState('blob')
-  const props = {
+  const props: UploadProps = {
     name: 'file',
     maxCount: 1,
     className: 'w450 block',
@@ -23,6 +32,7 @@ const DataUrl = () => {
           return
         }
         const { originFileObj, type, size, name } = file
+        if (!originFileObj) return
         const reader = new FileReader()
         if (radio === 'text') {
           reader.readAsText(originFileObj, 'UTF-8')
@@ -42,16 +52,16 @@ const DataUrl = () => {
     }
   }
 
-  const setType = ({ target: { value: val } }) => {
+  const setType = ({ target: { value: val } }: RadioChangeEvent) => {
     setRadio(val)
   }
 
-  const genPreview = fileObj => {
-    const { type, url } = fileObj
-    const typeprefix = type && type.split('/')[0]
+  const genPreview = (fileObj: IFileObj) => {
+    const { type, url = '' } = fileObj
+    const typeprefix = (type && type.split('/')[0]) || 'image';
     return {
-      image: <img alt="preview" src={url} />,
-      text: <iframe title="preivew" src={url} />
+      image: <img alt="preview" src={url + ''} />,
+      text: <iframe title="preivew" src={url + ''} />
     }[typeprefix]
   }
 
@@ -71,7 +81,7 @@ const DataUrl = () => {
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         </div>
-        <TextArea placeholder="请选择文件" rows={15} value={fileObj.url} />
+        <TextArea placeholder="请选择文件" rows={15} value={fileObj.url + ''} />
         <div className="preview-box w400 h400 mt20">{genPreview(fileObj)}</div>
       </div>
     </div>

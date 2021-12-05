@@ -3,7 +3,17 @@ import React, { useState, useEffect } from 'react'
 import { Spin } from 'antd'
 import './nasa.less'
 
-const req = () =>
+interface INasa {
+  hdurl: string;
+  title: string;
+  explanation: string;
+  copyright: string;
+  date: string;
+}
+
+type TNasa = INasa[]
+
+const req = ():Promise<TNasa> =>
   new Promise((resolve, reject) => {
     fetch('https://respok.com/nasa', { mode: 'cors' })
       .then(response => response.json())
@@ -12,7 +22,7 @@ const req = () =>
   })
 
 const Nasa = () => {
-  const [imglist, setImglist] = useState([])
+  const [imglist, setImglist] = useState<TNasa>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -21,10 +31,12 @@ const Nasa = () => {
       .then(r => {
         setImglist(r.filter(x => x.hdurl))
       })
-      .finally(f => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
 
-  const items = imglist.map((x = {}, i) => (
+  const items = imglist.map((x, i) => (
     <div className="item" key={i}>
       <img src={x.hdurl} alt={x.title} />
       <div className="tips">

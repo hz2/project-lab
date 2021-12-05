@@ -1,4 +1,9 @@
 const CracoLessPlugin = require('craco-less');
+const {
+  CracoAliasPlugin,
+  configPaths
+} = require('react-app-rewire-alias')
+const aliasMap = configPaths('./tsconfig.paths.json')
 const path = require('path');
 
 module.exports = {
@@ -10,16 +15,23 @@ module.exports = {
     },
   },
   plugins: [{
-    plugin: CracoLessPlugin,
-    options: {
-      lessLoaderOptions: {
-        lessOptions: {
-          modifyVars: {
-            '@primary-color': '#00bbbb'
+      plugin: CracoLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            modifyVars: {
+              '@primary-color': '#00bbbb'
+            },
+            javascriptEnabled: true,
           },
-          javascriptEnabled: true,
         },
       },
     },
-  }, ],
+    {
+      plugin: CracoAliasPlugin,
+      options: {
+        alias: aliasMap
+      }
+    }
+  ],
 };

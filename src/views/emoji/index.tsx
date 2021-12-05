@@ -10,7 +10,7 @@ import './style.less'
 
 const output = Array.from(Array(5000), (x, i) => (125000 + i).toString(16))
 
-const openDown = (name, url, event, i) => {
+const openDown = (name: string, url: RequestInfo, event: React.MouseEvent<Element, MouseEvent>, i: number) => {
   event.preventDefault()
   fetch(url, { mode: 'cors' })
     .then(response => {
@@ -22,9 +22,11 @@ const openDown = (name, url, event, i) => {
     .then(r => {
       if (!r) return
       let file = new FileReader()
-      file.onload = e => {
+      file.onload = (e) => {
+        if (!e.target) return
+        const result = e.target.result + ''
         let el = document.createElement('a')
-        el.setAttribute('href', e.target.result)
+        el.setAttribute('href', result)
         el.setAttribute('download', name)
         if (document.createEvent) {
           var event = document.createEvent('MouseEvents')
@@ -39,7 +41,7 @@ const openDown = (name, url, event, i) => {
     .catch(err => console.error(new Error(err)))
 }
 
-const downloadlist = event => {
+const downloadlist = (event: React.MouseEvent<Element, MouseEvent>) => {
   output.forEach((x, i) => {
     const name = x + '.svg'
     const url = `https://abs-0.twimg.com/emoji/v2/svg/${x}.svg`
@@ -65,7 +67,6 @@ const About = () => (
       <h1>麻将</h1>
       <h1>{output(44, 0x1f000)}</h1> */}
     </div>
-    {/* <p>Did you get here via Redux?</p> */}
   </div>
 )
 
