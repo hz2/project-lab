@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { Input, Radio } from 'antd'
+import { Input, Radio, RadioChangeEvent } from 'antd'
+
+interface IType {
+  protocol: string;
+  value?: string;
+  text?: string;
+}
 
 const Page = () => {
   const typeList = [
@@ -16,8 +22,8 @@ const Page = () => {
     { protocol: 'vscode-insider://', value: '', text: '' },
     { protocol: 'vscodium://', value: '', text: '' }
   ]
-  const [url, setUrl] = useState(typeList[0])
-  const urlChange = ({ target: { value } }) => {
+  const [url, setUrl] = useState<IType>(typeList[0])
+  const urlChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setUrl({
       ...url,
       value: value
@@ -26,8 +32,8 @@ const Page = () => {
 
   const [radio, setRadio] = useState('http://')
 
-  const onChangeFn = ({ target: { value } }) => {
-    const item = typeList.find(x => x.protocol === value) || {}
+  const onChangeFn = ({ target: { value } }: RadioChangeEvent) => {
+    const item = typeList.find(x => x.protocol === value) || { protocol: '' }
     setUrl(item)
     setRadio(value)
   }

@@ -1,6 +1,20 @@
 import React, { useState } from 'react'
-import { Input, Select, Radio, message } from 'antd'
+import { Input, Select, Radio, message, RadioChangeEvent } from 'antd'
 import './toy.less'
+
+interface IPathItem {
+  path: string;
+  remark: string;
+}
+
+interface ITypeItem {
+  zh?: string;
+  name?: string;
+  user?: string;
+  passwdfile?: string;
+  reg?: string;
+  path: IPathItem[]
+}
 
 const typeList = [
   {
@@ -94,14 +108,24 @@ const typeList = [
     ]
   }
 ]
+interface SelectElement {
+  createTextRange?(): {
+    moveToElementText: (arg0: HTMLElement) => void;
+    select: () => void;
+  };
+}
+function selectText(node: HTMLElement) {
+  const body = document.body as SelectElement
+  if (body.createTextRange) {
+    const range = body.createTextRange()
+    if (range.moveToElementText && range.select) {
+      range.moveToElementText(node)
+      range.select()
 
-function selectText(node) {
-  if (document.body.createTextRange) {
-    const range = document.body.createTextRange()
-    range.moveToElementText(node)
-    range.select()
+    }
   } else if (window.getSelection) {
     const selection = window.getSelection()
+    if (!selection) return
     const range = document.createRange()
     range.selectNodeContents(node)
     selection.removeAllRanges()
@@ -114,26 +138,33 @@ function selectText(node) {
     .then(() => message.success('复制成功！'))
 }
 
-const codeClick = ({ target }) => selectText(target)
+const codeClick = ({ target }: React.MouseEvent<HTMLElement>) => selectText(target as HTMLElement)
+
+interface IInput {
+  name: string;
+  version: string;
+  namespace: string;
+}
+
 
 const Page = () => {
-  const [obj, setObj] = useState(typeList[0])
+  const [obj, setObj] = useState<ITypeItem>(typeList[0])
   const [radio, setRadio] = useState('aliyun')
 
-  const [inputVal, setInput] = useState({
+  const [inputVal, setInput] = useState<IInput>({
     name: 'name',
     version: 'latest',
     namespace: 'h2'
   })
 
-  const inputChange = ({ target: { value } }, fn) =>
+  const inputChange = ({ target: { value = '' } }: React.ChangeEvent<HTMLInputElement>, fn: string) =>
     setInput({
       ...inputVal,
       [fn]: value
     })
 
-  const onChangeFn = ({ target: { value } }) => {
-    const item = typeList.find(x => x.name === value) || { path: [] }
+  const onChangeFn = ({ target: { value } }: RadioChangeEvent) => {
+    const item: ITypeItem = typeList.find(x => x.name === value) || { path: [] }
     setObj(item)
     setRadio(value)
     const namespace = item.path[0].path
@@ -143,10 +174,12 @@ const Page = () => {
     })
 
     const selection = window.getSelection()
-    selection.removeAllRanges()
+    if (selection) {
+      selection.removeAllRanges()
+    }
   }
 
-  const selectChange = val => {
+  const selectChange = (val: string) => {
     setInput({
       ...inputVal,
       namespace: val
