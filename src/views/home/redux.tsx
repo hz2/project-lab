@@ -8,7 +8,6 @@ import {
   incrementAsync,
   decrement,
   decrementAsync,
-  CounterType
 } from '../../modules/counter'
 
 type TEvent = React.MouseEventHandler<HTMLElement> | undefined;

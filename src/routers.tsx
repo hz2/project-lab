@@ -60,7 +60,7 @@ const Routers = <Provider store={store}>
           <Route
             exact
             path="/rgb"
-            component={require('./sample/rgb.js').default}
+            component={require('./sample/rgb').default}
           />
           {routesList}
         </Switch>
