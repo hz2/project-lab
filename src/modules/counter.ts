@@ -9,7 +9,7 @@ const initialState = {
   isDecrementing: false
 }
 
-const CounterModules = (state = initialState, action) => {
+const CounterModules = (state = initialState, action: { type: any }) => {
   switch (action.type) {
     case INCREMENT_REQUESTED:
       return {
@@ -44,8 +44,11 @@ const CounterModules = (state = initialState, action) => {
 
 export default CounterModules
 
+export type CounterType = (arg0: { type: string }) => void
+
+
 export const increment = () => {
-  return dispatch => {
+  return (dispatch: CounterType) => {
     dispatch({
       type: INCREMENT_REQUESTED
     })
@@ -57,7 +60,7 @@ export const increment = () => {
 }
 
 export const incrementAsync = () => {
-  return dispatch => {
+  return (dispatch: CounterType) => {
     dispatch({
       type: INCREMENT_REQUESTED
     })
@@ -71,7 +74,7 @@ export const incrementAsync = () => {
 }
 
 export const decrement = () => {
-  return dispatch => {
+  return (dispatch: CounterType) => {
     dispatch({
       type: DECREMENT_REQUESTED
     })
@@ -83,7 +86,7 @@ export const decrement = () => {
 }
 
 export const decrementAsync = () => {
-  return dispatch => {
+  return (dispatch: CounterType) => {
     dispatch({
       type: DECREMENT_REQUESTED
     })

@@ -1,16 +1,26 @@
 import React, { useState } from 'react'
 
-import { copyText } from '@libs/common.js'
-import { Radio } from 'antd'
+import { copyText } from '@libs/common'
+import { Radio, RadioChangeEvent } from 'antd'
 import { CopyTwoTone } from '@ant-design/icons'
 import { hsl2hex } from './colors'
 
-const ColorList = ({ count, color: { h, s, l } }) => (
+interface IColorList {
+  count: number;
+  color: {
+    h: string;
+    s: string;
+    l: string;
+  }
+
+}
+
+const ColorList = ({ count, color: { h, s, l } }: IColorList) => (
   <div className={'cats count' + count}>
     {[
-      x => [(360 / count) * x, s, l],
-      x => [h, ((100 / count) * x) / 100, l],
-      x => [h, s, ((100 / count) * x) / 100]
+      (x: number) => [(360 / count) * x, s, l],
+      (x: number) => [h, ((100 / count) * x) / 100, l],
+      (x: number) => [h, s, ((100 / count) * x) / 100]
     ].map((fn, i) => {
       const list = Array.from({ length: count }, (x, i) => hsl2hex(fn(i)))
       return (
@@ -34,7 +44,9 @@ const ColorList = ({ count, color: { h, s, l } }) => (
   </div>
 )
 
-const Actiongroup = ({ onChangeFn }) => (
+type TFn = (e: RadioChangeEvent) => void
+
+const Actiongroup = ({ onChangeFn }: { onChangeFn: TFn }) => (
   <div className="showList">
     <div className="action">
       <Radio.Group defaultValue={20} buttonStyle="solid" onChange={onChangeFn}>
@@ -48,10 +60,10 @@ const Actiongroup = ({ onChangeFn }) => (
   </div>
 )
 
-const ColorListBottom = props => {
+const ColorListBottom = (props: { val: any }) => {
   const color = props.val
   const [showCount, setShowCount] = useState(20)
-  const onChangeFn = ({ target: { value } }) => setShowCount(value)
+  const onChangeFn = ({ target: { value } }: RadioChangeEvent) => setShowCount(value)
   return (
     <div className="colorListBottom">
       <Actiongroup onChangeFn={onChangeFn} />

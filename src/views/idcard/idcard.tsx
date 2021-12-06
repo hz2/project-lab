@@ -2,16 +2,40 @@ import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, Spin } from 'antd'
 
-import { copyText } from '@libs/common.js'
+import { copyText } from '@libs/common'
 import './idcard.less'
 
-const rdm = (min, max) => {
+type TValid = 'valid' | 'invalid' | null
+interface TXzsq {
+  [key: string]: string[]
+}
+interface IPhoneObj {
+  province?: string;
+  city?: string;
+  tel_prefix?: string;
+  postcode?: string;
+  sp?: string;
+
+}
+interface State {
+  [key: string]: string | boolean | TValid | TXzsq | IPhoneObj | string[];
+  isValidate: TValid;
+  idcvalue: string;
+  telvalue: string;
+  xzqh: TXzsq;
+  keysArr: string[];
+  phoneobj: IPhoneObj;
+  loading: boolean;
+  visible: boolean;
+}
+
+const rdm = (min: number, max: number) => {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min
 }
 class idcard extends React.Component {
-  state = {
+  state: State = {
     visible: false,
     idcvalue: '',
     telvalue: '',
@@ -26,7 +50,8 @@ class idcard extends React.Component {
     phoneobj: {},
     loading: false,
     keysArr: [],
-    xzqh: {}
+    xzqh: {},
+    isValidate: null,
   }
 
   showModal = () => {
@@ -35,22 +60,21 @@ class idcard extends React.Component {
     })
   }
 
-  handleOk = e => {
-    console.log(e)
+  handleOk = () => {
     this.setState({
       visible: false
     })
   } //
 
-  idcardCalc = b17 =>
+  idcardCalc = (b17: string) =>
     [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2][
-      b17
-        .split('')
-        .map((x, i) => x * (Math.pow(2, 17 - i) % 11))
-        // .map((x, i) => x * (2 ** (17 - i) % 11))
-        .reduce((x, y) => x + y) % 11
+    b17
+      .split('')
+      .map((x: string, i: number) => Number(x) * (Math.pow(2, 17 - i) % 11))
+      // .map((x, i) => x * (2 ** (17 - i) % 11))
+      .reduce((x: any, y: any) => x + y) % 11
     ] + ''
-  setResult = val => {
+  setResult = (val: string) => {
     let birth = ''
     let sex = ''
     let astrology = ''
@@ -99,28 +123,27 @@ class idcard extends React.Component {
         val.substr(12, 2) +
         '日'
       sex =
-        ['女', '男'][val.substr(16, 1) % 2] +
+        ['女', '男'][Number(val.substring(16, 17)) % 2] +
         ' ' +
-        (new Date().getFullYear() - val.substr(6, 4) * 1) +
+        (new Date().getFullYear() - Number(val.substring(6, 10)) * 1) +
         '岁'
-      let digi = val.substr(10, 2) * 1 + val.substr(10, 2) / 100
+      let digi = Number(val.substring(10, 12)) * 1 + Number(val.substring(10, 12)) / 100
       let current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
       icon1 = current.icon
-      let currentYear = zodiacList[(val.substr(6, 4) - 4) % 12]
+      let currentYear = zodiacList[(Number(val.substring(6, 10)) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
-      zodiac = `${tianArr[(val.substr(6, 4) - 4) % 10]}${currentYear.branch} ${
-        currentYear.zh
-      }年 ${currentYear.icon2}`
+      zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${currentYear.branch} ${currentYear.zh
+        }年 ${currentYear.icon2}`
       icon2 = currentYear.icon
       if (val && val.length === 18) {
         const b17 = val.substring(0, 17)
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
-      const cityText = this.citycode2Text(val.substr(0, 6))
-      const area = [...new Set(cityText || [])].join(' ')
+      const cityText = this.citycode2Text(val.substring(0, 6))
+      const area = Array.from(new Set(cityText || [])).join(' ')
       this.setState({
         resultArea: area
       })
@@ -136,7 +159,7 @@ class idcard extends React.Component {
     })
   }
 
-  handleChange = ({ target: { value } }) => {
+  handleChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('value', value)
     this.setState({
       idcvalue: value
@@ -144,7 +167,7 @@ class idcard extends React.Component {
     this.setResult(value)
     // this.setState({value: event.target.value});
   }
-  handleCancel = e => {
+  handleCancel = (e: any) => {
     console.log(e)
     this.setState({
       visible: false
@@ -153,7 +176,7 @@ class idcard extends React.Component {
   randomNO() {
     const keysArr = this.state.keysArr
     let rdmarea = keysArr[rdm(0, keysArr.length)]
-    let rdmdate = new Date(rdm(new Date('1950-01-01') / 1, new Date() / 1))
+    let rdmdate = new Date(rdm(new Date('1950-01-01').getTime(), new Date().getTime()))
       .toISOString()
       .replace(/(T[\d:.]+Z)|-/g, '') // 随机生日
     let rdmorder = ('0' + rdm(0, 99)).substr(-2)
@@ -232,7 +255,7 @@ class idcard extends React.Component {
       this.queryPhoneNo(phone)
     }
   }
-  handleTelChange = ({ target: { value: phone } }) => {
+  handleTelChange = ({ target: { value: phone } }: React.ChangeEvent<HTMLInputElement>) => {
     if (phone && phone.length === 11) {
       this.queryPhoneNo(phone)
     }
@@ -241,7 +264,7 @@ class idcard extends React.Component {
     })
   }
 
-  citycode2Text = code => {
+  citycode2Text = (code: string | number) => {
     const xzqh = this.state.xzqh || {}
     return xzqh[code]
     // return fetch('https://cf.p0t.top/' + code, {
@@ -250,7 +273,7 @@ class idcard extends React.Component {
     // const url = 'https://cf.p0t.top/cf'
   }
   cityList = () => {
-    const res2Key = res => Object.keys(res).filter(x => !x.endsWith('00'))
+    const res2Key = (res: {}) => Object.keys(res).filter(x => !x.endsWith('00'))
     const xzqhLoc = window.localStorage.getItem('xzqh')
     if (xzqhLoc) {
       const json = JSON.parse(xzqhLoc)
@@ -271,7 +294,7 @@ class idcard extends React.Component {
           xzqh: res
         })
       })
-      .catch(err => {})
+      .catch(err => { })
   }
   genPerson = () => {
     // this.generateIDCardNO()
@@ -283,7 +306,7 @@ class idcard extends React.Component {
     this.cityList()
     this.genPerson()
   }
-  queryPhoneNo = num => {
+  queryPhoneNo = (num: string) => {
     this.setState({
       loading: true
     })
@@ -321,7 +344,7 @@ class idcard extends React.Component {
               placeholder="输入身份证号码"
               value={this.state.idcvalue}
               onChange={this.handleChange}
-              maxLength="18"
+              maxLength={18}
             />
             <Button
               type="primary"
@@ -333,10 +356,10 @@ class idcard extends React.Component {
             <p>姓名：todo</p>
             <p>
               {
-                {
+                this.state.isValidate ? {
                   valid: '校验通过 ✔️',
                   invalid: '校验未通过 ❌'
-                }[this.state.isValidate]
+                }[this.state.isValidate] : ""
               }
             </p>
             <p>{this.state.resultArea}</p>
@@ -363,7 +386,7 @@ class idcard extends React.Component {
               className="item-input"
               placeholder="生成输入手机号码"
               value={this.state.telvalue}
-              maxLength="11"
+              maxLength={11}
               onChange={this.handleTelChange}
             />
             <Button

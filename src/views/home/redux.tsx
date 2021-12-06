@@ -1,16 +1,30 @@
 import React from 'react'
 import { push } from 'connected-react-router'
-import { bindActionCreators } from 'redux'
+import { AnyAction, bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
 import {
   increment,
   incrementAsync,
   decrement,
-  decrementAsync
+  decrementAsync,
+  CounterType
 } from '../../modules/counter'
 
-const Home = props => (
+type TEvent = React.MouseEventHandler<HTMLElement> | undefined;
+
+type TProps = {
+  count: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined;
+  increment: TEvent
+  incrementAsync: TEvent
+  isIncrementing: boolean | undefined;
+  decrement: TEvent
+  decrementAsync: TEvent
+  isDecrementing: boolean | undefined;
+  changePage: () => void
+}
+
+const Home = (props: TProps) => (
   <div>
     <br />
     <p>Count: {props.count}</p>
@@ -47,13 +61,13 @@ const Home = props => (
   </div>
 )
 
-const mapStateToProps = ({ counter }) => ({
+const mapStateToProps = ({ counter }: { counter: TProps }) => ({
   count: counter.count,
   isIncrementing: counter.isIncrementing,
   isDecrementing: counter.isDecrementing
 })
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
   bindActionCreators(
     {
       increment,

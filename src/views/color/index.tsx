@@ -5,10 +5,28 @@ import { Input, Button, Slider } from 'antd'
 import ColorListBottom from './components/ColorListBottom'
 import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 
-import { copyText } from '@libs/common.js'
+import { copyText } from '@libs/common'
+
+interface IColorSet {
+  rgba: string;
+  text: string;
+  hexa: string;
+  h: number;
+  s: number;
+  l: number;
+  a: number;
+  r: number;
+  g: number;
+  b: number;
+  gradient?: string;
+  h_?: number;
+  s_?: number;
+  l_?: number;
+  a_?: number;
+}
 
 const ColorPage = () => {
-  const [colorSets, setColor] = useState({
+  const [colorSets, setColor] = useState<IColorSet>({
     rgba: '',
     text: '#000',
     hexa: '',
@@ -20,7 +38,7 @@ const ColorPage = () => {
     g: 0,
     b: 0
   })
-  const [hslRGB, setRGB] = useState(null)
+  const [hslRGB, setHSLRGB] = useState<JSX.Element[] | null>(null)
 
   const genColor = () => {
     const randomColor =
@@ -32,13 +50,13 @@ const ColorPage = () => {
     hslDom(arr)
   }
 
-  const handleColorChange = ({ target: { value: val } }) => {
+  const handleColorChange = ({ target: { value: val } }: React.ChangeEvent<HTMLInputElement>) => {
     if (val && val.length === 7 && val.startsWith('#')) {
       hslDom(rgb2hsl(colorStr2arr(val)))
     }
   }
 
-  const slidingVal = (x, i, colors) => {
+  const slidingVal = (x: number, i: number, colors: IColorSet) => {
     const { h, s, l, a, r, g, b } = colors
     const arr = [
       [x, s, l, a],
@@ -55,22 +73,22 @@ const ColorPage = () => {
   // eslint-disable-next-line
   useEffect(() => genColor(), [])
 
-  const genArr = (len, fn) =>
+  const genArr = (len: number, fn: ((x: number | string) => string)) =>
     (len === 360
       ? Array.from(Array(len / 20 + 1), (x, i) => fn(i * 20))
       : [0, len / 2, len].map(x => fn(x * 1))
     ).join(',')
 
-  const tofixed4 = val => ((val * 1).toFixed(4) * 100).toFixed(2)
+  const tofixed4 = (val: number) => (Number(val.toFixed(4)) * 100).toFixed(2)
 
-  const colorPickerList = color => {
+  const colorPickerList = (color: IColorSet) => {
     const { h, s, l, a, r, g, b, h_, s_, l_ } = color
     const domList = [
       {
         key: 'h',
-        name: `Hue 色相 ( ${h_ / 100}° )`,
+        name: `Hue 色相 ( ${(h_ || 0) / 100}° )`,
         val: h,
-        bgval: x => `hsla(${x},${tofixed4(s)}%,${tofixed4(l)}%,${a})`,
+        bgval: (x: number | string) => `hsla(${x},${tofixed4(s)}%,${tofixed4(l)}%,${a})`,
         max: 360,
         min: 1
       },
@@ -78,47 +96,47 @@ const ColorPage = () => {
         key: 's',
         name: `Saturation 饱和度 ( ${s_}% )`,
         val: s * 100,
-        bgval: x => `hsla(${h},${x}%,${l * 100}%,${a})`,
+        bgval: (x: number | string) => `hsla(${h},${x}%,${l * 100}%,${a})`,
         max: 100
       },
       {
         key: 'l',
         name: `Lightness 亮度 ( ${l_}% )`,
         val: l * 100,
-        bgval: x => `hsla(${h},${s * 100}%,${x}%,${a})`,
+        bgval: (x: number | string) => `hsla(${h},${s * 100}%,${x}%,${a})`,
         max: 100
       },
       {
         key: 'a',
         name: `Alpha 透明度 ( ${a} )`,
         val: a * 100,
-        bgval: x => `hsla(${h},${s * 100}%,${l * 100}%,${x / 100})`,
+        bgval: (x: number | string) => `hsla(${h},${s * 100}%,${l * 100}%,${Number(x) / 100})`,
         max: 100
       },
       {
         key: 'r',
         name: `红色 ( ${r} )`,
         val: r,
-        bgval: x => `rgba(${x},${g},${b},${a})`,
+        bgval: (x: number | string) => `rgba(${x},${g},${b},${a})`,
         max: 255
       },
       {
         key: 'g',
         name: `绿色 ( ${g} )`,
         val: g,
-        bgval: x => `rgba(${r},${x},${b},${a})`,
+        bgval: (x: number | string) => `rgba(${r},${x},${b},${a})`,
         max: 255
       },
       {
         key: 'b',
         name: `蓝色 ( ${b} )`,
         val: b,
-        bgval: x => `rgba(${r},${g},${x},${a})`,
+        bgval: (x: number | string) => `rgba(${r},${g},${x},${a})`,
         max: 255
       }
     ]
     // set css variable
-    let dom = document.querySelector('#colorList')
+    let dom = document.querySelector('#colorList') as HTMLElement
 
     domList.forEach(x =>
       dom.style.setProperty(
@@ -127,32 +145,32 @@ const ColorPage = () => {
       )
     )
 
-    // rgb
-    setRGB(
-      [domList.slice(0, 4), domList.slice(4)].map((w, h) => (
-        <div className="colorSet actionItem" key={h}>
-          {w.map((x, i) => (
-            <div className="colorItem" key={i}>
-              <div className="title">{x.name}</div>
-              <div className="sliderBlock">
-                <div className={'list bg_' + x.key}></div>
-                <Slider
-                  key={i}
-                  value={x.val}
-                  min={x.min || 0}
-                  max={x.max}
-                  tooltipVisible={false}
-                  onChange={val => slidingVal(val, h * 4 + i, color)}
-                />
-              </div>
+    const SliderList = [domList.slice(0, 4), domList.slice(4)].map((w, h) => (
+      <div className="colorSet actionItem" key={h}>
+        {w.map((x, i) => (
+          <div className="colorItem" key={i}>
+            <div className="title">{x.name}</div>
+            <div className="sliderBlock">
+              <div className={'list bg_' + x.key}></div>
+              <Slider
+                key={i}
+                value={x.val}
+                min={x.min || 0}
+                max={x.max}
+                tooltipVisible={false}
+                onChange={val => slidingVal(val, h * 4 + i, color)}
+              />
             </div>
-          ))}
-        </div>
-      ))
-    )
+          </div>
+        ))}
+      </div>
+    ))
+    // rgb
+    setHSLRGB(SliderList)
+
   }
 
-  const hslDom = val => {
+  const hslDom = (val: any[]) => {
     const [h, s, l, a] = val
     // const [h, s, l] = [
     //   genClosed(arr360, h0),
@@ -190,7 +208,7 @@ const ColorPage = () => {
           placeholder="生成颜色"
           value={colorSets.hexa}
           onChange={handleColorChange}
-          // readOnly
+        // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成
