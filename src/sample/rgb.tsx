@@ -5,7 +5,8 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
+  LinkProps
 } from 'react-router-dom'
 
 /* you'll need this CSS somewhere
@@ -68,7 +69,7 @@ function AnimationExample() {
   )
 }
 
-function NavLink(props) {
+function NavLink(props: LinkProps) {
   return (
     <li style={styles.navItem}>
       <Link {...props} style={{ color: 'inherit' }} />
@@ -76,7 +77,20 @@ function NavLink(props) {
   )
 }
 
-function HSL({ match: { params } }) {
+interface ColorProps {
+  match: {
+    params: {
+      h: string,
+      s: string,
+      l: string,
+      r: string,
+      g: string,
+      b: string,
+    }
+  }
+}
+
+function HSL({ match: { params } }: ColorProps) {
   return (
     <div
       style={{
@@ -92,7 +106,7 @@ function HSL({ match: { params } }) {
   )
 }
 
-function RGB({ match: { params } }) {
+function RGB({ match: { params } }: ColorProps) {
   return (
     <div
       style={{
@@ -106,7 +120,11 @@ function RGB({ match: { params } }) {
   )
 }
 
-const styles = {}
+interface IStyle {
+  [key: string]: React.CSSProperties
+}
+
+const styles: IStyle = {}
 
 styles.fill = {
   position: 'absolute',

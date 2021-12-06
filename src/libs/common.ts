@@ -2,7 +2,7 @@ import {
   message
 } from 'antd'
 
-export const downloadBlob = (blob, name) => {
+export const downloadBlob = (blob: Blob | MediaSource, name: string) => {
   const blobUrl = URL.createObjectURL(blob)
   const el = document.createElement('a')
   el.setAttribute('href', blobUrl)
@@ -22,13 +22,13 @@ export const downloadBlob = (blob, name) => {
  * @param {*} msg
  * @returns
  */
-export const copyText = (text, msg = '复制成功！') =>
+export const copyText = (text: string, msg: string | undefined = '复制成功！') =>
   navigator.clipboard
-  .writeText(text)
-  .then(() => message.success(msg))
-  .catch(e => {
-    console.log('copy err: ', e)
-  })
+    .writeText(text)
+    .then(() => message.success(msg))
+    .catch(e => {
+      console.log('copy err: ', e)
+    })
 
 /**
  *
@@ -37,7 +37,7 @@ export const copyText = (text, msg = '复制成功！') =>
  * @returns
  */
 
-export const formatBytes = (bytes, decimals = 2) => {
+export const formatBytes = (bytes: number, decimals: number | undefined = 2) => {
   if (bytes === 0) return '0 Bytes'
 
   const k = 1024
@@ -50,7 +50,7 @@ export const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
-export const svgStr2b64 = (str = '', val = false) => {
+export const svgStr2b64 = (str = '', val: boolean | string = false) => {
   let out = str
     .replace(
       /(<\?xml[\w ".=-]+\?>\n*)|version *= *"[\d.]+" |(<!-.*->)/g,
@@ -73,7 +73,7 @@ export const svgStr2b64 = (str = '', val = false) => {
 }
 
 
-export const svgStr2BlobUrl = (str) => {
+export const svgStr2BlobUrl = (str: string | undefined) => {
   let out = svgStr2b64(str, 'orgin')
   const blob = new Blob([out], {
     type: 'image/svg+xml'

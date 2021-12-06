@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons'
 import './svgTool.less'
 
-import { downloadBlob, svgStr2BlobUrl } from '@libs/common.js'
+import { downloadBlob, svgStr2BlobUrl } from '@libs/common'
 const JSZip = require('jszip')
 
 const dom2ostr = dom => {
