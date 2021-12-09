@@ -18,7 +18,7 @@ import {
 import { Link } from 'react-router-dom'
 import './home.less'
 
-// import ReduxPage from './redux'
+// import { Counter } from '@/counter/Counter';
 
 const generatorList = [
   {
@@ -106,6 +106,7 @@ const Home = (props: any) => (
       <h2>Analyzer</h2>
       <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
     </section>
+    {/* <Counter /> */}
     <footer className="github">
       <Divider>
         <span className="footertext">

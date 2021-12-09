@@ -3,12 +3,12 @@ import { Route, Switch, HashRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
-
-import store from './store'
-import history from './modules/history'
 import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
+import { store } from "./store";
 
+// import { ConnectedRouter } from 'connected-react-router'
+// import { createBrowserHistory } from 'history'
+// const history = createBrowserHistory()
 
 const pathList = {
   // generator
@@ -38,7 +38,7 @@ const pathList = {
   toy: 'toy/toy',
   docker: 'toy/docker'
 }
-const routesList = Object.entries(pathList).map(([path,file], i) => (
+const routesList = Object.entries(pathList).map(([path, file], i) => (
   <Route
     exact
     path={'/' + path}
@@ -47,8 +47,9 @@ const routesList = Object.entries(pathList).map(([path,file], i) => (
   />
 ))
 
-const Routers = <Provider store={store}>
-  <ConnectedRouter history={history}>
+const Routers = <React.StrictMode>
+  <Provider store={store}>
+    {/* <ConnectedRouter history={history}> */}
     <HashRouter>
       <Suspense
         fallback={
@@ -66,7 +67,8 @@ const Routers = <Provider store={store}>
         </Switch>
       </Suspense>
     </HashRouter>
-  </ConnectedRouter>
-</Provider>
+    {/* </ConnectedRouter> */}
+  </Provider>
+</React.StrictMode>
 
 export default Routers

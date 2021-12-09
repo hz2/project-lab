@@ -1,35 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { connectRouter, routerMiddleware, RouterAction} from 'connected-react-router'
-import thunk from 'redux-thunk'
-import rootReducer from './modules'
-import history from './modules/history'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import counterReducer from './counter/counterSlice';
 
-const initialState = {}
-const enhancers = []
-const middleware = [thunk, routerMiddleware(history)]
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION__?: typeof compose;
-  }
-}
-
-if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
-
-  if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension())
-  }
-}
-
-const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers)
-
-type Action = RouterAction 
-
-
-
-export default createStore(
-  connectRouter(history)(rootReducer),
-  initialState,
-  composedEnhancers
-)
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
