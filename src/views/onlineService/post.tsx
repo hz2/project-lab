@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Input } from 'antd'
 
 const Page = () => {
-  // is still alive
   const [url, setUrl] = useState('')
-  const urlChange = () => {
-    setUrl(1)
+  const urlChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('val', value)
+    setUrl(value)
   }
   return (
     <div className="common-box">

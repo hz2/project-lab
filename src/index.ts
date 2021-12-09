@@ -1,7 +1,7 @@
 // @flow
 import { render } from 'react-dom'
 
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import * as serviceWorkerRegistration from './serviceWorker'
 import reportWebVitals from './reportWebVitals'
 
 import 'sanitize.css/sanitize.css'
