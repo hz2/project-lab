@@ -1,6 +1,6 @@
 // 来源 http://www.mca.gov.cn/article/sj/xzqh/
 // replace (\d{6})[\ \t]+(\S+) "$1":"$2",
-const xzqh:any  = {
+const xzqh: any = {
   '110000': '北京市',
   '110101': '东城区',
   '110102': '西城区',

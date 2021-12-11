@@ -4,7 +4,7 @@ import { Modal, Input, Button, Spin } from 'antd'
 
 import { copyText } from '@libs/common'
 
-import {calendar} from './calendar'
+import { calendar } from './calendar'
 import './idcard.less'
 
 type TValid = 'valid' | 'invalid' | null
@@ -143,17 +143,21 @@ class idcard extends React.Component {
       } ${currentYear.zh}年 ${currentYear.icon2}`
       icon2 = currentYear.icon
 
-      const [ y,m,d ] = birth.split(/\D/).filter(x=>x).map(x => Number(x))
+      const [y, m, d] = birth
+        .split(/\D/)
+        .filter(x => x)
+        .map(x => Number(x))
 
-      const json:any = calendar.solar2lunar( y,m,d );      
+      const json: any = calendar.solar2lunar(y, m, d)
       this.setState({
-        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${json.ncWeek} ${ json.festival || ''}`,
-        resultBirthCn: `${json.IMonthCn}${json.IDayCn} ${json.lunarFestival || json.Term || ''}`,
-        resultBirthGZ: `${json.gzYear}年 ${json.gzMonth}月 ${json.gzDay}日`,
+        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${
+          json.ncWeek
+        } ${json.festival || ''}`,
+        resultBirthCn: `${json.IMonthCn}${json.IDayCn} ${json.lunarFestival ||
+          json.Term ||
+          ''}`,
+        resultBirthGZ: `${json.gzYear}年 ${json.gzMonth}月 ${json.gzDay}日`
       })
-
-
-
 
       if (val && val.length === 18) {
         const b17 = val.substring(0, 17)
@@ -388,7 +392,9 @@ class idcard extends React.Component {
             <p>{this.state.resultArea}</p>
             <p>{this.state.resultSex}</p>
             <p>{this.state.resultBirth}</p>
-            <p>{this.state.resultZodiac} {this.state.resultBirthCn}</p>
+            <p>
+              {this.state.resultZodiac} {this.state.resultBirthCn}
+            </p>
             <p>{this.state.resultAstrology}</p>
             <p>{this.state.resultBirthGZ}</p>
 
