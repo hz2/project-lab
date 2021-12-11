@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Upload, Button, message, Spin, Menu, Dropdown } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
-import { downloadBlob, formatBytes, copyText, svgStr2BlobUrl, svgStr2b64 } from '@libs/common'
-const svgo = require('svgo');
-const { optimize } = svgo;
+import {
+  downloadBlob,
+  formatBytes,
+  copyText,
+  svgStr2BlobUrl,
+  svgStr2b64
+} from '@libs/common'
+const svgo = require('svgo')
+const { optimize } = svgo
 
 const JSZip = require('jszip')
 const SvgO = () => {
   const [svgList, setSvgList] = useState([])
   const [loading, setLoading] = useState(false)
-  useEffect(() => { }, [])
+  useEffect(() => {}, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -23,7 +29,7 @@ const SvgO = () => {
           // all config fields are also available here
           multipass: true
         })
-        const optimizedSvgString = result.data || '';
+        const optimizedSvgString = result.data || ''
         resolve({
           name: file.name,
           bloburl: svgStr2BlobUrl(optimizedSvgString),
@@ -96,16 +102,16 @@ const SvgO = () => {
 
   const [draging, setDraging] = useState(false)
 
-  const DragEventOver = (ev) => {
+  const DragEventOver = ev => {
     ev.preventDefault()
     setDraging(true)
   }
 
-  const DropEvent = (ev) => {
+  const DropEvent = ev => {
     ev.preventDefault()
     setDraging(false)
     setLoading(true)
-    const arr = [...ev.dataTransfer.items].map(x => LoadFile(x.getAsFile()));
+    const arr = [...ev.dataTransfer.items].map(x => LoadFile(x.getAsFile()))
     Promise.all(arr).then(list => {
       setSvgList(list)
       setLoading(false)
@@ -128,7 +134,7 @@ const SvgO = () => {
       <Menu.Item key="base64">base64</Menu.Item>
       <Menu.Item key="content">content</Menu.Item>
     </Menu>
-  );
+  )
 
   return (
     <>
@@ -141,13 +147,15 @@ const SvgO = () => {
             下载 Zip
           </Button>
         </div>
-        <div className={`${draging ? ' drag-zone draging' : 'drag-zone'}`} onDragOver={DragEventOver} onDrop={DropEvent}>
+        <div
+          className={`${draging ? ' drag-zone draging' : 'drag-zone'}`}
+          onDragOver={DragEventOver}
+          onDrop={DropEvent}>
           <div className="result">
             <div className="file-content">
               {svgList.map((y, j) => (
                 <div className="item" key={j}>
-                  <div
-                    className="icon">
+                  <div className="icon">
                     <img src={y.bloburl} alt={y.name} srcSet="" />
                   </div>
                   <div className="text">{y.name}</div>
@@ -156,7 +164,9 @@ const SvgO = () => {
                     <span className="gray"> -&gt; </span>
                     <span className="green">{formatBytes(y.s3)}</span>
                   </div>
-                  <Dropdown.Button className='my10' overlay={menu(y.svg)} >-{formatBytes(y.reduce)}</Dropdown.Button>
+                  <Dropdown.Button className="my10" overlay={menu(y.svg)}>
+                    -{formatBytes(y.reduce)}
+                  </Dropdown.Button>
                 </div>
               ))}
             </div>
