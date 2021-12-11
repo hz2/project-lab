@@ -10,6 +10,42 @@
  * @公历转农历：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
  * @农历转公历：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
  */
+
+const festival: any = {
+  '1-1': { title: '元旦节' },
+  '2-14': { title: '情人节' },
+  '5-1': { title: '劳动节' },
+  '5-4': { title: '青年节' },
+  '6-1': { title: '儿童节' },
+  '9-10': { title: '教师节' },
+  '10-1': { title: '国庆节' },
+  '12-25': { title: '圣诞节' },
+
+  '3-8': { title: '妇女节' },
+  '3-12': { title: '植树节' },
+  '4-1': { title: '愚人节' },
+  '5-12': { title: '护士节' },
+  '7-1': { title: '建党节' },
+  '8-1': { title: '建军节' },
+  '12-24': { title: '平安夜' }
+}
+const lfestival: any = {
+  '12-30': { title: '除夕' },
+  '1-1': { title: '春节' },
+  '1-15': { title: '元宵节' },
+  '2-2': { title: '龙抬头' },
+  '5-5': { title: '端午节' },
+  '7-7': { title: '七夕节' },
+  '7-15': { title: '中元节' },
+  '8-15': { title: '中秋节' },
+  '9-9': { title: '重阳节' },
+  '10-1': { title: '寒衣节' },
+  '10-15': { title: '下元节' },
+  '12-8': { title: '腊八节' },
+  '12-23': { title: '北方小年' },
+  '12-24': { title: '南方小年' }
+}
+
 export var calendar = {
   /**
    * 农历1900-2100的润大小信息表
@@ -291,44 +327,12 @@ export var calendar = {
   /**
    * 阳历节日
    */
-  festival: {
-    '1-1': { title: '元旦节' },
-    '2-14': { title: '情人节' },
-    '5-1': { title: '劳动节' },
-    '5-4': { title: '青年节' },
-    '6-1': { title: '儿童节' },
-    '9-10': { title: '教师节' },
-    '10-1': { title: '国庆节' },
-    '12-25': { title: '圣诞节' },
-
-    '3-8': { title: '妇女节' },
-    '3-12': { title: '植树节' },
-    '4-1': { title: '愚人节' },
-    '5-12': { title: '护士节' },
-    '7-1': { title: '建党节' },
-    '8-1': { title: '建军节' },
-    '12-24': { title: '平安夜' }
-  },
+  festival: festival,
 
   /**
    * 农历节日
    */
-  lfestival: {
-    '12-30': { title: '除夕' },
-    '1-1': { title: '春节' },
-    '1-15': { title: '元宵节' },
-    '2-2': { title: '龙抬头' },
-    '5-5': { title: '端午节' },
-    '7-7': { title: '七夕节' },
-    '7-15': { title: '中元节' },
-    '8-15': { title: '中秋节' },
-    '9-9': { title: '重阳节' },
-    '10-1': { title: '寒衣节' },
-    '10-15': { title: '下元节' },
-    '12-8': { title: '腊八节' },
-    '12-23': { title: '北方小年' },
-    '12-24': { title: '南方小年' }
-  },
+  lfestival: lfestival,
 
   /**
    * 返回默认定义的阳历节日
@@ -657,8 +661,8 @@ export var calendar = {
    * @return Number
    * @eg:var count = calendar.lYearDays(1987) ;//count=387
    */
-  lYearDays: function(y) {
-    var i,
+  lYearDays: function (y: number) {
+    var i: number,
       sum = 348
     for (i = 0x8000; i > 0x8; i >>= 1) {
       sum += this.lunarInfo[y - 1900] & i ? 1 : 0
@@ -672,7 +676,7 @@ export var calendar = {
    * @return Number (0-12)
    * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
    */
-  leapMonth: function(y) {
+  leapMonth: function (y: number) {
     //闰字编码 \u95f0
     return this.lunarInfo[y - 1900] & 0xf
   },
@@ -683,7 +687,7 @@ export var calendar = {
    * @return Number (0、29、30)
    * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
    */
-  leapDays: function(y) {
+  leapDays: function (y: number) {
     if (this.leapMonth(y)) {
       return this.lunarInfo[y - 1900] & 0x10000 ? 30 : 29
     }
@@ -696,7 +700,7 @@ export var calendar = {
    * @return Number (-1、29、30)
    * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
    */
-  monthDays: function(y, m) {
+  monthDays: function (y: number, m: number) {
     if (m > 12 || m < 1) {
       return -1
     } //月份参数从1至12，参数错误返回-1
@@ -709,14 +713,14 @@ export var calendar = {
    * @return Number (-1、28、29、30、31)
    * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
    */
-  solarDays: function(y, m) {
+  solarDays: function (y: number, m: number) {
     if (m > 12 || m < 1) {
       return -1
     } //若参数错误 返回-1
     var ms = m - 1
-    if (ms == 1) {
+    if (ms === 1) {
       //2月份的闰平规律测算后确认返回28或29
-      return (y % 4 == 0 && y % 100 != 0) || y % 400 == 0 ? 29 : 28
+      return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0 ? 29 : 28
     } else {
       return this.solarMonth[ms]
     }
@@ -727,11 +731,11 @@ export var calendar = {
    * @param  lYear 农历年的年份数
    * @return Cn string
    */
-  toGanZhiYear: function(lYear) {
+  toGanZhiYear: function (lYear: number) {
     var ganKey = (lYear - 3) % 10
     var zhiKey = (lYear - 3) % 12
-    if (ganKey == 0) ganKey = 10 //如果余数为0则为最后一个天干
-    if (zhiKey == 0) zhiKey = 12 //如果余数为0则为最后一个地支
+    if (ganKey === 0) ganKey = 10 //如果余数为0则为最后一个天干
+    if (zhiKey === 0) zhiKey = 12 //如果余数为0则为最后一个地支
     return this.Gan[ganKey - 1] + this.Zhi[zhiKey - 1]
   },
 
@@ -741,7 +745,7 @@ export var calendar = {
    * @param  cDay [description]
    * @return Cn string
    */
-  toAstro: function(cMonth, cDay) {
+  toAstro: function (cMonth: number, cDay: number) {
     var s =
       '\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf'
     var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
@@ -753,7 +757,7 @@ export var calendar = {
    * @param offset 相对甲子的偏移量
    * @return Cn string
    */
-  toGanZhi: function(offset) {
+  toGanZhi: function (offset: number) {
     return this.Gan[offset % 10] + this.Zhi[offset % 12]
   },
 
@@ -763,7 +767,7 @@ export var calendar = {
    * @return day Number
    * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
    */
-  getTerm: function(y, n) {
+  getTerm: function (y: number, n: number) {
     if (y < 1900 || y > 2100) {
       return -1
     }
@@ -819,7 +823,7 @@ export var calendar = {
    * @return Cn string
    * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
    */
-  toChinaMonth: function(m) {
+  toChinaMonth: function (m: number) {
     // 月 => \u6708
     if (m > 12 || m < 1) {
       return -1
@@ -835,9 +839,9 @@ export var calendar = {
    * @return Cn string
    * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
    */
-  toChinaDay: function(d) {
+  toChinaDay: function (d: number) {
     //日 => \u65e5
-    var s
+    var s: string
     switch (d) {
       case 10:
         s = '\u521d\u5341'
@@ -845,10 +849,8 @@ export var calendar = {
       case 20:
         s = '\u4e8c\u5341'
         break
-        break
       case 30:
         s = '\u4e09\u5341'
-        break
         break
       default:
         s = this.nStr2[Math.floor(d / 10)]
@@ -863,7 +865,7 @@ export var calendar = {
    * @return Cn string
    * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
    */
-  getAnimal: function(y) {
+  getAnimal: function (y: number) {
     return this.Animals[(y - 4) % 12]
   },
 
@@ -875,32 +877,33 @@ export var calendar = {
    * @return JSON object
    * @eg:console.log(calendar.solar2lunar(1987,11,01));
    */
-  solar2lunar: function(y, m, d) {
+  solar2lunar: function (y_: string | number, m_: string | number, d_: string | number) {
     //参数区间1900.1.31~2100.12.31
-    y = parseInt(y)
-    m = parseInt(m)
-    d = parseInt(d)
+    y_ = parseInt(y_ + '')
+    m_ = parseInt(m_ + '')
+    d_ = parseInt(d_ + '')
     //年份限定、上限
-    if (y < 1900 || y > 2100) {
+    if (y_ < 1900 || y_ > 2100) {
       return -1 // undefined转换为数字变为NaN
     }
     //公历传参最下限
-    if (y == 1900 && m == 1 && d < 31) {
+    if (y_ === 1900 && m_ === 1 && d_ < 31) {
       return -1
     }
     //未传参  获得当天
-    if (!y) {
-      var objDate = new Date()
+    let objDate = new Date()
+    if (!y_) {
+      objDate = new Date()
     } else {
-      var objDate = new Date(y, parseInt(m) - 1, d)
+      objDate = new Date(y_, parseInt(m_ + '') - 1, d_)
     }
-    var i,
+    var i: number,
       leap = 0,
       temp = 0
     //修正ymd参数
-    var y = objDate.getFullYear(),
-      m = objDate.getMonth() + 1,
-      d = objDate.getDate()
+    var y: string | number = objDate.getFullYear(),
+      m: string | number = objDate.getMonth() + 1,
+      d: string | number = objDate.getDate()
     var offset =
       (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) -
         Date.UTC(1900, 0, 31)) /
@@ -918,9 +921,9 @@ export var calendar = {
     var isTodayObj = new Date(),
       isToday = false
     if (
-      isTodayObj.getFullYear() == y &&
-      isTodayObj.getMonth() + 1 == m &&
-      isTodayObj.getDate() == d
+      isTodayObj.getFullYear() === y &&
+      isTodayObj.getMonth() + 1 === m &&
+      isTodayObj.getDate() === d
     ) {
       isToday = true
     }
@@ -928,18 +931,18 @@ export var calendar = {
     var nWeek = objDate.getDay(),
       cWeek = this.nStr1[nWeek]
     //数字表示周几顺应天朝周一开始的惯例
-    if (nWeek == 0) {
+    if (nWeek === 0) {
       nWeek = 7
     }
     //农历年
     var year = i
-    var leap = this.leapMonth(i) //闰哪个月
+    leap = Number(this.leapMonth(i))//闰哪个月
     var isLeap = false
 
     //效验闰月
     for (i = 1; i < 13 && offset > 0; i++) {
       //闰月
-      if (leap > 0 && i == leap + 1 && isLeap == false) {
+      if (leap > 0 && i === leap + 1 && isLeap === false) {
         --i
         isLeap = true
         temp = this.leapDays(year) //计算农历闰月天数
@@ -947,13 +950,13 @@ export var calendar = {
         temp = this.monthDays(year, i) //计算农历普通月天数
       }
       //解除闰月
-      if (isLeap == true && i == leap + 1) {
+      if (isLeap === true && i === leap + 1) {
         isLeap = false
       }
       offset -= temp
     }
     // 闰月导致数组下标重叠取反
-    if (offset == 0 && leap > 0 && i == leap + 1) {
+    if (offset === 0 && leap > 0 && i === leap + 1) {
       if (isLeap) {
         isLeap = false
       } else {
@@ -987,11 +990,11 @@ export var calendar = {
     //传入的日期的节气与否
     var isTerm = false
     var Term = null
-    if (firstNode == d) {
+    if (firstNode === d) {
       isTerm = true
       Term = this.solarTerm[m * 2 - 2]
     }
-    if (secondNode == d) {
+    if (secondNode === d) {
       isTerm = true
       Term = this.solarTerm[m * 2 - 1]
     }
@@ -1048,19 +1051,19 @@ export var calendar = {
    * @return JSON object
    * @eg:console.log(calendar.lunar2solar(1987,9,10));
    */
-  lunar2solar: function(y, m, d, isLeapMonth) {
+  lunar2solar: function (y: string | number, m: string | number, d: string | number, isLeapMonth_: boolean) {
     //参数区间1900.1.31~2100.12.1
-    y = parseInt(y)
-    m = parseInt(m)
-    d = parseInt(d)
-    var isLeapMonth = !!isLeapMonth
-    var leapOffset = 0
+    y = parseInt(y + '')
+    m = parseInt(m + '')
+    d = parseInt(d + '')
+    var isLeapMonth = !!isLeapMonth_
+    // var leapOffset = 0
     var leapMonth = this.leapMonth(y)
-    var leapDay = this.leapDays(y)
-    if (isLeapMonth && leapMonth != m) {
+    // var leapDay = this.leapDays(y)
+    if (isLeapMonth && leapMonth !== m) {
       return -1
     } //传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同
-    if ((y == 2100 && m == 12 && d > 1) || (y == 1900 && m == 1 && d < 31)) {
+    if ((y === 2100 && m === 12 && d > 1) || (y === 1900 && m === 1 && d < 31)) {
       return -1
     } //超出了最大极限值
     var day = this.monthDays(y, m)
@@ -1068,7 +1071,8 @@ export var calendar = {
     //bugFix 2016-9-25
     //if month is leap, _day use leapDays method
     if (isLeapMonth) {
-      _day = this.leapDays(y, m)
+      _day = this.leapDays(y)
+      // _day = this.leapDays(y, m)
     }
     if (y < 1900 || y > 2100 || d > _day) {
       return -1
@@ -1081,7 +1085,7 @@ export var calendar = {
     }
     var leap = 0,
       isAdd = false
-    for (var i = 1; i < m; i++) {
+    for (let i = 1; i < m; i++) {
       leap = this.leapMonth(y)
       if (!isAdd) {
         //处理闰月

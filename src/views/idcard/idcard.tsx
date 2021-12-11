@@ -3,6 +3,8 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, Spin } from 'antd'
 
 import { copyText } from '@libs/common'
+
+import {calendar} from './calendar'
 import './idcard.less'
 
 type TValid = 'valid' | 'invalid' | null
@@ -41,6 +43,8 @@ class idcard extends React.Component {
     copied: false,
     resultArea: '',
     resultBirth: '',
+    resultBirthCn: '',
+    resultBirthGZ: '',
     resultSex: '',
     resultAstrology: '',
     resultZodiac: '',
@@ -127,7 +131,7 @@ class idcard extends React.Component {
         (new Date().getFullYear() - Number(val.substring(6, 10)) * 1) +
         '岁'
       let digi =
-        Number(val.substring(10, 12)) * 1 + Number(val.substring(10, 12)) / 100
+        Number(val.substring(10, 12)) * 1 + Number(val.substring(12, 14)) / 100
       let current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
@@ -138,6 +142,19 @@ class idcard extends React.Component {
         currentYear.branch
       } ${currentYear.zh}年 ${currentYear.icon2}`
       icon2 = currentYear.icon
+
+      const [ y,m,d ] = birth.split(/\D/).filter(x=>x).map(x => Number(x))
+
+      const json:any = calendar.solar2lunar( y,m,d );      
+      this.setState({
+        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${json.ncWeek} ${ json.festival || ''}`,
+        resultBirthCn: `${json.IMonthCn}${json.IDayCn} ${json.lunarFestival || json.Term || ''}`,
+        resultBirthGZ: `${json.gzYear}年 ${json.gzMonth}月 ${json.gzDay}日`,
+      })
+
+
+
+
       if (val && val.length === 18) {
         const b17 = val.substring(0, 17)
         const end = val.substring(17, 18)
@@ -150,7 +167,6 @@ class idcard extends React.Component {
       })
     }
     this.setState({
-      resultBirth: birth,
       resultSex: sex,
       resultAstrology: astrology,
       resultZodiac: zodiac,
@@ -360,7 +376,7 @@ class idcard extends React.Component {
             </Button>
           </div>
           <div className="line">
-            <p>姓名：todo</p>
+            {/* <p>姓名：todo</p> */}
             <p>
               {this.state.isValidate
                 ? {
@@ -370,10 +386,12 @@ class idcard extends React.Component {
                 : ''}
             </p>
             <p>{this.state.resultArea}</p>
-            <p>{this.state.resultBirth}</p>
             <p>{this.state.resultSex}</p>
+            <p>{this.state.resultBirth}</p>
+            <p>{this.state.resultZodiac} {this.state.resultBirthCn}</p>
             <p>{this.state.resultAstrology}</p>
-            <p>{this.state.resultZodiac}</p>
+            <p>{this.state.resultBirthGZ}</p>
+
             <div className="addition icon1">{this.state.icon1}</div>
             <div className="addition icon2">{this.state.icon2}</div>
           </div>
