@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Input, Radio, RadioChangeEvent } from 'antd'
 
 interface IType {
-  protocol: string;
-  value?: string;
-  text?: string;
+  protocol: string
+  value?: string
+  text?: string
 }
 
 const Page = () => {
@@ -23,7 +23,9 @@ const Page = () => {
     { protocol: 'vscodium://', value: '', text: '' }
   ]
   const [url, setUrl] = useState<IType>(typeList[0])
-  const urlChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  const urlChange = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setUrl({
       ...url,
       value: value

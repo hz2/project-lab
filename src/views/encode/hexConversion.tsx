@@ -3,30 +3,29 @@ import { Input, Alert, Button, message } from 'antd'
 import './style.less'
 
 interface IHexType {
-  bin?: string | number;
-  oct?: string | number;
-  dec?: string | number;
-  hex?: string | number;
+  bin?: string | number
+  oct?: string | number
+  dec?: string | number
+  hex?: string | number
 }
 
-type ETypes = 'bin' | 'oct' | 'dec' | 'hex';
+type ETypes = 'bin' | 'oct' | 'dec' | 'hex'
 
 interface IHexInfo {
-  text: string;
-  type: "info" | "error" | "success" | "warning";
+  text: string
+  type: 'info' | 'error' | 'success' | 'warning'
 }
 
 interface ILoopItem {
-  zh: string;
-  key: ETypes;
-  pattern: string;
-  placeholder: string;
-
+  zh: string
+  key: ETypes
+  pattern: string
+  placeholder: string
 }
 
 // type LoopList = Array<ILoopItem>;
 
-type LoopList = ILoopItem[];
+type LoopList = ILoopItem[]
 
 const loopList: LoopList = [
   {
@@ -53,18 +52,25 @@ const loopList: LoopList = [
     pattern: '[0-9A-Fa-f]+',
     placeholder: 'A'
   }
-
 ]
 
 const HexConversion = () => {
-  const [hexSet, setHexSet] = useState<IHexType>({ bin: '', oct: '', dec: '', hex: '' })
+  const [hexSet, setHexSet] = useState<IHexType>({
+    bin: '',
+    oct: '',
+    dec: '',
+    hex: ''
+  })
   const [hexInfo, setHexInfo] = useState<IHexInfo>({
     text: '输入数字，自动转化成其他进制',
     type: 'info'
   })
   const [origIp, setOrigIp] = useState('')
   const [ip2Num, setIp2Num] = useState('')
-  const hexConvert = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>, key: ETypes) => {
+  const hexConvert = (
+    { target: { value } }: React.ChangeEvent<HTMLInputElement>,
+    key: ETypes
+  ) => {
     let tempSet = {
       ...hexSet
     }
@@ -198,15 +204,15 @@ const HexConversion = () => {
             onClick={() =>
               origIp
                 ? setIp2Num(
-                  origIp
-                    .split('.')
-                    .map(x =>
-                      parseInt(x, 10)
-                        .toString(16)
-                        .padStart(2, '0')
-                    )
-                    .join('')
-                )
+                    origIp
+                      .split('.')
+                      .map(x =>
+                        parseInt(x, 10)
+                          .toString(16)
+                          .padStart(2, '0')
+                      )
+                      .join('')
+                  )
                 : message.info('请输入 IP 地址')
             }>
             转换

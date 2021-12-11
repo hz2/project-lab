@@ -5,32 +5,38 @@ import './lottery.less'
 import CountUp from './countupComp'
 const { TabPane } = Tabs
 
-let alpha: number | "" = '',
-  beta: number | "" = '',
-  gamma: number | "" = '';
+let alpha: number | '' = '',
+  beta: number | '' = '',
+  gamma: number | '' = ''
 
 interface IGenBall {
-  ball: string;
-  arr?: number[];
+  ball: string
+  arr?: number[]
 }
-const genBall = (len: number = 33): Promise<IGenBall> => new Promise((resolve, reject) => {
-  const ballArr = Array.from(Array(len), (x, i) =>
-    (i + 1).toString().padStart(2, '0')
-  )
-  // 天时 地利 人和
-  const tianshi = Date.now().toString(32)
-  const dili = [alpha, beta, gamma].map(x => Number(x).toString(32).substring(4))
-  const renhe = Math.random()
-    .toString(32)
-    .substring(2)
-  const arr = [renhe, dili, tianshi].flat().map(x => parseInt((x || 0).toString(), 32))
-  // fn && fn(arr)
-  const intN = BigInt(arr.join(''))
-  const key = Number(intN % BigInt(len))
-  // console.log(intN, 'intN', ballArr, intN % BigInt(len));
-  resolve({ ball: ballArr[key], arr: arr })
-})
-
+const genBall = (len: number = 33): Promise<IGenBall> =>
+  new Promise((resolve, reject) => {
+    const ballArr = Array.from(Array(len), (x, i) =>
+      (i + 1).toString().padStart(2, '0')
+    )
+    // 天时 地利 人和
+    const tianshi = Date.now().toString(32)
+    const dili = [alpha, beta, gamma].map(x =>
+      Number(x)
+        .toString(32)
+        .substring(4)
+    )
+    const renhe = Math.random()
+      .toString(32)
+      .substring(2)
+    const arr = [renhe, dili, tianshi]
+      .flat()
+      .map(x => parseInt((x || 0).toString(), 32))
+    // fn && fn(arr)
+    const intN = BigInt(arr.join(''))
+    const key = Number(intN % BigInt(len))
+    // console.log(intN, 'intN', ballArr, intN % BigInt(len));
+    resolve({ ball: ballArr[key], arr: arr })
+  })
 
 const handleOrientation = (event: DeviceOrientationEvent) => {
   alpha = event.alpha || ''
@@ -51,13 +57,15 @@ const LotteryPage = () => {
 
   const twoColorBall = (times?: number) => {
     const genGroup = (key = 0) => {
-      const fullArr = new Set(Array.from(Array(30), async () => {
-        const { arr, ball } = await genBall(33)
-        if (arr) {
-          setRarr(arr)
-        }
-        return ball
-      }))
+      const fullArr = new Set(
+        Array.from(Array(30), async () => {
+          const { arr, ball } = await genBall(33)
+          if (arr) {
+            setRarr(arr)
+          }
+          return ball
+        })
+      )
       const ball6 = [...Array.from(fullArr)].slice(-6).sort()
       const ball1 = genBall(16)
       return (
@@ -86,21 +94,25 @@ const LotteryPage = () => {
   }
   const superLottery = (times?: number) => {
     const genGroup = (key = 0) => {
-      const fullArr = new Set(Array.from(Array(30), async () => {
-        const { arr, ball } = await genBall(35)
-        if (arr) {
-          setRarr(arr)
-        }
-        return ball
-      }))
+      const fullArr = new Set(
+        Array.from(Array(30), async () => {
+          const { arr, ball } = await genBall(35)
+          if (arr) {
+            setRarr(arr)
+          }
+          return ball
+        })
+      )
       const ball5 = [...Array.from(fullArr)].slice(-5).sort()
-      const fullArr2 = new Set(Array.from(Array(12), async () => {
-        const { arr, ball } = await genBall(12)
-        if (arr) {
-          setRarr(arr)
-        }
-        return ball
-      }))
+      const fullArr2 = new Set(
+        Array.from(Array(12), async () => {
+          const { arr, ball } = await genBall(12)
+          if (arr) {
+            setRarr(arr)
+          }
+          return ball
+        })
+      )
       const ball2 = [...Array.from(fullArr2)].slice(-2).sort()
       return (
         <div className="ballgroup" key={key}>

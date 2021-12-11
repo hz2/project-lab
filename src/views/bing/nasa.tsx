@@ -4,16 +4,16 @@ import { Spin } from 'antd'
 import './nasa.less'
 
 interface INasa {
-  hdurl: string;
-  title: string;
-  explanation: string;
-  copyright: string;
-  date: string;
+  hdurl: string
+  title: string
+  explanation: string
+  copyright: string
+  date: string
 }
 
 type TNasa = INasa[]
 
-const req = ():Promise<TNasa> =>
+const req = (): Promise<TNasa> =>
   new Promise((resolve, reject) => {
     fetch('https://respok.com/nasa', { mode: 'cors' })
       .then(response => response.json())

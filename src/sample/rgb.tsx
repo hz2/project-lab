@@ -80,12 +80,12 @@ function NavLink(props: LinkProps) {
 interface ColorProps {
   match: {
     params: {
-      h: string,
-      s: string,
-      l: string,
-      r: string,
-      g: string,
-      b: string,
+      h: string
+      s: string
+      l: string
+      r: string
+      g: string
+      b: string
     }
   }
 }

@@ -6,13 +6,12 @@ import { CopyTwoTone } from '@ant-design/icons'
 import { hsl2hex } from './colors'
 
 interface IColorList {
-  count: number;
+  count: number
   color: {
-    h: string;
-    s: string;
-    l: string;
+    h: string
+    s: string
+    l: string
   }
-
 }
 
 const ColorList = ({ count, color: { h, s, l } }: IColorList) => (
@@ -63,7 +62,8 @@ const Actiongroup = ({ onChangeFn }: { onChangeFn: TFn }) => (
 const ColorListBottom = (props: { val: any }) => {
   const color = props.val
   const [showCount, setShowCount] = useState(20)
-  const onChangeFn = ({ target: { value } }: RadioChangeEvent) => setShowCount(value)
+  const onChangeFn = ({ target: { value } }: RadioChangeEvent) =>
+    setShowCount(value)
   return (
     <div className="colorListBottom">
       <Actiongroup onChangeFn={onChangeFn} />

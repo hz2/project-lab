@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
-import { Upload, Input, Button, Radio, RadioChangeEvent, UploadProps } from 'antd'
+import {
+  Upload,
+  Input,
+  Button,
+  Radio,
+  RadioChangeEvent,
+  UploadProps
+} from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import './style.less'
 const { TextArea } = Input
 
 interface IFileObj {
-  type: string | undefined;
-  size: number | undefined;
-  name: string;
-  url: string | ArrayBuffer | null;
+  type: string | undefined
+  size: number | undefined
+  name: string
+  url: string | ArrayBuffer | null
 }
-
 
 const DataUrl = () => {
   const [fileObj, setFileObj] = useState<IFileObj>({
@@ -58,7 +64,7 @@ const DataUrl = () => {
 
   const genPreview = (fileObj: IFileObj) => {
     const { type, url = '' } = fileObj
-    const typeprefix = (type && type.split('/')[0]) || 'image';
+    const typeprefix = (type && type.split('/')[0]) || 'image'
     return {
       image: <img alt="preview" src={url + ''} />,
       text: <iframe title="preivew" src={url + ''} />

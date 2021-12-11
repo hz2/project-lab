@@ -18,7 +18,9 @@ const Encode = () => {
   const checkboxChange = ({ target: { checked } }: TCheckBox) => {
     setCheckbox(checked)
   }
-  const origTextInput = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const origTextInput = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateEncodeObj({
       text: value,
       url: checkbox ? encodeURIComponent(value) : encodeURI(value),
@@ -40,7 +42,9 @@ const Encode = () => {
         .join('')
     })
   }
-  const decodeUrl = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const decodeUrl = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -57,7 +61,9 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeB64 = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const decodeB64 = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -74,7 +80,9 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeUni = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const decodeUni = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',
@@ -100,7 +108,9 @@ const Encode = () => {
       message.error('输入有误')
     }
   }
-  const decodeHtml = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const decodeHtml = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tempObj = {
       text: '',
       url: '',

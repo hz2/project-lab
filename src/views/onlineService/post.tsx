@@ -3,7 +3,9 @@ import { Input } from 'antd'
 
 const Page = () => {
   const [url, setUrl] = useState('')
-  const urlChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  const urlChange = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     console.log('val', value)
     setUrl(value)
   }
