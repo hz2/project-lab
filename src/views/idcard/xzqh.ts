@@ -1,6 +1,6 @@
 // 来源 http://www.mca.gov.cn/article/sj/xzqh/
 // replace (\d{6})[\ \t]+(\S+) "$1":"$2",
-const xzqh = {
+const xzqh: any = {
   '110000': '北京市',
   '110101': '东城区',
   '110102': '西城区',
@@ -3224,23 +3224,23 @@ const xzqh = {
 }
 let out = { ...xzqh }
 for (let x in xzqh) {
-  if (!x.endsWith('00') && !xzqh[x.substr(0, 4) + '00']) {
+  if (!x.endsWith('00') && !xzqh[x.substring(0, 4) + '00']) {
     // 处理直辖市的区
     out[x] = [
-      xzqh[x.substr(0, 2) + '0000'],
-      xzqh[x.substr(0, 2) + '0000'],
+      xzqh[x.substring(0, 2) + '0000'],
+      xzqh[x.substring(0, 2) + '0000'],
       xzqh[x]
     ]
-  } else if (!x.endsWith('00') && xzqh[x.substr(0, 4) + '00']) {
+  } else if (!x.endsWith('00') && xzqh[x.substring(0, 4) + '00']) {
     // 处理普通市的区
     out[x] = [
-      xzqh[x.substr(0, 2) + '0000'],
-      xzqh[x.substr(0, 4) + '00'],
+      xzqh[x.substring(0, 2) + '0000'],
+      xzqh[x.substring(0, 4) + '00'],
       xzqh[x]
     ]
   } else if (x.endsWith('00') && !x.endsWith('0000')) {
     // 处理省会城市
-    out[x] = [xzqh[x.substr(0, 2) + '0000'], xzqh[x]]
+    out[x] = [xzqh[x.substring(0, 2) + '0000'], xzqh[x]]
   } else {
     out[x] = [xzqh[x]]
   }

@@ -4,7 +4,7 @@ import { Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
 import { Provider } from 'react-redux'
-import { store } from "./store";
+import { store } from './store'
 
 // import { ConnectedRouter } from 'connected-react-router'
 // import { createBrowserHistory } from 'history'
@@ -47,28 +47,30 @@ const routesList = Object.entries(pathList).map(([path, file], i) => (
   />
 ))
 
-const Routers = <React.StrictMode>
-  <Provider store={store}>
-    {/* <ConnectedRouter history={history}> */}
-    <HashRouter>
-      <Suspense
-        fallback={
-          <Spin className="fullpage" spinning={true} size="large"></Spin>
-        }>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/rgb"
-            component={require('./sample/rgb').default}
-          />
-          {routesList}
-        </Switch>
-      </Suspense>
-    </HashRouter>
-    {/* </ConnectedRouter> */}
-  </Provider>
-</React.StrictMode>
+const Routers = (
+  <React.StrictMode>
+    <Provider store={store}>
+      {/* <ConnectedRouter history={history}> */}
+      <HashRouter>
+        <Suspense
+          fallback={
+            <Spin className="fullpage" spinning={true} size="large"></Spin>
+          }>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/rgb"
+              component={require('./sample/rgb').default}
+            />
+            {routesList}
+          </Switch>
+        </Suspense>
+      </HashRouter>
+      {/* </ConnectedRouter> */}
+    </Provider>
+  </React.StrictMode>
+)
 
 export default Routers

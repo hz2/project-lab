@@ -8,21 +8,21 @@ import { colorStr2arr, hsl2rgb, rgb2hsl } from './components/colors'
 import { copyText } from '@libs/common'
 
 interface IColorSet {
-  rgba: string;
-  text: string;
-  hexa: string;
-  h: number;
-  s: number;
-  l: number;
-  a: number;
-  r: number;
-  g: number;
-  b: number;
-  gradient?: string;
-  h_?: number;
-  s_?: number;
-  l_?: number;
-  a_?: number;
+  rgba: string
+  text: string
+  hexa: string
+  h: number
+  s: number
+  l: number
+  a: number
+  r: number
+  g: number
+  b: number
+  gradient?: string
+  h_?: number
+  s_?: number
+  l_?: number
+  a_?: number
 }
 
 const ColorPage = () => {
@@ -50,7 +50,9 @@ const ColorPage = () => {
     hslDom(arr)
   }
 
-  const handleColorChange = ({ target: { value: val } }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleColorChange = ({
+    target: { value: val }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     if (val && val.length === 7 && val.startsWith('#')) {
       hslDom(rgb2hsl(colorStr2arr(val)))
     }
@@ -73,7 +75,7 @@ const ColorPage = () => {
   // eslint-disable-next-line
   useEffect(() => genColor(), [])
 
-  const genArr = (len: number, fn: ((x: number | string) => string)) =>
+  const genArr = (len: number, fn: (x: number | string) => string) =>
     (len === 360
       ? Array.from(Array(len / 20 + 1), (x, i) => fn(i * 20))
       : [0, len / 2, len].map(x => fn(x * 1))
@@ -88,7 +90,8 @@ const ColorPage = () => {
         key: 'h',
         name: `Hue 色相 ( ${(h_ || 0) / 100}° )`,
         val: h,
-        bgval: (x: number | string) => `hsla(${x},${tofixed4(s)}%,${tofixed4(l)}%,${a})`,
+        bgval: (x: number | string) =>
+          `hsla(${x},${tofixed4(s)}%,${tofixed4(l)}%,${a})`,
         max: 360,
         min: 1
       },
@@ -110,7 +113,8 @@ const ColorPage = () => {
         key: 'a',
         name: `Alpha 透明度 ( ${a} )`,
         val: a * 100,
-        bgval: (x: number | string) => `hsla(${h},${s * 100}%,${l * 100}%,${Number(x) / 100})`,
+        bgval: (x: number | string) =>
+          `hsla(${h},${s * 100}%,${l * 100}%,${Number(x) / 100})`,
         max: 100
       },
       {
@@ -167,7 +171,6 @@ const ColorPage = () => {
     ))
     // rgb
     setHSLRGB(SliderList)
-
   }
 
   const hslDom = (val: any[]) => {
@@ -208,7 +211,7 @@ const ColorPage = () => {
           placeholder="生成颜色"
           value={colorSets.hexa}
           onChange={handleColorChange}
-        // readOnly
+          // readOnly
         />
         <Button type="primary" onClick={genColor}>
           生成

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip } from 'antd'
-import {
-  LeftOutlined,
-  RightOutlined,
-} from '@ant-design/icons'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 import Currency from './currency.json'
 import './currency-page.less'
 
-var digitUppercase = function (n: number) {
+var digitUppercase = function(n: number) {
   var fraction = ['毛', '分']
   // var fraction = ['角', '分'];
   var digit = [
@@ -76,30 +73,37 @@ function shiftLeft(number: number, digit: string | number) {
   return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
 }
 interface ICurrency {
-  label: string;
-  currency: any;
-  value: any;
-  country: any;
-  text: any;
-  num: number;
+  label: string
+  currency: any
+  value: any
+  country: any
+  text: any
+  num: number
 }
 
 type CurrencyList = ICurrency[]
 
 interface IRates {
-  [key: string]: number;
+  [key: string]: number
 }
 
-const list: CurrencyList = Currency.list.map((x: { country: any; text: any; currency: any }) => ({
-  ...x,
-  num: 0,
-  label: `${x.country} ${x.text} ${x.currency} `,
-  currency: x.currency,
-  value: x.currency
-}))
+const list: CurrencyList = Currency.list.map(
+  (x: { country: any; text: any; currency: any }) => ({
+    ...x,
+    num: 0,
+    label: `${x.country} ${x.text} ${x.currency} `,
+    currency: x.currency,
+    value: x.currency
+  })
+)
 
-const tranCurrency = (currency: string) => list.filter(x => x.currency === currency)[0]
-const genNewList = (ratesVal: { [x: string]: number }, input: number, key1: string): CurrencyList =>
+const tranCurrency = (currency: string) =>
+  list.filter(x => x.currency === currency)[0]
+const genNewList = (
+  ratesVal: { [x: string]: number },
+  input: number,
+  key1: string
+): CurrencyList =>
   list
     .filter((x, i) => i < 15 && x.value !== key1)
     .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
@@ -115,7 +119,11 @@ const Page = () => {
   const [ratesVal, SetRatesVal] = useState<IRates>({})
 
   const [newList, SetNewList] = useState<CurrencyList>([])
-  const calc = (obj: { key1?: string; key2?: string; input?: string | number }) => {
+  const calc = (obj: {
+    key1?: string
+    key2?: string
+    input?: string | number
+  }) => {
     const { input, key1, key2 } = Object.assign({}, bindVal, obj)
     const r1 = ratesVal[key1]
     const r2 = ratesVal[key1]
@@ -155,7 +163,7 @@ const Page = () => {
       .catch(err => console.error(new Error(err)))
   }, [])
 
-  const genTable = ({ input, key1 }: { input: number, key1: string }) => {
+  const genTable = ({ input, key1 }: { input: number; key1: string }) => {
     const newList = genNewList(ratesVal, input, key1)
     SetNewList(newList)
   }
@@ -167,8 +175,9 @@ const Page = () => {
     return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
   }
 
-
-  const currencyValInput = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  const currencyValInput = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(value)
     if (!isNaN(val)) {
       calc({ input: val })
@@ -200,8 +209,7 @@ const Page = () => {
             <span className="unit">{tranCurrency(bindVal.key1).text}</span>
           </div>
         </Input.Group>
-        <div
-          className="mx15 py20">
+        <div className="mx15 py20">
           <div
             className="exchange"
             onClick={() => calc({ key2: bindVal.key1, key1: bindVal.key2 })}>
@@ -232,15 +240,21 @@ const Page = () => {
             className="item pointer"
             key={i}
             actions={[
-              <Tooltip placement="top" title={`${bindVal.input} ${x.text}等于 ? ${tranCurrency(bindVal.key2).text}`}>
+              <Tooltip
+                placement="top"
+                title={`${bindVal.input} ${x.text}等于 ? ${
+                  tranCurrency(bindVal.key2).text
+                }`}>
                 <LeftOutlined onClick={() => currencyChange(x.currency)} />
-              </Tooltip>
-              ,
-              <Tooltip placement="top" title={`${bindVal.input} ${tranCurrency(bindVal.key1).text}等于 ? ${x.text}`}>
+              </Tooltip>,
+              <Tooltip
+                placement="top"
+                title={`${bindVal.input} ${
+                  tranCurrency(bindVal.key1).text
+                }等于 ? ${x.text}`}>
                 <RightOutlined onClick={() => rightChange(x.currency)} />
               </Tooltip>
-            ]}
-          >
+            ]}>
             <>
               <span className="num">{x.num.toFixed(5)}</span>
               <span className="text ml5">{x.text}</span>
