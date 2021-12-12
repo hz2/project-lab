@@ -12,9 +12,9 @@ import { downloadBlob, svgStr2BlobUrl } from '@libs/common'
 const JSZip = require('jszip')
 
 const dom2ostr = dom => {
-  const s = new XMLSerializer();
+  const s = new XMLSerializer()
   const svgString = s.serializeToString(dom)
-  return svgString.replace(/symbol/ig, 'svg')
+  return svgString.replace(/symbol/gi, 'svg')
   // const result = optimize(svgString.replace(/symbol/ig, 'svg'), {
   //   multipass: true
   // })
@@ -22,13 +22,13 @@ const dom2ostr = dom => {
 }
 
 const str2dom = str => {
-  const parser = new DOMParser();
-  return parser.parseFromString(str, "image/svg+xml");
+  const parser = new DOMParser()
+  return parser.parseFromString(str, 'image/svg+xml')
 }
 
 const SvgTool = () => {
   const [svgList, setSvgList] = useState([])
-  useEffect(() => { }, [])
+  useEffect(() => {}, [])
   const LoadFile = file =>
     new Promise((resolve, reject) => {
       if (!file) reject('no file')
@@ -38,7 +38,7 @@ const SvgTool = () => {
         resolve({
           name: file.name,
           uid: file.uid,
-          list: [...(str2dom(result)).querySelectorAll('symbol')].map(symbol => ({
+          list: [...str2dom(result).querySelectorAll('symbol')].map(symbol => ({
             svg: dom2ostr(symbol),
             bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
             name: symbol.id
@@ -127,10 +127,7 @@ const SvgTool = () => {
         <Button icon={<DownloadOutlined />} onClick={donwloadZip}>
           下载 Zip
         </Button>
-        <Button
-          className="ml25"
-          icon={<BulbOutlined />}
-          onClick={setSample}>
+        <Button className="ml25" icon={<BulbOutlined />} onClick={setSample}>
           示例
         </Button>
       </div>
@@ -139,16 +136,12 @@ const SvgTool = () => {
           <div className="file" key={i}>
             <div className="file-name common-title" id={x.uid}>
               <span>{x.name}</span>
-              <DeleteTwoTone
-                className="ml45"
-                onClick={() => removeItem(i)}
-              />
+              <DeleteTwoTone className="ml45" onClick={() => removeItem(i)} />
             </div>
             <div className="file-content">
               {x.list.map((y, j) => (
                 <div className="item" key={j}>
-                  <div
-                    className="icon" >
+                  <div className="icon">
                     <img src={y.bloburl} alt={y.name} srcSet="" />
                   </div>
                   <div className="text">{y.name}</div>

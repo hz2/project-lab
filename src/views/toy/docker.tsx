@@ -3,16 +3,16 @@ import { Input, Select, Radio, message, RadioChangeEvent } from 'antd'
 import './toy.less'
 
 interface IPathItem {
-  path: string;
-  remark: string;
+  path: string
+  remark: string
 }
 
 interface ITypeItem {
-  zh?: string;
-  name?: string;
-  user?: string;
-  passwdfile?: string;
-  reg?: string;
+  zh?: string
+  name?: string
+  user?: string
+  passwdfile?: string
+  reg?: string
   path: IPathItem[]
 }
 
@@ -110,9 +110,9 @@ const typeList = [
 ]
 interface SelectElement {
   createTextRange?(): {
-    moveToElementText: (arg0: HTMLElement) => void;
-    select: () => void;
-  };
+    moveToElementText: (arg0: HTMLElement) => void
+    select: () => void
+  }
 }
 function selectText(node: HTMLElement) {
   const body = document.body as SelectElement
@@ -121,7 +121,6 @@ function selectText(node: HTMLElement) {
     if (range.moveToElementText && range.select) {
       range.moveToElementText(node)
       range.select()
-
     }
   } else if (window.getSelection) {
     const selection = window.getSelection()
@@ -138,14 +137,14 @@ function selectText(node: HTMLElement) {
     .then(() => message.success('复制成功！'))
 }
 
-const codeClick = ({ target }: React.MouseEvent<HTMLElement>) => selectText(target as HTMLElement)
+const codeClick = ({ target }: React.MouseEvent<HTMLElement>) =>
+  selectText(target as HTMLElement)
 
 interface IInput {
-  name: string;
-  version: string;
-  namespace: string;
+  name: string
+  version: string
+  namespace: string
 }
-
 
 const Page = () => {
   const [obj, setObj] = useState<ITypeItem>(typeList[0])
@@ -157,7 +156,10 @@ const Page = () => {
     namespace: 'h2'
   })
 
-  const inputChange = ({ target: { value = '' } }: React.ChangeEvent<HTMLInputElement>, fn: string) =>
+  const inputChange = (
+    { target: { value = '' } }: React.ChangeEvent<HTMLInputElement>,
+    fn: string
+  ) =>
     setInput({
       ...inputVal,
       [fn]: value

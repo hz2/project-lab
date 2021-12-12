@@ -3,6 +3,8 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Modal, Input, Button, Spin } from 'antd'
 
 import { copyText } from '@libs/common'
+
+import { calendar } from './calendar'
 import './idcard.less'
 
 type TValid = 'valid' | 'invalid' | null
@@ -10,23 +12,22 @@ interface TXzsq {
   [key: string]: string[]
 }
 interface IPhoneObj {
-  province?: string;
-  city?: string;
-  tel_prefix?: string;
-  postcode?: string;
-  sp?: string;
-
+  province?: string
+  city?: string
+  tel_prefix?: string
+  postcode?: string
+  sp?: string
 }
 interface State {
-  [key: string]: string | boolean | TValid | TXzsq | IPhoneObj | string[];
-  isValidate: TValid;
-  idcvalue: string;
-  telvalue: string;
-  xzqh: TXzsq;
-  keysArr: string[];
-  phoneobj: IPhoneObj;
-  loading: boolean;
-  visible: boolean;
+  [key: string]: string | boolean | TValid | TXzsq | IPhoneObj | string[]
+  isValidate: TValid
+  idcvalue: string
+  telvalue: string
+  xzqh: TXzsq
+  keysArr: string[]
+  phoneobj: IPhoneObj
+  loading: boolean
+  visible: boolean
 }
 
 const rdm = (min: number, max: number) => {
@@ -42,6 +43,8 @@ class idcard extends React.Component {
     copied: false,
     resultArea: '',
     resultBirth: '',
+    resultBirthCn: '',
+    resultBirthGZ: '',
     resultSex: '',
     resultAstrology: '',
     resultZodiac: '',
@@ -51,7 +54,7 @@ class idcard extends React.Component {
     loading: false,
     keysArr: [],
     xzqh: {},
-    isValidate: null,
+    isValidate: null
   }
 
   showModal = () => {
@@ -68,11 +71,11 @@ class idcard extends React.Component {
 
   idcardCalc = (b17: string) =>
     [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2][
-    b17
-      .split('')
-      .map((x: string, i: number) => Number(x) * (Math.pow(2, 17 - i) % 11))
-      // .map((x, i) => x * (2 ** (17 - i) % 11))
-      .reduce((x: any, y: any) => x + y) % 11
+      b17
+        .split('')
+        .map((x: string, i: number) => Number(x) * (Math.pow(2, 17 - i) % 11))
+        // .map((x, i) => x * (2 ** (17 - i) % 11))
+        .reduce((x: any, y: any) => x + y) % 11
     ] + ''
   setResult = (val: string) => {
     let birth = ''
@@ -127,16 +130,35 @@ class idcard extends React.Component {
         ' ' +
         (new Date().getFullYear() - Number(val.substring(6, 10)) * 1) +
         '岁'
-      let digi = Number(val.substring(10, 12)) * 1 + Number(val.substring(10, 12)) / 100
+      let digi =
+        Number(val.substring(10, 12)) * 1 + Number(val.substring(12, 14)) / 100
       let current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
       icon1 = current.icon
       let currentYear = zodiacList[(Number(val.substring(6, 10)) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
-      zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${currentYear.branch} ${currentYear.zh
-        }年 ${currentYear.icon2}`
+      zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${
+        currentYear.branch
+      } ${currentYear.zh}年 ${currentYear.icon2}`
       icon2 = currentYear.icon
+
+      const [y, m, d] = birth
+        .split(/\D/)
+        .filter(x => x)
+        .map(x => Number(x))
+
+      const json: any = calendar.solar2lunar(y, m, d)
+      this.setState({
+        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${
+          json.ncWeek
+        } ${json.festival || ''}`,
+        resultBirthCn: `${json.IMonthCn}${json.IDayCn} ${json.lunarFestival ||
+          json.Term ||
+          ''}`,
+        resultBirthGZ: `${json.gzYear}年 ${json.gzMonth}月 ${json.gzDay}日`
+      })
+
       if (val && val.length === 18) {
         const b17 = val.substring(0, 17)
         const end = val.substring(17, 18)
@@ -149,7 +171,6 @@ class idcard extends React.Component {
       })
     }
     this.setState({
-      resultBirth: birth,
       resultSex: sex,
       resultAstrology: astrology,
       resultZodiac: zodiac,
@@ -159,7 +180,9 @@ class idcard extends React.Component {
     })
   }
 
-  handleChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('value', value)
     this.setState({
       idcvalue: value
@@ -176,7 +199,9 @@ class idcard extends React.Component {
   randomNO() {
     const keysArr = this.state.keysArr
     let rdmarea = keysArr[rdm(0, keysArr.length)]
-    let rdmdate = new Date(rdm(new Date('1950-01-01').getTime(), new Date().getTime()))
+    let rdmdate = new Date(
+      rdm(new Date('1950-01-01').getTime(), new Date().getTime())
+    )
       .toISOString()
       .replace(/(T[\d:.]+Z)|-/g, '') // 随机生日
     let rdmorder = ('0' + rdm(0, 99)).substr(-2)
@@ -255,7 +280,9 @@ class idcard extends React.Component {
       this.queryPhoneNo(phone)
     }
   }
-  handleTelChange = ({ target: { value: phone } }: React.ChangeEvent<HTMLInputElement>) => {
+  handleTelChange = ({
+    target: { value: phone }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     if (phone && phone.length === 11) {
       this.queryPhoneNo(phone)
     }
@@ -294,7 +321,7 @@ class idcard extends React.Component {
           xzqh: res
         })
       })
-      .catch(err => { })
+      .catch(err => {})
   }
   genPerson = () => {
     // this.generateIDCardNO()
@@ -353,20 +380,24 @@ class idcard extends React.Component {
             </Button>
           </div>
           <div className="line">
-            <p>姓名：todo</p>
+            {/* <p>姓名：todo</p> */}
             <p>
-              {
-                this.state.isValidate ? {
-                  valid: '校验通过 ✔️',
-                  invalid: '校验未通过 ❌'
-                }[this.state.isValidate] : ""
-              }
+              {this.state.isValidate
+                ? {
+                    valid: '校验通过 ✔️',
+                    invalid: '校验未通过 ❌'
+                  }[this.state.isValidate]
+                : ''}
             </p>
             <p>{this.state.resultArea}</p>
-            <p>{this.state.resultBirth}</p>
             <p>{this.state.resultSex}</p>
+            <p>{this.state.resultBirth}</p>
+            <p>
+              {this.state.resultZodiac} {this.state.resultBirthCn}
+            </p>
             <p>{this.state.resultAstrology}</p>
-            <p>{this.state.resultZodiac}</p>
+            <p>{this.state.resultBirthGZ}</p>
+
             <div className="addition icon1">{this.state.icon1}</div>
             <div className="addition icon2">{this.state.icon2}</div>
           </div>

@@ -41,7 +41,7 @@
     "dev": "craco start",
     "start": "craco start",
     "build": "set GENERATE_SOURCEMAP=false && craco build",
-    "lint": "prettier --single-quote --write src/**/*.{js,jsx,json,css}"
+    "lint": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css}"
   },
   "eslintConfig": {
     "extends": [
@@ -55,8 +55,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css}": [
-      "prettier --single-quote --write",
+    "src/**/*.{ts,tsx,js,jsx,json,css}": [
+      "prettier --write",
       "git add"
     ]
   },

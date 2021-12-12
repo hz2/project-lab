@@ -5,11 +5,8 @@ import Country from './country.json'
 import { Spin, Input } from 'antd'
 import './ip.less'
 
-
-const list = Country.list;
+const list = Country.list
 const getCountry = (iso: string) => list.filter(x => x.iso === iso)[0]
-
-
 
 const transformLonlatToDD = (coordinate: number) => {
   const d = Math.floor(coordinate) //116.512885 转换成度（°）实则是取整
@@ -77,11 +74,8 @@ const getMap = (loc: string) => {
 const getIpInfo = (ip = 'default') => {
   const url = 'https://respok.com/ipinfo_io/' + ip
   // const url = 'https://cf.p0t.top/cf'
-  return fetch(url, { mode: 'cors' })
-    .then(response => response.json())
-
+  return fetch(url, { mode: 'cors' }).then(response => response.json())
 }
-
 
 const Page = () => {
   const [text, setText] = useState({
@@ -91,37 +85,35 @@ const Page = () => {
     org: '',
     timezone: '',
     postal: '',
-    loc: '',
+    loc: ''
   })
   const [ip, setIp] = useState('')
   const [countryObj, setCountryObj] = useState({
     name: '',
     emoji: '',
-    zh: '',
+    zh: ''
   })
   const [loading, setLoading] = useState(false)
 
   const queryIp = useCallback(() => {
     setLoading(true)
-    getIpInfo(ip).then(r => {
-      if (r) {
-        const { country } = r
-        setText(r)
-        if (country) {
-          setCountryObj(getCountry(country))
+    getIpInfo(ip)
+      .then(r => {
+        if (r) {
+          const { country } = r
+          setText(r)
+          if (country) {
+            setCountryObj(getCountry(country))
+          }
         }
-      }
-    })
+      })
       .catch(err => console.error(new Error(err)))
       .finally(() => setLoading(false))
   }, [ip])
 
-
   useEffect(() => {
     queryIp()
   }, [queryIp])
-
-
 
   return (
     <div className="ip-page p20">
@@ -140,8 +132,7 @@ const Page = () => {
           <li>IP: {text.ip}</li>
           <li>
             地址：
-            {`${countryObj.emoji} ${countryObj.zh ||
-              ''} ${countryObj.name}`}
+            {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
           </li>
           <li>区域: {`${text.region} ${text.city}`}</li>
           <li>组织: {text.org}</li>

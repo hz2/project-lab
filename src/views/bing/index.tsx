@@ -5,23 +5,22 @@ import './bing.less'
 import { downloadBlob } from '@libs/common'
 
 interface IWPItem {
-  startdate: string;
-  copyrightlink: string;
-  urlbase: string;
-  copyright: string;
-  title: string;
+  startdate: string
+  copyrightlink: string
+  urlbase: string
+  copyright: string
+  title: string
 }
 
 type TWPList = IWPItem[]
-
 
 const req = (mkt: string, index: string | number): Promise<TWPList> =>
   new Promise((resolve, reject) => {
     fetch(
       'https://bing.respok.com/HPImageArchive.aspx?format=js&idx=' +
-      index +
-      '&n=10&mkt=' +
-      mkt,
+        index +
+        '&n=10&mkt=' +
+        mkt,
       { mode: 'cors' }
     )
       .then(response => response.json())
@@ -29,7 +28,10 @@ const req = (mkt: string, index: string | number): Promise<TWPList> =>
       .catch(error => reject(error))
   })
 
-const openSearch = (x: IWPItem, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+const openSearch = (
+  x: IWPItem,
+  event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+) => {
   event.preventDefault()
   if (!x.copyrightlink) return
   if (!x.copyrightlink.startsWith('http')) {
@@ -37,11 +39,20 @@ const openSearch = (x: IWPItem, event: React.MouseEvent<HTMLAnchorElement, Mouse
   }
   window.open(x.copyrightlink)
 }
-const openView = (x: IWPItem, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+const openView = (
+  x: IWPItem,
+  event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+) => {
   event.preventDefault()
   window.open(`https://www.bing.com${x.urlbase}_UHD.jpg`)
 }
-const openDown = (name: string, url: RequestInfo, event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+const openDown = (
+  name: string,
+  url: RequestInfo,
+  event:
+    | React.MouseEvent<HTMLDivElement, MouseEvent>
+    | React.MouseEvent<HTMLAnchorElement, MouseEvent>
+) => {
   event.preventDefault()
   fetch(url, { mode: 'cors' })
     .then(response => response.blob())
@@ -58,7 +69,9 @@ const Bing = () => {
     // setImglist(imglist.map(x => ({})))
     Promise.all([req(mkt, -1), req(mkt, 9)])
       .then(arr => {
-        const list = (arr.flat() || []).filter((x, i, o) => x.urlbase !== o[i - 1]?.urlbase)
+        const list = (arr.flat() || []).filter(
+          (x, i, o) => x.urlbase !== o[i - 1]?.urlbase
+        )
         setImglist(list)
         setLoading(false)
       })

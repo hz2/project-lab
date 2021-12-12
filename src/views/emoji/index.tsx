@@ -10,7 +10,12 @@ import './style.less'
 
 const output = Array.from(Array(5000), (x, i) => (125000 + i).toString(16))
 
-const openDown = (name: string, url: RequestInfo, event: React.MouseEvent<Element, MouseEvent>, i: number) => {
+const openDown = (
+  name: string,
+  url: RequestInfo,
+  event: React.MouseEvent<Element, MouseEvent>,
+  i: number
+) => {
   event.preventDefault()
   fetch(url, { mode: 'cors' })
     .then(response => {
@@ -22,7 +27,7 @@ const openDown = (name: string, url: RequestInfo, event: React.MouseEvent<Elemen
     .then(r => {
       if (!r) return
       let file = new FileReader()
-      file.onload = (e) => {
+      file.onload = e => {
         if (!e.target) return
         const result = e.target.result + ''
         let el = document.createElement('a')
