@@ -2,6 +2,9 @@
   "name": "project-lab-ts",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">= 16"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "antd": "^4.17.3",
