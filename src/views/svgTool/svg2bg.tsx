@@ -1,8 +1,22 @@
 import React, { useState } from 'react'
-import { Input, Checkbox, Upload, Button } from 'antd'
+import { Input, Checkbox, Upload, Button, UploadProps } from 'antd'
 import { UploadOutlined, BulbOutlined } from '@ant-design/icons'
 import './svgTool.less'
 import { svgStr2b64 as svgStr2b64Orgi } from '@libs/common'
+
+type TCheckBox = { target: { checked: boolean } }
+interface TLoadFile {
+  name: string,
+  uid: string,
+  size: number,
+  type: string,
+  file: string
+}
+
+interface TFile extends File {
+  uid: string
+}
+
 const { TextArea } = Input
 const Page = () => {
   const setSample = () => {
@@ -13,12 +27,20 @@ const Page = () => {
     })
   }
 
-  const LoadFile = file =>
+  const LoadFile = (file: TFile | undefined): Promise<TLoadFile> =>
     new Promise((resolve, reject) => {
-      if (!file) reject('no file')
+      if (!file) {
+        reject('no file')
+        return
+      }
       const reader = new FileReader()
       reader.readAsText(file, 'UTF-8')
-      reader.onload = ({ target: { result } }) => {
+      reader.onload = (f) => {
+        const result = f?.target?.result;
+        if (!result || typeof result !== 'string') {
+          reject('no file')
+          return
+        }
         resolve({
           name: file.name,
           uid: file.uid,
@@ -35,50 +57,50 @@ const Page = () => {
     dataUrl: ''
   })
   const [isb64, setB64] = useState(false)
-  const svgStr2b64 = (str, val = isb64) => svgStr2b64Orgi(str, val)
-  const uploadChange = async ({ fileList: [{ originFileObj }] }) => {
-    const svgContent = await LoadFile(originFileObj)
-    const str = svgContent.file
-    const obj = {
-      text: str,
-      dataUrl: svgStr2b64(str)
-    }
-    setInputObj(obj)
-  }
+  const svgStr2b64 = (str: string, val = isb64) => svgStr2b64Orgi(str, val);
 
-  const genPreviewDom = datastr => (
+  const genPreviewDom = (datastr: string) => (
     <div
       className="w200 h200"
       id="preview"
       style={{ backgroundImage: `url('${datastr}')` }}></div>
   )
-  const genPreviewText = datastr => `background-image: url('${datastr}');`
+  const genPreviewText = (datastr: string) => `background-image: url('${datastr}');`
 
-  const props = {
+  const props: UploadProps = {
     name: 'file',
     multiple: false,
     accept: '.svg',
     maxCount: 1,
     showUploadList: false,
-    onChange: uploadChange,
+    onChange: async ({ fileList }) => {
+      const [{ originFileObj }] = fileList
+      const svgContent = await LoadFile(originFileObj)
+      const str = svgContent.file
+      const obj = {
+        text: str,
+        dataUrl: svgStr2b64(str)
+      }
+      setInputObj(obj)
+    },
     beforeUpload: () => false,
     onPreview: () => false
   }
 
-  const origTextInput = ({ target: { value } }) => {
+  const origTextInput = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputObj({
       text: value,
       dataUrl: svgStr2b64(value)
     })
   }
-  const dataUrlInput = ({ target: { value } }) => {
+  const dataUrlInput = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputObj({
       text: value,
       dataUrl: value
     })
   }
 
-  const b64Change = ({ target: { checked } }) => {
+  const b64Change = ({ target: { checked } }: TCheckBox) => {
     setB64(checked)
     const str = inputObj.text
     setInputObj({

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Upload, Button, message } from 'antd'
+import { Upload, Button, message, UploadProps } from 'antd'
 import {
   UploadOutlined,
   DownloadOutlined,
@@ -9,9 +9,10 @@ import {
 import './svgTool.less'
 
 import { downloadBlob, svgStr2BlobUrl } from '@libs/common'
+import { RcFile } from 'antd/lib/upload'
 const JSZip = require('jszip')
 
-const dom2ostr = dom => {
+const dom2ostr = (dom: Node) => {
   const s = new XMLSerializer()
   const svgString = s.serializeToString(dom)
   return svgString.replace(/symbol/gi, 'svg')
@@ -21,36 +22,52 @@ const dom2ostr = dom => {
   // return result.data;
 }
 
-const str2dom = str => {
+const str2dom = (str: string) => {
   const parser = new DOMParser()
   return parser.parseFromString(str, 'image/svg+xml')
 }
 
+interface ISymbol {
+  svg: string,
+  bloburl: string,
+  name: string,
+}
+
+interface TLoadFile {
+  name: string,
+  uid: string,
+  list: ISymbol[],
+}
 const SvgTool = () => {
-  const [svgList, setSvgList] = useState([])
-  useEffect(() => {}, [])
-  const LoadFile = file =>
+  const [svgList, setSvgList] = useState<TLoadFile[]>([])
+  useEffect(() => { }, [])
+  const LoadFile = (file: RcFile | undefined): Promise<TLoadFile> =>
     new Promise((resolve, reject) => {
-      if (!file) reject('no file')
+      if (!file) {
+        reject('no file')
+        return
+      }
       const reader = new FileReader()
       reader.readAsText(file, 'UTF-8')
-      reader.onload = ({ target: { result } }) =>
+      reader.onload = ({ target }) => {
+        const result = target?.result
+        if (!result || typeof result !== 'string') {
+          reject('no onload result')
+          return
+        }
         resolve({
           name: file.name,
           uid: file.uid,
-          list: [...str2dom(result).querySelectorAll('symbol')].map(symbol => ({
+          list: [...Array.from(str2dom(result).querySelectorAll('symbol'))].map(symbol => ({
             svg: dom2ostr(symbol),
             bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
             name: symbol.id
           }))
         })
+      }
       reader.onerror = e => reject(e)
     })
 
-  const uploadSymbolOnChange = ({ fileList }) => {
-    const arr = fileList.map(x => LoadFile(x.originFileObj))
-    Promise.all(arr).then(list => setSvgList(list))
-  }
 
   const donwloadZip = () => {
     if (!svgList.length) {
@@ -58,9 +75,9 @@ const SvgTool = () => {
       return
     }
     const zip = new JSZip()
-    const FolderList = (list, folder) => {
-      let nameArr = []
-      list.forEach(x => {
+    const FolderList = (list: ISymbol[], folder: { file: (arg0: string, arg1: string) => void }) => {
+      let nameArr: string[] = []
+      list.forEach((x) => {
         let name = x.name || 'svg'
         let newName = name
         if (nameArr.includes(name)) {
@@ -76,11 +93,11 @@ const SvgTool = () => {
     })
     zip
       .generateAsync({ type: 'blob' })
-      .then(blob => downloadBlob(blob, 'svgSymbol2svg.zip'))
+      .then((blob: Blob | MediaSource) => downloadBlob(blob, 'svgSymbol2svg.zip'))
   }
 
-  const scrollToDom = ({ uid }) => {
-    const top = document.querySelector('#' + uid).getBoundingClientRect().y
+  const scrollToDom = ({ uid }: { uid: string }) => {
+    const top = document.querySelector('#' + uid)?.getBoundingClientRect().y
     window.scrollTo({
       top,
       left: 0,
@@ -88,11 +105,14 @@ const SvgTool = () => {
     })
   }
 
-  const props = {
+  const props: UploadProps = {
     name: 'file',
     multiple: true,
     accept: '.svg',
-    onChange: uploadSymbolOnChange,
+    onChange: ({ fileList }) => {
+      const arr = fileList.map((x) => LoadFile(x.originFileObj))
+      Promise.all(arr).then(list => setSvgList(list))
+    },
     beforeUpload: () => false,
     onPreview: scrollToDom
   }
@@ -102,19 +122,17 @@ const SvgTool = () => {
       .then(response => response.blob())
       .then(blob => {
         const name = 'svgsymbol2.svg'
-        blob.name = name
-        uploadSymbolOnChange({
-          fileList: [
-            {
-              originFileObj: blob,
-              name
-            }
-          ]
-        })
+        const obj: RcFile = {
+          ...blob,
+          name,
+          lastModifiedDate: new Date(), uid: '', lastModified: 0, webkitRelativePath: ''
+        }
+        LoadFile(obj).then(res => setSvgList([res]))
+
       })
   }
 
-  const removeItem = index => {
+  const removeItem = (index: number) => {
     setSvgList(svgList.filter((x, i) => i !== index))
   }
 
@@ -139,10 +157,10 @@ const SvgTool = () => {
               <DeleteTwoTone className="ml45" onClick={() => removeItem(i)} />
             </div>
             <div className="file-content">
-              {x.list.map((y, j) => (
+              {x.list.map((y: { bloburl: string; name: string }, j: React.Key) => (
                 <div className="item" key={j}>
                   <div className="icon">
-                    <img src={y.bloburl} alt={y.name} srcSet="" />
+                    <img src={y.bloburl} alt={y.name || ''} srcSet="" />
                   </div>
                   <div className="text">{y.name}</div>
                 </div>
