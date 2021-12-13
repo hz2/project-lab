@@ -4,19 +4,25 @@ import { Input } from 'antd'
 import './style.less'
 const { TextArea } = Input
 
-class page extends React.Component {
-  constructor(props) {
+interface IProps { }
+interface State {
+  val1: string;
+  val2: string;
+}
+
+class page extends React.Component<IProps, State>{
+  constructor(props: IProps) {
     super(props)
     this.state = {
       val1: '',
       val2: ''
     }
   }
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
-  handleChange1({ target: { value } }) {
+  handleChange1({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) {
     let obj = {
       vector: 'svg',
       group: 'g',
@@ -33,18 +39,18 @@ class page extends React.Component {
       'android:strokeLineJoin': 'stroke-linejoin',
       'android:autoMirrored="true"': 'style="transform: rotateY(180deg);"',
       '@android:color/': '',
-      '([\\d.-]+)dip': (a, b, c) => b,
-      '#([\\w\\d]{2})([\\w\\d]{6})': (a, b, c) => '#' + c,
+      '([\\d.-]+)dip': (_a: string, b: string) => b,
+      '#([\\w\\d]{2})([\\w\\d]{6})': (_a: string, _b: string, c: string) => '#' + c,
       'android:(height|width)="[\\d\\.\\w]+"': '',
       'android:translateX="([\\d.-]+)" android:translateY="([\\d.-]+)"': (
-        a,
-        b,
-        c
+        _a: string,
+        b: string,
+        c: string
       ) => `transform="translate(${b} ${c})"`,
       'android:viewport\\w+="([\\d.-]+)" android:viewport\\w+="([\\d.-]+)"': (
-        a,
-        b,
-        c
+        _a: string,
+        b: string,
+        c: string
       ) => `viewBox="0 0 ${b} ${c}"`,
       'xmlns:android="http://schemas.android.com/apk/res/android"':
         'xmlns="http://www.w3.org/2000/svg"'
@@ -52,14 +58,18 @@ class page extends React.Component {
     let tmp = value
     Object.entries(obj).forEach(x => {
       let tmpreg = new RegExp(x[0], 'g')
-      tmp = tmp.replace(tmpreg, x[1])
+      if (typeof x[1] === 'function') {
+        tmp = tmp.replace(tmpreg, x[1])
+      } else {
+        tmp = tmp.replace(tmpreg, x[1])
+      }
     })
     this.setState({
       val1: value,
       val2: tmp
     })
   }
-  handleChange2({ target: { value } }) {
+  handleChange2({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) {
     this.setState({
       val2: value
     })
@@ -72,14 +82,14 @@ class page extends React.Component {
         <div className="container">
           <TextArea
             placeholder=""
-            autosize={{ minRows: 10, maxRows: 16 }}
+            autoSize={{ minRows: 10, maxRows: 16 }}
             value={this.state.val1}
             onChange={e => this.handleChange1(e)}
           />
           <div style={{ margin: '24px 0' }} />
           <TextArea
             placeholder=""
-            autosize={{ minRows: 10, maxRows: 16 }}
+            autoSize={{ minRows: 10, maxRows: 16 }}
             value={this.state.val2}
             onChange={e => this.handleChange2(e)}
           />
