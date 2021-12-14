@@ -5,7 +5,10 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import Currency from './currency.json'
 import './currency-page.less'
 
-var digitUppercase = function(n: number) {
+import { FilterFunc } from 'rc-select/es/interface/generator.d'
+import { OptionsType } from 'rc-select/es/interface'
+
+var digitUppercase = function (n: number) {
   var fraction = ['毛', '分']
   // var fraction = ['角', '分'];
   var digit = [
@@ -74,10 +77,10 @@ function shiftLeft(number: number, digit: string | number) {
 }
 interface ICurrency {
   label: string
-  currency: any
-  value: any
-  country: any
-  text: any
+  currency: string
+  value: string
+  country: string
+  text: string
   num: number
 }
 
@@ -88,7 +91,7 @@ interface IRates {
 }
 
 const list: CurrencyList = Currency.list.map(
-  (x: { country: any; text: any; currency: any }) => ({
+  (x: { country: string; text: string; currency: string }) => ({
     ...x,
     num: 0,
     label: `${x.country} ${x.text} ${x.currency} `,
@@ -168,11 +171,12 @@ const Page = () => {
     SetNewList(newList)
   }
 
-  const currencyChange = (currency: any) => calc({ key1: currency })
-  const rightChange = (currency: any) => calc({ key2: currency })
+  const currencyChange = (currency: string) => calc({ key1: currency })
+  const rightChange = (currency: string) => calc({ key2: currency })
 
-  const filterOption = (input: string, option: any): boolean => {
-    return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+  const filterOption: FilterFunc<OptionsType[number]>  = (input: string, option ): boolean => {
+    const label = option?.label + ''
+    return label.toLowerCase().indexOf(input.toLowerCase()) >= 0
   }
 
   const currencyValInput = ({
@@ -242,16 +246,14 @@ const Page = () => {
             actions={[
               <Tooltip
                 placement="top"
-                title={`${bindVal.input} ${x.text}等于 ? ${
-                  tranCurrency(bindVal.key2).text
-                }`}>
+                title={`${bindVal.input} ${x.text}等于 ? ${tranCurrency(bindVal.key2).text
+                  }`}>
                 <LeftOutlined onClick={() => currencyChange(x.currency)} />
               </Tooltip>,
               <Tooltip
                 placement="top"
-                title={`${bindVal.input} ${
-                  tranCurrency(bindVal.key1).text
-                }等于 ? ${x.text}`}>
+                title={`${bindVal.input} ${tranCurrency(bindVal.key1).text
+                  }等于 ? ${x.text}`}>
                 <RightOutlined onClick={() => rightChange(x.currency)} />
               </Tooltip>
             ]}>
