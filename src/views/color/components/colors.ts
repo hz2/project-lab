@@ -1,10 +1,10 @@
-export const colorStr2arr = str => {
-  let arr = ['', '', '']
+export const colorStr2arr = (str: string) => {
+  let arr: (string | number)[] = ['', '', '']
   if (str.startsWith('#')) {
     str
       .replace('#', '')
       .split('')
-      .forEach((x, i) => {
+      .forEach((x: string, i: number) => {
         if ([0, 1].includes(i)) {
           arr[0] += x
         }
@@ -15,14 +15,14 @@ export const colorStr2arr = str => {
           arr[2] += x
         }
       })
-    arr = arr.map(x => parseInt(x, 16))
+    arr = arr.map(x => parseInt(x + '', 16))
   } else {
     arr = str.replace(/[rgb() ]/g, '').split(',')
   }
   return [...arr, 1]
 }
 
-export const genHub = (r, g, b, min, max) => {
+export const genHub = (r: number, g: number, b: number, min: number, max: number) => {
   const diff = 60 / (max - min)
   if (max === min) {
     return 0
@@ -37,14 +37,14 @@ export const genHub = (r, g, b, min, max) => {
   }
 }
 
-export const rgb2hsl = rgba => {
+export const rgb2hsl = (rgba: (string | number)[] | [any, any, any, any]) => {
   const [r0, g0, b0, a] = rgba
   const [r, g, b] = [r0, g0, b0].map(x => x / 255)
   const min = Math.min(...[r, g, b])
   const max = Math.max(...[r, g, b])
   const l = (min + max) / 2
   const h = genHub(r, g, b, min, max)
-  const genSaturation = (l, min, max) => {
+  const genSaturation = (l: number, min: number, max: number) => {
     if (l === 0 || min === max) {
       return 0
     } else if (0 < l && l <= 0.5) {
@@ -56,12 +56,12 @@ export const rgb2hsl = rgba => {
   const s = genSaturation(l, min, max)
   return [h, s, l, a]
 }
-export const hsl2rgb = hsla => {
+export const hsl2rgb = (hsla: any[]) => {
   const [h, s, l, a] = hsla
   const C = (1 - Math.abs(2 * l - 1)) * s
   const H_ = h / 60
   const X = C * (1 - Math.abs((H_ % 2) - 1))
-  let rgb_ = []
+  let rgb_: any[] = []
   if (!H_) {
     rgb_ = [0, 0, 0]
   } else if (0 < H_ && H_ <= 1) {
@@ -81,18 +81,18 @@ export const hsl2rgb = hsla => {
   return [...rgb_.map(x => Math.round((x + m) * 255)), a]
 }
 
-export const hsl2hex = arr =>
+export const hsl2hex = (arr: (string | number)[]) =>
   '#' +
   hsl2rgb(arr)
     .slice(0, 3)
     .map(x => x.toString(16).padStart(2, 0))
     .join('')
 
-export const rgb2hex = rgb =>
+export const rgb2hex = (rgb: string) =>
   '#' +
   rgb
     .replace(/[rgba()]/g, '')
     .split(',')
-    .map(x => parseInt(x).toString(16))
+    .map((x: string) => parseInt(x).toString(16))
     .join('')
     .substring(0, 6)
