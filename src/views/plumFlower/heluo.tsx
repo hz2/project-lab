@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Wuxing from './wixing'
+import Wuxing, { WuXingType } from './wixing'
 import {
   luoshuArr,
   hetuArr,
@@ -7,14 +7,35 @@ import {
   hetuPonit2,
   luoshuPoint,
   genFishWhite,
-  genFishBlack
+  genFishBlack,
+
+  IGraphPos,
+  IGraphLines,
+  TFish,
 } from './heluoArr'
 
-const heluoFn = (val, graph, size) => {
+type IGrapArr = IGraphLines[] | IGraphPos[]
+
+interface IGraphInstance {
+  [key: string]: IGrapArr | TFish
+}
+interface ISize {
+  w: number;
+  half: number;
+  fishR: number;
+  r2: number;
+}
+
+// const isIGraph = (obj: IGraphInstance[string]): obj is IGrapArr => {
+//   return length in obj;
+// }
+
+const heluoFn = (val: TTabVal, graph: IGraphInstance, size: ISize) => {
   const { fishwhite, fishblack, ...list } = graph
   const { w, half, fishR, r2 } = size
 
-  let dom = null
+  let dom: JSX.Element | null = null;
+  const loopList = list[val]
   if ('fish' === val) {
     dom = (
       <g id="fish">
@@ -90,9 +111,10 @@ const heluoFn = (val, graph, size) => {
       </g>
     )
   } else if (['hetu', 'luoshu'].includes(val)) {
+    const arr = loopList as IGraphPos[];
     dom = (
       <g id="heluo">
-        {list[val].map((x, i) => (
+        {arr.map((x, i: number) => (
           <g key={i}>
             <rect
               x={x.pos[0]}
@@ -118,11 +140,12 @@ const heluoFn = (val, graph, size) => {
       </g>
     )
   } else if (['hetup', 'luoshup', 'hetup2'].includes(val)) {
+    const arr = loopList as IGraphLines[];
     dom = (
       <g id="heluop">
-        {list[val].map((x, i) => (
+        {Array.from(arr).map((x, i: number) => (
           <g key={i} name={x.num}>
-            {x.points.map((y, j) => (
+            {x.points.map((y, j: number) => (
               <circle
                 key={j}
                 cx={y[0]}
@@ -134,28 +157,29 @@ const heluoFn = (val, graph, size) => {
               />
             ))}
             {x.lines
-              ? x.lines.map((y, j) => (
-                  <path
-                    key={j}
-                    d={'M ' + y.join(' ') + ' Z'}
-                    fill="none"
-                    stroke={x.color}
-                    strokeWidth={w / 300}
-                  />
-                ))
+              ? x.lines.map((y, j: number) => (
+                <path
+                  key={j}
+                  d={'M ' + y.join(' ') + ' Z'}
+                  fill="none"
+                  stroke={x.color}
+                  strokeWidth={w / 300}
+                />
+              ))
               : null}
           </g>
         ))}
       </g>
     )
   } else if (['wuxing', 'wuxing0', 'wuxing1', 'wuxing2'].includes(val)) {
-    dom = <Wuxing half={half} r={r2} type={val} />
+    const typeVal = val as WuXingType
+    dom = <Wuxing half={half} r={r2} type={typeVal} />
   }
 
   return dom
 }
 
-const genDom = (tabVal, w) => {
+const genDom = (tabVal: TTabVal, w: number) => {
   const half = w / 2
 
   const r2 = Math.sqrt(Math.pow((1 / 8) * w, 2) / 2)
@@ -176,19 +200,21 @@ const genDom = (tabVal, w) => {
   //   [0, 0, 6, 0, 0]
   // ]
 
-  const hetu = hetuArr(half, r2)
+  const hetu: IGraphPos[] = hetuArr(half, r2)
 
-  const hetup = hetuPonit(half, r3)
+  const hetup: IGraphLines[] = hetuPonit(half, r3)
 
-  const hetup2 = hetuPonit2(hetup, half, r3)
+  const hetup2: IGraphLines[] = hetuPonit2(hetup, half, r3)
 
   const luoshup = luoshuPoint(half, r3)
 
   const fishR = 1.5 * r2
-  const fishwhite = genFishWhite(half, fishR)
-  const fishblack = genFishBlack(half, fishR)
+  const fishwhite: TFish = genFishWhite(half, fishR)
+  const fishblack: TFish = genFishBlack(half, fishR)
 
-  const graph = {
+
+
+  const graph: IGraphInstance = {
     hetu,
     hetup2,
     luoshu,
@@ -200,12 +226,22 @@ const genDom = (tabVal, w) => {
   const size = { w, half, fishR, r2 }
   return heluoFn(tabVal, graph, size)
 }
-const HeluoComp = props => {
+
+
+export type TTabVal = 'fish' | 'hetu' | 'hetup' | 'hetup2' | 'luoshu' | 'luoshup' | 'taijiorig' | 'taijihetu' | 'wuxing' | 'wuxing0' | 'wuxing1' | 'wuxing2'
+
+interface IProps {
+  w: number,
+  tabVal: TTabVal,
+}
+const HeluoComp = (props: IProps) => {
   const { w, tabVal } = props
-  const [heluoVal, setHeluo] = useState(null)
+  const [heluoVal, setHeluo] = useState<JSX.Element | null>(null)
 
   useEffect(() => {
-    setHeluo(genDom(tabVal, w))
+    const dom = genDom(tabVal, w)
+    if (!dom) return
+    setHeluo(dom)
   }, [tabVal, w])
 
   return <>{heluoVal}</>

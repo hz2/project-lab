@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import guaJson from './guaText'
-import HeluoComp from './heluo'
+import HeluoComp, {TTabVal} from './heluo'
 import { downloadBlob } from '@libs/common'
 
 const w = 1000
@@ -53,7 +53,14 @@ const listOrig = [
     d: ['M', half, half, 0, p1, p1, 0, 'z']
   }
 ]
-const guaType = {
+
+interface IGuaType {
+  [key: string]: yaoType[]
+}
+type guaType = 'xiantian' | 'houtian' | 'lianshan' | 'guishu' | 'longtu'
+type yaoType = 'qian' | 'xun' | 'kan' | 'gen' | 'kun' | 'zhen' | 'li' | 'dui'
+
+const guaType: IGuaType = {
   // 伏羲先天
   xiantian: ['qian', 'xun', 'kan', 'gen', 'kun', 'zhen', 'li', 'dui'],
   // 文王后天
@@ -64,9 +71,13 @@ const guaType = {
 }
 
 const Yi = () => {
-  const genDom = (type = 'houtian', textkey = 'trigrams') => {
-    const gua = listOrig.map((x, i) =>
-      Object.assign(x, guaJson[guaType[type][i]])
+  const genDom = (type: guaType = 'houtian', textkey = 'trigrams') => {
+    const gua = listOrig.map((x, i) => {
+      const typeArr: yaoType[] = guaType[type];
+      const text: yaoType = typeArr[i]
+      return Object.assign(x, guaJson[text])
+    }
+
     )
     return gua.map((x, i) => (
       <g key={i}>
@@ -101,7 +112,7 @@ const Yi = () => {
 
   const [guaList, setGuaList] = useState(genDom())
   // const [luoshuVal, setLuoshuVal] = useState(null)
-  const [guaTypeVal, setGuaTypeVal] = useState('houtian')
+  const [guaTypeVal, setGuaTypeVal] = useState<guaType>('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
 
   const ActionBar1 = () => {
@@ -126,7 +137,7 @@ const Yi = () => {
     )
   }
 
-  const guaTypeFn = val => {
+  const guaTypeFn = (val: guaType) => {
     setGuaTypeVal(val)
     setGuaList(genDom(val, guaTextVal))
   }
@@ -164,12 +175,14 @@ const Yi = () => {
       </Radio.Group>
     )
   }
-  const guaTextFn = val => {
+  const guaTextFn = (val: string) => {
     setGuaTextVal(val)
     setGuaList(genDom(guaTypeVal, val))
   }
 
-  const [heluoTab, setheluoTab] = useState('fish') // fish
+  type TTabVal = 'fish' | 'hetu' | 'hetup' | 'hetup2' | 'luoshu' | 'luoshup' | 'taijiorig' | 'taijihetu' | 'wuxing' | 'wuxing0' | 'wuxing1' | 'wuxing2'
+
+  const [heluoTab, setheluoTab] = useState<TTabVal>('fish') // fish
 
   const ActionBar3 = () => {
     const list = Object.entries({
@@ -202,9 +215,10 @@ const Yi = () => {
     )
   }
 
-  const downloadSvgFile = type => {
+  const downloadSvgFile = (type: string) => {
     const dom = document.querySelector('#plumflower')
-    const genBlob = x => new Blob([x.outerHTML], { type: 'image/svg+xml' })
+    if (!dom) return
+    const genBlob = (x: Element) => new Blob([x.outerHTML], { type: 'image/svg+xml' })
     if (type === 'svg') {
       dom.removeAttribute('width')
       dom.removeAttribute('height')
@@ -212,15 +226,19 @@ const Yi = () => {
     } else if (type === 'bitmap') {
       dom.setAttribute('width', '1000px')
       dom.setAttribute('height', '1000px')
-      const canvas = document.getElementById('canvas')
+      const canvasDom = document.getElementById('canvas')
+      if (!canvasDom) return
+      const canvas = canvasDom as HTMLCanvasElement
       const ctx = canvas.getContext('2d')
       const DOMURL = window.URL || window.webkitURL || window
       const img = new Image()
       const url = DOMURL.createObjectURL(genBlob(dom))
       img.src = url
       img.onload = () => {
+        if (!ctx) return
         ctx.drawImage(img, 0, 0)
-        canvas.toBlob(blob => {
+        canvas.toBlob((blob) => {
+          if (!blob) return
           downloadBlob(blob, 'plumFlowerYi.png')
         })
         DOMURL.revokeObjectURL(url)
@@ -259,10 +277,10 @@ const Yi = () => {
         </svg>
       </div>
       <div className="downloadBtn">
-        <Button type="plain" onClick={() => downloadSvgFile('svg')}>
+        <Button type="default" onClick={() => downloadSvgFile('svg')}>
           下载矢量图
         </Button>
-        <Button type="plain" onClick={() => downloadSvgFile('bitmap')}>
+        <Button type="default" onClick={() => downloadSvgFile('bitmap')}>
           下载位图
         </Button>
       </div>
