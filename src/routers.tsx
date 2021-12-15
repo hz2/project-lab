@@ -26,7 +26,6 @@ const pathList = {
   dataURL: 'encode/dataURL.tsx',
   emoji: 'emoji',
   svgpreview: 'svgpreview',
-  svgEditor: 'svgEditor/svgEditor',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
   ipAddress: 'onlineService/ip.tsx',

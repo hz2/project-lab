@@ -1,11 +1,11 @@
 import React from 'react'
-const sinTheta = th => Math.sin((th * Math.PI) / 180)
-const cosTheta = th => Math.cos((th * Math.PI) / 180)
+const sinTheta = (th: number) => Math.sin((th * Math.PI) / 180)
+const cosTheta = (th: number) => Math.cos((th * Math.PI) / 180)
 const arrowTheta = (Math.atan(5 / 6) * 180) / Math.PI
-const arrowLineC = r => Math.sqrt(Math.pow(r / 6, 2) + Math.pow(r / 5, 2))
+const arrowLineC = (r: number) => Math.sqrt(Math.pow(r / 6, 2) + Math.pow(r / 5, 2))
 const shengColor = 'green'
 const keColor = 'white'
-const genPos = (half, r, type) => {
+const genPos = (half: number, r: number, type: string) => {
   const base = [
     {
       num: '金',
@@ -71,7 +71,7 @@ const genPos = (half, r, type) => {
   return posArr.map((x, i) => Object.assign({}, base[i], x))
 }
 
-const arrowSheng = (half, r, i) => (
+const arrowSheng = (half: number, r: number, i: number) => (
   <>
     <path
       d={[
@@ -108,7 +108,7 @@ const arrowSheng = (half, r, i) => (
   </>
 )
 
-const Sheng1 = (half, r) => {
+const Sheng1 = (half: number, r: number) => {
   const arrow = [
     'M',
     half + 2 * r - cosTheta(45) * r * 0.6,
@@ -117,16 +117,16 @@ const Sheng1 = (half, r) => {
     half + 2 * r - cosTheta(45) * r * 0.6,
     half + cosTheta(45) * r * 0.6 + sinTheta(45 - arrowTheta) * arrowLineC(r),
     half +
-      2 * r -
-      cosTheta(45) * r * 0.6 -
-      cosTheta(45 - arrowTheta) * arrowLineC(r),
+    2 * r -
+    cosTheta(45) * r * 0.6 -
+    cosTheta(45 - arrowTheta) * arrowLineC(r),
     half + cosTheta(45) * r * 0.6,
     half + 2 * r - cosTheta(45) * r * 0.6,
     half + cosTheta(45) * r * 0.6 + cosTheta(45 - arrowTheta) * arrowLineC(r),
     half +
-      2 * r -
-      cosTheta(45) * r * 0.6 -
-      sinTheta(45 - arrowTheta) * arrowLineC(r)
+    2 * r -
+    cosTheta(45) * r * 0.6 -
+    sinTheta(45 - arrowTheta) * arrowLineC(r)
   ]
   const arr = [
     [
@@ -175,7 +175,7 @@ const Sheng1 = (half, r) => {
   ))
 }
 
-const Ke1 = (half, r) => {
+const Ke1 = (half: number, r: number) => {
   const arrow = [
     'M',
     half + cosTheta(45) * r * 0.6,
@@ -183,16 +183,16 @@ const Ke1 = (half, r) => {
     half + 2 * r - cosTheta(45) * r * 0.6,
     half - cosTheta(45) * r * 0.6,
     half +
-      2 * r -
-      cosTheta(45) * r * 0.6 -
-      cosTheta(45 - arrowTheta) * arrowLineC(r),
+    2 * r -
+    cosTheta(45) * r * 0.6 -
+    cosTheta(45 - arrowTheta) * arrowLineC(r),
     half - cosTheta(45) * r * 0.6 - sinTheta(45 - arrowTheta) * arrowLineC(r),
     half + 2 * r - cosTheta(45) * r * 0.6,
     half - cosTheta(45) * r * 0.6,
     half +
-      2 * r -
-      cosTheta(45) * r * 0.6 -
-      sinTheta(45 - arrowTheta) * arrowLineC(r),
+    2 * r -
+    cosTheta(45) * r * 0.6 -
+    sinTheta(45 - arrowTheta) * arrowLineC(r),
     half - cosTheta(45) * r * 0.6 - cosTheta(45 - arrowTheta) * arrowLineC(r)
   ]
   const arr = [
@@ -268,7 +268,7 @@ const Ke1 = (half, r) => {
   ))
 }
 
-const arrowKe = (half, r, i) => {
+const arrowKe = (half: number, r: number, i: number) => {
   return (
     <>
       <path
@@ -280,25 +280,25 @@ const arrowKe = (half, r, i) => {
           half - sinTheta(36) * r * 2 + sinTheta(18) * 0.6 * r,
           // 箭头点
           half +
-            cosTheta(36) * r * 2 -
-            cosTheta(18) * 0.6 * r -
-            sinTheta(72 - arrowTheta) * arrowLineC(r),
+          cosTheta(36) * r * 2 -
+          cosTheta(18) * 0.6 * r -
+          sinTheta(72 - arrowTheta) * arrowLineC(r),
           half -
-            sinTheta(36) * r * 2 +
-            sinTheta(18) * 0.6 * r +
-            cosTheta(72 - arrowTheta) * arrowLineC(r),
+          sinTheta(36) * r * 2 +
+          sinTheta(18) * 0.6 * r +
+          cosTheta(72 - arrowTheta) * arrowLineC(r),
           // 端点
           half + cosTheta(36) * r * 2 - cosTheta(18) * 0.6 * r,
           half - sinTheta(36) * r * 2 + sinTheta(18) * 0.6 * r,
           // 箭头点
           half +
-            cosTheta(36) * r * 2 -
-            cosTheta(18) * 0.6 * r -
-            sinTheta(108 - arrowTheta) * arrowLineC(r),
+          cosTheta(36) * r * 2 -
+          cosTheta(18) * 0.6 * r -
+          sinTheta(108 - arrowTheta) * arrowLineC(r),
           half -
-            sinTheta(36) * r * 2 +
-            sinTheta(18) * 0.6 * r -
-            cosTheta(108 - arrowTheta) * arrowLineC(r)
+          sinTheta(36) * r * 2 +
+          sinTheta(18) * 0.6 * r -
+          cosTheta(108 - arrowTheta) * arrowLineC(r)
         ].join(' ')}
         transform={`rotate(${i * 72},${half},${half})`}
         fill="none"
@@ -311,7 +311,7 @@ const arrowKe = (half, r, i) => {
   )
 }
 
-const ShengKe = (half, r) =>
+const ShengKe = (half: number, r: number) =>
   [0, 1, 2, 3, 4].map(x => (
     <g key={x}>
       {arrowSheng(half, r, x)}
@@ -329,23 +329,35 @@ const ShengKe = (half, r) =>
       </text>
     </g>
   ))
-const Wuxing = props => {
+
+export type WuXingType = 'wuxing' | 'wuxing1' | 'wuxing2' | 'wuxing0'
+const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
   const { half, r, type } = props
   const w = 2 * half
   const list = genPos(half, r, type)
-  let arrow = {
-    wuxing: ShengKe(half, r),
-    wuxing1: Sheng1(half, r),
-    wuxing2: Ke1(half, r)
-  }[type]
-  if (type === 'wuxing0') {
-    arrow = (
-      <>
+  let arrow = null
+
+  switch (type) {
+    case 'wuxing':
+      arrow = ShengKe(half, r)
+      break;
+    case 'wuxing1':
+      arrow = Sheng1(half, r)
+      break;
+    case 'wuxing2':
+      arrow = Ke1(half, r)
+      break;
+    case 'wuxing0':
+      arrow = <>
         {Sheng1(half, r)}
         {Ke1(half, r)}
       </>
-    )
+      break;
+
+    default:
+      break;
   }
+
   return (
     <g id="wuxing">
       {list.map((x, i) => (
@@ -353,7 +365,7 @@ const Wuxing = props => {
           <circle
             cx={x.pos[0]}
             cy={x.pos[1]}
-            transform={x.transform}
+            // transform={x.transform}
             r={r / 2}
             fill={x.color}
             stroke="#fff"

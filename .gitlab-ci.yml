@@ -2,7 +2,7 @@ stages:
   - pages
   - docker
 pages:
-  image: node:16.0
+  image: node:16.6.0
   stage: pages
   cache:
     paths:

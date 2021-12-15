@@ -1,4 +1,22 @@
-const Gua = {
+
+
+
+interface IYao {
+  [key: string]: string;
+}
+
+interface IGua {
+  qian: IYao;
+  dui: IYao;
+  li: IYao;
+  zhen: IYao;
+  xun: IYao;
+  kan: IYao;
+  gen: IYao;
+  kun: IYao;
+}
+
+const Gua: IGua = {
   qian: {
     trigrams: '☰',
     text: '乾',

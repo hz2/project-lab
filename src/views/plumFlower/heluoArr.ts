@@ -1,4 +1,21 @@
-export const luoshuArr = (half, r2) => [
+
+export interface IGraphBase {
+  num: string;
+  color: string;
+}
+export interface IGraphPos extends IGraphBase {
+  pos: number[];
+}
+export interface IGraphLines extends IGraphBase {
+  points: number[][];
+  lines?: number[][];
+}
+
+export type TFish = (number | string)[]
+
+
+
+export const luoshuArr = (half: number, r2: number): IGraphPos[] => [
   {
     pos: [half, half],
     num: '五',
@@ -46,7 +63,7 @@ export const luoshuArr = (half, r2) => [
   }
 ]
 
-export const hetuArr = (half, r2) => [
+export const hetuArr = (half: number, r2: number): IGraphPos[] => [
   {
     pos: [half, half],
     num: '五十',
@@ -94,7 +111,7 @@ export const hetuArr = (half, r2) => [
   }
 ]
 
-export const hetuPonit = (half, r3) => [
+export const hetuPonit = (half: number, r3: number): IGraphLines[] => [
   {
     num: '五',
     color: 'white',
@@ -234,15 +251,20 @@ export const hetuPonit = (half, r3) => [
   }
 ]
 
-export const hetuPonit2 = (hetup, half, r3) =>
+export const hetuPonit2 = (hetup: IGraphLines[], half: number, r3: number): IGraphLines[] =>
   hetup
-    .map(({ lines, ...y }) =>
-      ['五', '十'].includes(y.num)
-        ? {
-            lines,
-            ...y
-          }
-        : y
+    .map(({ lines, ...y }) => {
+      if (y.num && ['五', '十'].includes(y.num)) {
+        return {
+          lines,
+          ...y
+        }
+      } else {
+        return y
+      }
+
+    }
+
     )
     .concat([
       {
@@ -281,7 +303,7 @@ export const hetuPonit2 = (hetup, half, r3) =>
       }
     ])
 
-export const luoshuPoint = (half, r3) => [
+export const luoshuPoint = (half: number, r3: number): IGraphLines[] => [
   {
     num: '五',
     color: 'white',
@@ -428,7 +450,7 @@ export const luoshuPoint = (half, r3) => [
   }
 ]
 
-export const genFishWhite = (half, fishR) => [
+export const genFishWhite = (half: number, fishR: number): TFish => [
   'M',
   half,
   half,
@@ -458,7 +480,7 @@ export const genFishWhite = (half, fishR) => [
   half
 ]
 
-export const genFishBlack = (half, fishR) => [
+export const genFishBlack = (half: number, fishR: number): TFish => [
   'M',
   half,
   half,
