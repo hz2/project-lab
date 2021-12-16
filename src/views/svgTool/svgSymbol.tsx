@@ -42,7 +42,7 @@ const SvgTool = () => {
   const [svgList, setSvgList] = useState<TLoadFile[]>([])
   useEffect(() => { }, [])
   const LoadFile = (file: RcFile | undefined): Promise<TLoadFile> =>
-    new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {      
       if (!file) {
         reject('no file')
         return
@@ -122,12 +122,9 @@ const SvgTool = () => {
       .then(response => response.blob())
       .then(blob => {
         const name = 'svgsymbol2.svg'
-        const obj: RcFile = {
-          ...blob,
-          name,
-          lastModifiedDate: new Date(), uid: '', lastModified: 0, webkitRelativePath: ''
-        }
-        LoadFile(obj).then(res => setSvgList([res]))
+        const blob2 = blob as RcFile
+        // blob2.name = name;
+        LoadFile(blob2).then(res => setSvgList([res]))
 
       })
   }
