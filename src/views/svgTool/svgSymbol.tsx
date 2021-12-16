@@ -42,7 +42,7 @@ const SvgTool = () => {
   const [svgList, setSvgList] = useState<TLoadFile[]>([])
   useEffect(() => { }, [])
   const LoadFile = (file: RcFile | undefined): Promise<TLoadFile> =>
-    new Promise((resolve, reject) => {      
+    new Promise((resolve, reject) => {
       if (!file) {
         reject('no file')
         return
@@ -57,7 +57,7 @@ const SvgTool = () => {
         }
         resolve({
           name: file.name,
-          uid: file.uid,
+          uid: file?.uid,
           list: [...Array.from(str2dom(result).querySelectorAll('symbol'))].map(symbol => ({
             svg: dom2ostr(symbol),
             bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
@@ -121,11 +121,12 @@ const SvgTool = () => {
     fetch('./svgsymbol2.svg', { mode: 'cors' })
       .then(response => response.blob())
       .then(blob => {
-        const name = 'svgsymbol2.svg'
-        const blob2 = blob as RcFile
-        // blob2.name = name;
-        LoadFile(blob2).then(res => setSvgList([res]))
-
+        const filename = 'svgsymbol2.svg'
+        const file = new File([blob], filename, {
+          type: 'image/svg+xml',
+          lastModified: Date.now()
+        }) as RcFile
+        LoadFile(file).then(res => setSvgList([res]))
       })
   }
 
