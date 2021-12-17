@@ -129,7 +129,7 @@ const Page = () => {
   }) => {
     const { input, key1, key2 } = Object.assign({}, bindVal, obj)
     const r1 = ratesVal[key1]
-    const r2 = ratesVal[key1]
+    const r2 = ratesVal[key2]
     const val = (input / r1) * r2
     SetBindVal({
       input,
