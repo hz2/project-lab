@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import guaJson from './guaText'
-import HeluoComp, {TTabVal} from './heluo'
+import HeluoComp, { TTabVal } from './heluo'
 import { downloadBlob } from '@libs/common'
 
 const w = 1000
@@ -54,10 +54,12 @@ const listOrig = [
   }
 ]
 
-interface IGuaType {
-  [key: string]: yaoType[]
+type TGuaType = 'xiantian' | 'houtian' | 'lianshan' | 'guishu' | 'longtu'
+
+type IGuaType = {
+  [key in TGuaType]: yaoType[]
 }
-type guaType = 'xiantian' | 'houtian' | 'lianshan' | 'guishu' | 'longtu'
+
 type yaoType = 'qian' | 'xun' | 'kan' | 'gen' | 'kun' | 'zhen' | 'li' | 'dui'
 
 const guaType: IGuaType = {
@@ -71,7 +73,7 @@ const guaType: IGuaType = {
 }
 
 const Yi = () => {
-  const genDom = (type: guaType = 'houtian', textkey = 'trigrams') => {
+  const genDom = (type: TGuaType = 'houtian', textkey = 'trigrams') => {
     const gua = listOrig.map((x, i) => {
       const typeArr: yaoType[] = guaType[type];
       const text: yaoType = typeArr[i]
@@ -112,7 +114,7 @@ const Yi = () => {
 
   const [guaList, setGuaList] = useState(genDom())
   // const [luoshuVal, setLuoshuVal] = useState(null)
-  const [guaTypeVal, setGuaTypeVal] = useState<guaType>('houtian')
+  const [guaTypeVal, setGuaTypeVal] = useState<TGuaType>('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
 
   const ActionBar1 = () => {
@@ -137,7 +139,7 @@ const Yi = () => {
     )
   }
 
-  const guaTypeFn = (val: guaType) => {
+  const guaTypeFn = (val: TGuaType) => {
     setGuaTypeVal(val)
     setGuaList(genDom(val, guaTextVal))
   }
@@ -179,8 +181,6 @@ const Yi = () => {
     setGuaTextVal(val)
     setGuaList(genDom(guaTypeVal, val))
   }
-
-  type TTabVal = 'fish' | 'hetu' | 'hetup' | 'hetup2' | 'luoshu' | 'luoshup' | 'taijiorig' | 'taijihetu' | 'wuxing' | 'wuxing0' | 'wuxing1' | 'wuxing2'
 
   const [heluoTab, setheluoTab] = useState<TTabVal>('fish') // fish
 

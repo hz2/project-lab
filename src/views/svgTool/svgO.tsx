@@ -77,7 +77,7 @@ const SvgO = () => {
       let nameArr: string[] = []
       list.forEach(x => {
         let name = x.name || 'svg'
-        let newName = name
+        let newName = name.replace(/\.svg$/i, '')
         if (nameArr.includes(name)) {
           newName += '_' + nameArr.filter(y => y === name).length
         }

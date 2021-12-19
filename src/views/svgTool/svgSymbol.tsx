@@ -57,7 +57,7 @@ const SvgTool = () => {
         }
         resolve({
           name: file.name,
-          uid: file.uid,
+          uid: file?.uid,
           list: [...Array.from(str2dom(result).querySelectorAll('symbol'))].map(symbol => ({
             svg: dom2ostr(symbol),
             bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
@@ -121,14 +121,12 @@ const SvgTool = () => {
     fetch('./svgsymbol2.svg', { mode: 'cors' })
       .then(response => response.blob())
       .then(blob => {
-        const name = 'svgsymbol2.svg'
-        const obj: RcFile = {
-          ...blob,
-          name,
-          lastModifiedDate: new Date(), uid: '', lastModified: 0, webkitRelativePath: ''
-        }
-        LoadFile(obj).then(res => setSvgList([res]))
-
+        const filename = 'svgsymbol2.svg'
+        const file = new File([blob], filename, {
+          type: 'image/svg+xml',
+          lastModified: Date.now()
+        }) as RcFile
+        LoadFile(file).then(res => setSvgList([res]))
       })
   }
 
