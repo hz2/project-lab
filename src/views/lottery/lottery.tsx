@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { Tabs, Button } from 'antd'
 import './lottery.less'
-import CountUp from './countupComp'
 const { TabPane } = Tabs
 
 let alpha: number | '' = '',
@@ -72,11 +71,11 @@ const LotteryPage = () => {
         <div className="ballgroup" key={key}>
           {ball6.map((x, i) => (
             <div className="ball redball" key={i}>
-              <CountUp end={Number(x)} />
+              {Number(x)}
             </div>
           ))}
           <div className="ball blueball">
-            <CountUp end={Number(ball1)} />
+            {Number(ball1)}
           </div>
         </div>
       )
@@ -118,12 +117,12 @@ const LotteryPage = () => {
         <div className="ballgroup" key={key}>
           {ball5.map((x, i) => (
             <div className="ball blue2ball" key={i}>
-              <CountUp end={Number(x)} />
+              {Number(x)}
             </div>
           ))}
           {ball2.map((x, i) => (
             <div className="ball yellowball" key={i}>
-              <CountUp end={Number(x)} />
+              {Number(x)}
             </div>
           ))}
         </div>
