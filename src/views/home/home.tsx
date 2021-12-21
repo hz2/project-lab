@@ -112,7 +112,7 @@ const Home = (props: any) => (
         <span className="footertext">
           <span>2020-present</span>
           <span className="splitcolor">\</span>
-          <span>build by </span>
+          <span>made by </span>
           <a
             href="https://github.com/hz2/project-lab"
             target="_blank"
