@@ -2,17 +2,18 @@ import React from 'react'
 import { Divider } from 'antd'
 import {
   IdcardTwoTone,
-  BuildTwoTone,
+  ProjectTwoTone,
   CameraTwoTone,
   EyeTwoTone,
   HourglassTwoTone,
-  FundTwoTone,
+  DollarTwoTone,
   ControlTwoTone,
-  ApiTwoTone,
+  ProfileTwoTone,
   GiftTwoTone,
   FireTwoTone,
-  HighlightTwoTone,
-  CompassTwoTone
+  DashboardTwoTone,
+  CompassTwoTone,
+  CodeTwoTone
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
@@ -44,6 +45,10 @@ const generatorList = [
   {
     name: 'plumFlower',
     icon: <FireTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'docker',
+    icon: <CodeTwoTone twoToneColor="#00bbbb" />
   }
 ]
 const cnverterList = [
@@ -53,19 +58,19 @@ const cnverterList = [
   },
   {
     name: 'hex',
-    icon: <BuildTwoTone twoToneColor="#00bbbb" />
+    icon: <ProjectTwoTone twoToneColor="#00bbbb" />
   },
   {
     name: 'currency',
-    icon: <FundTwoTone twoToneColor="#00bbbb" />
+    icon: <DollarTwoTone twoToneColor="#00bbbb" />
   },
   {
     name: 'queryString',
-    icon: <ApiTwoTone twoToneColor="#00bbbb" />
+    icon: <ProfileTwoTone twoToneColor="#00bbbb" />
   },
   {
     name: 'svg',
-    icon: <HighlightTwoTone twoToneColor="#00bbbb" />
+    icon: <DashboardTwoTone twoToneColor="#00bbbb" />
   }
 ]
 const analyzerList = [
