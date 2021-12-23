@@ -9,10 +9,13 @@ import {
   svgStr2BlobUrl,
   svgStr2b64
 } from '@libs/common'
-const svgo = require('svgo')
+import svgo from 'svgo/lib/svgo'
 const { optimize } = svgo
 
 const JSZip = require('jszip')
+
+
+// /home/a/文档/code/react-sync/node_modules/svgo/lib/svgo.js
 
 
 interface TLoadFile {
