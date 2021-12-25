@@ -18,9 +18,9 @@ const req = (mkt: string, index: string | number): Promise<TWPList> =>
   new Promise((resolve, reject) => {
     fetch(
       'https://bing.respok.com/HPImageArchive.aspx?format=js&idx=' +
-        index +
-        '&n=10&mkt=' +
-        mkt,
+      index +
+      '&n=10&mkt=' +
+      mkt,
       { mode: 'cors' }
     )
       .then(response => response.json())
@@ -179,8 +179,8 @@ const Bing = () => {
       </div>
       <div className={menuShow ? 'mktList menuShow' : 'mktList'}>
         {mktList}
-        <div className="item" onClick={e => downAll(e)}>
-          DownLoad All
+        <div className="item" onClick={e => downAll(e)} title="下载全部原图">
+          <span role="img" aria-label="download"> 📥 </span>
         </div>
       </div>
     </div>
