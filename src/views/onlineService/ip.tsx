@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Country from './country.json'
 import { Spin, Input } from 'antd'
+import { AimOutlined } from "@ant-design/icons";
 import './ip.less'
 
 const list = Country.list
@@ -137,7 +138,7 @@ const Page = () => {
           <li>区域: {`${text.region} ${text.city}`}</li>
           <li>组织: {text.org}</li>
           <li>邮编: {text.postal}</li>
-          <li>坐标: {text.loc}</li>
+          <li>坐标: <AimOutlined /> {text.loc}</li>
           <li>时区: {text.timezone}</li>
         </ul>
         {getMap(text.loc)}
