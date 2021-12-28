@@ -2,7 +2,7 @@
 // https://devpal.co/
 import React, { useEffect, useState, useCallback } from 'react'
 import Country from './country.json'
-import { Spin, Input } from 'antd'
+import { Spin, Input, Form } from 'antd'
 import './ip.less'
 
 const list = Country.list
@@ -128,18 +128,17 @@ const Page = () => {
         {/* <Button type="primary" onClick={() => queryIp()}>查询</Button> */}
       </div>
       <Spin spinning={loading} size="large">
-        <ul>
-          <li>IP: {text.ip}</li>
-          <li>
-            地址：
+        <Form>
+          <Form.Item label="IP：">{text.ip}</Form.Item>
+          <Form.Item label="地址：">            
             {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
-          </li>
-          <li>区域: {`${text.region} ${text.city}`}</li>
-          <li>组织: {text.org}</li>
-          <li>邮编: {text.postal}</li>
-          <li>坐标: {text.loc}</li>
-          <li>时区: {text.timezone}</li>
-        </ul>
+          </Form.Item>
+          <Form.Item label="区域：">{`${text.region} ${text.city}`}</Form.Item>
+          <Form.Item label="组织：">{text.org}</Form.Item>
+          <Form.Item label="邮编：">{text.postal}</Form.Item>
+          <Form.Item label="坐标：">{text.loc}</Form.Item>
+          <Form.Item label="时区：">{text.timezone}</Form.Item>
+        </Form>
         {getMap(text.loc)}
       </Spin>
     </div>
