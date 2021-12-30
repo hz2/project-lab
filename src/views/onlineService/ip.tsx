@@ -78,6 +78,11 @@ const getIpInfo = (ip = 'default') => {
   return fetch(url, { mode: 'cors' }).then(response => response.json())
 }
 
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+};
+
 const Page = () => {
   const [text, setText] = useState({
     ip: '',
@@ -138,8 +143,8 @@ const Page = () => {
         <Button type="primary" onClick={() => queryIp()}>查询</Button>
       </div>
       <Spin spinning={loading} size="large">
-        <Form>
-          <Form.Item label="IP：">{text.ip}</Form.Item>
+        <Form {...layout}>
+          <Form.Item label="I P：">{text.ip}</Form.Item>
           <Form.Item label="地址：">
             {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
           </Form.Item>
