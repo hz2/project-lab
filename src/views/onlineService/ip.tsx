@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Country from './country.json'
 import { AimOutlined } from "@ant-design/icons";
-import { Spin, Input, Form } from 'antd'
+import { Spin, Input, Form, Button } from 'antd'
 import './ip.less'
 
 const list = Country.list
@@ -113,8 +113,17 @@ const Page = () => {
   }, [ip])
 
   useEffect(() => {
-    queryIp()
-  }, [queryIp])
+    getIpInfo()
+      .then(r => {
+        if (r) {
+          const { country } = r
+          setText(r)
+          if (country) {
+            setCountryObj(getCountry(country))
+          }
+        }
+      })
+  }, [])
 
   return (
     <div className="ip-page p20">
@@ -126,18 +135,20 @@ const Page = () => {
           allowClear
           onChange={({ target: { value } }) => setIp(value)}
         />
-        {/* <Button type="primary" onClick={() => queryIp()}>查询</Button> */}
+        <Button type="primary" onClick={() => queryIp()}>查询</Button>
       </div>
       <Spin spinning={loading} size="large">
         <Form>
           <Form.Item label="IP：">{text.ip}</Form.Item>
-          <Form.Item label="地址：">            
+          <Form.Item label="地址：">
             {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
           </Form.Item>
           <Form.Item label="区域：">{`${text.region} ${text.city}`}</Form.Item>
           <Form.Item label="组织：">{text.org}</Form.Item>
-          <Form.Item label="邮编：">{text.postal}</Form.Item>
-          <Form.Item label="坐标："> <AimOutlined /> {text.loc}</Form.Item>
+          <Form.Item label="邮编：">{text.postal || '-'}</Form.Item>
+          <Form.Item label="坐标：">
+            <div className="flex start"> <AimOutlined className='mr10' /> {text.loc}</div>
+          </Form.Item>
           <Form.Item label="时区：">{text.timezone}</Form.Item>
         </Form>
         {getMap(text.loc)}
