@@ -2,7 +2,8 @@
 // https://devpal.co/
 import React, { useEffect, useState, useCallback } from 'react'
 import Country from './country.json'
-import { Spin, Input } from 'antd'
+import { AimOutlined } from "@ant-design/icons";
+import { Spin, Input, Form, Button } from 'antd'
 import './ip.less'
 
 const list = Country.list
@@ -77,6 +78,11 @@ const getIpInfo = (ip = 'default') => {
   return fetch(url, { mode: 'cors' }).then(response => response.json())
 }
 
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+};
+
 const Page = () => {
   const [text, setText] = useState({
     ip: '',
@@ -112,8 +118,17 @@ const Page = () => {
   }, [ip])
 
   useEffect(() => {
-    queryIp()
-  }, [queryIp])
+    getIpInfo()
+      .then(r => {
+        if (r) {
+          const { country } = r
+          setText(r)
+          if (country) {
+            setCountryObj(getCountry(country))
+          }
+        }
+      })
+  }, [])
 
   return (
     <div className="ip-page p20">
@@ -125,21 +140,22 @@ const Page = () => {
           allowClear
           onChange={({ target: { value } }) => setIp(value)}
         />
-        {/* <Button type="primary" onClick={() => queryIp()}>查询</Button> */}
+        <Button type="primary" onClick={() => queryIp()}>查询</Button>
       </div>
       <Spin spinning={loading} size="large">
-        <ul>
-          <li>IP: {text.ip}</li>
-          <li>
-            地址：
+        <Form {...layout}>
+          <Form.Item label="I P：">{text.ip}</Form.Item>
+          <Form.Item label="地址：">
             {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
-          </li>
-          <li>区域: {`${text.region} ${text.city}`}</li>
-          <li>组织: {text.org}</li>
-          <li>邮编: {text.postal}</li>
-          <li>坐标: {text.loc}</li>
-          <li>时区: {text.timezone}</li>
-        </ul>
+          </Form.Item>
+          <Form.Item label="区域：">{`${text.region} ${text.city}`}</Form.Item>
+          <Form.Item label="组织：">{text.org}</Form.Item>
+          <Form.Item label="邮编：">{text.postal || '-'}</Form.Item>
+          <Form.Item label="坐标：">
+            <div className="flex start"> <AimOutlined className='mr10' /> {text.loc}</div>
+          </Form.Item>
+          <Form.Item label="时区：">{text.timezone}</Form.Item>
+        </Form>
         {getMap(text.loc)}
       </Spin>
     </div>
