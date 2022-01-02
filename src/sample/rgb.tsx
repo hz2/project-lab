@@ -23,6 +23,7 @@ import {
 */
 
 function AnimationExample() {
+  const loc = useLocation()
   return (
     <Router>
       <Route
@@ -43,10 +44,10 @@ function AnimationExample() {
             <div style={styles.content}>
               <TransitionGroup>
                 <CSSTransition
-                  key={useLocation().key}
+                  key={loc.key}
                   classNames="fade"
                   timeout={300}>
-                  <Routes location={useLocation()}>
+                  <Routes location={loc}>
                     <Route path="/hsl/:h/:s/:l" element={HSL} />
                     <Route path="/rgb/:r/:g/:b" element={RGB} />
                     {/* Without this `Route`, we would get errors during
