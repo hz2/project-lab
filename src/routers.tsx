@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { Route, Switch, HashRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
@@ -39,9 +39,8 @@ const pathList = {
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => (
   <Route
-    exact
     path={'/' + path}
-    component={lazy(() => import('./views/' + file))}
+    element={lazy(() => import('./views/' + file))}
     key={i}
   />
 ))
@@ -50,23 +49,22 @@ const Routers = (
   <React.StrictMode>
     <Provider store={store}>
       {/* <ConnectedRouter history={history}> */}
-      <HashRouter>
+      <BrowserRouter>
         <Suspense
           fallback={
             <Spin className="fullpage" spinning={true} size="large"></Spin>
           }>
           <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
+          <Routes>
+            <Route path="/" element={Home} />
             <Route
-              exact
               path="/rgb"
-              component={require('./sample/rgb').default}
+              element={require('./sample/rgb').default}
             />
             {routesList}
-          </Switch>
+          </Routes>
         </Suspense>
-      </HashRouter>
+      </BrowserRouter>
       {/* </ConnectedRouter> */}
     </Provider>
   </React.StrictMode>

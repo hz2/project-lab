@@ -2,10 +2,11 @@ import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
-  Redirect,
+  Navigate,
+  useLocation,
   LinkProps
 } from 'react-router-dom'
 
@@ -25,12 +26,11 @@ function AnimationExample() {
   return (
     <Router>
       <Route
-        render={({ location }) => (
+        element={() => (
           <div style={styles.fill}>
             <Route
-              exact
               path="/"
-              render={() => <Redirect to="/hsl/10/90/50" />}
+              element={() => <Navigate to="/hsl/10/90/50" />}
             />
 
             <ul style={styles.nav}>
@@ -42,23 +42,18 @@ function AnimationExample() {
 
             <div style={styles.content}>
               <TransitionGroup>
-                {/* no different than other usage of
-                CSSTransition, just make sure to pass
-                `location` to `Switch` so it can match
-                the old location as it animates out
-            */}
                 <CSSTransition
-                  key={location.key}
+                  key={useLocation().key}
                   classNames="fade"
                   timeout={300}>
-                  <Switch location={location}>
-                    <Route exact path="/hsl/:h/:s/:l" component={HSL} />
-                    <Route exact path="/rgb/:r/:g/:b" component={RGB} />
+                  <Routes location={useLocation()}>
+                    <Route path="/hsl/:h/:s/:l" element={HSL} />
+                    <Route path="/rgb/:r/:g/:b" element={RGB} />
                     {/* Without this `Route`, we would get errors during
                     the initial transition from `/` to `/hsl/10/90/50`
                 */}
-                    <Route render={() => <div>Not Found</div>} />
-                  </Switch>
+                    <Route element={() => <div>Not Found</div>} />
+                  </Routes>
                 </CSSTransition>
               </TransitionGroup>
             </div>
