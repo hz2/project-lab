@@ -82,7 +82,7 @@ const analyzerList = [
 
 const genTitle = (str: string) => {
   const FirstLetter = str.slice(0, 1).toUpperCase()
-  return FirstLetter + str.slice(1).replace(/(a-z)?=[A-Z]/g, (x: string) => ' ' + x)
+  return FirstLetter + str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
 }
 
 const genBtn = (list: any[], key: string) =>
