@@ -8,7 +8,6 @@ const HeaderBar = () => {
     return (
       <div className="headerIcon">
         <Link to="/">
-          {' '}
           <HomeOutlined />
         </Link>
       </div>

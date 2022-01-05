@@ -82,8 +82,9 @@ const analyzerList = [
 
 const genTitle = (str: string) => {
   const FirstLetter = str.slice(0, 1).toUpperCase()
-  return FirstLetter + str.slice(1).replace(/(a-z)?=[A-Z]/g, (x: string) => ' ' + x)
+  return FirstLetter + str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
 }
+
 
 const genBtn = (list: any[], key: string) =>
   list.map((x: { name: string; icon: React.ReactChild }, i: number) => (
@@ -91,7 +92,7 @@ const genBtn = (list: any[], key: string) =>
       className="item inline-block align-top center m10"
       type="primary"
       key={key + i}
-      to={location => '/' + x.name}
+      to={'/' + x.name}
       title={genTitle(x.name)}>
       <div className="block">{x.icon}</div>
       <div className="text">{genTitle(x.name)}</div>

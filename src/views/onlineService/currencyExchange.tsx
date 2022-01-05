@@ -5,8 +5,10 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import Currency from './currency.json'
 import './currency-page.less'
 
-import { FilterFunc } from 'rc-select/es/interface/generator.d'
-import { OptionsType } from 'rc-select/es/interface'
+import { FilterFunc, DefaultOptionType } from 'rc-select/lib/Select.d'
+
+
+
 
 var digitUppercase = function (n: number) {
   var fraction = ['毛', '分']
@@ -174,7 +176,7 @@ const Page = () => {
   const currencyChange = (currency: string) => calc({ key1: currency })
   const rightChange = (currency: string) => calc({ key2: currency })
 
-  const filterOption: FilterFunc<OptionsType[number]>  = (input: string, option ): boolean => {
+  const filterOption: FilterFunc<DefaultOptionType[number]> = (input: string, option): boolean => {
     const label = option?.label + ''
     return label.toLowerCase().indexOf(input.toLowerCase()) >= 0
   }

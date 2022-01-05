@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from 'react'
-import { Route, Switch, HashRouter } from 'react-router-dom'
+import { Route, Routes, HashRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 import Home from './views/home/home'
+import Rgb from './sample/rgb'
 import Header from './views/components/Header'
 import { Provider } from 'react-redux'
 import { store } from './store'
@@ -37,14 +38,15 @@ const pathList = {
   toy: 'toy/toy',
   docker: 'toy/docker'
 }
-const routesList = Object.entries(pathList).map(([path, file], i) => (
-  <Route
-    exact
+const routesList = Object.entries(pathList).map(([path, file], i) => {
+  const Comp = lazy(() => import('./views/' + file))
+  return <Route
     path={'/' + path}
-    component={lazy(() => import('./views/' + file))}
+    element={<Comp />}
     key={i}
   />
-))
+})
+  ;
 
 const Routers = (
   <React.StrictMode>
@@ -56,15 +58,11 @@ const Routers = (
             <Spin className="fullpage" spinning={true} size="large"></Spin>
           }>
           <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route
-              exact
-              path="/rgb"
-              component={require('./sample/rgb').default}
-            />
-            {routesList}
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/rgb" element={<Rgb />} />
+            <>{routesList}</>
+          </Routes>
         </Suspense>
       </HashRouter>
       {/* </ConnectedRouter> */}
