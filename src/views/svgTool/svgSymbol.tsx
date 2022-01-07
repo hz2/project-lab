@@ -34,14 +34,18 @@ const str2symbolList = (str: string) => {
     d.removeAttribute('xmlns');
     return [x.id, d.outerHTML]
   }
-  const linearGradientList = Object.fromEntries([...Array.from(d.querySelectorAll('svg>linearGradient'))].map(x => dom2Arr(x)))
+  const GradientList = Object.fromEntries([...Array.from(d.querySelectorAll('svg>linearGradient,svg>radialGradient'))].map(x => dom2Arr(x)))
   return symbolList.map(x => {
     const fillUrl = [...Array.from(x.querySelectorAll("[fill^=url]"))].map(y => {
       const key = y?.attributes?.getNamedItem('fill')?.value.replace(/^url\(#|\)$/gi, '');
-      return linearGradientList[key || ''] || ''
+      return GradientList[key || ''] || ''
     }).join('');
-    if (x.querySelector('defs')) {
-      x.querySelector('defs')!.innerHTML = fillUrl
+    if (!fillUrl) {
+      return x
+    } else if (x.querySelector('defs')) {
+      x.querySelector('defs')!.insertAdjacentHTML('beforeend', fillUrl)
+    } else if (fillUrl) {
+      x.insertAdjacentHTML('afterbegin', `<defs>${fillUrl}</defs>`)
     }
     return x
   })
