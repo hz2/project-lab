@@ -26,6 +26,30 @@ const str2dom = (str: string) => {
   const parser = new DOMParser()
   return parser.parseFromString(str, 'image/svg+xml')
 }
+const str2symbolList = (str: string) => {
+  const d = str2dom(str)
+  const symbolList = [...Array.from(d.querySelectorAll('symbol'))]
+  const dom2Arr = (x: Element) => {
+    const d = x;
+    d.removeAttribute('xmlns');
+    return [x.id, d.outerHTML]
+  }
+  const GradientList = Object.fromEntries([...Array.from(d.querySelectorAll('svg>linearGradient,svg>radialGradient'))].map(x => dom2Arr(x)))
+  return symbolList.map(x => {
+    const fillUrl = [...Array.from(x.querySelectorAll("[fill^=url]"))].map(y => {
+      const key = y?.attributes?.getNamedItem('fill')?.value.replace(/^url\(#|\)$/gi, '');
+      return GradientList[key || ''] || ''
+    }).join('');
+    if (!fillUrl) {
+      return x
+    } else if (x.querySelector('defs')) {
+      x.querySelector('defs')!.insertAdjacentHTML('beforeend', fillUrl)
+    } else if (fillUrl) {
+      x.insertAdjacentHTML('afterbegin', `<defs>${fillUrl}</defs>`)
+    }
+    return x
+  })
+}
 
 interface ISymbol {
   svg: string,
@@ -58,7 +82,7 @@ const SvgTool = () => {
         resolve({
           name: file.name,
           uid: file?.uid,
-          list: [...Array.from(str2dom(result).querySelectorAll('symbol'))].map(symbol => ({
+          list: str2symbolList(result).map(symbol => ({
             svg: dom2ostr(symbol),
             bloburl: svgStr2BlobUrl(dom2ostr(symbol)),
             name: symbol.id

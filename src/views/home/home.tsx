@@ -13,7 +13,7 @@ import {
   FireTwoTone,
   DashboardTwoTone,
   CompassTwoTone,
-  CodeTwoTone
+  // CodeTwoTone
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
@@ -46,10 +46,10 @@ const generatorList = [
     name: 'plumFlower',
     icon: <FireTwoTone twoToneColor="#00bbbb" />
   },
-  {
-    name: 'docker',
-    icon: <CodeTwoTone twoToneColor="#00bbbb" />
-  }
+  // {
+  //   name: 'docker',
+  //   icon: <CodeTwoTone twoToneColor="#00bbbb" />
+  // }
 ]
 const cnverterList = [
   {

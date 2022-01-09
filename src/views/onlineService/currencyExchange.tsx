@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip } from 'antd'
-import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
 import Currency from './currency.json'
 import './currency-page.less'
@@ -250,13 +250,13 @@ const Page = () => {
                 placement="top"
                 title={`${bindVal.input} ${x.text}等于 ? ${tranCurrency(bindVal.key2).text
                   }`}>
-                <LeftOutlined onClick={() => currencyChange(x.currency)} />
+                <CaretLeftFilled onClick={() => currencyChange(x.currency)} />
               </Tooltip>,
               <Tooltip
                 placement="top"
                 title={`${bindVal.input} ${tranCurrency(bindVal.key1).text
                   }等于 ? ${x.text}`}>
-                <RightOutlined onClick={() => rightChange(x.currency)} />
+                <CaretRightFilled onClick={() => rightChange(x.currency)} />
               </Tooltip>
             ]}>
             <>
