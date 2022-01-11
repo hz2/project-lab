@@ -25,6 +25,7 @@ const pathList = {
   hex: 'encode/hexConversion',
   encode: 'encode/encodeDecode',
   dataURL: 'encode/dataURL',
+  qrcode: 'encode/qr',
   emoji: 'emoji',
   svgpreview: 'svgpreview',
   plumFlower: 'plumFlower/plumFlower',

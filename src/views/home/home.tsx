@@ -13,7 +13,8 @@ import {
   FireTwoTone,
   DashboardTwoTone,
   CompassTwoTone,
-  // CodeTwoTone
+  // CodeTwoTone,
+  TagTwoTone,
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
@@ -67,6 +68,10 @@ const cnverterList = [
   {
     name: 'queryString',
     icon: <ProfileTwoTone twoToneColor="#00bbbb" />
+  },
+  {
+    name: 'QRCode',
+    icon: <TagTwoTone twoToneColor="#00bbbb" />
   },
   {
     name: 'svg',
