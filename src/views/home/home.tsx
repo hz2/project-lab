@@ -1,21 +1,21 @@
 import React from 'react'
 import { Divider } from 'antd'
-import {
-  IdcardTwoTone,
-  ProjectTwoTone,
-  CameraTwoTone,
-  EyeTwoTone,
-  HourglassTwoTone,
-  DollarTwoTone,
-  ControlTwoTone,
-  ProfileTwoTone,
-  GiftTwoTone,
-  FireTwoTone,
-  DashboardTwoTone,
-  CompassTwoTone,
-  // CodeTwoTone,
-  TagTwoTone,
-} from '@ant-design/icons'
+// import {
+//   IdcardTwoTone,
+//   ProjectTwoTone,
+//   CameraTwoTone,
+//   EyeTwoTone,
+//   HourglassTwoTone,
+//   DollarTwoTone,
+//   ControlTwoTone,
+//   ProfileTwoTone,
+//   GiftTwoTone,
+//   FireTwoTone,
+//   DashboardTwoTone,
+//   CompassTwoTone,
+//   // CodeTwoTone,
+//   TagTwoTone,
+// } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 import './home.less'

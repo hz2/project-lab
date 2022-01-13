@@ -9,14 +9,9 @@ import {
   svgStr2BlobUrl,
   svgStr2b64
 } from '@libs/common'
+import JSZip from 'jszip'
 import svgo from 'svgo/lib/svgo'
 const { optimize } = svgo
-
-const JSZip = require('jszip')
-
-
-// /home/a/文档/code/react-sync/node_modules/svgo/lib/svgo.js
-
 
 interface TLoadFile {
   name: string,
@@ -89,6 +84,7 @@ const SvgO = () => {
       })
     }
     const folder = zip.folder('svg optimize')
+    if (!folder) return
     FolderList(svgList, folder)
     zip
       .generateAsync({ type: 'blob' })
@@ -163,9 +159,9 @@ const SvgO = () => {
 
   const menu = (str: string) => (
     <Menu onClick={e => handleMenuClick(e, str)}>
-      <Menu.Item key="uri">data URI</Menu.Item>
-      <Menu.Item key="base64">base64</Menu.Item>
-      <Menu.Item key="content">content</Menu.Item>
+      <Menu.Item key="uri">Data URI</Menu.Item>
+      <Menu.Item key="base64">Base64</Menu.Item>
+      <Menu.Item key="content">Content</Menu.Item>
     </Menu>
   )
 
