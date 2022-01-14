@@ -7,14 +7,17 @@ const Page = () => {
   const [twObj, setTwObj] = useState({
     link: ''
   })
+  const [phObj, setPhObj] = useState({
+    link: ''
+  })
   const urlChange = ({
     target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(value)
   }
   const handleUrl = () => {
-    console.log('url',url );
-    
+    console.log('url', url);
+
     if (!url) {
       return
     }
@@ -23,6 +26,14 @@ const Page = () => {
     if (tw) {
       const link = `https://box.p0t.top/media/${tw[1]}?format=${tw[2]}&name=orig`
       setTwObj({
+        link
+      })
+    }
+    // 
+    const ph = url.match(/^https:\/\/telegra.ph\/([\w\d\-_]+)/i)
+    if (ph) {
+      const link = `https://box.p0t.top/${ph[1]}`
+      setPhObj({
         link
       })
 
@@ -36,14 +47,18 @@ const Page = () => {
         <Button type='primary' className='ml15' onClick={() => handleUrl()}>提交</Button>
         <Button type='primary' className='ml15'>二维码</Button>
       </nav>
-      <section className='twipic'>
+      {twObj.link ? <section className='twipic' >
         <img src={twObj?.link} alt="" />
 
-      </section>
+      </section> : null}
+      {phObj.link ? <section className='ph-article' >
+        <a href={phObj.link}>{phObj.link}</a>
+
+      </section> : null}
+
 
     </div>
   )
 }
 
 export default Page
-// https://pbs.twimg.com/media/FJBhq7JakAAXztR?format=jpg&name=small
