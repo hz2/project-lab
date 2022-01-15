@@ -69,10 +69,10 @@ const cnverterList = [
     name: 'queryString',
     icon: <svg width="1em" height="1em" viewBox="0 0 48 48"><g fill="#616161"><path d="M29.175 31.99l2.828-2.827l12.019 12.019l-2.828 2.827z"></path><circle cx="20" cy="20" r="16"></circle></g><path fill="#37474F" d="M32.45 35.34l2.827-2.828l8.696 8.696l-2.828 2.828z"></path><circle fill="#64B5F6" cx="20" cy="20" r="13"></circle><path fill="#BBDEFB" d="M26.9 14.2c-1.7-2-4.2-3.2-6.9-3.2s-5.2 1.2-6.9 3.2c-.4.4-.3 1.1.1 1.4c.4.4 1.1.3 1.4-.1C16 13.9 17.9 13 20 13s4 .9 5.4 2.5c.2.2.5.4.8.4c.2 0 .5-.1.6-.2c.4-.4.4-1.1.1-1.5z"></path></svg>
   },
-  {
-    name: 'QRCode',
-    icon: <svg width="1em" height="1em" viewBox="0 0 48 48"><path fill="#607D8B" d="M38 42H10c-2.2 0-4-1.8-4-4V10c0-2.2 1.8-4 4-4h28c2.2 0 4 1.8 4 4v28c0 2.2-1.8 4-4 4z"></path><circle fill="#455A64" cx="24" cy="24" r="12"></circle><circle fill="#42A5F5" cx="24" cy="24" r="9"></circle><path fill="#90CAF9" d="M28.8 21c-1.2-1.4-3-2.2-4.8-2.2s-3.6.8-4.8 2.2c-.5.5-.4 1.3.1 1.8s1.3.4 1.8-.1c1.5-1.7 4.3-1.7 5.8 0c.3.3.6.4 1 .4c.3 0 .6-.1.9-.3c.4-.4.5-1.3 0-1.8z"></path></svg>
-  },
+  // {
+  //   name: 'QRCode',
+  //   icon: <svg width="1em" height="1em" viewBox="0 0 48 48"><path fill="#607D8B" d="M38 42H10c-2.2 0-4-1.8-4-4V10c0-2.2 1.8-4 4-4h28c2.2 0 4 1.8 4 4v28c0 2.2-1.8 4-4 4z"></path><circle fill="#455A64" cx="24" cy="24" r="12"></circle><circle fill="#42A5F5" cx="24" cy="24" r="9"></circle><path fill="#90CAF9" d="M28.8 21c-1.2-1.4-3-2.2-4.8-2.2s-3.6.8-4.8 2.2c-.5.5-.4 1.3.1 1.8s1.3.4 1.8-.1c1.5-1.7 4.3-1.7 5.8 0c.3.3.6.4 1 .4c.3 0 .6-.1.9-.3c.4-.4.5-1.3 0-1.8z"></path></svg>
+  // },
   {
     name: 'svg',
     icon: <svg width="1em" height="1em" viewBox="0 0 48 48"><path fill="#8CBCD6" d="M31 41H8c-2.2 0-4-1.8-4-4V11c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4v17c0 7.2-5.8 13-13 13z"></path><circle fill="#B3DDF5" cx="35" cy="16" r="3"></circle><path fill="#9AC9E3" d="M20 16L9 32h22z"></path><path fill="#B3DDF5" d="M31 22l-8 10h16z"></path><path fill="#E57373" d="M47.7 29.1l-2.8-2.8c-.4-.4-1.1-.4-1.6 0L42 27.6l4.4 4.4l1.3-1.3c.4-.4.4-1.1 0-1.6z"></path><path fill="#FF9800" d="M27.467 42.167L39.77 29.865l4.384 4.384L31.85 46.55z"></path><path fill="#B0BEC5" d="M46.4 32.038l-2.192 2.192l-4.383-4.384l2.192-2.191z"></path><path fill="#FFC107" d="M27.5 42.2L26 48l5.8-1.5z"></path><path fill="#37474F" d="M26.7 45l-.7 3l3-.7z"></path></svg>
