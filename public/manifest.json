@@ -22,6 +22,10 @@
   "theme_color": "#00bbbb",
   "background_color": "#f7f7f7",
   "display": "standalone",
+  "protocol_handlers": [{
+    "protocol": "web+lab",
+    "url": "./#/%s"
+  }],
   "scope": "/",
   "shortcuts": [
     {
