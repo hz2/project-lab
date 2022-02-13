@@ -137,6 +137,15 @@ const Home = (props: any) => (
             rel="noopener noreferrer">
             feedback
           </a>
+          <span className="splitcolor">\</span>
+          <a
+            href="web+lab://bing"
+            target="_blank"
+            rel="noopener noreferrer">
+            wallpaper
+          </a>
+
+          
         </span>
       </Divider>
     </footer>
