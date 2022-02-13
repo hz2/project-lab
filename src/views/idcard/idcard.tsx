@@ -37,29 +37,6 @@ const rdm = (min: number, max: number) => {
 }
 
 
-const queryTest = () => {
-
-  const query = `query {
-    todos {
-      name
-    }
-  }`
-
-fetch('https://app.0xc8.com/graphql', {
-  method: 'POST',
-
-    headers: {
-      'content-type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  // mode: 'no-cors',
-  body: JSON.stringify({query})
-})
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));
-
-}
-
 class idcard extends React.Component {
   state: State = {
     visible: false,
@@ -381,7 +358,6 @@ class idcard extends React.Component {
     const { phoneobj } = this.state
     return (
       <>
-      <Button onClick={()=> queryTest() }>test</Button>
         <div className="item-block">
           <div className="line">
             <Button
