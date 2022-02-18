@@ -167,8 +167,7 @@ class idcard extends React.Component {
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
-      const cityText: string = await this.queryArea(val.substring(0, 6))
-      const area = Array.from(new Set(cityText || [])).join(' ')
+      const area = await this.queryArea(val.substring(0, 6))
       this.setState({
         resultArea: area
       })
@@ -184,11 +183,8 @@ class idcard extends React.Component {
   }
 
   queryArea = async (code: string) => {
-    const r = await gql(`query {  area(code:"${code}") }`)
-    console.log('r', r );
-    return r
-    
-
+    const { area } = await gql(`query {  area(code:"${code}") }`)
+    return area.join(' ')
   }
   handleChange = ({
     target: { value }
