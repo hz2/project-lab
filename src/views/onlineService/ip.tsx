@@ -1,13 +1,11 @@
 // https://reqbin.com/lib/ipInfo-api/yel1uw4m/ip-geolocation-api-example
 // https://devpal.co/
 import React, { useEffect, useState, useCallback } from 'react'
-import Country from './country.json'
 import { AimOutlined } from "@ant-design/icons";
 import { Spin, Input, Form, Button } from 'antd'
-import './ip.less'
+import { gql } from "@/libs/req"
 
-const list = Country.list
-const getCountry = (iso: string) => list.filter(x => x.iso === iso)[0]
+import './ip.less'
 
 const transformLonlatToDD = (coordinate: number) => {
   const d = Math.floor(coordinate) //116.512885 转换成度（°）实则是取整
@@ -70,7 +68,7 @@ const getMap = (loc: string) => {
   // \!1d13705818.681931842!2d138.42930715!3d32.999896050000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-CN!2sjp!4v1620183206669!5m2!1szh-CN!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 }
 
-const getIpInfo = (ip?:string|undefined) => {
+const getIpInfo = (ip?: string | undefined) => {
   const url = 'https://respok.com/ipinfo_io/' + (ip || 'default')
   // const url = 'https://cf.p0t.top/cf'
   return fetch(url, { mode: 'cors' }).then(response => response.json())
@@ -80,6 +78,18 @@ const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 20 },
 };
+
+
+const getCountry = async (iso:string)=> {
+  const r = await gql(`query {
+    country(iso:"${iso}") {
+      emoji
+      name
+      zh 
+    }
+  }`)
+  return r.country
+}
 
 const Page = () => {
   const [text, setText] = useState({
@@ -102,12 +112,12 @@ const Page = () => {
   const queryIp = useCallback(() => {
     setLoading(true)
     getIpInfo(ip)
-      .then(r => {
+      .then(async r => {
         if (r) {
           const { country } = r
           setText(r)
           if (country) {
-            setCountryObj(getCountry(country))
+            setCountryObj(await getCountry(country))
           }
         }
       })
@@ -117,12 +127,12 @@ const Page = () => {
 
   useEffect(() => {
     getIpInfo()
-      .then(r => {
+      .then(async r => {
         if (r) {
           const { country } = r
           setText(r)
           if (country) {
-            setCountryObj(getCountry(country))
+            setCountryObj(await getCountry(country))
           }
         }
       })

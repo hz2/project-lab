@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip } from 'antd'
 import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
-import Currency from './currency.json'
+// import Currency from './currency.json'
 import './currency-page.less'
 
 import { FilterFunc, DefaultOptionType } from 'rc-select/lib/Select.d'
+import { gql } from "@/libs/req"
 
 
 
@@ -92,84 +93,98 @@ interface IRates {
   [key: string]: number
 }
 
-const list: CurrencyList = Currency.list.map(
-  (x: { country: string; text: string; currency: string }) => ({
+const getFullList = async () => {
+  const r = await gql(`query {
+    currency {
+      currency
+      value: country
+      country: country
+      text: currency_name
+    }
+  }`)
+  const list = (r.currency || []).map((x: ICurrency) => ({
     ...x,
     num: 0,
     label: `${x.country} ${x.text} ${x.currency} `,
-    currency: x.currency,
-    value: x.currency
-  })
-)
-
-const tranCurrency = (currency: string) =>
-  list.filter(x => x.currency === currency)[0]
-const genNewList = (
-  ratesVal: { [x: string]: number },
-  input: number,
-  key1: string
-): CurrencyList =>
-  list
-    .filter((x, i) => i < 15 && x.value !== key1)
-    .map(x => ({ ...x, num: (input / ratesVal[key1]) * ratesVal[x.value] }))
+  }))
+  return list
+}
+const getFullRate = async () => {
+  const r = await fetch('https://respok.com/fixer_io', { mode: 'cors' })
+    .then(response => response.json())
+  if (r && r.rates) {
+    return r.rates
+  } else {
+    return {}
+  }
+}
 
 const Page = () => {
   const [bindVal, SetBindVal] = useState({
     input: 1,
     key1: 'USD',
     key2: 'CNY',
+    unit1: '',
+    unit2: '',
     value: 0
   })
 
   const [ratesVal, SetRatesVal] = useState<IRates>({})
 
   const [newList, SetNewList] = useState<CurrencyList>([])
+  const [fullList, SetFullList] = useState<CurrencyList>([])
   const calc = (obj: {
     key1?: string
     key2?: string
     input?: string | number
   }) => {
     const { input, key1, key2 } = Object.assign({}, bindVal, obj)
-    const r1 = ratesVal[key1]
-    const r2 = ratesVal[key2]
-    const val = (input / r1) * r2
-    SetBindVal({
-      input,
-      key1,
-      key2,
-      value: val
-    })
-    genTable({
-      input,
-      key1
-    })
+    setBindValFn(ratesVal, fullList, input, key1, key2)
+    genTable(ratesVal, fullList, input, key1)
   }
 
   useEffect(() => {
-    fetch('https://respok.com/fixer_io', { mode: 'cors' })
-      .then(response => response.json())
-      .then(r => {
-        if (r && r.rates) {
-          const ratesVal = r.rates
-          SetRatesVal(ratesVal)
-          const key1 = 'USD',
-            key2 = 'CNY'
-          const obj = {
-            input: 1,
-            key1,
-            key2,
-            value: (1 / ratesVal[key1]) * ratesVal[key2]
-          }
-          SetBindVal(obj)
-          const newList = genNewList(ratesVal, 1, key1)
-          SetNewList(newList)
-        }
-      })
-      .catch(err => console.error(new Error(err)))
+    const init = async () => {
+      const [ratesVal, fullList] = await Promise.all([getFullRate(), getFullList()])
+      SetRatesVal(ratesVal)
+      SetFullList(fullList)
+      setBindValFn(ratesVal, fullList)
+      genTable(ratesVal, fullList, 1, "USD")
+    }
+    init()
   }, [])
 
-  const genTable = ({ input, key1 }: { input: number; key1: string }) => {
-    const newList = genNewList(ratesVal, input, key1)
+
+  const setBindValFn = (ratesVal: IRates, fullList: CurrencyList, input = 1, key1 = 'USD', key2 = 'CNY') => {
+    const [unit1, unit2] = fullList.filter(x => [key1, key2].includes(x.currency)).map(x => x.text)
+    const obj = {
+      input, key1, key2, unit1, unit2,
+      value: (input / ratesVal[key1]) * ratesVal[key2]
+    }
+    SetBindVal(obj)
+  }
+
+  const genTable = (ratesVal: IRates, fullList: CurrencyList, input: number, key1: string) => {
+    const newList: CurrencyList = [
+      "CNY",
+      "BTC",
+      "USD",
+      "EUR",
+      "GBP",
+      "MOP",
+      "HKD",
+      "TWD",
+      "JPY",
+      "KRW",
+      "AUD",
+      "CAD",
+      "CHF",
+      "XAG",
+      "XAU",
+    ].filter(x => x !== key1).map(currency => {
+      const item = fullList.filter(x => x.currency === currency)[0]
+      return { ...item, num: (input / ratesVal[key1]) * ratesVal[currency] }
+    })
     SetNewList(newList)
   }
 
@@ -209,10 +224,10 @@ const Page = () => {
             value={bindVal.key1}
             onChange={val => calc({ key1: val })}
             filterOption={filterOption}
-            options={list}></Select>
+            options={fullList}></Select>
           <div className="numText mt10 center">
             <span className="num">{bindVal.input}</span>
-            <span className="unit">{tranCurrency(bindVal.key1).text}</span>
+            <span className="unit">{bindVal.unit1}</span>
           </div>
         </Input.Group>
         <div className="mx15 py20">
@@ -231,10 +246,10 @@ const Page = () => {
             value={bindVal.key2}
             onChange={val => calc({ key2: val })}
             filterOption={filterOption}
-            options={list}></Select>
+            options={fullList}></Select>
           <div className="numText mt10 flex center">
             <Statistic value={bindVal.value} precision={5} />
-            <span className="ml10 unit">{tranCurrency(bindVal.key2).text}</span>
+            <span className="ml10 unit">{bindVal.unit2}</span>
           </div>
         </div>
       </div>
@@ -248,14 +263,12 @@ const Page = () => {
             actions={[
               <Tooltip
                 placement="top"
-                title={`${bindVal.input} ${x.text}等于 ? ${tranCurrency(bindVal.key2).text
-                  }`}>
+                title={`${bindVal.input} ${x.text}等于 ? ${bindVal.unit2}`}>
                 <CaretLeftFilled onClick={() => currencyChange(x.currency)} />
               </Tooltip>,
               <Tooltip
                 placement="top"
-                title={`${bindVal.input} ${tranCurrency(bindVal.key1).text
-                  }等于 ? ${x.text}`}>
+                title={`${bindVal.input} ${bindVal.unit1}等于 ? ${x.text}`}>
                 <CaretRightFilled onClick={() => rightChange(x.currency)} />
               </Tooltip>
             ]}>

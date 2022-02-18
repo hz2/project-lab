@@ -35,6 +35,8 @@ const rdm = (min: number, max: number) => {
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min
 }
+
+
 class idcard extends React.Component {
   state: State = {
     visible: false,
