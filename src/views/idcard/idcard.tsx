@@ -6,6 +6,7 @@ import { copyText } from '@libs/common'
 
 import { calendar } from './calendar'
 import './idcard.less'
+import { gql } from '@/libs/req'
 
 type TValid = 'valid' | 'invalid' | null
 interface TXzsq {
@@ -79,7 +80,7 @@ class idcard extends React.Component {
         // .map((x, i) => x * (2 ** (17 - i) % 11))
         .reduce((x: any, y: any) => x + y) % 11
     ] + ''
-  setResult = (val: string) => {
+  setResult = async (val: string) => {
     let birth = ''
     let sex = ''
     let astrology = ''
@@ -166,8 +167,7 @@ class idcard extends React.Component {
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
       }
-      const cityText = this.citycode2Text(val.substring(0, 6))
-      const area = Array.from(new Set(cityText || [])).join(' ')
+      const area = await this.queryArea(val.substring(0, 6))
       this.setState({
         resultArea: area
       })
@@ -182,6 +182,10 @@ class idcard extends React.Component {
     })
   }
 
+  queryArea = async (code: string) => {
+    const { area } = await gql(`query {  area(code:"${code}") }`)
+    return area.join(' ')
+  }
   handleChange = ({
     target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -293,14 +297,6 @@ class idcard extends React.Component {
     })
   }
 
-  citycode2Text = (code: string | number) => {
-    const xzqh = this.state.xzqh || {}
-    return xzqh[code]
-    // return fetch('https://cf.p0t.top/' + code, {
-    //   mode: 'cors'
-    // }).then(response => response.json())
-    // const url = 'https://cf.p0t.top/cf'
-  }
   cityList = () => {
     const res2Key = (res: {}) => Object.keys(res).filter(x => !x.endsWith('00'))
     const xzqhLoc = window.localStorage.getItem('xzqh')
