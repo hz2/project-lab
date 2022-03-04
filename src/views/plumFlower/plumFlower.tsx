@@ -74,13 +74,14 @@ const guaType: IGuaType = {
 
 const Yi = () => {
   const genDom = (type: TGuaType = 'houtian', textkey = 'trigrams') => {
-    const gua = listOrig.map((x, i) => {
-      const typeArr: yaoType[] = guaType[type];
-      const text: yaoType = typeArr[i]
-      return Object.assign(x, guaJson[text])
-    }
+    const gua = listOrig
+    // .map((x, i) => {
+    //   const typeArr: yaoType[] = guaType[type];
+    //   const text: yaoType = typeArr[i]
+    //   return Object.assign(x, guaJson[text])
+    // })
 
-    )
+    console.log('gua', gua  );
     return gua.map((x, i) => (
       <g key={i}>
         <path
