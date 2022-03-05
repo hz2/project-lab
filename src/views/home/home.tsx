@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider } from 'antd'
+import { Button, Divider, Popover } from 'antd'
 // import {
 //   IdcardTwoTone,
 //   ProjectTwoTone,
@@ -25,7 +25,7 @@ import './home.less'
 const generatorList = [
   {
     name: 'person',
-    icon:  <svg width="1em" height="1em" viewBox="0 0 48 48"><path fill="#FF9800" d="M24 37l-5-6v-6h10v6z"></path><g fill="#FFA726"><circle cx="33" cy="19" r="2"></circle><circle cx="15" cy="19" r="2"></circle></g><path fill="#FFB74D" d="M33 13c0-7.6-18-5-18 0v7c0 5 4 9 9 9s9-4 9-9v-7z"></path><path fill="#424242" d="M24 4c-6.1 0-10 4.9-10 11v2.3l2 1.7v-5l12-4l4 4v5l2-1.7V15c0-4-1-8-6-9l-1-2h-3z"></path><g fill="#784719"><circle cx="28" cy="19" r="1"></circle><circle cx="20" cy="19" r="1"></circle></g><path fill="#fff" d="M24 43l-5-12l5 1l5-1z"></path><path fill="#D32F2F" d="M23 35l-.7 4.5l1.7 4l1.7-4L25 35l1-1l-2-2l-2 2z"></path><path fill="#546E7A" d="M29 31l-5 12l-5-12S8 33 8 44h32c0-11-11-13-11-13z"></path></svg>
+    icon: <svg width="1em" height="1em" viewBox="0 0 48 48"><path fill="#FF9800" d="M24 37l-5-6v-6h10v6z"></path><g fill="#FFA726"><circle cx="33" cy="19" r="2"></circle><circle cx="15" cy="19" r="2"></circle></g><path fill="#FFB74D" d="M33 13c0-7.6-18-5-18 0v7c0 5 4 9 9 9s9-4 9-9v-7z"></path><path fill="#424242" d="M24 4c-6.1 0-10 4.9-10 11v2.3l2 1.7v-5l12-4l4 4v5l2-1.7V15c0-4-1-8-6-9l-1-2h-3z"></path><g fill="#784719"><circle cx="28" cy="19" r="1"></circle><circle cx="20" cy="19" r="1"></circle></g><path fill="#fff" d="M24 43l-5-12l5 1l5-1z"></path><path fill="#D32F2F" d="M23 35l-.7 4.5l1.7 4l1.7-4L25 35l1-1l-2-2l-2 2z"></path><path fill="#546E7A" d="M29 31l-5 12l-5-12S8 33 8 44h32c0-11-11-13-11-13z"></path></svg>
   },
   {
     name: 'bing',
@@ -118,7 +118,7 @@ const Home = (props: any) => (
       <div className="btn-list">{genBtn(analyzerList, 'aly')}</div>
     </section>
     {/* <Counter /> */}
-    <footer className="github">
+    <footer className="footer">
       <Divider>
         <span className="footertext">
           <span>2020-present</span>
@@ -138,14 +138,24 @@ const Home = (props: any) => (
             feedback
           </a>
           <span className="splitcolor">\</span>
-          <a
+          <Popover content={
+            <img src="./gh_2799af390fcc_258.jpg" alt="lab-mpcode" className="lab-mpcode" />
+          }>
+            <span className='link'>
+              <svg width="1em" height="1em" className='mr5' viewBox="0 0 52.92 52.92" fill="#07c160">
+                <path d="m26.46 2.646c-13.15 0-23.81 10.66-23.81 23.81 0 13.15 10.66 23.81 23.81 23.81 13.15 0 23.81-10.66 23.81-23.81 0-13.15-10.66-23.81-23.81-23.81zm6.567 10.17c4.738 0 8.591 3.513 8.591 7.832 0 1.375-0.3933 2.666-1.078 3.789l-1e-3 -5.17e-4c-1.056 1.732-2.811 3.06-4.914 3.672-0.05285 0.01524-0.1053 0.03222-0.1587 0.04651-0.3248 0.0924-0.6575 0.1488-0.9881 0.1488-1.457 0-2.28-0.9841-1.838-2.198 0.3234-0.8876 1.172-1.637 2.207-1.984 1.605-0.5853 2.727-1.921 2.727-3.474 0-2.093-2.036-3.789-4.547-3.789-2.512 0-4.548 1.697-4.548 3.789v11.62c0 2.795-1.619 5.246-4.043 6.633-1.321 0.7553-2.877 1.2-4.548 1.2-4.738 0-8.591-3.513-8.591-7.832 0-1.375 0.3933-2.666 1.078-3.789 1.06-1.74 2.826-3.072 4.943-3.68 0.0018-0.0011 0.0032-0.0017 0.0052-0.0021 0.3567-0.111 0.7267-0.1726 1.091-0.1726 1.464 0 2.29 0.989 1.846 2.208-0.3005 0.8263-1.11 1.538-2.055 1.916-0.1124 0.03761-0.2226 0.08023-0.3308 0.1245-1.5 0.6195-2.534 1.905-2.534 3.394 0 2.093 2.036 3.789 4.548 3.789 2.512 0 4.547-1.697 4.547-3.789v-11.62c0-2.795 1.62-5.246 4.043-6.633 1.321-0.7557 2.876-1.2 4.547-1.2z" fill="#0bb" />
+              </svg>
+              mini program
+            </span>
+          </Popover>
+          {/* <a
             href="web+lab://bing"
             target="_blank"
             rel="noopener noreferrer">
             wallpaper
-          </a>
+          </a> */}
 
-          
+
         </span>
       </Divider>
     </footer>
