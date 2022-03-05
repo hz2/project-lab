@@ -132,6 +132,10 @@ const Yi = () => {
   const [guaTypeVal, setGuaTypeVal] = useState<TGuaType>('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
 
+  useEffect(() => {
+    genDom()
+  }, [])
+
   const ActionBar1 = () => {
     const list = Object.entries({
       xiantian: '伏羲先天',
@@ -153,7 +157,7 @@ const Yi = () => {
       </Radio.Group>
     )
   }
-  
+
   const guaTypeFn = async (val: TGuaType) => {
     setGuaTypeVal(val)
     genDom(val, guaTextVal)
