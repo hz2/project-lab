@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Radio, Form, Button } from 'antd'
-import guaJson from './guaText'
 import HeluoComp, { TTabVal } from './heluo'
 import { downloadBlob } from '@libs/common'
+import { gql } from '@/libs/req'
 
 const w = 1000
 const half = w / 2
@@ -71,18 +71,31 @@ const guaType: IGuaType = {
   guishu: ['kun', 'zhen', 'li', 'dui', 'qian', 'xun', 'kan', 'gen'],
   longtu: ['zhen', 'qian', 'dui', 'kan', 'xun', 'kun', 'gen', 'li']
 }
-
+const getGua = (v: string, order: string) => gql(`query {
+  text: gua1(key: "text") {
+    ...guaKit
+  }
+  color: gua1(key: "color") {
+    ...guaKit
+  }
+  ${v}: gua1(key: "${v}") {
+    ...guaKit
+  }
+}
+fragment guaKit on Gua {${order}}
+`)
 const Yi = () => {
-  const genDom = (type: TGuaType = 'houtian', textkey = 'trigrams') => {
+  const genDom = async (type: TGuaType = 'houtian', textkey = 'trigrams') => {
+    const guaArr = guaType[type]
+    const order = guaArr.join(' ')
+    const { text, color, [textkey]: v } = await getGua(textkey, order);
     const gua = listOrig
-    // .map((x, i) => {
-    //   const typeArr: yaoType[] = guaType[type];
-    //   const text: yaoType = typeArr[i]
-    //   return Object.assign(x, guaJson[text])
-    // })
-
-    console.log('gua', gua  );
-    return gua.map((x, i) => (
+      .map((x, i) => Object.assign(x, {
+        text: text[guaArr[i]],
+        color: color[guaArr[i]],
+        vText: v[guaArr[i]],
+      }))
+    const result: JSX.Element[] = gua.map((x, i) => (
       <g key={i}>
         <path
           id={x.id}
@@ -107,13 +120,14 @@ const Yi = () => {
           textAnchor="middle"
           dominantBaseline="middle"
           transform={`rotate(${i * 45},${half},${half})`}>
-          <tspan fill="#fff">{x[textkey]}</tspan>
+          <tspan fill="#fff">{x.vText}</tspan>
         </text>
       </g>
     ))
+    setGuaList(result)
   }
 
-  const [guaList, setGuaList] = useState(genDom())
+  const [guaList, setGuaList] = useState<JSX.Element[]>([])
   // const [luoshuVal, setLuoshuVal] = useState(null)
   const [guaTypeVal, setGuaTypeVal] = useState<TGuaType>('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
@@ -139,10 +153,10 @@ const Yi = () => {
       </Radio.Group>
     )
   }
-
-  const guaTypeFn = (val: TGuaType) => {
+  
+  const guaTypeFn = async (val: TGuaType) => {
     setGuaTypeVal(val)
-    setGuaList(genDom(val, guaTextVal))
+    genDom(val, guaTextVal)
   }
   const ActionBar2 = () => {
     const list = Object.entries({
@@ -178,9 +192,9 @@ const Yi = () => {
       </Radio.Group>
     )
   }
-  const guaTextFn = (val: string) => {
+  const guaTextFn = async (val: string) => {
     setGuaTextVal(val)
-    setGuaList(genDom(guaTypeVal, val))
+    genDom(guaTypeVal, val)
   }
 
   const [heluoTab, setheluoTab] = useState<TTabVal>('fish') // fish
