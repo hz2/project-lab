@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import {
   BrowserRouter as Router,
@@ -24,45 +24,42 @@ import {
 
 function AnimationExample() {
   const loc = useLocation()
-  return (
-    <Router>
-      <Route
-        element={() => (
-          <div style={styles.fill}>
-            <Route
-              path="/"
-              element={() => <Navigate to="/hsl/10/90/50" />}
-            />
+  return <Router>
+    <Route
+      element={<div style={styles.fill}>
+        <Route
+          path="/"
+          element={<Navigate to="/hsl/10/90/50" />}
+        />
 
-            <ul style={styles.nav}>
-              <NavLink to="/hsl/10/90/50">Red</NavLink>
-              <NavLink to="/hsl/120/100/40">Green</NavLink>
-              <NavLink to="/rgb/33/150/243">Blue</NavLink>
-              <NavLink to="/rgb/240/98/146">Pink</NavLink>
-            </ul>
+        <ul style={styles.nav}>
+          <NavLink to="/hsl/10/90/50">Red</NavLink>
+          <NavLink to="/hsl/120/100/40">Green</NavLink>
+          <NavLink to="/rgb/33/150/243">Blue</NavLink>
+          <NavLink to="/rgb/240/98/146">Pink</NavLink>
+        </ul>
 
-            <div style={styles.content}>
-              <TransitionGroup>
-                <CSSTransition
-                  key={loc.key}
-                  classNames="fade"
-                  timeout={300}>
-                  <Routes location={loc}>
-                    <Route path="/hsl/:h/:s/:l" element={HSL} />
-                    <Route path="/rgb/:r/:g/:b" element={RGB} />
-                    {/* Without this `Route`, we would get errors during
+        <div style={styles.content}>
+          <TransitionGroup>
+            <CSSTransition
+              key={loc.key}
+              classNames="fade"
+              timeout={300}>
+              <Routes location={loc}>
+                <Route path="/hsl/:h/:s/:l" children={HSL} />
+                <Route path="/rgb/:r/:g/:b" children={RGB} />
+                {/* Without this `Route`, we would get errors during
                     the initial transition from `/` to `/hsl/10/90/50`
                 */}
-                    <Route element={() => <div>Not Found</div>} />
-                  </Routes>
-                </CSSTransition>
-              </TransitionGroup>
-            </div>
-          </div>
-        )}
-      />
-    </Router>
-  )
+                <Route element={<div>Not Found</div>} />
+              </Routes>
+            </CSSTransition>
+          </TransitionGroup>
+        </div>
+      </div>
+      }
+    />
+  </Router>
 }
 
 function NavLink(props: LinkProps) {
@@ -86,7 +83,7 @@ interface ColorProps {
   }
 }
 
-function HSL({ match: { params } }: ColorProps) {
+function HSL({ match: { params } }: ColorProps):ReactNode {
   return (
     <div
       style={{
@@ -102,7 +99,7 @@ function HSL({ match: { params } }: ColorProps) {
   )
 }
 
-function RGB({ match: { params } }: ColorProps) {
+function RGB({ match: { params } }: ColorProps):ReactNode {
   return (
     <div
       style={{
@@ -167,4 +164,4 @@ styles.rgb = {
   fontSize: '30px'
 }
 
-export default AnimationExample
+export default AnimationExample()

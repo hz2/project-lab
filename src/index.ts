@@ -1,5 +1,5 @@
 // @flow
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
@@ -9,8 +9,9 @@ import './index.less'
 import Routers from './routers'
 
 const target = document.querySelector('#root')
+const root = createRoot(target!); // createRoot(container!) if you use TypeScript
 
-render(Routers, target)
+root.render(Routers)
 
 serviceWorkerRegistration.register({
   onUpdate: (registration: any) => {
