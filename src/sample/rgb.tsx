@@ -83,34 +83,31 @@ interface ColorProps {
   }
 }
 
-function HSL({ match: { params } }: ColorProps):ReactNode {
-  return (
-    <div
-      style={{
-        ...styles.fill,
-        ...styles.hsl,
-        background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
-      }}>
-      hsl(
-      {params.h}, {params.s}
-      %, {params.l}
-      %)
-    </div>
-  )
+function HSL({ match: { params } }: ColorProps): ReactNode {
+  return <div
+    style={{
+      ...styles.fill,
+      ...styles.hsl,
+      background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
+    }}>
+    hsl(
+    {params.h}, {params.s}
+    %, {params.l}
+    %)
+  </div>
+
 }
 
-function RGB({ match: { params } }: ColorProps):ReactNode {
-  return (
-    <div
-      style={{
-        ...styles.fill,
-        ...styles.rgb,
-        background: `rgb(${params.r}, ${params.g}, ${params.b})`
-      }}>
-      rgb(
-      {params.r}, {params.g}, {params.b})
-    </div>
-  )
+function RGB({ match: { params } }: ColorProps) {
+  return <div
+    style={{
+      ...styles.fill,
+      ...styles.rgb,
+      background: `rgb(${params.r}, ${params.g}, ${params.b})`
+    }}>
+    rgb(
+    {params.r}, {params.g}, {params.b})
+  </div>
 }
 
 interface IStyle {
@@ -164,4 +161,4 @@ styles.rgb = {
   fontSize: '30px'
 }
 
-export default AnimationExample()
+export default AnimationExample
