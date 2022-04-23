@@ -7,7 +7,8 @@ import {
   Link,
   Navigate,
   useLocation,
-  LinkProps
+  LinkProps,
+  useParams
 } from 'react-router-dom'
 
 /* you'll need this CSS somewhere
@@ -46,8 +47,8 @@ function AnimationExample() {
               classNames="fade"
               timeout={300}>
               <Routes location={loc}>
-                <Route path="/hsl/:h/:s/:l" children={HSL} />
-                <Route path="/rgb/:r/:g/:b" children={RGB} />
+                <Route path="/hsl/:h/:s/:l" element={<HSL />} />
+                <Route path="/rgb/:r/:g/:b" element={<RGB />} />
                 {/* Without this `Route`, we would get errors during
                     the initial transition from `/` to `/hsl/10/90/50`
                 */}
@@ -71,19 +72,16 @@ function NavLink(props: LinkProps) {
 }
 
 interface ColorProps {
-  match: {
-    params: {
-      h: string
-      s: string
-      l: string
-      r: string
-      g: string
-      b: string
-    }
-  }
+  h: string
+  s: string
+  l: string
+  r: string
+  g: string
+  b: string
 }
 
-function HSL({ match: { params } }: ColorProps): ReactNode {
+function HSL() {
+  let params = useParams();
   return <div
     style={{
       ...styles.fill,
@@ -98,7 +96,8 @@ function HSL({ match: { params } }: ColorProps): ReactNode {
 
 }
 
-function RGB({ match: { params } }: ColorProps) {
+function RGB() {
+  let params = useParams();
   return <div
     style={{
       ...styles.fill,
