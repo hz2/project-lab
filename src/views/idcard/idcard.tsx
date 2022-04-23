@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchOutlined } from '@ant-design/icons'
-import { Modal, Input, Button, Spin } from 'antd'
+import { Input, Button, Spin } from 'antd'
 
 import { copyText } from '@libs/common'
 
@@ -387,17 +387,17 @@ class idcard extends React.Component {
                   }[this.state.isValidate]
                 : ''}
             </p>
-            <p>{this.state.resultArea}</p>
-            <p>{this.state.resultSex}</p>
-            <p>{this.state.resultBirth}</p>
+            <p>{this.state.resultArea as string}</p>
+            <p>{this.state.resultSex as string}</p>
+            <p>{this.state.resultBirth as string}</p>
             <p>
-              {this.state.resultZodiac} {this.state.resultBirthCn}
+              {this.state.resultZodiac  as string} {this.state.resultBirthCn  as string}
             </p>
-            <p>{this.state.resultAstrology}</p>
-            <p>{this.state.resultBirthGZ}</p>
+            <p>{this.state.resultAstrology as string}</p>
+            <p>{this.state.resultBirthGZ as string}</p>
 
-            <div className="addition icon1">{this.state.icon1}</div>
-            <div className="addition icon2">{this.state.icon2}</div>
+            <div className="addition icon1">{this.state.icon1 as string}</div>
+            <div className="addition icon2">{this.state.icon2 as string}</div>
           </div>
         </div>
 
@@ -438,7 +438,7 @@ class idcard extends React.Component {
           </div>
         </div>
 
-        <Modal
+        {/* <Modal
           title="Basic Modal"
           visible={this.state.visible}
           onOk={this.handleOk}
@@ -446,7 +446,7 @@ class idcard extends React.Component {
           <p>Some contents...</p>
           <p>Some contents...</p>
           <p>Some contents...</p>
-        </Modal>
+        </Modal> */}
       </>
     )
   }

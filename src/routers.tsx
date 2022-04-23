@@ -62,7 +62,7 @@ const Routers = (
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/rgb" element={<Rgb />} />
+            <Route path="/rgb/*" element={<Rgb />} />
             <>{routesList}</>
           </Routes>
         </Suspense>
