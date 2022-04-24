@@ -166,7 +166,6 @@ const SvgO = () => {
   )
 
   return (
-    <>
       <Spin spinning={loading} size="large">
         <div className="btngroup">
           <Upload {...props}>
@@ -202,7 +201,6 @@ const SvgO = () => {
           </div>
         </div>
       </Spin>
-    </>
   )
 }
 

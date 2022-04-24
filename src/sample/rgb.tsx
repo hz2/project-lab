@@ -1,68 +1,47 @@
 import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link,
   Navigate,
   useLocation,
-  LinkProps
+  LinkProps,
+  useParams
 } from 'react-router-dom'
 
-/* you'll need this CSS somewhere
-.fade-enter {
-  opacity: 0;
-  z-index: 1;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 250ms ease-in;
-}
-*/
+import './rgb.less'
 
 function AnimationExample() {
   const loc = useLocation()
-  return (
-    <Router>
-      <Route
-        element={() => (
-          <div style={styles.fill}>
-            <Route
-              path="/"
-              element={() => <Navigate to="/hsl/10/90/50" />}
-            />
-
-            <ul style={styles.nav}>
-              <NavLink to="/hsl/10/90/50">Red</NavLink>
-              <NavLink to="/hsl/120/100/40">Green</NavLink>
-              <NavLink to="/rgb/33/150/243">Blue</NavLink>
-              <NavLink to="/rgb/240/98/146">Pink</NavLink>
-            </ul>
-
-            <div style={styles.content}>
-              <TransitionGroup>
-                <CSSTransition
-                  key={loc.key}
-                  classNames="fade"
-                  timeout={300}>
-                  <Routes location={loc}>
-                    <Route path="/hsl/:h/:s/:l" element={HSL} />
-                    <Route path="/rgb/:r/:g/:b" element={RGB} />
-                    {/* Without this `Route`, we would get errors during
-                    the initial transition from `/` to `/hsl/10/90/50`
-                */}
-                    <Route element={() => <div>Not Found</div>} />
-                  </Routes>
-                </CSSTransition>
-              </TransitionGroup>
-            </div>
-          </div>
-        )}
-      />
-    </Router>
-  )
+  return <div style={styles.fill}>
+      <Routes>
+        <Route
+          path="/rgb/*"
+          element={<Navigate to="/hsl/10/90/50" />}
+        /></Routes>
+      <ul style={styles.nav}>
+        <NavLink to="/hsl/10/90/50">Red</NavLink>
+        <NavLink to="/hsl/120/100/40">Green</NavLink>
+        <NavLink to="/rgb/33/150/243">Blue</NavLink>
+        <NavLink to="/rgb/240/98/146">Pink</NavLink>
+      </ul>
+    <div className="qq"><>{JSON.stringify(loc ) }</></div>
+      <div style={styles.content}>
+        <TransitionGroup>
+          <CSSTransition
+            key={loc.key}
+            classNames="fade"
+            timeout={300}>
+            <Routes >
+              <Route path="/hsl/:h/:s/:l" element={<HSL />} />
+              <Route path=":r/:g/:b" element={<RGB />} />
+              {/* <Route element={<div>Not Found</div>} /> */}
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
+      </div>
+    </div>
 }
 
 function NavLink(props: LinkProps) {
@@ -73,47 +52,32 @@ function NavLink(props: LinkProps) {
   )
 }
 
-interface ColorProps {
-  match: {
-    params: {
-      h: string
-      s: string
-      l: string
-      r: string
-      g: string
-      b: string
-    }
-  }
+function HSL() {
+  let params = useParams();
+  return <div
+    style={{
+      ...styles.fill,
+      ...styles.hsl,
+      background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
+    }}>
+    hsl(
+    {params.h}, {params.s}
+    %, {params.l}
+    %)
+  </div>
+
 }
 
-function HSL({ match: { params } }: ColorProps) {
-  return (
-    <div
-      style={{
-        ...styles.fill,
-        ...styles.hsl,
-        background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
-      }}>
-      hsl(
-      {params.h}, {params.s}
-      %, {params.l}
-      %)
-    </div>
-  )
-}
-
-function RGB({ match: { params } }: ColorProps) {
-  return (
-    <div
-      style={{
-        ...styles.fill,
-        ...styles.rgb,
-        background: `rgb(${params.r}, ${params.g}, ${params.b})`
-      }}>
-      rgb(
-      {params.r}, {params.g}, {params.b})
-    </div>
-  )
+function RGB() {
+  let params = useParams();
+  return <div
+    style={{
+      ...styles.fill,
+      ...styles.rgb,
+      background: `rgb(${params.r}, ${params.g}, ${params.b})`
+    }}>
+    rgb({params.r}, {params.g}, {params.b})
+  </div>
 }
 
 interface IStyle {
