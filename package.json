@@ -8,7 +8,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "antd": "^4.20.0",
-    "connected-react-router": "^6.9.2",
     "http-proxy-middleware": "^2.0.6",
     "jsqr": "^1.4.0",
     "jszip": "^3.9.1",
@@ -36,13 +35,13 @@
     "workbox-streams": "^6.5.3"
   },
   "devDependencies": {
-    "@craco/craco": "^5.9.0",
+    "@craco/craco": "^7.0.0-alpha.3",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.25",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/react-router-dom": "^5.3.3",
-    "craco-less": "^2.0.0",
+    "craco-less": "^2.1.0-alpha.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.0",
     "prettier": "^2.6.2",
