@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Button, ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
 import Rgb from './sample/rgb'
 import Header from './views/components/Header'
@@ -60,12 +60,20 @@ const Routers = (
           fallback={
             <Spin className="fullpage" spinning={true} size="large"></Spin>
           }>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/rgb/*" element={<Rgb />} />
-            <>{routesList}</>
-          </Routes>
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: '#00b96b',
+              },
+            }}
+          >
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/rgb/*" element={<Rgb />} />
+              <>{routesList}</>
+            </Routes>
+          </ConfigProvider>
         </Suspense>
       </HashRouter>
       {/* </ConnectedRouter> */}

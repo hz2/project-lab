@@ -327,7 +327,13 @@ const Page = () => {
                 }>{`docker tag ${name}:${version} ${reg2}${namespace}/${name}:${version}
 docker push ${reg2}${namespace}/${name}:${version}
 docker rmi ${reg2}${namespace}/${name}:${version}`}</pre>
+
+            <a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/VSCodium/vscodium/LatestRelease/#:~:text=VSCodium%2Dlinux%2Dx64" >VSCodium</a>
+            <a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/dbeaver/dbeaver/LatestRelease/#:~:text=deb" >dbeaver</a>
+
+
         </div>
+
     )
 }
 
