@@ -16,32 +16,33 @@ import { ReactComponent as CurrencySvg } from './imgs/currency.svg';
 import { ReactComponent as QueryString } from './imgs/queryString.svg';
 import { ReactComponent as SvgTool } from './imgs/svgtool.svg';
 import { ReactComponent as IpSvg } from './imgs/ip.svg';
+import { ReactComponent as LinkSvg } from './imgs/link.svg';
 
 
 const generatorList = [
   {
     name: 'person',
-    icon: () => <PersonSvg />,
+    icon:  <PersonSvg />,
   },
   {
     name: 'bing',
-    icon: () => <BingSvg />,
+    icon:  <BingSvg />,
   },
   {
     name: 'nasa',
-    icon: () => <SvgNasa />,
+    icon:  <SvgNasa />,
   },
   {
     name: 'color',
-    icon: () => <ColorSvg />,
+    icon:  <ColorSvg />,
   },
   {
     name: 'lottery',
-    icon: () => <LotterySvg />,
+    icon:  <LotterySvg />,
   },
   {
     name: 'plumFlower',
-    icon: () => <PlumFlower />
+    icon:  <PlumFlower />
   },
   // {
   //   name: 'docker',
@@ -51,34 +52,38 @@ const generatorList = [
 const cnverterList = [
   {
     name: 'encode',
-    icon: () => <EncodeSvg />
+    icon:  <EncodeSvg />
   },
   {
     name: 'hex',
-    icon: () => <HexSvg />
+    icon:  <HexSvg />
   },
   {
     name: 'currency',
-    icon: () => <CurrencySvg />
+    icon:  <CurrencySvg />
   },
   {
     name: 'queryString',
-    icon: () => <QueryString />
+    icon:  <QueryString />
   },
   // {
   //   name: 'QRCode',
-  // icon: () => <QRcode />
+  // icon:  <QRcode />
   // },
   {
     name: 'svg',
-    icon: () => <SvgTool />
+    icon:  <SvgTool />
   }
 ]
 const analyzerList = [
   {
     name: 'iPAddress',
-    icon: () => <IpSvg />
-  }
+    icon:  <IpSvg />
+  },
+  {
+    name: 'proxy',
+    icon:  <IpSvg />
+  }  
 ]
 
 const genTitle = (str: string) => {
@@ -95,7 +100,7 @@ const genBtn = (list: any[], key: string) =>
       key={key + i}
       to={'/' + x.name}
       title={genTitle(x.name)}>
-      <div className="block">{x.icon()}</div>
+      <div className="block">{x.icon}</div>
       <div className="text">{genTitle(x.name)}</div>
     </Link>
   ))
@@ -138,7 +143,7 @@ const Home = (props: any) => (
             <img src="./gh_2799af390fcc_258.jpg" alt="lab-mpcode" className="lab-mpcode" />
           }>
             <span className='link'>
-
+              <LinkSvg />
               mini program
             </span>
           </Popover>
@@ -148,8 +153,6 @@ const Home = (props: any) => (
             rel="noopener noreferrer">
             wallpaper
           </a> */}
-
-
         </span>
       </Divider>
     </footer>

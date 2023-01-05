@@ -38,7 +38,8 @@ const pathList = {
   svgo: 'svgTool/svgO',
   svgbg: 'svgTool/svg2bg',
   toy: 'toy/toy',
-  docker: 'toy/docker'
+  docker: 'toy/docker',
+  proxy: 'toy/proxy'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
   const Comp = lazy(() => import('./views/' + file))
