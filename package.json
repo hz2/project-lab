@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
-    "antd": "^4.20.0",
+    "antd": "^5.1.2",
     "http-proxy-middleware": "^2.0.6",
     "jsqr": "^1.4.0",
     "jszip": "^3.9.1",
