@@ -8,3 +8,28 @@
     white-space: pre-wrap;
     word-break: keep-all;
 }
+
+.software-list {
+    background-color: #ecf1f7;
+    .item {
+        display: inline-block;
+        margin: 15px;
+        .img {
+            img {
+                cursor: pointer;
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+            }
+        }
+        .name {
+            text-align: center;
+        }
+        &:hover {
+            .img {
+                transform: rotate(-10deg);
+                transition: all 250ms ease-in-out;
+            }
+        }
+    }
+}
