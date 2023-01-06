@@ -3,6 +3,7 @@
 
 :root {
   --lab-conic-bgi: conic-gradient(#ddd 0.25turn, #999 0.25turn 0.5turn, #ddd 0.5turn 0.75turn, #999 0.75turn);
+  --lab-main-color: #00b96b;
 
 }
 
@@ -19,6 +20,16 @@ body {
 code,
 .code {
   font-family: source-code-pro, Monaco, Consolas, monospace;
+}
+
+a {
+  color: var(--lab-main-color);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:visited {
+    color: var(--lab-main-color);
+  }
 }
 
 .fullpage {

@@ -174,6 +174,20 @@ const proxyList = [
     }
 ]
 
+const softwareList = [
+    {
+        name: 'codium',
+        link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/VSCodium/vscodium/LatestRelease/#:~:text=VSCodium%2Dlinux%2Dx64",
+        icon: 'codium.svg',
+        categrory: '开发工具',
+    },
+    {
+        name: 'dbeaver',
+        link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/dbeaver/dbeaver/LatestRelease/",
+        icon: 'dbeaver.png',
+        categrory: '开发工具',
+    },
+]
 
 // get Latest codium version
 
@@ -263,74 +277,17 @@ const Page = () => {
 
     return (
         <div className="common-box ">
-            <div className="my20">选择仓库：</div>
-            <Radio.Group onChange={onChangeFn} buttonStyle="solid" value={radio}>
-                {typeList.map((x, i) => (
-                    <Radio.Button className="my5" value={x.name} key={i}>
-                        {x.zh}
-                    </Radio.Button>
-                ))}
-            </Radio.Group>
-            <div className="my20">登录：</div>
-            <div>Linux</div>
+            <div className="my20">软件下载</div>
 
-            <pre
-                className="code-block"
-                onClick={
-                    codeClick
-                }>{`docker login -u ${obj.user} ${obj.reg} < ${obj.passwdfile}  --password-stdin`}</pre>
-
-            <div>Windows</div>
-            <pre
-                className="code-block"
-                onClick={
-                    codeClick
-                }>{`type ${obj.passwdfile} | docker login -u ${obj.user} ${obj.reg} --password-stdin`}</pre>
-
-            <div className="my20">构建</div>
-            <pre
-                className="code-block"
-                onClick={codeClick}>{`docker build -t ${name} .`}</pre>
-
-            <div className="my20">打包和推送</div>
-            <div className="my20 flex start">
-                <span className="m15">命名空间</span>
-                <Select
-                    showSearch
-                    className="w150"
-                    placeholder="选择命名空间"
-                    value={namespace}
-                    onChange={selectChange}
-                    options={obj.path.map(x => ({
-                        label: `${x.path} (${x.remark})`,
-                        value: x.path
-                    }))}></Select>
-                <span className="m15">包名</span>
-                <Input
-                    value={name}
-                    onChange={e => inputChange(e, 'name')}
-                    placeholder="packname"
-                    className="w150"
-                />
-                <span className="m15">版本号</span>
-                <Input
-                    value={version}
-                    onChange={e => inputChange(e, 'version')}
-                    placeholder="v0.1"
-                    className="w150"
-                />
+            <div className="software-list">
+                {softwareList.map((x, i) => <div className='item' key={i}>
+                    <a href={x.link} target="_blank">
+                        <div className="img">
+                            <img src={require(`./imgs/${x.icon}`)} alt={x.name} />
+                        </div>
+                        <div className="name">{x.name}</div></a>
+                </div>)}
             </div>
-            <pre
-                className="code-block"
-                onClick={
-                    codeClick
-                }>{`docker tag ${name}:${version} ${reg2}${namespace}/${name}:${version}
-docker push ${reg2}${namespace}/${name}:${version}
-docker rmi ${reg2}${namespace}/${name}:${version}`}</pre>
-
-            <a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/VSCodium/vscodium/LatestRelease/#:~:text=VSCodium%2Dlinux%2Dx64" >VSCodium</a>
-            <a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/dbeaver/dbeaver/LatestRelease/#:~:text=deb" >dbeaver</a>
-
 
         </div>
 

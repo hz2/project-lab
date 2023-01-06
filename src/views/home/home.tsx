@@ -81,7 +81,7 @@ const analyzerList = [
     icon:  <IpSvg />
   },
   {
-    name: 'proxy',
+    name: 'mirrors',
     icon:  <IpSvg />
   }  
 ]
