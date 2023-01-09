@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Select, Radio, message, RadioChangeEvent } from 'antd'
 import './toy.less'
+const { TextArea } = Input
 
 interface IPathItem {
     path: string
@@ -109,13 +110,20 @@ const typeList = [
     }
 ]
 
+interface IProxy {
+    origin: string
+    host: string
+    list: {
+        target: string
+        host: string
+    }[]
+}
 
-
-const proxyList = [
+const proxyList: IProxy[] = [
     {
-        orgin: "pbs.twimg.com",
+        origin: "pbs.twimg.com",
         host: "twitter",
-        proxyList: [
+        list: [
             {
                 target: "box.p0t.top",
                 host: 'cloudflare',
@@ -123,9 +131,9 @@ const proxyList = [
         ]
     },
     {
-        orgin: "images.unsplash.com",
+        origin: "images.unsplash.com",
         host: "unsplash",
-        proxyList: [
+        list: [
             {
                 target: "box.p0t.top",
                 host: 'cloudflare',
@@ -133,8 +141,9 @@ const proxyList = [
         ]
     },
     {
-        orgin: "raw.githubusercontent.com",
-        proxyList: [
+        origin: "raw.githubusercontent.com",
+        host: "github",
+        list: [
             {
                 target: "raw.p0t.top",
                 host: 'cloudflare',
@@ -142,8 +151,9 @@ const proxyList = [
         ]
     },
     {
-        orgin: "codeload.github.com",
-        proxyList: [
+        origin: "codeload.github.com",
+        host: "github",
+        list: [
             {
                 target: "codeload.p0t.top",
                 host: 'cloudflare',
@@ -151,8 +161,9 @@ const proxyList = [
         ]
     },
     {
-        orgin: "github.com",
-        proxyList: [
+        origin: "github.com",
+        host: "github",
+        list: [
             {
                 target: "box.p0t.top/gh",
                 host: 'cloudflare',
@@ -160,8 +171,9 @@ const proxyList = [
         ]
     },
     {
-        orgin: "0xc8.com",
-        proxyList: [
+        origin: "0xc8.com",
+        host: "web",
+        list: [
             {
                 target: "0x.p0t.top",
                 host: 'cloudflare',
@@ -170,7 +182,13 @@ const proxyList = [
     },
     {
         origin: "vs",
-        target: "http://vscode.cdn.azure.cn"
+        host: "web",
+        list: [
+            {
+                target: "http://vscode.cdn.azure.cn",
+                host: 'azure',
+            }
+        ]
     }
 ]
 
@@ -192,91 +210,76 @@ const softwareList = [
 // get Latest codium version
 
 
-interface SelectElement {
-    createTextRange?(): {
-        moveToElementText: (arg0: HTMLElement) => void
-        select: () => void
-    }
-}
-function selectText(node: HTMLElement) {
-    const body = document.body as SelectElement
-    if (body.createTextRange) {
-        const range = body.createTextRange()
-        if (range.moveToElementText && range.select) {
-            range.moveToElementText(node)
-            range.select()
-        }
-    } else if (window.getSelection) {
-        const selection = window.getSelection()
-        if (!selection) return
-        const range = document.createRange()
-        range.selectNodeContents(node)
-        selection.removeAllRanges()
-        selection.addRange(range)
-    } else {
-        console.warn('Could not select text in node: Unsupported browser.')
-    }
-    navigator.clipboard
-        .writeText(node.innerText)
-        .then(() => message.success('复制成功！'))
+interface IItem {
+    [k: string]: string
 }
 
-const codeClick = ({ target }: React.MouseEvent<HTMLElement>) =>
-    selectText(target as HTMLElement)
 
-interface IInput {
-    name: string
-    version: string
-    namespace: string
+const genImg = (name: string) => {
+    const url = {
+        web: 'web.svg',
+        arrow: 'arrow.svg',
+        cloudflare: 'cloudflare.png',
+        github: 'github.svg',
+        twitter: 'twitter.svg',
+        unsplash: 'unsplash.png',
+    }[name]
+
+    console.log('url',url );
+    
+    return <img src={require(`./imgs/${url}`)} />
 }
 
 const Page = () => {
-    const [obj, setObj] = useState<ITypeItem>(typeList[0])
-    const [radio, setRadio] = useState('aliyun')
+    const [resultList, setResultList] = useState<IItem[]>([])
 
-    const [inputVal, setInput] = useState<IInput>({
-        name: 'name',
-        version: 'latest',
-        namespace: 'h2'
-    })
+    const getMirrors = (url: string) => {
+        inputUrl(url)
+        const item = proxyList.find(x => url.match(x.origin))
+        if (item) {
 
-    const inputChange = (
-        { target: { value = '' } }: React.ChangeEvent<HTMLInputElement>,
-        fn: string
-    ) =>
-        setInput({
-            ...inputVal,
-            [fn]: value
-        })
+            const r = item.list.map(x => ({ ...x, origin_host: item.host, link: url.replace(item.origin, x.target) }))
 
-    const onChangeFn = ({ target: { value } }: RadioChangeEvent) => {
-        const item: ITypeItem = typeList.find(x => x.name === value) || { path: [] }
-        setObj(item)
-        setRadio(value)
-        const namespace = item.path[0].path
-        setInput({
-            ...inputVal,
-            namespace
-        })
+            console.log('r', r);
+            setResultList(r)
 
-        const selection = window.getSelection()
-        if (selection) {
-            selection.removeAllRanges()
+
         }
+
+
+
     }
 
-    const selectChange = (val: string) => {
-        setInput({
-            ...inputVal,
-            namespace: val
-        })
-    }
 
-    const reg2 = obj.reg ? obj.reg + '/' : ''
-    const { namespace, name, version } = inputVal
+    const [url, inputUrl] = useState('https://github.com/VSCodium/vscodium/releases/download/1.74.2.23007/VSCodium-linux-x64-1.74.2.23007.tar.gz')
 
     return (
         <div className="common-box ">
+            <div className="my20">获取镜像</div>
+            <TextArea
+                placeholder={'https://github.com/....tar.gz'}
+                rows={4}
+                className="w400"
+                value={url}
+                onChange={({ target: { value } }) => {
+                    getMirrors(value)
+                }}
+            />
+
+            <div className="mirrors-list">
+                {resultList.map((x, i) => <div className='item flex start' key={i}>
+                    <div className="orgin">
+                        {genImg(x.origin_host)}
+                    </div>
+                    <div className="to">{genImg('arrow')}</div>
+                    <a href={x.link} title={x.link}>
+                        <div className="host">
+                            {genImg(x.host)}
+                        </div>
+                    </a>
+                </div>)}
+            </div>
+
             <div className="my20">软件下载</div>
 
             <div className="software-list">
