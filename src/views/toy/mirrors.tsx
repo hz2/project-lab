@@ -227,6 +227,12 @@ const softwareList = [
                 icon: 'maven.svg',
                 offical: "https://maven.apache.org/",
             },
+            {
+                name: 'Gradle',
+                link: "",
+                icon: 'gradle-elephant.svg',
+                offical: "https://gradle.org/",
+            },
         ]
     },
     {
