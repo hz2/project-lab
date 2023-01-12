@@ -194,17 +194,68 @@ const proxyList: IProxy[] = [
 
 const softwareList = [
     {
-        name: 'codium',
-        link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/VSCodium/vscodium/LatestRelease/#:~:text=VSCodium%2Dlinux%2Dx64",
-        icon: 'codium.svg',
-        categrory: '开发工具',
+        categrory: '基础环境',
+        list: [
+            {
+                name: 'git',
+                link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/LatestRelease/",
+                icon: 'git.svg',
+                offical: 'https://git-scm.com/download',
+                altList: []
+            },
+            {
+                name: 'Node.js',
+                link: "https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/",
+                icon: 'nodejs.svg',
+                offical: 'https://nodejs.org/en/download/',
+                altList: []
+            },
+            {
+                name: 'npm',
+                link: "",
+                icon: 'npm.svg',
+            },
+            {
+                name: 'Adoptium',
+                link: "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/",
+                icon: 'Adoptium.svg',
+                offical: "https://adoptium.net/",
+            },
+            {
+                name: 'Maven',
+                link: "",
+                icon: 'maven.svg',
+                offical: "https://maven.apache.org/",
+            },
+        ]
     },
     {
-        name: 'dbeaver',
-        link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/dbeaver/dbeaver/LatestRelease/",
-        icon: 'dbeaver.png',
         categrory: '开发工具',
-    },
+        list: [
+            {
+                name: 'vscode',
+                link: "",
+                icon: 'vscode.svg',
+                offical: "https://developer.android.google.cn/studio",
+            },
+            {
+                name: 'codium',
+                link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/VSCodium/vscodium/LatestRelease/#:~:text=VSCodium%2Dlinux%2Dx64",
+                icon: 'codium.svg',
+            },
+            {
+                name: 'dbeaver',
+                link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/dbeaver/dbeaver/LatestRelease/",
+                icon: 'dbeaver.png',
+            },
+            {
+                name: 'Android Studio',
+                link: "",
+                icon: 'android-studio.svg',
+                offical: "https://developer.android.google.cn/studio",
+            },
+        ]
+    }
 ]
 
 // get Latest codium version
@@ -225,8 +276,8 @@ const genImg = (name: string) => {
         unsplash: 'unsplash.png',
     }[name]
 
-    console.log('url',url );
-    
+    console.log('url', url);
+
     return <img src={require(`./imgs/${url}`)} />
 }
 
@@ -283,12 +334,18 @@ const Page = () => {
             <div className="my20">软件下载</div>
 
             <div className="software-list">
-                {softwareList.map((x, i) => <div className='item' key={i}>
-                    <a href={x.link} target="_blank">
-                        <div className="img">
-                            <img src={require(`./imgs/${x.icon}`)} alt={x.name} />
-                        </div>
-                        <div className="name">{x.name}</div></a>
+                {softwareList.map((x, i) => <div className='categrory' key={i}>
+                    <div className="title">{x.categrory}</div>
+                    {
+                        x.list.map((y, j) => <div className='item' key={j} >
+                            <a href={y.link} target="_blank">
+                                <div className="img">
+                                    <img src={require(`./imgs/${y.icon}`)} alt={y.name} />
+                                </div>
+                                <div className="name">{y.name}</div></a>
+                        </div>)
+                    }
+
                 </div>)}
             </div>
 

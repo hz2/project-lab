@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="6mm"
+   height="6mm"
+   viewBox="0 0 5.9999999 6.0000002"
+   version="1.1"
+   id="svg1293"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1290">
+    <linearGradient
+       id="paint0_linear_8323_10753"
+       x1="34.513199"
+       y1="15.5354"
+       x2="27.1574"
+       y2="30.4484"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.26458333,0,0,0.26458333,-6.1361506,-4.2535472)">
+      <stop
+         stop-color="#3F873F"
+         id="stop24" />
+      <stop
+         offset="0.3296"
+         stop-color="#3F8B3D"
+         id="stop26" />
+      <stop
+         offset="0.6367"
+         stop-color="#3E9638"
+         id="stop28" />
+      <stop
+         offset="0.9341"
+         stop-color="#3DA92E"
+         id="stop30" />
+      <stop
+         offset="1"
+         stop-color="#3DAE2B"
+         id="stop32" />
+    </linearGradient>
+    <linearGradient
+       id="paint1_linear_8323_10753"
+       x1="30.008801"
+       y1="23.3589"
+       x2="50.532799"
+       y2="8.2884102"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.26458333,0,0,0.26458333,-6.1361506,-4.2535472)">
+      <stop
+         offset="0.1376"
+         stop-color="#3F873F"
+         id="stop35" />
+      <stop
+         offset="0.4016"
+         stop-color="#52A044"
+         id="stop37" />
+      <stop
+         offset="0.7129"
+         stop-color="#64B749"
+         id="stop39" />
+      <stop
+         offset="0.9081"
+         stop-color="#6ABF4B"
+         id="stop41" />
+    </linearGradient>
+    <linearGradient
+       id="paint2_linear_8323_10753"
+       x1="21.9168"
+       y1="22.260799"
+       x2="40.554901"
+       y2="22.260799"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.26458333,0,0,0.26458333,-6.1361506,-4.2535472)">
+      <stop
+         offset="0.0919165"
+         stop-color="#6ABF4B"
+         id="stop44" />
+      <stop
+         offset="0.2871"
+         stop-color="#64B749"
+         id="stop46" />
+      <stop
+         offset="0.5984"
+         stop-color="#52A044"
+         id="stop48" />
+      <stop
+         offset="0.8624"
+         stop-color="#3F873F"
+         id="stop50" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g1426"
+       transform="translate(0.86991917,1.3625439)">
+      <path
+         d="m 2.2566178,-1.0649741 c -0.081015,-0.045826 -0.1771914,-0.045826 -0.2581804,0 l -2.13113933,1.23774726 c -0.080989,0.0458523 -0.1265502,0.13242396 -0.1265502,0.22412854 v 2.4805481 c 0,0.091705 0.0506148,0.1782762 0.1265502,0.2241285 L 1.9984374,4.3393256 c 0.080989,0.045826 0.177165,0.045826 0.2581804,0 L 4.3877307,3.1015783 C 4.4687461,3.055726 4.5142809,2.9691544 4.5142809,2.8774498 V 0.3969017 c 0,-0.0917046 -0.050615,-0.17827625 -0.1265502,-0.22412854 z"
+         fill="url(#paint0_linear_8323_10753)"
+         id="path16"
+         style="fill:url(#paint0_linear_8323_10753);stroke-width:0.264583" />
+      <path
+         d="M 4.3928372,0.17277316 2.2515908,-1.0649741 c -0.020241,-0.010187 -0.045561,-0.020373 -0.065802,-0.025453 l -2.39942687,4.1308866 c 0.0202406,0.025453 0.0455612,0.045826 0.0708554,0.061119 L 1.9984903,4.3393256 c 0.060748,0.035639 0.1316038,0.045826 0.1974057,0.025453 L 4.448532,0.21862545 C 4.433345,0.19825255 4.413104,0.18295965 4.3928372,0.17277316 Z"
+         fill="url(#paint1_linear_8323_10753)"
+         id="path18"
+         style="fill:url(#paint1_linear_8323_10753);stroke-width:0.264583" />
+      <path
+         d="M 4.3928636,3.101499 C 4.453612,3.0658331 4.4991732,3.0047144 4.5194138,2.9384892 L 2.1756553,-1.0956129 c -0.060722,-0.010186 -0.1265502,-0.00511 -0.1822185,0.030559 L -0.13264901,0.16758733 2.1604683,4.3748856 c 0.030374,-0.00511 0.065828,-0.015293 0.096203,-0.030559 z"
+         fill="url(#paint2_linear_8323_10753)"
+         id="path20"
+         style="fill:url(#paint2_linear_8323_10753);stroke-width:0.264583" />
+    </g>
+  </g>
+</svg>
