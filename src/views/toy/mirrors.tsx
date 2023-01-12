@@ -197,9 +197,9 @@ const softwareList = [
         categrory: '基础环境',
         list: [
             {
-                name: 'git',
+                name: 'git-scm',
                 link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/LatestRelease/",
-                icon: 'git.svg',
+                icon: 'gwindows_logo.svg',
                 offical: 'https://git-scm.com/download',
                 altList: []
             },
