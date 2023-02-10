@@ -161,7 +161,7 @@ const ColorPage = () => {
                 value={x.val}
                 min={x.min || 0}
                 max={x.max}
-                tooltipVisible={false}
+                tooltip={{ open: false }}
                 onChange={val => slidingVal(val, h * 4 + i, color)}
               />
             </div>

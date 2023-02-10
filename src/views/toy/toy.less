@@ -8,3 +8,50 @@
     white-space: pre-wrap;
     word-break: keep-all;
 }
+
+
+.common-img-link {
+
+    img {
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+    }
+}
+
+.software-list {
+    background-color: #ecf1f7;
+
+    .item {
+        display: inline-block;
+        margin: 15px;
+
+        .img {
+            .common-img-link;
+        }
+
+        .name {
+            text-align: center;
+        }
+
+        &:hover {
+            .img {
+                transform: rotate(-10deg);
+                transition: all 250ms ease-in-out;
+            }
+        }
+    }
+}
+
+.mirrors-list {
+    .item {
+        .common-img-link;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+
+    }
+}
