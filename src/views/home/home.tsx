@@ -18,6 +18,7 @@ import { ReactComponent as SvgTool } from './imgs/svgtool.svg';
 import { ReactComponent as IpSvg } from './imgs/ip.svg';
 import { ReactComponent as LinkSvg } from './imgs/link.svg';
 import { ReactComponent as MirrorSvg } from './imgs/TwemojiMirror.svg';
+import { ReactComponent as ChatSvg } from './imgs/chat.svg';
 
 
 const generatorList = [
@@ -84,6 +85,10 @@ const analyzerList = [
   {
     name: 'mirrors',
     icon:  <MirrorSvg />
+  },
+  {
+    name: 'chat',
+    icon:  <ChatSvg />
   }  
 ]
 

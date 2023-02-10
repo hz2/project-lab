@@ -284,7 +284,7 @@ const genImg = (name: string) => {
 
     console.log('url', url);
 
-    return <img src={require(`./imgs/${url}`)} />
+    return <img src={require(`./imgs/${url}`)} alt="img" />
 }
 
 const Page = () => {
@@ -344,7 +344,7 @@ const Page = () => {
                     <div className="title">{x.categrory}</div>
                     {
                         x.list.map((y, j) => <div className='item' key={j} >
-                            <a href={y.link} target="_blank">
+                            <a href={y.link} target="_blank" rel="noreferrer">
                                 <div className="img">
                                     <img src={require(`./imgs/${y.icon}`)} alt={y.name} />
                                 </div>
