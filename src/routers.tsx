@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
-import { Button, ConfigProvider, Spin } from 'antd'
+import { ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
 import Rgb from './sample/rgb'
 import Header from './views/components/Header'
@@ -39,7 +39,8 @@ const pathList = {
   svgbg: 'svgTool/svg2bg',
   toy: 'toy/toy',
   docker: 'toy/docker',
-  mirrors: 'toy/mirrors'
+  mirrors: 'toy/mirrors',
+  chat: 'toy/chat'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
   const Comp = lazy(() => import('./views/' + file))

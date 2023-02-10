@@ -1,114 +1,114 @@
 import React, { useState } from 'react'
-import { Input, Select, Radio, message, RadioChangeEvent } from 'antd'
+import { Input } from 'antd'
 import './toy.less'
 const { TextArea } = Input
 
-interface IPathItem {
-    path: string
-    remark: string
-}
+// interface IPathItem {
+//     path: string
+//     remark: string
+// }
 
-interface ITypeItem {
-    zh?: string
-    name?: string
-    user?: string
-    passwdfile?: string
-    reg?: string
-    path: IPathItem[]
-}
+// interface ITypeItem {
+//     zh?: string
+//     name?: string
+//     user?: string
+//     passwdfile?: string
+//     reg?: string
+//     path: IPathItem[]
+// }
 
-const typeList = [
-    {
-        zh: '阿里云',
-        name: 'aliyun',
-        user: 'a@h2',
-        passwdfile: '~/.ssh/docker-alibabacloud',
-        reg: 'registry.cn-hangzhou.aliyuncs.com',
-        path: [
-            {
-                path: 'h2',
-                remark: '私有'
-            },
-            {
-                path: 'h7',
-                remark: '私有'
-            },
-            {
-                path: 'h9',
-                remark: '私有'
-            }
-        ]
-    },
-    {
-        zh: '腾讯云',
-        name: 'qcloud',
-        user: '100004236481',
-        passwdfile: '~/.ssh/docker-tencentcloud',
-        reg: 'ccr.ccs.tencentyun.com',
-        path: [
-            {
-                path: 'hzsq',
-                remark: '私有'
-            }
-        ]
-    },
-    {
-        zh: 'Docker hub',
-        name: 'dockerhub',
-        user: 'hzsq',
-        passwdfile: '~/.ssh/dockerioToken',
-        reg: '',
-        path: [
-            {
-                path: 'hzsq',
-                remark: '公有'
-            }
-        ]
-    },
-    {
-        zh: '华为云',
-        name: 'huawei',
-        user: 'cn-north-4@XRV15LDEFWCFLDH7GDXY',
-        passwdfile: '~/.ssh/docker-huaweicloud',
-        reg: 'swr.cn-north-4.myhuaweicloud.com',
-        path: [
-            {
-                path: 'hz',
-                remark: '私有'
-            }
-        ]
-    },
-    {
-        zh: '百度云',
-        name: 'baidu',
-        user: '18999d5116464463a9cbc2c7f8f3cf01',
-        passwdfile: '~/.ssh/docker-baiducloud',
-        reg: 'registry.baidubce.com',
-        path: [
-            {
-                path: 'hz',
-                remark: '私有'
-            }
-        ]
-    },
-    {
-        zh: '金山云',
-        name: 'ksyun',
-        user: '2615749',
-        passwdfile: '~/.ssh/docker-ksyun',
-        reg: 'hub-cn-shanghai-2.kce.ksyun.com',
-        path: [
-            {
-                path: 'hzsq',
-                remark: '私有'
-            },
-            {
-                path: 'publ',
-                remark: '公有'
-            }
-        ]
-    }
-]
+// const typeList = [
+//     {
+//         zh: '阿里云',
+//         name: 'aliyun',
+//         user: 'a@h2',
+//         passwdfile: '~/.ssh/docker-alibabacloud',
+//         reg: 'registry.cn-hangzhou.aliyuncs.com',
+//         path: [
+//             {
+//                 path: 'h2',
+//                 remark: '私有'
+//             },
+//             {
+//                 path: 'h7',
+//                 remark: '私有'
+//             },
+//             {
+//                 path: 'h9',
+//                 remark: '私有'
+//             }
+//         ]
+//     },
+//     {
+//         zh: '腾讯云',
+//         name: 'qcloud',
+//         user: '100004236481',
+//         passwdfile: '~/.ssh/docker-tencentcloud',
+//         reg: 'ccr.ccs.tencentyun.com',
+//         path: [
+//             {
+//                 path: 'hzsq',
+//                 remark: '私有'
+//             }
+//         ]
+//     },
+//     {
+//         zh: 'Docker hub',
+//         name: 'dockerhub',
+//         user: 'hzsq',
+//         passwdfile: '~/.ssh/dockerioToken',
+//         reg: '',
+//         path: [
+//             {
+//                 path: 'hzsq',
+//                 remark: '公有'
+//             }
+//         ]
+//     },
+//     {
+//         zh: '华为云',
+//         name: 'huawei',
+//         user: 'cn-north-4@XRV15LDEFWCFLDH7GDXY',
+//         passwdfile: '~/.ssh/docker-huaweicloud',
+//         reg: 'swr.cn-north-4.myhuaweicloud.com',
+//         path: [
+//             {
+//                 path: 'hz',
+//                 remark: '私有'
+//             }
+//         ]
+//     },
+//     {
+//         zh: '百度云',
+//         name: 'baidu',
+//         user: '18999d5116464463a9cbc2c7f8f3cf01',
+//         passwdfile: '~/.ssh/docker-baiducloud',
+//         reg: 'registry.baidubce.com',
+//         path: [
+//             {
+//                 path: 'hz',
+//                 remark: '私有'
+//             }
+//         ]
+//     },
+//     {
+//         zh: '金山云',
+//         name: 'ksyun',
+//         user: '2615749',
+//         passwdfile: '~/.ssh/docker-ksyun',
+//         reg: 'hub-cn-shanghai-2.kce.ksyun.com',
+//         path: [
+//             {
+//                 path: 'hzsq',
+//                 remark: '私有'
+//             },
+//             {
+//                 path: 'publ',
+//                 remark: '公有'
+//             }
+//         ]
+//     }
+// ]
 
 interface IProxy {
     origin: string
@@ -284,7 +284,7 @@ const genImg = (name: string) => {
 
     console.log('url', url);
 
-    return <img src={require(`./imgs/${url}`)} />
+    return <img src={require(`./imgs/${url}`)} alt="img" />
 }
 
 const Page = () => {
@@ -344,7 +344,7 @@ const Page = () => {
                     <div className="title">{x.categrory}</div>
                     {
                         x.list.map((y, j) => <div className='item' key={j} >
-                            <a href={y.link} target="_blank">
+                            <a href={y.link} target="_blank" rel="noreferrer">
                                 <div className="img">
                                     <img src={require(`./imgs/${y.icon}`)} alt={y.name} />
                                 </div>
