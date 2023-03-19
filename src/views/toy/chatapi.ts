@@ -71,14 +71,16 @@ export async function query(params = {}) {
   const params_ = { ...DEFAULT_PARAMS, ...params };
   const requestOptions = {
     method: "POST",
-    mode: "cors" as RequestMode,
+    // mode: "cors" as RequestMode,
     body: JSON.stringify(params_),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
   };
   const response = await fetch(
-    "https://home.respok.com/chatai",
+    // "https://respok.com/chat",
+    // "https://app.p0t.top/openai/v1/completions",
+    "https://app.hz2.workers.dev/openai/v1/completions",
     // "https://respok.com/ipinfo_io/default",
     requestOptions,
   );

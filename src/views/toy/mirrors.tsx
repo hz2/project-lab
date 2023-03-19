@@ -207,6 +207,13 @@ const softwareList = [
         categrory: '基础环境',
         list: [
             {
+                name: 'nightly',
+                link: "",
+                icon: 'nightly.png',
+                offical:"https://download.mozilla.org/?product=firefox-nightly-latest-l10n-ssl&os=linux64&lang=zh-CN"
+
+            },
+            {
                 name: 'git-scm',
                 link: "https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/LatestRelease/",
                 icon: 'gwindows_logo.svg',
