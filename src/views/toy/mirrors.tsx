@@ -210,7 +210,7 @@ const softwareList = [
                 name: 'nightly',
                 link: "",
                 icon: 'nightly.png',
-                offical:"https://download.mozilla.org/?product=firefox-nightly-latest-l10n-ssl&os=linux64&lang=zh-CN"
+                offical: "https://download.mozilla.org/?product=firefox-nightly-latest-l10n-ssl&os=linux64&lang=zh-CN"
 
             },
             {
@@ -308,7 +308,7 @@ const genImg = (name: string) => {
 const Page = () => {
     const [resultList, setResultList] = useState<IItem[]>([])
     const getInfo = () => {
-        
+
 
         fetch('https://api.github.com/graphql', {
             mode: 'cors',
@@ -374,7 +374,7 @@ fragment ReleaseAssetConnectionFragment on ReleaseAssetConnection {
     }
 
 
-    const [url, inputUrl] = useState('https://github.com/VSCodium/vscodium/releases/download/1.75.0.23033/VSCodium-linux-x64-1.75.0.23033.tar.gz')
+    const [url, inputUrl] = useState('')
 
     return (
         <div className="common-box ">
@@ -410,7 +410,7 @@ fragment ReleaseAssetConnectionFragment on ReleaseAssetConnection {
                     <div className="title">{x.categrory}</div>
                     {
                         x.list.map((y, j) => <div className='item' key={j} >
-                            <a href={y.link} target="_blank" rel="noreferrer">
+                            <a href={y.link || y.offical } target="_blank" rel="noreferrer">
                                 <div className="img">
                                     <img src={require(`./imgs/${y.icon}`)} alt={y.name} />
                                 </div>
