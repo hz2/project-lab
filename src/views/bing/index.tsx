@@ -17,7 +17,7 @@ type TWPList = IWPItem[]
 const req = (mkt: string, index: string | number): Promise<TWPList> =>
   new Promise((resolve, reject) => {
     fetch(
-      'https://bing.respok.com/HPImageArchive.aspx?format=js&idx=' +
+      'https://serv.respok.com/bing/HPImageArchive.aspx?format=js&idx=' +
       index +
       '&n=10&mkt=' +
       mkt,
