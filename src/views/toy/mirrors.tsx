@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import './toy.less'
 const { TextArea } = Input
@@ -304,8 +304,57 @@ const genImg = (name: string) => {
     return <img src={require(`./imgs/${url}`)} alt="img" />
 }
 
+
 const Page = () => {
     const [resultList, setResultList] = useState<IItem[]>([])
+    const getInfo = () => {
+        
+
+        fetch('https://api.github.com/graphql', {
+            mode: 'cors',
+            method: "POST",
+            body: JSON.stringify({
+                query: `{
+  repository(name: "vscodium", owner: "VSCodium") {
+    latestRelease {
+      name
+      releaseAssets(last: 50 ) {
+        ...ReleaseAssetConnectionFragment
+        totalCount
+      }
+    }
+  }
+}
+
+fragment ReleaseAssetConnectionFragment on ReleaseAssetConnection {
+  nodes {
+    downloadUrl
+    name
+  }
+}`
+            }),
+            headers: {
+                // https://github.com/settings/tokens/new  Expires on Sat, Apr 13 2024.
+                Authorization: "bearer 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",
+                // "Content-Type": "application/json",
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text()
+                }
+            })
+            .then(r => {
+                console.log('r', r && JSON.parse(r));
+
+            })
+
+    }
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
 
     const getMirrors = (url: string) => {
         inputUrl(url)

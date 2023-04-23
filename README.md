@@ -8,6 +8,7 @@ Do **NOT** contribute to this repo on github
 | platform | link | status |
 | ------ | ------ | ------ |
 | ~~vercel~~ | ~~[https://lab.not.wiki](https://lab.not.wiki)~~ | ![](https://img.shields.io/badge/not%20support-nodejs%2016-f80) |
+| gitlab page | [https://lab.h2.work](https://lab.h2.work) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.h1.work) |
 | cloudflare | [https://lab.p0t.top](https://lab.p0t.top) | ![Website](https://img.shields.io/website?url=https%3A%2F%2Flab.p0t.top) |
 
 ## Flow chart
