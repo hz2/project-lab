@@ -22,6 +22,12 @@ const dom2ostr = (dom: Node) => {
   // return result.data;
 }
 
+/**
+ * Parses a string into an SVG XML document using the DOMParser API.
+ *
+ * @param {string} str - The string to be parsed.
+ * @return {Document} The parsed SVG XML document.
+ */
 const str2dom = (str: string) => {
   const parser = new DOMParser()
   return parser.parseFromString(str, 'image/svg+xml')

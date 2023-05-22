@@ -86,10 +86,10 @@ const analyzerList = [
     name: 'mirrors',
     icon:  <MirrorSvg />
   },
-  // {
-  //   name: 'chat',
-  //   icon:  <ChatSvg />
-  // }  
+  {
+    name: 'bookmark',
+    icon:  <ChatSvg />
+  }  
 ]
 
 const genTitle = (str: string) => {

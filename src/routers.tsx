@@ -40,7 +40,8 @@ const pathList = {
   toy: 'toy/toy',
   docker: 'toy/docker',
   mirrors: 'toy/mirrors',
-  chat: 'toy/chat'
+  chat: 'toy/chat',
+  bookmark: 'bookmarkTool/bookmark'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
   const Comp = lazy(() => import('./views/' + file))
