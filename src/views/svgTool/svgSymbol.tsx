@@ -10,7 +10,7 @@ import './svgTool.less'
 
 import { downloadBlob, svgStr2BlobUrl } from '@libs/common'
 import { RcFile } from 'antd/lib/upload'
-const JSZip = require('jszip')
+import JSZip from 'jszip'
 
 const dom2ostr = (dom: Node) => {
   const s = new XMLSerializer()

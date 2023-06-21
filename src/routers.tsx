@@ -7,9 +7,9 @@ import Header from './views/components/Header'
 const pathList = {
   // generator
   person: 'idcard/idcard',
-  bing: 'bing',
+  bing: 'bing/index',
   nasa: 'bing/nasa',
-  color: 'color',
+  color: 'color/index',
   gradient: 'color/gradient',
   lottery: 'lottery/lottery',
   // converter
@@ -19,7 +19,7 @@ const pathList = {
   encode: 'encode/encodeDecode',
   dataURL: 'encode/dataURL',
   qrcode: 'encode/qr',
-  emoji: 'emoji',
+  emoji: 'emoji/index',
   svgpreview: 'svgpreview',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
@@ -37,7 +37,8 @@ const pathList = {
   bookmark: 'bookmarkTool/bookmark'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
-  const Comp = lazy(() => import(`./views/${file}.tsx`))
+  const [dir, filename] = file.split('/')
+  const Comp = lazy(() => import(`./views/${dir}/${filename}.tsx`))
   return <Route
     path={'/' + path}
     element={<Comp />}
