@@ -1,8 +1,7 @@
 /* global BigInt */
 import React, { useEffect, useState } from 'react'
-import { Tabs, Button } from 'antd'
+import { Tabs, Button, TabsProps } from 'antd'
 import './lottery.less'
-const { TabPane } = Tabs
 
 let alpha: number | '' = '',
   beta: number | '' = '',
@@ -135,52 +134,63 @@ const LotteryPage = () => {
     }
   }
 
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: '双色球',
+      children: <>
+        <div className="buttons">
+          <Button type="primary" onClick={() => twoColorBall()}>
+            单注
+          </Button>
+          <Button type="primary" onClick={() => twoColorBall(5)}>
+            单注 x 5
+          </Button>
+          <span className="link">
+            <a
+              href="http://www.cwl.gov.cn/kjxx/ssq/"
+              target="_blank"
+              rel="noopener noreferrer">
+              双色球开奖
+            </a>
+          </span>
+        </div>
+        <div className="ballList">{balldom}</div>
+      </>,
+    },
+    {
+      key: '2',
+      label: '大乐透',
+      children: <>
+        <div className="buttons">
+          <Button type="primary" onClick={() => superLottery()}>
+            单注
+          </Button>
+          <Button type="primary" onClick={() => superLottery(5)}>
+            单注 x 5
+          </Button>
+          <span className="link">
+            <a
+              href="https://www.lottery.gov.cn/dlt/index.html"
+              target="_blank"
+              rel="noopener noreferrer">
+              大乐透开奖
+            </a>
+          </span>
+        </div>
+        <div className="ballList">{balldom2}</div>
+      </>,
+    }
+  ];
   return (
     <div className="lotteryPage">
       <Tabs
         defaultActiveKey="1"
+        items={items}
         onChange={() => {
           twoColorBall()
           superLottery()
         }}>
-        <TabPane tab="双色球" key="1">
-          <div className="buttons">
-            <Button type="primary" onClick={() => twoColorBall()}>
-              单注
-            </Button>
-            <Button type="primary" onClick={() => twoColorBall(5)}>
-              单注 x 5
-            </Button>
-            <span className="link">
-              <a
-                href="http://www.cwl.gov.cn/kjxx/ssq/"
-                target="_blank"
-                rel="noopener noreferrer">
-                双色球开奖
-              </a>
-            </span>
-          </div>
-          <div className="ballList">{balldom}</div>
-        </TabPane>
-        <TabPane tab="大乐透" key="2">
-          <div className="buttons">
-            <Button type="primary" onClick={() => superLottery()}>
-              单注
-            </Button>
-            <Button type="primary" onClick={() => superLottery(5)}>
-              单注 x 5
-            </Button>
-            <span className="link">
-              <a
-                href="https://www.lottery.gov.cn/dlt/index.html"
-                target="_blank"
-                rel="noopener noreferrer">
-                大乐透开奖
-              </a>
-            </span>
-          </div>
-          <div className="ballList">{balldom2}</div>
-        </TabPane>
       </Tabs>
       <div style={{ display: 'none' }}>{JSON.stringify(rArr)}</div>
     </div>
