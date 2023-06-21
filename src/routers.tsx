@@ -2,14 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
 import { ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
-import Rgb from './sample/rgb'
 import Header from './views/components/Header'
-import { Provider } from 'react-redux'
-import { store } from './store'
-
-// import { ConnectedRouter } from 'connected-react-router'
-// import { createBrowserHistory } from 'history'
-// const history = createBrowserHistory()
 
 const pathList = {
   // generator
@@ -44,7 +37,7 @@ const pathList = {
   bookmark: 'bookmarkTool/bookmark'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
-  const Comp = lazy(() => import('./views/' + file))
+  const Comp = lazy(() => import(`./views/${file}.tsx`))
   return <Route
     path={'/' + path}
     element={<Comp />}
@@ -55,31 +48,26 @@ const routesList = Object.entries(pathList).map(([path, file], i) => {
 
 const Routers = (
   <React.StrictMode>
-    <Provider store={store}>
-      {/* <ConnectedRouter history={history}> */}
-      <HashRouter>
-        <Suspense
-          fallback={
-            <Spin className="fullpage" spinning={true} size="large"></Spin>
-          }>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: '#00b96b',
-              },
-            }}
-          >
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/rgb/*" element={<Rgb />} />
-              <>{routesList}</>
-            </Routes>
-          </ConfigProvider>
-        </Suspense>
-      </HashRouter>
-      {/* </ConnectedRouter> */}
-    </Provider>
+    <HashRouter>
+      <Suspense
+        fallback={
+          <Spin className="fullpage" spinning={true} size="large"></Spin>
+        }>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#00b96b',
+            },
+          }}
+        >
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <>{routesList}</>
+          </Routes>
+        </ConfigProvider>
+      </Suspense>
+    </HashRouter>
   </React.StrictMode>
 )
 
