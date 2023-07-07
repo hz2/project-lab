@@ -1,90 +1,40 @@
 {
-  "name": "project-lab-ts",
+  "name": "project-lab",
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "nvm use & vite --host",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.1",
-    "antd": "^5.1.2",
-    "http-proxy-middleware": "^2.0.6",
-    "jsqr": "^1.4.0",
-    "jszip": "^3.9.1",
-    "lodash": "^4.17.21",
-    "openai": "^3.1.0",
-    "qs": "^6.10.3",
-    "rc-virtual-list": "^3.4.13",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-redux": "^8.0.1",
-    "react-router-dom": "^6.3.0",
-    "react-transition-group": "^4.4.2",
+    "antd": "^5.6.2",
+    "jszip": "^3.10.1",
+    "less": "^4.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.13.0",
     "sanitize.css": "^13.0.0",
-    "svgo": "^2.8.0",
-    "typescript": "^4.6.3",
-    "web-vitals": "^2.1.4",
-    "workbox-background-sync": "^6.5.3",
-    "workbox-broadcast-update": "^6.5.3",
-    "workbox-cacheable-response": "^6.5.3",
-    "workbox-core": "^6.5.3",
-    "workbox-expiration": "^6.5.3",
-    "workbox-google-analytics": "^6.5.3",
-    "workbox-navigation-preload": "^6.5.3",
-    "workbox-precaching": "^6.5.3",
-    "workbox-range-requests": "^6.5.3",
-    "workbox-routing": "^6.5.3",
-    "workbox-strategies": "^6.5.3",
-    "workbox-streams": "^6.5.3"
+    "svgo": "^3.0.2",
+    "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
-    "@craco/craco": "^7.0.0-alpha.3",
-    "@types/jest": "^27.4.1",
-    "@types/lodash": "^4.14.191",
-    "@types/node": "^17.0.25",
-    "@types/react": "^18.0.6",
-    "@types/react-dom": "^18.0.2",
-    "@types/react-router-dom": "^5.3.3",
-    "craco-less": "^2.1.0-alpha.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.4.0",
-    "prettier": "^2.6.2",
+    "@types/node": "^20.3.1",
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
     "pub.css": "^0.0.33",
-    "react-app-rewire-alias": "^1.1.7"
-  },
-  "scripts": {
-    "dev": "craco start",
-    "start": "craco start",
-    "build": "set GENERATE_SOURCEMAP=false && craco build",
-    "lint": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css}"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
   }
 }

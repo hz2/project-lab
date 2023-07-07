@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Upload, Button, message, Spin, Menu, Dropdown, UploadProps } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'

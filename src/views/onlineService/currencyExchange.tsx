@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Input, Select, Statistic, Card, Tooltip } from 'antd'
+import  { useEffect, useState } from 'react'
+import { Input, Select, Statistic, Card, Tooltip, Space } from 'antd'
 import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
 // import Currency from './currency.json'
@@ -110,7 +110,7 @@ const getFullList = async () => {
   return list
 }
 const getFullRate = async () => {
-  const r = await fetch('https://respok.com/fixer_io', { mode: 'cors' })
+  const r = await fetch('https://serv.respok.com/fixer_io', { mode: 'cors' })
     .then(response => response.json())
   if (r && r.rates) {
     return r.rates
@@ -208,28 +208,30 @@ const Page = () => {
   return (
     <div className="common-box currency-page">
       <div className="flex start">
-        <Input.Group className="left">
-          <Input
-            className="w120"
-            value={bindVal.input}
-            placeholder="请输入金额"
-            maxLength={9}
-            onChange={currencyValInput}
-            allowClear
-          />
-          <Select
-            showSearch
-            className="w160"
-            placeholder="选择货币"
-            value={bindVal.key1}
-            onChange={val => calc({ key1: val })}
-            filterOption={filterOption}
-            options={fullList}></Select>
+        <div className="left">
+          <Space.Compact block >
+            <Input
+              className="w120"
+              value={bindVal.input}
+              placeholder="请输入金额"
+              maxLength={9}
+              onChange={currencyValInput}
+              allowClear
+            />
+            <Select
+              showSearch
+              className="w160"
+              placeholder="选择货币"
+              value={bindVal.key1}
+              onChange={val => calc({ key1: val })}
+              filterOption={filterOption}
+              options={fullList}></Select>
+          </Space.Compact>
           <div className="numText mt10 center">
             <span className="num">{bindVal.input}</span>
             <span className="unit">{bindVal.unit1}</span>
           </div>
-        </Input.Group>
+        </div>
         <div className="mx15 py20">
           <div
             className="exchange"

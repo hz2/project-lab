@@ -1,32 +1,26 @@
-import React, { Suspense, lazy } from 'react'
+import  { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
 import { ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
-import Rgb from './sample/rgb'
 import Header from './views/components/Header'
-import { Provider } from 'react-redux'
-import { store } from './store'
-
-// import { ConnectedRouter } from 'connected-react-router'
-// import { createBrowserHistory } from 'history'
-// const history = createBrowserHistory()
+import React from 'react'
 
 const pathList = {
   // generator
   person: 'idcard/idcard',
-  bing: 'bing',
+  bing: 'bing/index',
   nasa: 'bing/nasa',
-  color: 'color',
+  color: 'color/index',
   gradient: 'color/gradient',
   lottery: 'lottery/lottery',
   // converter
-  queryString: 'encode/qs',
+  transform: 'encode/transform',
   qs: 'encode/qs',
   hex: 'encode/hexConversion',
   encode: 'encode/encodeDecode',
   dataURL: 'encode/dataURL',
   qrcode: 'encode/qr',
-  emoji: 'emoji',
+  emoji: 'emoji/index',
   svgpreview: 'svgpreview',
   plumFlower: 'plumFlower/plumFlower',
   post: 'onlineService/post',
@@ -40,10 +34,12 @@ const pathList = {
   toy: 'toy/toy',
   docker: 'toy/docker',
   mirrors: 'toy/mirrors',
-  chat: 'toy/chat'
+  chat: 'toy/chat',
+  bookmark: 'bookmarkTool/bookmark'
 }
 const routesList = Object.entries(pathList).map(([path, file], i) => {
-  const Comp = lazy(() => import('./views/' + file))
+  const [dir, filename] = file.split('/')
+  const Comp = lazy(() => import(`./views/${dir}/${filename}.tsx`))
   return <Route
     path={'/' + path}
     element={<Comp />}
@@ -54,31 +50,26 @@ const routesList = Object.entries(pathList).map(([path, file], i) => {
 
 const Routers = (
   <React.StrictMode>
-    <Provider store={store}>
-      {/* <ConnectedRouter history={history}> */}
-      <HashRouter>
-        <Suspense
-          fallback={
-            <Spin className="fullpage" spinning={true} size="large"></Spin>
-          }>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: '#00b96b',
-              },
-            }}
-          >
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/rgb/*" element={<Rgb />} />
-              <>{routesList}</>
-            </Routes>
-          </ConfigProvider>
-        </Suspense>
-      </HashRouter>
-      {/* </ConnectedRouter> */}
-    </Provider>
+    <HashRouter>
+      <Suspense
+        fallback={
+          <Spin className="fullpage" spinning={true} size="large"></Spin>
+        }>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#00b96b',
+            },
+          }}
+        >
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <>{routesList}</>
+          </Routes>
+        </ConfigProvider>
+      </Suspense>
+    </HashRouter>
   </React.StrictMode>
 )
 

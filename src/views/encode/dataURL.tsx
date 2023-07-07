@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import {
   Upload,
   Input,
@@ -30,7 +30,7 @@ const DataUrl = () => {
     name: 'file',
     maxCount: 1,
     className: 'w450 block',
-    beforeUpload: file => false,
+    beforeUpload: _file => false,
     onChange({ file, fileList }) {
       if (file.status !== 'uploading') {
         const file = fileList[0]

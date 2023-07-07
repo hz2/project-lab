@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { SearchOutlined } from '@ant-design/icons'
 import { Input, Button, Spin } from 'antd'
 
@@ -7,6 +7,7 @@ import { copyText } from '@libs/common'
 import { calendar } from './calendar'
 import './idcard.less'
 import { gql } from '@/libs/req'
+import React from 'react'
 
 type TValid = 'valid' | 'invalid' | null
 interface TXzsq {
@@ -309,7 +310,7 @@ class idcard extends React.Component {
       })
       return
     }
-    fetch('https://cf.p0t.top/all', { mode: 'cors' })
+    fetch('https://cf.hx.fyi/all', { mode: 'cors' })
       .then(response => response.json())
       .then(res => {
         let keysArr = res2Key(res)
@@ -319,7 +320,7 @@ class idcard extends React.Component {
           xzqh: res
         })
       })
-      .catch(err => {})
+      .catch(_err => {})
   }
   genPerson = () => {
     // this.generateIDCardNO()

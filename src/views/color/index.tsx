@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 import './color.less'
 import { Input, Button, Slider } from 'antd'
 import ColorListBottom from './components/ColorListBottom'
@@ -77,7 +77,7 @@ const ColorPage = () => {
 
   const genArr = (len: number, fn: (x: number | string) => string) =>
     (len === 360
-      ? Array.from(Array(len / 20 + 1), (x, i) => fn(i * 20))
+      ? Array.from(Array(len / 20 + 1), (_x, i) => fn(i * 20))
       : [0, len / 2, len].map(x => fn(x * 1))
     ).join(',')
 

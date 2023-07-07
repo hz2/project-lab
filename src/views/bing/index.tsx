@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
-import Qs from 'qs'
 import './bing.less'
 import { downloadBlob } from '@libs/common'
 
@@ -92,7 +91,7 @@ const Bing = () => {
           <a
             className="search btn"
             onClick={e => openSearch(x, e)}
-            title={Qs.parse(x.copyrightlink.split('?')[1]).q}
+            title={new URLSearchParams(x.copyrightlink.split('?')[1]).get('q') || ''}
             href={x.copyrightlink}>
             <span role="img" aria-label="search">
               🔍
@@ -134,7 +133,7 @@ const Bing = () => {
       </div>
     </div>
   ))
-
+// https://s.cn.bing.net/th?id=OHR.KissingPenguins_EN-CN8556731919_1920x1080.webp&qlt=10
   const mktList = [
     'EN-WW',
     'EN-AU',

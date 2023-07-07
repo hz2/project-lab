@@ -1,50 +1,55 @@
-import React from 'react'
+
 import { Divider, Popover } from 'antd'
 
 import { Link } from 'react-router-dom'
 import './home.less'
 
-import { ReactComponent as PersonSvg } from "./imgs/person.svg";
-import { ReactComponent as BingSvg } from "./imgs/bing.svg";
-import { ReactComponent as SvgNasa } from "./imgs/nasa.svg";
-import { ReactComponent as ColorSvg } from "./imgs/color.svg";
-import { ReactComponent as LotterySvg } from "./imgs/lottery.svg";
-import { ReactComponent as PlumFlower } from './imgs/plumFlower.svg';
-import { ReactComponent as EncodeSvg } from './imgs/encode.svg';
-import { ReactComponent as HexSvg } from './imgs/hex.svg';
-import { ReactComponent as CurrencySvg } from './imgs/currency.svg';
-import { ReactComponent as QueryString } from './imgs/queryString.svg';
-import { ReactComponent as SvgTool } from './imgs/svgtool.svg';
-import { ReactComponent as IpSvg } from './imgs/ip.svg';
-import { ReactComponent as LinkSvg } from './imgs/link.svg';
-import { ReactComponent as MirrorSvg } from './imgs/TwemojiMirror.svg';
-import { ReactComponent as ChatSvg } from './imgs/chat.svg';
-
+import { ReactComponent as PersonSvg } from './imgs/person.svg'
+import { ReactComponent as BingSvg } from './imgs/bing.svg'
+import { ReactComponent as SvgNasa } from './imgs/nasa.svg'
+import { ReactComponent as ColorSvg } from './imgs/color.svg'
+import { ReactComponent as LotterySvg } from './imgs/lottery.svg'
+import { ReactComponent as PlumFlower } from './imgs/plumFlower.svg'
+import { ReactComponent as EncodeSvg } from './imgs/encode.svg'
+import { ReactComponent as HexSvg } from './imgs/hex.svg'
+import { ReactComponent as CurrencySvg } from './imgs/currency.svg'
+import { ReactComponent as QueryString } from './imgs/queryString.svg'
+import { ReactComponent as SvgTool } from './imgs/svgtool.svg'
+import { ReactComponent as IpSvg } from './imgs/ip.svg'
+import { ReactComponent as LinkSvg } from './imgs/link.svg'
+import { ReactComponent as MirrorSvg } from './imgs/TwemojiMirror.svg'
+// import { ReactComponent as ChatSvg } from './imgs/chat.svg'
 
 const generatorList = [
   {
     name: 'person',
-    icon:  <PersonSvg />,
+    zh: '用户',
+    icon: <PersonSvg />,
   },
   {
     name: 'bing',
-    icon:  <BingSvg />,
+    zh: 'Bing',
+    icon: <BingSvg />,
   },
   {
     name: 'nasa',
-    icon:  <SvgNasa />,
+    zh: 'NASA',
+    icon: <SvgNasa />,
   },
   {
     name: 'color',
-    icon:  <ColorSvg />,
+    zh: '颜色',
+    icon: <ColorSvg />,
   },
   {
     name: 'lottery',
-    icon:  <LotterySvg />,
+    zh: '彩票',
+    icon: <LotterySvg />,
   },
   {
     name: 'plumFlower',
-    icon:  <PlumFlower />
+    zh: '花',
+    icon: <PlumFlower />,
   },
   // {
   //   name: 'docker',
@@ -54,19 +59,23 @@ const generatorList = [
 const cnverterList = [
   {
     name: 'encode',
-    icon:  <EncodeSvg />
+    zh: '编码',
+    icon: <EncodeSvg />,
   },
   {
     name: 'hex',
-    icon:  <HexSvg />
+    zh: '十六进制',
+    icon: <HexSvg />,
   },
   {
     name: 'currency',
-    icon:  <CurrencySvg />
+    zh: '货币',
+    icon: <CurrencySvg />,
   },
   {
-    name: 'queryString',
-    icon:  <QueryString />
+    name: 'transform',
+    zh: '转写',
+    icon: <QueryString />,
   },
   // {
   //   name: 'QRCode',
@@ -74,29 +83,35 @@ const cnverterList = [
   // },
   {
     name: 'svg',
-    icon:  <SvgTool />
-  }
+    zh: '矢量图',
+    icon: <SvgTool />,
+  },
 ]
 const analyzerList = [
   {
     name: 'iPAddress',
-    icon:  <IpSvg />
+    zh: '位置',
+    icon: <IpSvg />,
   },
   {
     name: 'mirrors',
-    icon:  <MirrorSvg />
+    zh: '镜像',
+    icon: <MirrorSvg />,
   },
   // {
-  //   name: 'chat',
-  //   icon:  <ChatSvg />
-  // }  
+  //   name: 'bookmark',
+  //   zh: '书签',
+  //   icon: <ChatSvg />
+  // }
 ]
 
-const genTitle = (str: string) => {
-  const FirstLetter = str.slice(0, 1).toUpperCase()
-  return FirstLetter + str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
-}
-
+// const genTitle = (str: string) => {
+//   const FirstLetter = str.slice(0, 1).toUpperCase()
+//   return (
+//     FirstLetter +
+//     str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
+//   )
+// }
 
 const genBtn = (list: any[], key: string) =>
   list.map((x: any, i: number) => (
@@ -105,12 +120,12 @@ const genBtn = (list: any[], key: string) =>
       type="primary"
       key={key + i}
       to={'/' + x.name}
-      title={genTitle(x.name)}>
+      title={x.zh}>
       <div className="block">{x.icon}</div>
-      <div className="text">{genTitle(x.name)}</div>
+      <div className="text">{x.zh}</div>
     </Link>
   ))
-const Home = (props: any) => (
+const Home = (_props: any) => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
@@ -145,10 +160,15 @@ const Home = (props: any) => (
             feedback
           </a>
           <span className="splitcolor">\</span>
-          <Popover content={
-            <img src="./gh_2799af390fcc_258.jpg" alt="lab-mpcode" className="lab-mpcode" />
-          }>
-            <span className='link'>
+          <Popover
+            content={
+              <img
+                src="./gh_2799af390fcc_258.jpg"
+                alt="lab-mpcode"
+                className="lab-mpcode"
+              />
+            }>
+            <span className="link">
               <LinkSvg />
               mini program
             </span>

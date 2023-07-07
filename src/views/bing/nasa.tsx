@@ -1,5 +1,5 @@
 // https://respok.com/nasa
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Spin } from 'antd'
 import './nasa.less'
 
@@ -15,7 +15,7 @@ type TNasa = INasa[]
 
 const req = (): Promise<TNasa> =>
   new Promise((resolve, reject) => {
-    fetch('https://respok.com/nasa', { mode: 'cors' })
+    fetch('https://serv.respok.com/nasa', { mode: 'cors' })
       .then(response => response.json())
       .then(r => resolve(r))
       .catch(error => reject(error))

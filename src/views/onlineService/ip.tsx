@@ -1,6 +1,6 @@
 // https://reqbin.com/lib/ipInfo-api/yel1uw4m/ip-geolocation-api-example
 // https://devpal.co/
-import React, { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { AimOutlined } from "@ant-design/icons";
 import { Spin, Input, Form, Button } from 'antd'
 import { gql } from "@/libs/req"
@@ -69,8 +69,7 @@ const getMap = (loc: string) => {
 }
 
 const getIpInfo = (ip?: string | undefined) => {
-  const url = 'https://respok.com/ipinfo_io/' + (ip || 'default')
-  // const url = 'https://cf.p0t.top/cf'
+  const url = 'https://serv.respok.com/ipinfo_io/' + (ip || 'default')
   return fetch(url, { mode: 'cors' }).then(response => response.json())
 }
 

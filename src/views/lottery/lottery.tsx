@@ -1,8 +1,7 @@
 /* global BigInt */
-import React, { useEffect, useState } from 'react'
-import { Tabs, Button } from 'antd'
+import  { useEffect, useState } from 'react'
+import { Tabs, Button, TabsProps } from 'antd'
 import './lottery.less'
-const { TabPane } = Tabs
 
 let alpha: number | '' = '',
   beta: number | '' = '',
@@ -12,8 +11,8 @@ interface IGenBall {
   ball: string
   arr?: number[]
 }
-const genBall = (len: number = 33): Promise<IGenBall> => new Promise((resolve, reject) => {
-  const ballArr = Array.from(Array(len), (x, i) =>
+const genBall = (len: number = 33): Promise<IGenBall> => new Promise((resolve, _reject) => {
+  const ballArr = Array.from(Array(len), (_x, i) =>
     (i + 1).toString().padStart(2, '0')
   )
   // 天时 地利 人和
@@ -79,7 +78,7 @@ const LotteryPage = () => {
     }
     if (times) {
       const list = <div className="groups">
-        {await Promise.all(Array.from(Array(times), (x, i) => genGroup(i)))}
+        {await Promise.all(Array.from(Array(times), (_x, i) => genGroup(i)))}
       </div>
       palceBall(list)
     } else {
@@ -125,7 +124,7 @@ const LotteryPage = () => {
     if (times) {
       const list = (
         <div className="groups">
-          {await Promise.all(Array.from(Array(times), (x, i) => genGroup(i)))}
+          {await Promise.all(Array.from(Array(times), (_x, i) => genGroup(i)))}
         </div>
       )
       palceBall2(list)
@@ -135,52 +134,63 @@ const LotteryPage = () => {
     }
   }
 
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: '双色球',
+      children: <>
+        <div className="buttons">
+          <Button type="primary" onClick={() => twoColorBall()}>
+            单注
+          </Button>
+          <Button type="primary" onClick={() => twoColorBall(5)}>
+            单注 x 5
+          </Button>
+          <span className="link">
+            <a
+              href="http://www.cwl.gov.cn/kjxx/ssq/"
+              target="_blank"
+              rel="noopener noreferrer">
+              双色球开奖
+            </a>
+          </span>
+        </div>
+        <div className="ballList">{balldom}</div>
+      </>,
+    },
+    {
+      key: '2',
+      label: '大乐透',
+      children: <>
+        <div className="buttons">
+          <Button type="primary" onClick={() => superLottery()}>
+            单注
+          </Button>
+          <Button type="primary" onClick={() => superLottery(5)}>
+            单注 x 5
+          </Button>
+          <span className="link">
+            <a
+              href="https://www.lottery.gov.cn/dlt/index.html"
+              target="_blank"
+              rel="noopener noreferrer">
+              大乐透开奖
+            </a>
+          </span>
+        </div>
+        <div className="ballList">{balldom2}</div>
+      </>,
+    }
+  ];
   return (
     <div className="lotteryPage">
       <Tabs
         defaultActiveKey="1"
+        items={items}
         onChange={() => {
           twoColorBall()
           superLottery()
         }}>
-        <TabPane tab="双色球" key="1">
-          <div className="buttons">
-            <Button type="primary" onClick={() => twoColorBall()}>
-              单注
-            </Button>
-            <Button type="primary" onClick={() => twoColorBall(5)}>
-              单注 x 5
-            </Button>
-            <span className="link">
-              <a
-                href="http://www.cwl.gov.cn/kjxx/ssq/"
-                target="_blank"
-                rel="noopener noreferrer">
-                双色球开奖
-              </a>
-            </span>
-          </div>
-          <div className="ballList">{balldom}</div>
-        </TabPane>
-        <TabPane tab="大乐透" key="2">
-          <div className="buttons">
-            <Button type="primary" onClick={() => superLottery()}>
-              单注
-            </Button>
-            <Button type="primary" onClick={() => superLottery(5)}>
-              单注 x 5
-            </Button>
-            <span className="link">
-              <a
-                href="https://www.lottery.gov.cn/dlt/index.html"
-                target="_blank"
-                rel="noopener noreferrer">
-                大乐透开奖
-              </a>
-            </span>
-          </div>
-          <div className="ballList">{balldom2}</div>
-        </TabPane>
       </Tabs>
       <div style={{ display: 'none' }}>{JSON.stringify(rArr)}</div>
     </div>

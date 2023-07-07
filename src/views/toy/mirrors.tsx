@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import './toy.less'
 const { TextArea } = Input
@@ -125,7 +125,7 @@ const proxyList: IProxy[] = [
         host: "twitter",
         list: [
             {
-                target: "box.p0t.top",
+                target: "app.hx.fyi",
                 host: 'cloudflare',
             }
         ]
@@ -135,7 +135,7 @@ const proxyList: IProxy[] = [
         host: "unsplash",
         list: [
             {
-                target: "box.p0t.top",
+                target: "app.hx.fyi",
                 host: 'cloudflare',
             }
         ]
@@ -145,7 +145,7 @@ const proxyList: IProxy[] = [
         host: "github",
         list: [
             {
-                target: "raw.p0t.top",
+                target: "app.hx.fyi",
                 host: 'cloudflare',
             }
         ]
@@ -155,7 +155,7 @@ const proxyList: IProxy[] = [
         host: "github",
         list: [
             {
-                target: "codeload.p0t.top",
+                target: "app.hx.fyi",
                 host: 'cloudflare',
             }
         ]
@@ -175,7 +175,7 @@ const proxyList: IProxy[] = [
         host: "github",
         list: [
             {
-                target: "box.p0t.top/gh",
+                target: "app.hx.fyi/gh",
                 host: 'cloudflare',
             }
         ]
@@ -185,7 +185,7 @@ const proxyList: IProxy[] = [
         host: "web",
         list: [
             {
-                target: "0x.p0t.top",
+                target: "app.hx.fyi",
                 host: 'cloudflare',
             }
         ]

@@ -1,9 +1,9 @@
 import { Button, Input, List, Spin } from "antd"
 import { ChangeEvent, useEffect, useRef, useState } from "react"
-import { query } from "./chatapi"
+// import { query } from "./chatapi"
 import VirtualList, { ListRef } from 'rc-virtual-list';
 import "./chat.less"
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 
 const { TextArea } = Input
 
@@ -16,24 +16,24 @@ interface ChatItem {
 
 const Chat = () => {
 
-    const [chatList, setChatList] = useState<ChatItem[]>([])
+    const [chatList] = useState<ChatItem[]>([])
     const [inputVal, setInputVal] = useState('')
 
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
 
 
-    const sendTextInner = () => {
-        if (!inputVal) return
-        const list = [...chatList]
-        const newList = list.concat({
-            type: 'me',
-            text: inputVal,
-            t: Date.now()
-        })
-        setChatList(newList)
-        getResp(inputVal, newList)
-    }
-    const sendText = debounce(sendTextInner, 300)
+    // const sendTextInner = () => {
+    //     if (!inputVal) return
+    //     const list = [...chatList]
+    //     const newList = list.concat({
+    //         type: 'me',
+    //         text: inputVal,
+    //         t: Date.now()
+    //     })
+    //     setChatList(newList)
+    //     getResp(inputVal, newList)
+    // }
+    const sendText = () => { }; // debounce(sendTextInner, 300)
 
     const keydownHandler = (e: KeyboardEvent | React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.code === "Enter" && e.ctrlKey) sendText()
@@ -46,30 +46,30 @@ const Chat = () => {
         // eslint-disable-next-line 
     }, []);
 
-    const hasResp = () => {
-        setInputVal('')
-        setLoading(false)
-    }
-    const getResp = async (str: string, oldList: ChatItem[]) => {
+    // const hasResp = () => {
+    //     setInputVal('')
+    //     setLoading(false)
+    // }
+    // const getResp = async (str: string, oldList: ChatItem[]) => {
 
-        setLoading(true)
-        try {
-            const response = await query({ prompt: str })
-            const newList = oldList.concat({
-                type: 'ai',
-                text: response && response.trim(),
-                t: Date.now()
-            })
-            setChatList(newList)
-            hasResp()
-            const index = newList.length - 1
-            listRef.current?.scrollTo({ index, align: "bottom" })
-        } catch (error) {
-            console.error(error);
-            hasResp()
-        }
+    //     setLoading(true)
+    //     try {
+    //         const response = await query({ prompt: str })
+    //         const newList = oldList.concat({
+    //             type: 'ai',
+    //             text: response && response.trim(),
+    //             t: Date.now()
+    //         })
+    //         setChatList(newList)
+    //         hasResp()
+    //         const index = newList.length - 1
+    //         listRef.current?.scrollTo({ index, align: "bottom" })
+    //     } catch (error) {
+    //         console.error(error);
+    //         hasResp()
+    //     }
 
-    }
+    // }
     const inputChange = ({
         target: { value }
     }: ChangeEvent<HTMLTextAreaElement>) => {

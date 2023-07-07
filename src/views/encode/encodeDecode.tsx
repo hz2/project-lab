@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Input, Checkbox, Card, message } from 'antd'
 import './style.less'
 const { TextArea } = Input

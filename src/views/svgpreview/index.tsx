@@ -1,7 +1,7 @@
-import React from 'react'
-// import qs from 'qs'
+
 import { Input } from 'antd'
 import './style.less'
+import React from 'react';
 const { TextArea } = Input
 
 interface IProps { }

@@ -1,6 +1,6 @@
 // gradient
-import React from 'react'
-// import React, { useState, useEffect } from 'react'
+
+// import  { useState, useEffect } from 'react'
 import './color.less'
 import { Input } from 'antd'
 // import { Input, Button, Slider } from 'antd'

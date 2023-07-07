@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Input, Radio, RadioChangeEvent } from 'antd'
 
 interface IType {

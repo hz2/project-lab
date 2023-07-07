@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Upload, Button, message, UploadProps } from 'antd'
 import {
   UploadOutlined,
@@ -10,7 +10,7 @@ import './svgTool.less'
 
 import { downloadBlob, svgStr2BlobUrl } from '@libs/common'
 import { RcFile } from 'antd/lib/upload'
-const JSZip = require('jszip')
+import JSZip from 'jszip'
 
 const dom2ostr = (dom: Node) => {
   const s = new XMLSerializer()
@@ -22,6 +22,12 @@ const dom2ostr = (dom: Node) => {
   // return result.data;
 }
 
+/**
+ * Parses a string into an SVG XML document using the DOMParser API.
+ *
+ * @param {string} str - The string to be parsed.
+ * @return {Document} The parsed SVG XML document.
+ */
 const str2dom = (str: string) => {
   const parser = new DOMParser()
   return parser.parseFromString(str, 'image/svg+xml')
@@ -113,7 +119,10 @@ const SvgTool = () => {
     }
     svgList.forEach(x => {
       const folder = zip.folder(x.name.replace('.svg', ''))
-      FolderList(x.list, folder)
+      if (folder) {
+        FolderList(x.list, folder)
+
+      }
     })
     zip
       .generateAsync({ type: 'blob' })
@@ -155,7 +164,7 @@ const SvgTool = () => {
   }
 
   const removeItem = (index: number) => {
-    setSvgList(svgList.filter((x, i) => i !== index))
+    setSvgList(svgList.filter((_x, i) => i !== index))
   }
 
   return (
