@@ -1,5 +1,4 @@
 import React from 'react'
-// import qs from 'qs'
 import { Input } from 'antd'
 import './style.less'
 const { TextArea } = Input

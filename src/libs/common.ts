@@ -82,3 +82,18 @@ export const svgStr2BlobUrl = (str: string | undefined) => {
   })
   return URL.createObjectURL(blob)
 }
+
+
+
+export const Qs = {
+  /**
+   * Serializes an object into a query string.
+   *
+   * @param {any} obj - The object to stringify.
+   * @return {string} The serialized query string.
+   */
+  stringify: (obj: any) => Object.keys(obj)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
+    .join('&'),
+  parse: (str: string) => Object.fromEntries(new URLSearchParams(str).entries())
+}

@@ -133,7 +133,7 @@ const Bing = () => {
       </div>
     </div>
   ))
-
+// https://s.cn.bing.net/th?id=OHR.KissingPenguins_EN-CN8556731919_1920x1080.webp&qlt=10
   const mktList = [
     'EN-WW',
     'EN-AU',

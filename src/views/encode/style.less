@@ -86,20 +86,13 @@
 }
 
 
-
-.qscover {
-  textarea {
-    max-width: 450px;
-    margin: 15px 15px 15px 0;
-  }
-}
-
 .dataurl {
   textarea {
     max-width: 80%;
     margin: 15px 15px 15px 0;
   }
 }
+
 textarea {
   resize: none;
 }
@@ -112,9 +105,23 @@ textarea {
   }
 }
 
-.sub-title {
-  background: #fbf5ec;
-  max-width: 450px;
-  color: #0caac4;
-  padding: 5px 15px;
+
+.common-tabs {
+  --max-width: 500px;
+
+  .sub-title-plain {
+    max-width: var(--max-width);
+    padding: 5px 15px;
+  }
+
+  .sub-title {
+    .sub-title-plain;
+    background: #fbf5ec;
+    color: #0caac4;
+  }
+
+  textarea {
+    max-width: var(--max-width);
+    margin: 15px 15px 15px 0;
+  }
 }

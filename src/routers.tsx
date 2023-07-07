@@ -13,7 +13,7 @@ const pathList = {
   gradient: 'color/gradient',
   lottery: 'lottery/lottery',
   // converter
-  queryString: 'encode/qs',
+  transform: 'encode/transform',
   qs: 'encode/qs',
   hex: 'encode/hexConversion',
   encode: 'encode/encodeDecode',
