@@ -2,7 +2,7 @@ stages:
   - pages
   - docker
 pages:
-  image: node:16.6.0
+  image: node:18
   stage: pages
   cache:
     paths:
@@ -14,7 +14,7 @@ pages:
     - npm install
     - npm run build
     - rm -rf public
-    - mv build public
+    - mv dist public
     - cd public
     # - ls
     # - cd ../
