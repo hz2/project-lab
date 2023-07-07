@@ -274,7 +274,7 @@ const softwareList = [
             {
                 name: 'Android Studio',
                 link: "",
-                icon: 'android-studio.svg',
+                icon: 'android-studio.png',
                 offical: "https://developer.android.google.cn/studio",
             },
         ]
@@ -301,7 +301,8 @@ const genImg = (name: string) => {
 
     console.log('url', url);
 
-    return <img src={require(`./imgs/${url}`)} alt="img" />
+    return <img src={new URL(`./imgs/${url}`, import.meta.url).href
+    } alt="img" />
 }
 
 
@@ -410,9 +411,9 @@ fragment ReleaseAssetConnectionFragment on ReleaseAssetConnection {
                     <div className="title">{x.categrory}</div>
                     {
                         x.list.map((y, j) => <div className='item' key={j} >
-                            <a href={y.link || y.offical } target="_blank" rel="noreferrer">
+                            <a href={y.link || y.offical} target="_blank" rel="noreferrer">
                                 <div className="img">
-                                    <img src={require(`./imgs/${y.icon}`)} alt={y.name} />
+                                    <img src={new URL(`./imgs/${y.icon}`, import.meta.url).href} alt={y.name} />
                                 </div>
                                 <div className="name">{y.name}</div></a>
                         </div>)
