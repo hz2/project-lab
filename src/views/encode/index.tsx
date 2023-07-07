@@ -1,4 +1,4 @@
-import React from 'react'
+
 import './style.less'
 
 import HexConv from './hexConversion'

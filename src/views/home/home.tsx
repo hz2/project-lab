@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Divider, Popover } from 'antd'
 
 import { Link } from 'react-router-dom'
@@ -18,7 +18,7 @@ import { ReactComponent as SvgTool } from './imgs/svgtool.svg'
 import { ReactComponent as IpSvg } from './imgs/ip.svg'
 import { ReactComponent as LinkSvg } from './imgs/link.svg'
 import { ReactComponent as MirrorSvg } from './imgs/TwemojiMirror.svg'
-import { ReactComponent as ChatSvg } from './imgs/chat.svg'
+// import { ReactComponent as ChatSvg } from './imgs/chat.svg'
 
 const generatorList = [
   {
@@ -105,13 +105,13 @@ const analyzerList = [
   // }
 ]
 
-const genTitle = (str: string) => {
-  const FirstLetter = str.slice(0, 1).toUpperCase()
-  return (
-    FirstLetter +
-    str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
-  )
-}
+// const genTitle = (str: string) => {
+//   const FirstLetter = str.slice(0, 1).toUpperCase()
+//   return (
+//     FirstLetter +
+//     str.slice(1).replace(/[A-Z](?=[a-z])/g, (x: string) => ' ' + x)
+//   )
+// }
 
 const genBtn = (list: any[], key: string) =>
   list.map((x: any, i: number) => (
@@ -125,7 +125,7 @@ const genBtn = (list: any[], key: string) =>
       <div className="text">{x.zh}</div>
     </Link>
   ))
-const Home = (props: any) => (
+const Home = (_props: any) => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">

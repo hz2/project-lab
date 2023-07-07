@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Tabs, TabsProps } from 'antd'
 
 import './svgTool.less'

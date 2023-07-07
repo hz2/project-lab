@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Upload, Button, message, UploadProps } from 'antd'
 import {
   UploadOutlined,
@@ -119,7 +119,10 @@ const SvgTool = () => {
     }
     svgList.forEach(x => {
       const folder = zip.folder(x.name.replace('.svg', ''))
-      FolderList(x.list, folder)
+      if (folder) {
+        FolderList(x.list, folder)
+
+      }
     })
     zip
       .generateAsync({ type: 'blob' })
@@ -161,7 +164,7 @@ const SvgTool = () => {
   }
 
   const removeItem = (index: number) => {
-    setSvgList(svgList.filter((x, i) => i !== index))
+    setSvgList(svgList.filter((_x, i) => i !== index))
   }
 
   return (

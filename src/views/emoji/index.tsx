@@ -1,4 +1,4 @@
-import React from 'react'
+
 import './style.less'
 
 // let output = (len, start) => {
@@ -8,7 +8,7 @@ import './style.less'
 //     .join(' ')
 // }
 
-const output = Array.from(Array(5000), (x, i) => (125000 + i).toString(16))
+const output = Array.from(Array(5000), (_x, i) => (125000 + i).toString(16))
 
 const openDown = (
   name: string,

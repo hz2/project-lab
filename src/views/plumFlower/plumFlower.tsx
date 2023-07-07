@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import HeluoComp, { TTabVal } from './heluo'
 import { downloadBlob } from '@libs/common'

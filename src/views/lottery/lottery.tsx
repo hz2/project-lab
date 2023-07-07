@@ -1,5 +1,5 @@
 /* global BigInt */
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Tabs, Button, TabsProps } from 'antd'
 import './lottery.less'
 
@@ -11,8 +11,8 @@ interface IGenBall {
   ball: string
   arr?: number[]
 }
-const genBall = (len: number = 33): Promise<IGenBall> => new Promise((resolve, reject) => {
-  const ballArr = Array.from(Array(len), (x, i) =>
+const genBall = (len: number = 33): Promise<IGenBall> => new Promise((resolve, _reject) => {
+  const ballArr = Array.from(Array(len), (_x, i) =>
     (i + 1).toString().padStart(2, '0')
   )
   // 天时 地利 人和
@@ -78,7 +78,7 @@ const LotteryPage = () => {
     }
     if (times) {
       const list = <div className="groups">
-        {await Promise.all(Array.from(Array(times), (x, i) => genGroup(i)))}
+        {await Promise.all(Array.from(Array(times), (_x, i) => genGroup(i)))}
       </div>
       palceBall(list)
     } else {
@@ -124,7 +124,7 @@ const LotteryPage = () => {
     if (times) {
       const list = (
         <div className="groups">
-          {await Promise.all(Array.from(Array(times), (x, i) => genGroup(i)))}
+          {await Promise.all(Array.from(Array(times), (_x, i) => genGroup(i)))}
         </div>
       )
       palceBall2(list)

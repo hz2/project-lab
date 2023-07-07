@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
-import { Input, Checkbox, Upload, Button, UploadProps, Tree, Tooltip } from 'antd'
-import { UploadOutlined, BulbOutlined } from '@ant-design/icons'
+import  { useState } from 'react'
+import { Upload, Button, UploadProps, Tooltip } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
 import './tool.less'
-import { svgStr2b64 as svgStr2b64Orgi } from '@libs/common'
+// import { svgStr2b64 as svgStr2b64Orgi } from '@libs/common'
 
 import type { DataNode, TreeProps } from 'antd/es/tree';
 
 import {
-  DownOutlined,
-  GlobalOutlined
+  DownOutlined
 } from '@ant-design/icons';
 import DirectoryTree from 'antd/es/tree/DirectoryTree'
 
 
 
 
-type TCheckBox = { target: { checked: boolean } }
 interface TLoadFile {
   name: string,
   uid: string,
@@ -53,12 +51,12 @@ const Page = () => {
       reader.onerror = e => reject(e)
     })
 
-  const [inputObj, setInputObj] = useState({
-    text: '',
-    dataUrl: ''
-  })
-  const [isb64, setB64] = useState(false)
-  const svgStr2b64 = (str: string, val = isb64) => svgStr2b64Orgi(str, val);
+  // const [inputObj, setInputObj] = useState({
+  //   text: '',
+  //   dataUrl: ''
+  // })
+  // const [isb64, setB64] = useState(false)
+  // const svgStr2b64 = (str: string, val = isb64) => svgStr2b64Orgi(str, val);
 
 
 
@@ -80,6 +78,10 @@ const Page = () => {
   const [treeData, setTreeData] = useState<DataNode[]>([])
   const [flatData, setFlatData] = useState<ItemObj[]>([])
   const [duplicateObj, setDuplicateObj] = useState<any>({})
+
+  console.log(flatData, duplicateObj);
+
+
 
   const onDragEnter: TreeProps['onDragEnter'] = (info) => {
     console.log(info);

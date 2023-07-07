@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Input, Button } from 'antd'
 import "./web.less";
 
@@ -24,7 +24,7 @@ const Page = () => {
     // twitter
     const tw = url.match(/pbs\.twimg\.com\/media\/(FJBhq7JakAAXztR)\?format=([a-z]+)&name=/i)
     if (tw) {
-      const link = `https://box.p0t.top/media/${tw[1]}?format=${tw[2]}&name=orig`
+      const link = `https://app.hx.fyi/media/${tw[1]}?format=${tw[2]}&name=orig`
       setTwObj({
         link
       })
@@ -32,7 +32,7 @@ const Page = () => {
     // 
     const ph = url.match(/^https:\/\/telegra.ph\/([\w\d\-_]+)/i)
     if (ph) {
-      const link = `https://box.p0t.top/${ph[1]}`
+      const link = `https://app.hx.fyi/${ph[1]}`
       setPhObj({
         link
       })

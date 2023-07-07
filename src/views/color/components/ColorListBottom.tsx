@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { copyText } from '@libs/common'
 import { Radio, RadioChangeEvent } from 'antd'
@@ -21,7 +21,7 @@ const ColorList = ({ count, color: { h, s, l } }: IColorList) => (
       (x: number) => [h, ((100 / count) * x) / 100, l],
       (x: number) => [h, s, ((100 / count) * x) / 100]
     ].map((fn, i) => {
-      const list = Array.from({ length: count }, (x, i) => hsl2hex(fn(i)))
+      const list = Array.from({ length: count }, (_x, i) => hsl2hex(fn(i)))
       return (
         <div className="cat" key={i}>
           {list.map((x, i) => (

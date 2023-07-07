@@ -1,8 +1,9 @@
-import React, { Suspense, lazy } from 'react'
+import  { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
 import { ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
+import React from 'react'
 
 const pathList = {
   // generator

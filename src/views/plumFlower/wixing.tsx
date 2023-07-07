@@ -1,4 +1,4 @@
-import React from 'react'
+
 const sinTheta = (th: number) => Math.sin((th * Math.PI) / 180)
 const cosTheta = (th: number) => Math.cos((th * Math.PI) / 180)
 const arrowTheta = (Math.atan(5 / 6) * 180) / Math.PI

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Input, message } from 'antd'
 import './style.less'
 // import jsQR from "jsqr";

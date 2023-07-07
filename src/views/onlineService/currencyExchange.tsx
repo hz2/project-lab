@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip, Space } from 'antd'
 import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
@@ -110,7 +110,7 @@ const getFullList = async () => {
   return list
 }
 const getFullRate = async () => {
-  const r = await fetch('https://respok.com/fixer_io', { mode: 'cors' })
+  const r = await fetch('https://serv.respok.com/fixer_io', { mode: 'cors' })
     .then(response => response.json())
   if (r && r.rates) {
     return r.rates

@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Input, Radio, RadioChangeEvent, Spin, Switch, message } from 'antd'
 import './style.less'
-import { Qs } from '@/libs/common'
 const { TextArea } = Input
 
 const translateText = async (str: string) => {
