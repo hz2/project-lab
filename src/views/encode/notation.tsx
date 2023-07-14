@@ -106,10 +106,10 @@ const NotationPage = () => {
                 r = arrMerge.map(x => x.output).join('\n')
                 break;
             case 'kw':
-                r = arrMerge.map(x => `${x.output}:"${x.input}"`).join('\n')
+                r = arrMerge.map(x => `${x.output}:"${x.input}",`).join('\n')
                 break;
             case 'file':
-                r = arrMerge.map(x => `echo "<template><div class=\"page\">${x.input}</div><template>" > ${x.output}.vue`).join('\n')
+                r = arrMerge.map(x => `echo "<template><div class=\\\"page\\\">${x.input}</div></template>" > ${x.output}.vue`).join('\n')
                 break;
             default:
                 break;
