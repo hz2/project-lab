@@ -53,7 +53,7 @@ const NotationPage = () => {
         },
         // {
         //     name: 'SCREAM-KEBAB-CASE',
-        //     zh: '连字符大写',
+        //     zh: '连字符大写', 
         //     fn: (arr: string[]) => arr.map(x => x.toUpperCase()).join('-')
         // },
         // {
@@ -128,11 +128,11 @@ const NotationPage = () => {
         <Spin spinning={loading} size="large">
             <div className="common-tabs">
                 <div className="sub-title">
-                    <span className='mr15'>{!shouldTranslate ? '输入英文' : '输入中文，自动翻译'}</span>
+                    <span className='mr15'>当前模式：{!shouldTranslate ? '输入英文' : '输入中文，自动翻译'}</span>
                     <Switch checked={shouldTranslate} onChange={translateSwitch} />
                 </div>
                 <TextArea
-                    placeholder={'id=1&name=querystring'}
+                    placeholder={!shouldTranslate ? 'englishName' : '中文'}
                     rows={6}
                     value={inputStr}
                     onChange={({ target: { value } }) => {
