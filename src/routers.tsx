@@ -13,6 +13,7 @@ const pathList = {
   color: 'color/index',
   gradient: 'color/gradient',
   lottery: 'lottery/lottery',
+  gua: 'lottery/gua',
   // converter
   transform: 'encode/transform',
   qs: 'encode/qs',
