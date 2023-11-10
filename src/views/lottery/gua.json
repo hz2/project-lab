@@ -1,450 +1,578 @@
 [
     {
-      "gua": "䷀",
-      "name": "乾",
-      "val": 64,
-      "binval": 63,
-      "cixu": 1
+        "gua": "䷀",
+        "name": "乾",
+        "val": 64,
+        "binval": 63,
+        "cixu": 1,
+        "el": "干为天",
+        "binRaw": "111111"
     },
     {
-      "gua": "䷁",
-      "name": "坤",
-      "val": 1,
-      "binval": 0,
-      "cixu": 2
+        "gua": "䷁",
+        "name": "坤",
+        "val": 1,
+        "binval": 0,
+        "cixu": 2,
+        "el": "坤为地",
+        "binRaw": "000000"
     },
     {
-      "gua": "䷂",
-      "name": "屯",
-      "val": 35,
-      "binval": 34,
-      "cixu": 3
+        "gua": "䷂",
+        "name": "屯",
+        "val": 35,
+        "binval": 34,
+        "cixu": 3,
+        "el": "水雷屯",
+        "binRaw": ""
     },
     {
-      "gua": "䷃",
-      "name": "蒙",
-      "val": 18,
-      "binval": 17,
-      "cixu": 4
+        "gua": "䷃",
+        "name": "蒙",
+        "val": 18,
+        "binval": 17,
+        "cixu": 4,
+        "el": "山水蒙",
+        "binRaw": ""
     },
     {
-      "gua": "䷄",
-      "name": "需",
-      "val": 59,
-      "binval": 58,
-      "cixu": 5
+        "gua": "䷄",
+        "name": "需",
+        "val": 59,
+        "binval": 58,
+        "cixu": 5,
+        "el": "水天需",
+        "binRaw": ""
     },
     {
-      "gua": "䷅",
-      "name": "讼",
-      "val": 24,
-      "binval": 23,
-      "cixu": 6
+        "gua": "䷅",
+        "name": "讼",
+        "val": 24,
+        "binval": 23,
+        "cixu": 6,
+        "el": "天水讼",
+        "binRaw": ""
     },
     {
-      "gua": "䷆",
-      "name": "师",
-      "val": 17,
-      "binval": 16,
-      "cixu": 7
+        "gua": "䷆",
+        "name": "师",
+        "val": 17,
+        "binval": 16,
+        "cixu": 7,
+        "el": "地水师",
+        "binRaw": ""
     },
     {
-      "gua": "䷇",
-      "name": "比",
-      "val": 3,
-      "binval": 2,
-      "cixu": 8
+        "gua": "䷇",
+        "name": "比",
+        "val": 3,
+        "binval": 2,
+        "cixu": 8,
+        "el": "水地比",
+        "binRaw": ""
     },
     {
-      "gua": "䷈",
-      "name": "小畜",
-      "val": 60,
-      "binval": 59,
-      "cixu": 9
+        "gua": "䷈",
+        "name": "小畜",
+        "val": 60,
+        "binval": 59,
+        "cixu": 9,
+        "el": "风天小畜",
+        "binRaw": ""
     },
     {
-      "gua": "䷉",
-      "name": "履",
-      "val": 56,
-      "binval": 55,
-      "cixu": 10
+        "gua": "䷉",
+        "name": "履",
+        "val": 56,
+        "binval": 55,
+        "cixu": 10,
+        "el": "天泽履",
+        "binRaw": ""
     },
     {
-      "gua": "䷊",
-      "name": "泰",
-      "val": 57,
-      "binval": 56,
-      "cixu": 11
+        "gua": "䷊",
+        "name": "泰",
+        "val": 57,
+        "binval": 56,
+        "cixu": 11,
+        "el": "地天泰",
+        "binRaw": ""
     },
     {
-      "gua": "䷋",
-      "name": "否",
-      "val": 8,
-      "binval": 7,
-      "cixu": 12
+        "gua": "䷋",
+        "name": "否",
+        "val": 8,
+        "binval": 7,
+        "cixu": 12,
+        "el": "天地否",
+        "binRaw": ""
     },
     {
-      "gua": "䷌",
-      "name": "同人",
-      "val": 48,
-      "binval": 47,
-      "cixu": 13
+        "gua": "䷌",
+        "name": "同人",
+        "val": 48,
+        "binval": 47,
+        "cixu": 13,
+        "el": "天火同人",
+        "binRaw": ""
     },
     {
-      "gua": "䷍",
-      "name": "大有",
-      "val": 62,
-      "binval": 61,
-      "cixu": 14
+        "gua": "䷍",
+        "name": "大有",
+        "val": 62,
+        "binval": 61,
+        "cixu": 14,
+        "el": "火天大有",
+        "binRaw": ""
     },
     {
-      "gua": "䷎",
-      "name": "谦",
-      "val": 9,
-      "binval": 8,
-      "cixu": 15
+        "gua": "䷎",
+        "name": "谦",
+        "val": 9,
+        "binval": 8,
+        "cixu": 15,
+        "el": "地山谦",
+        "binRaw": ""
     },
     {
-      "gua": "䷏",
-      "name": "豫",
-      "val": 5,
-      "binval": 4,
-      "cixu": 16
+        "gua": "䷏",
+        "name": "豫",
+        "val": 5,
+        "binval": 4,
+        "cixu": 16,
+        "el": "雷地豫",
+        "binRaw": ""
     },
     {
-      "gua": "䷐",
-      "name": "随",
-      "val": 39,
-      "binval": 38,
-      "cixu": 17
+        "gua": "䷐",
+        "name": "随",
+        "val": 39,
+        "binval": 38,
+        "cixu": 17,
+        "el": "泽雷随",
+        "binRaw": ""
     },
     {
-      "gua": "䷑",
-      "name": "蛊",
-      "val": 26,
-      "binval": 25,
-      "cixu": 18
+        "gua": "䷑",
+        "name": "蛊",
+        "val": 26,
+        "binval": 25,
+        "cixu": 18,
+        "el": "山风蛊",
+        "binRaw": ""
     },
     {
-      "gua": "䷒",
-      "name": "临",
-      "val": 49,
-      "binval": 48,
-      "cixu": 19
+        "gua": "䷒",
+        "name": "临",
+        "val": 49,
+        "binval": 48,
+        "cixu": 19,
+        "el": "地泽临",
+        "binRaw": ""
     },
     {
-      "gua": "䷓",
-      "name": "观",
-      "val": 4,
-      "binval": 3,
-      "cixu": 20
+        "gua": "䷓",
+        "name": "观",
+        "val": 4,
+        "binval": 3,
+        "cixu": 20,
+        "el": "风地观",
+        "binRaw": ""
     },
     {
-      "gua": "䷔",
-      "name": "噬嗑",
-      "val": 38,
-      "binval": 37,
-      "cixu": 21
+        "gua": "䷔",
+        "name": "噬嗑",
+        "val": 38,
+        "binval": 37,
+        "cixu": 21,
+        "el": "火雷噬嗑",
+        "binRaw": ""
     },
     {
-      "gua": "䷕",
-      "name": "贲",
-      "val": 42,
-      "binval": 41,
-      "cixu": 22
+        "gua": "䷕",
+        "name": "贲",
+        "val": 42,
+        "binval": 41,
+        "cixu": 22,
+        "el": "山火贲",
+        "binRaw": ""
     },
     {
-      "gua": "䷖",
-      "name": "剥",
-      "val": 2,
-      "binval": 1,
-      "cixu": 23
+        "gua": "䷖",
+        "name": "剥",
+        "val": 2,
+        "binval": 1,
+        "cixu": 23,
+        "el": "山地剥",
+        "binRaw": ""
     },
     {
-      "gua": "䷗",
-      "name": "复",
-      "val": 33,
-      "binval": 32,
-      "cixu": 24
+        "gua": "䷗",
+        "name": "复",
+        "val": 33,
+        "binval": 32,
+        "cixu": 24,
+        "el": "地雷复",
+        "binRaw": ""
     },
     {
-      "gua": "䷘",
-      "name": "无妄",
-      "val": 40,
-      "binval": 39,
-      "cixu": 25
+        "gua": "䷘",
+        "name": "无妄",
+        "val": 40,
+        "binval": 39,
+        "cixu": 25,
+        "el": "天雷无妄",
+        "binRaw": ""
     },
     {
-      "gua": "䷙",
-      "name": "大畜",
-      "val": 58,
-      "binval": 57,
-      "cixu": 26
+        "gua": "䷙",
+        "name": "大畜",
+        "val": 58,
+        "binval": 57,
+        "cixu": 26,
+        "el": "山天大畜",
+        "binRaw": ""
     },
     {
-      "gua": "䷚",
-      "name": "颐",
-      "val": 34,
-      "binval": 33,
-      "cixu": 27
+        "gua": "䷚",
+        "name": "颐",
+        "val": 34,
+        "binval": 33,
+        "cixu": 27,
+        "el": "山雷颐",
+        "binRaw": ""
     },
     {
-      "gua": "䷛",
-      "name": "大过",
-      "val": 31,
-      "binval": 30,
-      "cixu": 28
+        "gua": "䷛",
+        "name": "大过",
+        "val": 31,
+        "binval": 30,
+        "cixu": 28,
+        "el": "泽风大过",
+        "binRaw": ""
     },
     {
-      "gua": "䷜",
-      "name": "坎",
-      "val": 19,
-      "binval": 18,
-      "cixu": 29
+        "gua": "䷜",
+        "name": "坎",
+        "val": 19,
+        "binval": 18,
+        "cixu": 29,
+        "el": "坎为水",
+        "binRaw": "010010"
     },
     {
-      "gua": "䷝",
-      "name": "离",
-      "val": 46,
-      "binval": 45,
-      "cixu": 30
+        "gua": "䷝",
+        "name": "离",
+        "val": 46,
+        "binval": 45,
+        "cixu": 30,
+        "el": "离为火",
+        "binRaw": "101101"
     },
     {
-      "gua": "䷞",
-      "name": "咸",
-      "val": 15,
-      "binval": 14,
-      "cixu": 31
+        "gua": "䷞",
+        "name": "咸",
+        "val": 15,
+        "binval": 14,
+        "cixu": 31,
+        "el": "泽山咸",
+        "binRaw": ""
     },
     {
-      "gua": "䷟",
-      "name": "恒",
-      "val": 29,
-      "binval": 28,
-      "cixu": 32
+        "gua": "䷟",
+        "name": "恒",
+        "val": 29,
+        "binval": 28,
+        "cixu": 32,
+        "el": "雷风恒",
+        "binRaw": ""
     },
     {
-      "gua": "䷠",
-      "name": "遁",
-      "val": 16,
-      "binval": 15,
-      "cixu": 33
+        "gua": "䷠",
+        "name": "遁",
+        "val": 16,
+        "binval": 15,
+        "cixu": 33,
+        "el": "天山遁",
+        "binRaw": ""
     },
     {
-      "gua": "䷡",
-      "name": "大壮",
-      "val": 61,
-      "binval": 60,
-      "cixu": 34
+        "gua": "䷡",
+        "name": "大壮",
+        "val": 61,
+        "binval": 60,
+        "cixu": 34,
+        "el": "雷天大壮",
+        "binRaw": ""
     },
     {
-      "gua": "䷢",
-      "name": "晋",
-      "val": 6,
-      "binval": 5,
-      "cixu": 35
+        "gua": "䷢",
+        "name": "晋",
+        "val": 6,
+        "binval": 5,
+        "cixu": 35,
+        "el": "火地晋",
+        "binRaw": ""
     },
     {
-      "gua": "䷣",
-      "name": "明夷",
-      "val": 41,
-      "binval": 40,
-      "cixu": 36
+        "gua": "䷣",
+        "name": "明夷",
+        "val": 41,
+        "binval": 40,
+        "cixu": 36,
+        "el": "地火明夷",
+        "binRaw": ""
     },
     {
-      "gua": "䷤",
-      "name": "家人",
-      "val": 44,
-      "binval": 43,
-      "cixu": 37
+        "gua": "䷤",
+        "name": "家人",
+        "val": 44,
+        "binval": 43,
+        "cixu": 37,
+        "el": "风火家人",
+        "binRaw": ""
     },
     {
-      "gua": "䷥",
-      "name": "睽",
-      "val": 54,
-      "binval": 53,
-      "cixu": 38
+        "gua": "䷥",
+        "name": "睽",
+        "val": 54,
+        "binval": 53,
+        "cixu": 38,
+        "el": "火泽睽",
+        "binRaw": ""
     },
     {
-      "gua": "䷦",
-      "name": "蹇",
-      "val": 11,
-      "binval": 10,
-      "cixu": 39
+        "gua": "䷦",
+        "name": "蹇",
+        "val": 11,
+        "binval": 10,
+        "cixu": 39,
+        "el": "水山蹇",
+        "binRaw": ""
     },
     {
-      "gua": "䷧",
-      "name": "解",
-      "val": 21,
-      "binval": 20,
-      "cixu": 40
+        "gua": "䷧",
+        "name": "解",
+        "val": 21,
+        "binval": 20,
+        "cixu": 40,
+        "el": "雷水解",
+        "binRaw": ""
     },
     {
-      "gua": "䷨",
-      "name": "损",
-      "val": 50,
-      "binval": 49,
-      "cixu": 41
+        "gua": "䷨",
+        "name": "损",
+        "val": 50,
+        "binval": 49,
+        "cixu": 41,
+        "el": "山泽损",
+        "binRaw": ""
     },
     {
-      "gua": "䷩",
-      "name": "益",
-      "val": 36,
-      "binval": 35,
-      "cixu": 42
+        "gua": "䷩",
+        "name": "益",
+        "val": 36,
+        "binval": 35,
+        "cixu": 42,
+        "el": "风雷益",
+        "binRaw": ""
     },
     {
-      "gua": "䷪",
-      "name": "夬",
-      "val": 63,
-      "binval": 62,
-      "cixu": 43
+        "gua": "䷪",
+        "name": "夬",
+        "val": 63,
+        "binval": 62,
+        "cixu": 43,
+        "el": "泽天夬",
+        "binRaw": ""
     },
     {
-      "gua": "䷫",
-      "name": "姤",
-      "val": 32,
-      "binval": 31,
-      "cixu": 44
+        "gua": "䷫",
+        "name": "姤",
+        "val": 32,
+        "binval": 31,
+        "cixu": 44,
+        "el": "天风姤",
+        "binRaw": ""
     },
     {
-      "gua": "䷬",
-      "name": "萃",
-      "val": 7,
-      "binval": 6,
-      "cixu": 45
+        "gua": "䷬",
+        "name": "萃",
+        "val": 7,
+        "binval": 6,
+        "cixu": 45,
+        "el": "泽地萃",
+        "binRaw": ""
     },
     {
-      "gua": "䷭",
-      "name": "升",
-      "val": 25,
-      "binval": 24,
-      "cixu": 46
+        "gua": "䷭",
+        "name": "升",
+        "val": 25,
+        "binval": 24,
+        "cixu": 46,
+        "el": "地风升",
+        "binRaw": ""
     },
     {
-      "gua": "䷮",
-      "name": "困",
-      "val": 23,
-      "binval": 22,
-      "cixu": 47
+        "gua": "䷮",
+        "name": "困",
+        "val": 23,
+        "binval": 22,
+        "cixu": 47,
+        "el": "泽水困",
+        "binRaw": ""
     },
     {
-      "gua": "䷯",
-      "name": "井",
-      "val": 27,
-      "binval": 26,
-      "cixu": 48
+        "gua": "䷯",
+        "name": "井",
+        "val": 27,
+        "binval": 26,
+        "cixu": 48,
+        "el": "水风井",
+        "binRaw": ""
     },
     {
-      "gua": "䷰",
-      "name": "革",
-      "val": 47,
-      "binval": 46,
-      "cixu": 49
+        "gua": "䷰",
+        "name": "革",
+        "val": 47,
+        "binval": 46,
+        "cixu": 49,
+        "el": "泽火革",
+        "binRaw": ""
     },
     {
-      "gua": "䷱",
-      "name": "鼎",
-      "val": 30,
-      "binval": 29,
-      "cixu": 50
+        "gua": "䷱",
+        "name": "鼎",
+        "val": 30,
+        "binval": 29,
+        "cixu": 50,
+        "el": "火风鼎",
+        "binRaw": ""
     },
     {
-      "gua": "䷲",
-      "name": "震",
-      "val": 37,
-      "binval": 36,
-      "cixu": 51
+        "gua": "䷲",
+        "name": "震",
+        "val": 37,
+        "binval": 36,
+        "cixu": 51,
+        "el": "震为雷",
+        "binRaw": "001001"
     },
     {
-      "gua": "䷳",
-      "name": "艮",
-      "val": 10,
-      "binval": 9,
-      "cixu": 52
+        "gua": "䷳",
+        "name": "艮",
+        "val": 10,
+        "binval": 9,
+        "cixu": 52,
+        "el": "艮为山",
+        "binRaw": "100100"
     },
     {
-      "gua": "䷴",
-      "name": "渐",
-      "val": 12,
-      "binval": 11,
-      "cixu": 53
+        "gua": "䷴",
+        "name": "渐",
+        "val": 12,
+        "binval": 11,
+        "cixu": 53,
+        "el": "风山渐",
+        "binRaw": ""
     },
     {
-      "gua": "䷵",
-      "name": "归妹",
-      "val": 53,
-      "binval": 52,
-      "cixu": 54
+        "gua": "䷵",
+        "name": "归妹",
+        "val": 53,
+        "binval": 52,
+        "cixu": 54,
+        "el": "雷泽归妹",
+        "binRaw": ""
     },
     {
-      "gua": "䷶",
-      "name": "丰",
-      "val": 45,
-      "binval": 44,
-      "cixu": 55
+        "gua": "䷶",
+        "name": "丰",
+        "val": 45,
+        "binval": 44,
+        "cixu": 55,
+        "el": "雷火丰",
+        "binRaw": ""
     },
     {
-      "gua": "䷷",
-      "name": "旅",
-      "val": 14,
-      "binval": 13,
-      "cixu": 56
+        "gua": "䷷",
+        "name": "旅",
+        "val": 14,
+        "binval": 13,
+        "cixu": 56,
+        "el": "火山旅",
+        "binRaw": ""
     },
     {
-      "gua": "䷸",
-      "name": "巽",
-      "val": 28,
-      "binval": 27,
-      "cixu": 57
+        "gua": "䷸",
+        "name": "巽",
+        "val": 28,
+        "binval": 27,
+        "cixu": 57,
+        "el": "巽为风",
+        "binRaw": "110110"
     },
     {
-      "gua": "䷹",
-      "name": "兑",
-      "val": 55,
-      "binval": 54,
-      "cixu": 58
+        "gua": "䷹",
+        "name": "兑",
+        "val": 55,
+        "binval": 54,
+        "cixu": 58,
+        "el": "兑为泽",
+        "binRaw": "011011"
     },
     {
-      "gua": "䷺",
-      "name": "涣",
-      "val": 20,
-      "binval": 19,
-      "cixu": 59
+        "gua": "䷺",
+        "name": "涣",
+        "val": 20,
+        "binval": 19,
+        "cixu": 59,
+        "el": "风水涣",
+        "binRaw": ""
     },
     {
-      "gua": "䷻",
-      "name": "节",
-      "val": 51,
-      "binval": 50,
-      "cixu": 60
+        "gua": "䷻",
+        "name": "节",
+        "val": 51,
+        "binval": 50,
+        "cixu": 60,
+        "el": "水泽节",
+        "binRaw": ""
     },
     {
-      "gua": "䷼",
-      "name": "中孚",
-      "val": 52,
-      "binval": 51,
-      "cixu": 61
+        "gua": "䷼",
+        "name": "中孚",
+        "val": 52,
+        "binval": 51,
+        "cixu": 61,
+        "el": "风泽中孚",
+        "binRaw": ""
     },
     {
-      "gua": "䷽",
-      "name": "小过",
-      "val": 13,
-      "binval": 12,
-      "cixu": 62
+        "gua": "䷽",
+        "name": "小过",
+        "val": 13,
+        "binval": 12,
+        "cixu": 62,
+        "el": "雷山小过",
+        "binRaw": ""
     },
     {
-      "gua": "䷾",
-      "name": "既济",
-      "val": 43,
-      "binval": 42,
-      "cixu": 63
+        "gua": "䷾",
+        "name": "既济",
+        "val": 43,
+        "binval": 42,
+        "cixu": 63,
+        "el": "水火既济",
+        "binRaw": ""
     },
     {
-      "gua": "䷿",
-      "name": "未济",
-      "val": 22,
-      "binval": 21,
-      "cixu": 64
+        "gua": "䷿",
+        "name": "未济",
+        "val": 22,
+        "binval": 21,
+        "cixu": 64,
+        "el": "火水未济",
+        "binRaw": ""
     }
-  ]
+]
