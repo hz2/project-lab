@@ -1,0 +1,71 @@
+html {
+    --font-size: min(max(2vw,20px),4vw)
+
+}
+
+
+.common-box {
+    
+    position: relative;
+    // * {
+    //     outline: 1px red solid;
+    // }
+    .gua-item {
+        margin: 5px;
+    }
+
+    .gua {
+        font-size: 30px;
+    }
+
+    .gua-name {
+        line-height: 1.2;
+        width: 1em;
+        font-size: 16px;
+    }
+
+}
+
+
+
+.round-list {
+    position: absolute;
+    left: 50%;
+    top: 420px;
+    transform: translate(-50%, calc( -50% - 328px ));
+
+    .gua-item {
+        transform-origin: center 350px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        align-self: flex-end;
+        
+        
+        margin: 0;
+
+        .gua-name {
+            position: absolute;
+            text-align: center;
+            transform: translateY(-2.5em);
+            height: 3em;
+            margin: auto;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.square-list {
+    position: absolute;
+    left: 50%;
+    top: 420px;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+
+    .gua-item {
+        margin: 5px;
+    }
+}
