@@ -1,45 +1,13 @@
-import  { Suspense, lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
 import { ConfigProvider, Spin } from 'antd'
 import Home from './views/home/home'
 import Header from './views/components/Header'
 import React from 'react'
+import routerData from './routerData'
 
-const pathList = {
-  // generator
-  person: 'idcard/idcard',
-  bing: 'bing/index',
-  nasa: 'bing/nasa',
-  color: 'color/index',
-  gradient: 'color/gradient',
-  lottery: 'lottery/lottery',
-  gua: 'lottery/gua',
-  // converter
-  transform: 'encode/transform',
-  qs: 'encode/qs',
-  hex: 'encode/hexConversion',
-  encode: 'encode/encodeDecode',
-  dataURL: 'encode/dataURL',
-  qrcode: 'encode/qr',
-  emoji: 'emoji/index',
-  svgpreview: 'svgpreview',
-  plumFlower: 'plumFlower/plumFlower',
-  post: 'onlineService/post',
-  ipAddress: 'onlineService/ip',
-  ip: 'onlineService/ip',
-  currency: 'onlineService/currencyExchange',
-  web: 'onlineService/web',
-  svg: 'svgTool/svgTool',
-  svgo: 'svgTool/svgO',
-  svgbg: 'svgTool/svg2bg',
-  toy: 'toy/toy',
-  docker: 'toy/docker',
-  mirrors: 'toy/mirrors',
-  chat: 'toy/chat',
-  bookmark: 'bookmarkTool/bookmark'
-}
-const routesList = Object.entries(pathList).map(([path, file], i) => {
-  const [dir, filename] = file.split('/')
+const routesList = routerData.map(({ path, comp }, i) => {
+  const [dir, filename] = comp.split('/')
   const Comp = lazy(() => import(`./views/${dir}/${filename}.tsx`))
   return <Route
     path={'/' + path}
