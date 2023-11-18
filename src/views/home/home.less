@@ -1,7 +1,6 @@
 .app-home {
     padding-bottom: 100px;
 
-    .home-container {}
 
     .page-title {
         text-transform: inherit;
@@ -12,33 +11,37 @@
 
     .btn-list {
         .item {
-            width: 80px;
+            width: 120px;
             overflow: hidden;
-            border-radius: 8px;
-            background: color-mix(in srgb, var(--color-item) 10%, #fff 100%);
-            border: 1px solid  color-mix(in srgb, var(--color-item) 15%, #fff 100%);
+            border-radius: 18px;
+            background: color-mix(in srgb, var(--color-item) 25%, #fff 100%);
+            border: 3px solid color-mix(in srgb, var(--color-item) 28%, #fff 100%);
 
             .letter {
-                height: 50px;
-                font-size: 30px;
-                text-transform: uppercase;
-                white-space: nowrap;
-                color: #fff;
-                letter-spacing: .1em;
-                font-weight: 500;
+                // height: 50px;
+                font-size: 40px;
+                opacity: .75;
+                // text-transform: uppercase;
+                // white-space: nowrap;
+                // color: #fff;
+                // letter-spacing: .1em;
+                // font-weight: 500;
+                // overflow: hidden;
             }
 
             .text {
                 margin: 8px auto;
                 line-height: 1.4;
-                text-align: right;
-                padding-right: 10px;
+                // text-align: right;
+                // padding-right: 10px;
+                color: #666;
             }
 
             &:hover {
-                background: color-mix(in srgb, var(--color-item) 35%, #fff 55%);
+                background: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
+                border-color: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
                 transition: all linear 0.2s;
-                transform: scale(1.1) rotate(-1deg);
+                transform: scale(1.1);
                 // filter: hue-rotate(145deg);
             }
         }

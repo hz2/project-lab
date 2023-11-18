@@ -79,7 +79,7 @@ export default [
     },
     {
         path: "dataURL",
-        zh: '进制',
+        zh: '网址',
         showInHome: true,
         comp: "encode/dataURL"
     },

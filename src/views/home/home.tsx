@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
+import { CSSProperties } from 'react'
+import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTone, ControlTwoTone, EnvironmentTwoTone, FireTwoTone, GiftTwoTone, HourglassTwoTone, IdcardTwoTone, InteractionTwoTone, PictureTwoTone, RocketTwoTone, SmileTwoTone, StarTwoTone, TagTwoTone } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -17,26 +19,49 @@ import routerData from '@/routerData'
 //   )
 // }
 
+
+const iconList = (path: string, color: string) => ({
+  person: <IdcardTwoTone twoToneColor={color} />,
+  bing: <CameraTwoTone twoToneColor={color} />,
+  nasa: <PictureTwoTone twoToneColor={color} />,
+  color: <SmileTwoTone twoToneColor={color} />,
+  lottery: <GiftTwoTone twoToneColor={color} />,
+  gua: <CompassTwoTone twoToneColor={color} />,
+  plumFlower: <FireTwoTone twoToneColor={color} />,
+  qs: <CodeTwoTone twoToneColor={color} />,
+  notation: <TagTwoTone twoToneColor={color} />,
+  hex: <ControlTwoTone twoToneColor={color} />,
+  encode: <InteractionTwoTone twoToneColor={color} />,
+  dataURL: <BulbTwoTone twoToneColor={color} />,
+  ipAddress: <EnvironmentTwoTone twoToneColor={color} />,
+  svgSymbol: <StarTwoTone twoToneColor={color} />,
+  svgo: <RocketTwoTone twoToneColor={color} />,
+  svgbg: <AppstoreTwoTone twoToneColor={color} />,
+  mirrors: <HourglassTwoTone twoToneColor={color} />,
+}[path])
+
 const Home = (_props: any) => (
   <div className="app-home">
     <section className="home-container">
       <h1 className="common-title page-title">
         <img src="./logo-lab-thin.svg" alt="lab-logo" className="lab-logo" />
-        project Lab
+        Lab
       </h1>
-      <div className="btn-list">{
-        routerData.filter(x => x.showInHome).map((x, i: number) => (
-          <Link
-            style={{ '--color-item': `hsl(${Math.round(36 * i * Math.random() )} 55% 50% / .9)` }}
+      <div className="btn-list p30">{
+        routerData.filter(x => x.showInHome).map((x, i: number) => {
+          const color = `hsl(${Math.round(36 * i * Math.random())} 55% 50% / .9)`
+          return <Link
+            style={{ '--color-item': color } as CSSProperties}
             className="item inline-block align-top center m20"
             type="primary"
             key={i}
             to={'/' + x.path}
             title={x.zh}>
-            <div className="letter">{x.path}</div>
+            <div className="letter">{iconList(x.path, color) || x.path}</div>
             <div className="text">{x.zh}</div>
           </Link>
-        ))
+
+        })
       }</div>
     </section>
     {/* <Counter /> */}

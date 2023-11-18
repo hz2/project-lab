@@ -85,7 +85,7 @@ class idcard extends React.Component {
     let birth = ''
     let sex = ''
     let astrology = ''
-    let astrologyList = [
+    const astrologyList = [
       { txt: '白羊座', val: [3.21, 4.19], en: 'Aries', icon: '♈' },
       { txt: '金牛座', val: [4.2, 5.2], en: 'Taurus', icon: '♉' },
       { txt: '双子座', val: [5.21, 6.21], en: 'Gemini', icon: '♊' },
@@ -101,7 +101,7 @@ class idcard extends React.Component {
       { txt: '双鱼座', val: [2.19, 3.2], en: 'Pisces', icon: '♓' }
     ]
     let zodiac = ''
-    let zodiacList = [
+    const zodiacList = [
       { zh: '鼠', icon: '🐀', icon2: '🐭', branch: '子' },
       { zh: '牛', icon: '🐂', icon2: '🐮', branch: '丑' },
       { zh: '虎', icon: '🐅', icon2: '🐯', branch: '寅' },
@@ -116,7 +116,7 @@ class idcard extends React.Component {
       { zh: '猪', icon: '🐖', icon2: '🐷', branch: '亥' }
       // { zh: '猫', icon: '🐈', branch: ' ' }
     ]
-    let tianArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+    const tianArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
     let icon1 = ''
     let icon2 = ''
     let isValidate = null
@@ -134,13 +134,13 @@ class idcard extends React.Component {
         ' ' +
         (new Date().getFullYear() - Number(val.substring(6, 10)) * 1) +
         '岁'
-      let digi =
+      const digi =
         Number(val.substring(10, 12)) * 1 + Number(val.substring(12, 14)) / 100
-      let current = astrologyList.filter(
+      const current = astrologyList.filter(
         x => x.val[0] <= digi && digi <= x.val[1]
       )[0]
       icon1 = current.icon
-      let currentYear = zodiacList[(Number(val.substring(6, 10)) - 4) % 12]
+      const currentYear = zodiacList[(Number(val.substring(6, 10)) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
       zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${
         currentYear.branch
@@ -205,20 +205,20 @@ class idcard extends React.Component {
   }
   randomNO() {
     const keysArr = this.state.keysArr
-    let rdmarea = keysArr[rdm(0, keysArr.length)]
-    let rdmdate = new Date(
+    const rdmarea = keysArr[rdm(0, keysArr.length)]
+    const rdmdate = new Date(
       rdm(new Date('1950-01-01').getTime(), new Date().getTime())
     )
       .toISOString()
       .replace(/(T[\d:.]+Z)|-/g, '') // 随机生日
-    let rdmorder = ('0' + rdm(0, 99)).substr(-2)
-    let rdmsex = rdm(0, 9) // 随机性别 奇数男 偶数女
-    let b17 = `${rdmarea}${rdmdate}${rdmorder}${rdmsex}`
-    let endNum = this.idcardCalc(b17).toUpperCase()
+    const rdmorder = ('0' + rdm(0, 99)).substr(-2)
+    const rdmsex = rdm(0, 9) // 随机性别 奇数男 偶数女
+    const b17 = `${rdmarea}${rdmdate}${rdmorder}${rdmsex}`
+    const endNum = this.idcardCalc(b17).toUpperCase()
     return `${b17}${endNum}`
   }
   generateIDCardNO = () => {
-    let out = this.randomNO()
+    const out = this.randomNO()
     this.setState({ idcvalue: out })
     this.setResult(out)
   }
@@ -303,7 +303,7 @@ class idcard extends React.Component {
     const xzqhLoc = window.localStorage.getItem('xzqh')
     if (xzqhLoc) {
       const json = JSON.parse(xzqhLoc)
-      let keysArr = res2Key(json)
+      const keysArr = res2Key(json)
       this.setState({
         keysArr: keysArr,
         xzqh: json
@@ -313,7 +313,7 @@ class idcard extends React.Component {
     fetch('https://cf.hx.fyi/all', { mode: 'cors' })
       .then(response => response.json())
       .then(res => {
-        let keysArr = res2Key(res)
+        const keysArr = res2Key(res)
         window.localStorage.setItem('xzqh', JSON.stringify(res))
         this.setState({
           keysArr: keysArr,

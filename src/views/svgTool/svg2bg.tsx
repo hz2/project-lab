@@ -110,7 +110,7 @@ const Page = () => {
   }
 
   return (
-    <div className="svgBg">
+    <div className="svgBg inner-page">
       <div className="btngroup">
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>上传图标</Button>

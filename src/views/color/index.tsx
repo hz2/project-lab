@@ -140,7 +140,7 @@ const ColorPage = () => {
       }
     ]
     // set css variable
-    let dom = document.querySelector('#colorList') as HTMLElement
+    const dom = document.querySelector('#colorList') as HTMLElement
 
     domList.forEach(x =>
       dom.style.setProperty(

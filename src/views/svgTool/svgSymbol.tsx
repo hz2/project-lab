@@ -106,9 +106,9 @@ const SvgTool = () => {
     }
     const zip = new JSZip()
     const FolderList = (list: ISymbol[], folder: { file: (arg0: string, arg1: string) => void }) => {
-      let nameArr: string[] = []
+      const nameArr: string[] = []
       list.forEach((x) => {
-        let name = x.name || 'svg'
+        const name = x.name || 'svg'
         let newName = name
         if (nameArr.includes(name)) {
           newName += '_' + nameArr.filter(y => y === name).length
@@ -168,7 +168,7 @@ const SvgTool = () => {
   }
 
   return (
-    <>
+    <div className='inner-page'>
       <div className="btngroup">
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>上传图标(Symbol)</Button>
@@ -200,7 +200,7 @@ const SvgTool = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -8,7 +8,8 @@ const QsPage = () => {
   const [qsStr, setQsStr] = useState('')
   const [qsObj, setQsObj] = useState('')
   return (
-    <div className="common-tabs ">
+    <div className="inner-page common-tabs ">
+      <h2>查询字符串</h2>
       <div className="sub-title">Query String</div>
       <TextArea
         placeholder={'id=1&name=querystring'}

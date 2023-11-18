@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Upload, Button, message, Spin, Menu, Dropdown, UploadProps } from 'antd'
 import { UploadOutlined, DownloadOutlined } from '@ant-design/icons'
 import './svgTool.less'
@@ -72,9 +72,9 @@ const SvgO = () => {
     }
     const zip = new JSZip()
     const FolderList = (list: TLoadFile[], folder: { file: (arg0: string, arg1: string) => void }) => {
-      let nameArr: string[] = []
+      const nameArr: string[] = []
       list.forEach(x => {
-        let name = x.name || 'svg'
+        const name = x.name || 'svg'
         let newName = name.replace(/\.svg$/i, '')
         if (nameArr.includes(name)) {
           newName += '_' + nameArr.filter(y => y === name).length
@@ -166,6 +166,7 @@ const SvgO = () => {
   )
 
   return (
+    <div className='inner-page'>
       <Spin spinning={loading} size="large">
         <div className="btngroup">
           <Upload {...props}>
@@ -201,6 +202,7 @@ const SvgO = () => {
           </div>
         </div>
       </Spin>
+    </div>
   )
 }
 

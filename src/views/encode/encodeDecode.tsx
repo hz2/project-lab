@@ -138,7 +138,7 @@ const Encode = () => {
     }
   }
   return (
-    <div className="encodePage">
+    <div className="inner-page encodePage">
       <div className="encode">
         <h2>编码解码</h2>
         <div className="encodeContent">

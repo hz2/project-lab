@@ -180,15 +180,15 @@ const Page = () => {
 
       const body = r.querySelector('RAWBODY')
 
-      let flatList: ItemObj[] = []
-      let tempDuplicateObj: any = {}
+      const flatList: ItemObj[] = []
+      const tempDuplicateObj: any = {}
 
       const domtoobj = (domarr: Element[], lev = '0', ptitle = ''): ItemObj[] => {
-        let newArray = []
+        const newArray = []
         lev += 1
         for (const i in domarr) {
           const x = domarr[i]
-          let obj = new ItemObj
+          const obj = new ItemObj
           obj.key = `${lev}_${i}`
           obj.tagName = x.tagName
           const attr = [...x.attributes]
@@ -231,7 +231,7 @@ const Page = () => {
           newArray.push(obj)
           flatList.push(obj)
 
-        };
+        }
         return newArray
       }
       setFlatData(flatList)

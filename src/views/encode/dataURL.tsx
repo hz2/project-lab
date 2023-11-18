@@ -72,7 +72,7 @@ const DataUrl = () => {
   }
 
   return (
-    <div className="p20">
+    <div className="inner-page">
       <div className="dataurl">
         <h2>Data URLs 转换</h2>
         <Radio.Group defaultValue="blob" buttonStyle="solid" onChange={setType}>

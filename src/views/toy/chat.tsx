@@ -1,22 +1,21 @@
 import { Button, Input, List, Spin } from "antd"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 // import { query } from "./chatapi"
-import VirtualList, { ListRef } from 'rc-virtual-list';
+// import VirtualList, { ListRef } from 'rc-virtual-list';
 import "./chat.less"
 // import { debounce } from "lodash";
 
 const { TextArea } = Input
 
-interface ChatItem {
-    type: 'me' | 'ai',
-    text: string,
-    t: number
-
-}
+// interface ChatItem {
+//     type: 'me' | 'ai',
+//     text: string,
+//     t: number
+// }
 
 const Chat = () => {
 
-    const [chatList] = useState<ChatItem[]>([])
+    // const [chatList] = useState<ChatItem[]>([])
     const [inputVal, setInputVal] = useState('')
 
     const [loading] = useState(false);
@@ -76,10 +75,10 @@ const Chat = () => {
         setInputVal(value)
     }
 
-    const listRef = useRef<ListRef>(null)
+    // const listRef = useRef<ListRef>(null)
     return <div className="chat-page">
         <List className="renderList">
-            <VirtualList
+            {/* <VirtualList
                 data={chatList}
                 height={window.innerHeight - 200}
                 itemHeight={47}
@@ -94,7 +93,7 @@ const Chat = () => {
                         <div className="text">{x.text}</div>
                     </List.Item>)
                 }
-            </VirtualList>
+            </VirtualList> */}
         </List>
         <Spin spinning={loading}>
             <div className="bottom-block flex nowrap top">

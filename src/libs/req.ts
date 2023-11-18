@@ -16,7 +16,7 @@ export const gql = async (str: string) => {
         return data
     } else {
         return null
-    };
+    }
 
 }
 

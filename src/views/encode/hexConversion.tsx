@@ -167,7 +167,7 @@ const HexConversion = () => {
     setHexSet(tempSet)
   }
   const hexConvComp = (
-    <div className="encodePage">
+    <div className="inner-page encodePage">
       <div className="hexConv">
         <h2>进制转换</h2>
         <Alert
