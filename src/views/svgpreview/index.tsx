@@ -23,7 +23,7 @@ class page extends React.Component<IProps, State>{
   componentWillUnmount() { }
 
   handleChange1({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) {
-    let obj = {
+    const obj = {
       vector: 'svg',
       group: 'g',
       'android:pathData': 'd',
@@ -57,7 +57,7 @@ class page extends React.Component<IProps, State>{
     }
     let tmp = value
     Object.entries(obj).forEach(x => {
-      let tmpreg = new RegExp(x[0], 'g')
+      const tmpreg = new RegExp(x[0], 'g')
       if (typeof x[1] === 'function') {
         tmp = tmp.replace(tmpreg, x[1])
       } else {

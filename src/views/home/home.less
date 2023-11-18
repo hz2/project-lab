@@ -12,11 +12,11 @@
 
     .btn-list {
         .item {
-            width: 80px;
+            width: 85px;
             overflow: hidden;
-            border-radius: 8px;
-            background: color-mix(in srgb, var(--color-item) 10%, #fff 100%);
-            border: 1px solid  color-mix(in srgb, var(--color-item) 15%, #fff 100%);
+            border-radius: 10px;
+            background: color-mix(in srgb, var(--color-item) 25%, #fff 100%);
+            border: 3px solid color-mix(in srgb, var(--color-item) 30%, #fff 100%);
 
             .letter {
                 height: 50px;
@@ -26,6 +26,7 @@
                 color: #fff;
                 letter-spacing: .1em;
                 font-weight: 500;
+                overflow: hidden;
             }
 
             .text {
@@ -33,12 +34,13 @@
                 line-height: 1.4;
                 text-align: right;
                 padding-right: 10px;
+                color:  var(--color-item) ;
             }
 
             &:hover {
-                background: color-mix(in srgb, var(--color-item) 35%, #fff 55%);
+                background: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
                 transition: all linear 0.2s;
-                transform: scale(1.1) rotate(-1deg);
+                transform: scale(1.1) rotate(-.5deg);
                 // filter: hue-rotate(145deg);
             }
         }

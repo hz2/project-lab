@@ -1,53 +1,53 @@
-import { useEffect, useState } from 'react'
-import { Input } from 'antd'
+import { useEffect } from 'react'
+// import { Input } from 'antd'
 import './gua.less'
 import GuaList from './gua.json'
 
 const Page = () => {
 
 
-    const indexArr = [
-        {
-            "gua": "☷ ",
-            "name": "坤",
-            "el": "地"
-        },
-        {
-            "gua": "☶ ",
-            "name": "艮",
-            "el": "山"
-        },
-        {
-            "gua": "☵ ",
-            "name": "坎",
-            "el": "水"
-        },
-        {
-            "gua": "☴ ",
-            "name": "巽",
-            "el": "风"
-        },
-        {
-            "gua": "☳ ",
-            "name": "震",
-            "el": "雷"
-        },
-        {
-            "gua": "☲ ",
-            "name": "离",
-            "el": "火"
-        },
-        {
-            "gua": "☱ ",
-            "name": "兑",
-            "el": "泽"
-        },
-        {
-            "gua": "☰",
-            "name": "乾",
-            "el": "天"
-        }
-    ]
+    // const indexArr = [
+    //     {
+    //         "gua": "☷ ",
+    //         "name": "坤",
+    //         "el": "地"
+    //     },
+    //     {
+    //         "gua": "☶ ",
+    //         "name": "艮",
+    //         "el": "山"
+    //     },
+    //     {
+    //         "gua": "☵ ",
+    //         "name": "坎",
+    //         "el": "水"
+    //     },
+    //     {
+    //         "gua": "☴ ",
+    //         "name": "巽",
+    //         "el": "风"
+    //     },
+    //     {
+    //         "gua": "☳ ",
+    //         "name": "震",
+    //         "el": "雷"
+    //     },
+    //     {
+    //         "gua": "☲ ",
+    //         "name": "离",
+    //         "el": "火"
+    //     },
+    //     {
+    //         "gua": "☱ ",
+    //         "name": "兑",
+    //         "el": "泽"
+    //     },
+    //     {
+    //         "gua": "☰",
+    //         "name": "乾",
+    //         "el": "天"
+    //     }
+    // ]
 
     const XiantianRoundList = [...GuaList.sort((x, y) => x.val - y.val).filter((_x, i) => i < 32), ...GuaList.sort((x, y) => y.val - x.val).filter((_x, i) => i < 32)]
 

@@ -76,7 +76,7 @@ export const svgStr2b64 = (str = '', val: boolean | string = false) => {
 }
 
 export const svgStr2BlobUrl = (str: string | undefined) => {
-  let out = svgStr2b64(str, 'orgin')
+  const out = svgStr2b64(str, 'orgin')
   const blob = new Blob([out], {
     type: 'image/svg+xml'
   })
@@ -92,6 +92,6 @@ export const Qs = {
    * @param {any} obj - The object to stringify.
    * @return {string} The serialized query string.
    */
-  stringify: (obj: any) => new URLSearchParams(obj).toString(),
+  stringify: (obj: Record<string, string>): string => new URLSearchParams(obj).toString(),
   parse: (str: string) => Object.fromEntries(new URLSearchParams(str).entries())
 }

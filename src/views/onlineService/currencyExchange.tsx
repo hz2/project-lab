@@ -1,20 +1,17 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip, Space } from 'antd'
 import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
 // import Currency from './currency.json'
 import './currency-page.less'
 
-import { FilterFunc, DefaultOptionType } from 'rc-select/lib/Select.d'
 import { gql } from "@/libs/req"
 
 
-
-
-var digitUppercase = function (n: number) {
-  var fraction = ['毛', '分']
+const digitUppercase = function (n: number) {
+  const fraction = ['毛', '分']
   // var fraction = ['角', '分'];
-  var digit = [
+  const digit = [
     // '零', '壹', '贰', '叁', '肆',
     // '伍', '陆', '柒', '捌', '玖'
     '零',
@@ -28,15 +25,15 @@ var digitUppercase = function (n: number) {
     '八',
     '九'
   ]
-  var unit = [
+  const unit = [
     ['块', '万', '亿'],
     ['', '十', '百', '千']
     // ['元', '万', '亿'],
     // ['', '拾', '佰', '仟']
   ]
-  var head = n < 0 ? '欠' : ''
+  const head = n < 0 ? '欠' : ''
   n = Math.abs(n)
-  var s = ''
+  let s = ''
   for (let i = 0; i < fraction.length; i++) {
     s += (digit[Math.floor(shiftRight(n, 1 + i)) % 10] + fraction[i]).replace(
       /零./,
@@ -46,8 +43,8 @@ var digitUppercase = function (n: number) {
   s = s || '整'
   n = Math.floor(n)
   for (let i = 0; i < unit[0].length && n > 0; i++) {
-    var p = ''
-    for (var j = 0; j < unit[1].length && n > 0; j++) {
+    let p = ''
+    for (let j = 0; j < unit[1].length && n > 0; j++) {
       p = digit[n % 10] + unit[1][j] + p
       n = Math.floor(shiftLeft(n, 1))
     }
@@ -67,7 +64,7 @@ function shiftRight(number: number, digit: string | number) {
   if (typeof digit === 'string') {
     digit = parseInt(digit, 10)
   }
-  var value = number.toString().split('e')
+  const value = number.toString().split('e')
   return +(value[0] + 'e' + (value[1] ? +value[1] + digit : digit))
 }
 // 向左移位
@@ -75,7 +72,7 @@ function shiftLeft(number: number, digit: string | number) {
   if (typeof digit === 'string') {
     digit = parseInt(digit, 10)
   }
-  var value = number.toString().split('e')
+  const value = number.toString().split('e')
   return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
 }
 interface ICurrency {
@@ -191,7 +188,7 @@ const Page = () => {
   const currencyChange = (currency: string) => calc({ key1: currency })
   const rightChange = (currency: string) => calc({ key2: currency })
 
-  const filterOption: FilterFunc<DefaultOptionType[number]> = (input: string, option): boolean => {
+  const filterOption = (input: string, option: ICurrency | undefined): boolean => {
     const label = option?.label + ''
     return label.toLowerCase().indexOf(input.toLowerCase()) >= 0
   }

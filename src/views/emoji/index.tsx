@@ -26,15 +26,15 @@ const openDown = (
     })
     .then(r => {
       if (!r) return
-      let file = new FileReader()
+      const file = new FileReader()
       file.onload = e => {
         if (!e.target) return
         const result = e.target.result + ''
-        let el = document.createElement('a')
+        const el = document.createElement('a')
         el.setAttribute('href', result)
         el.setAttribute('download', name)
         if (document.createEvent) {
-          var event = document.createEvent('MouseEvents')
+          const event = document.createEvent('MouseEvents')
           event.initEvent('click', true, true)
           el.dispatchEvent(event)
         } else {

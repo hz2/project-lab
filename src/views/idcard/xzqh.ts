@@ -3222,8 +3222,8 @@ const xzqh: any = {
   '810000': '香港特别行政区',
   '820000': '澳门特别行政区'
 }
-let out = { ...xzqh }
-for (let x in xzqh) {
+const out = { ...xzqh }
+for (const x in xzqh) {
   if (!x.endsWith('00') && !xzqh[x.substring(0, 4) + '00']) {
     // 处理直辖市的区
     out[x] = [
@@ -3245,6 +3245,6 @@ for (let x in xzqh) {
     out[x] = [xzqh[x]]
   }
 }
-let keysArr = Object.keys(xzqh).filter(x => !x.endsWith('00'))
+const keysArr = Object.keys(xzqh).filter(x => !x.endsWith('00'))
 
 export { out, keysArr }

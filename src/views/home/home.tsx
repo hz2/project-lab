@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
+import { CSSProperties } from 'react'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -27,13 +28,13 @@ const Home = (_props: any) => (
       <div className="btn-list">{
         routerData.filter(x => x.showInHome).map((x, i: number) => (
           <Link
-            style={{ '--color-item': `hsl(${Math.round(36 * i * Math.random() )} 55% 50% / .9)` }}
+            style={{ '--color-item': `hsl(${Math.round(36 * i * Math.random() )} 55% 50% / .9)` } as CSSProperties}
             className="item inline-block align-top center m20"
             type="primary"
             key={i}
             to={'/' + x.path}
             title={x.zh}>
-            <div className="letter">{x.path}</div>
+            <div className="letter code">{x.path}</div>
             <div className="text">{x.zh}</div>
           </Link>
         ))

@@ -1,4 +1,4 @@
-import  { useState } from 'react'
+import { useState } from 'react'
 import { Input, Radio, RadioChangeEvent, Spin, Switch, message } from 'antd'
 import './style.less'
 const { TextArea } = Input
@@ -126,7 +126,8 @@ const NotationPage = () => {
 
     return (
         <Spin spinning={loading} size="large">
-            <div className="common-tabs">
+            <div className="common-tabs inner-page  ">
+                <h2>命名法转换</h2>
                 <div className="sub-title">
                     <span className='mr15'>当前模式：{!shouldTranslate ? '输入英文' : '输入中文，自动翻译'}</span>
                     <Switch checked={shouldTranslate} onChange={translateSwitch} />
@@ -182,6 +183,7 @@ const NotationPage = () => {
                 </div>
             </div>
         </Spin>
+
     )
 }
 
