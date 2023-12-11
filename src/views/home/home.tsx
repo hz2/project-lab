@@ -20,25 +20,25 @@ import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTon
 // }
 
 
-const iconList = (path: string, color: string) => ({
-  person: <IdcardTwoTone twoToneColor={color} />,
-  bing: <CameraTwoTone twoToneColor={color} />,
-  nasa: <PictureTwoTone twoToneColor={color} />,
-  color: <SmileTwoTone twoToneColor={color} />,
-  lottery: <GiftTwoTone twoToneColor={color} />,
-  gua: <CompassTwoTone twoToneColor={color} />,
-  plumFlower: <FireTwoTone twoToneColor={color} />,
-  qs: <CodeTwoTone twoToneColor={color} />,
-  notation: <TagTwoTone twoToneColor={color} />,
-  hex: <ControlTwoTone twoToneColor={color} />,
-  encode: <InteractionTwoTone twoToneColor={color} />,
-  dataURL: <BulbTwoTone twoToneColor={color} />,
-  ipAddress: <EnvironmentTwoTone twoToneColor={color} />,
-  svgSymbol: <StarTwoTone twoToneColor={color} />,
-  svgo: <RocketTwoTone twoToneColor={color} />,
-  svgbg: <AppstoreTwoTone twoToneColor={color} />,
-  mirrors: <HourglassTwoTone twoToneColor={color} />,
-}[path])
+const iconList = {
+  person: IdcardTwoTone,
+  bing: CameraTwoTone,
+  nasa: PictureTwoTone,
+  color: SmileTwoTone,
+  lottery: GiftTwoTone,
+  'gua/*': CompassTwoTone,
+  plumFlower: FireTwoTone,
+  qs: CodeTwoTone,
+  notation: TagTwoTone,
+  hex: ControlTwoTone,
+  encode: InteractionTwoTone,
+  dataURL: BulbTwoTone,
+  ipAddress: EnvironmentTwoTone,
+  svgSymbol: StarTwoTone,
+  svgo: RocketTwoTone,
+  svgbg: AppstoreTwoTone,
+  mirrors: HourglassTwoTone,
+}
 
 const Home = (_props: any) => (
   <div className="app-home">
@@ -50,14 +50,18 @@ const Home = (_props: any) => (
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
           const color = `hsl(${Math.round(36 * i * Math.random())} 55% 50% / .9)`
+          const IconComp = iconList[(x.path) as keyof typeof iconList]
+          // x.path
           return <Link
             style={{ '--color-item': color } as CSSProperties}
             className="item inline-block align-top center m20"
             type="primary"
             key={i}
-            to={'/' + x.path}
+            to={'/' + x.path.replace('/*', '')}
             title={x.zh}>
-            <div className="letter">{iconList(x.path, color) || x.path}</div>
+            <div className="letter">
+              <IconComp twoToneColor={color} />
+            </div>
             <div className="text">{x.zh}</div>
           </Link>
 

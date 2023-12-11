@@ -36,7 +36,7 @@ export default [
         comp: "lottery/lottery"
     },
     {
-        path: "gua",
+        path: "gua/*",
         zh: '卦象',
         showInHome: true,
         comp: "plumFlower/gua"
