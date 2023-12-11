@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
 import './bing.less'
 import { downloadBlob } from '@libs/common'
@@ -13,18 +13,20 @@ interface IWPItem {
 
 type TWPList = IWPItem[]
 
-const req = (mkt: string, index: string | number): Promise<TWPList> =>
+const req = (mkt: string, index: string | number, delay = 0): Promise<TWPList> =>
   new Promise((resolve, reject) => {
-    fetch(
-      'https://app.hx.fyi/bing/HPImageArchive.aspx?format=js&idx=' +
-      index +
-      '&n=10&mkt=' +
-      mkt,
-      { mode: 'cors' }
-    )
-      .then(response => response.json())
-      .then(r => resolve((r && r.images) || []))
-      .catch(error => reject(error))
+    setTimeout(() => {
+      fetch(
+        'https://app.hx.fyi/bing/HPImageArchive.aspx?format=js&idx=' +
+        index +
+        '&n=10&mkt=' +
+        mkt,
+        { mode: 'cors' }
+      )
+        .then(response => response.json())
+        .then(r => resolve((r && r.images) || []))
+        .catch(error => reject(error))
+    }, delay);
   })
 
 const openSearch = (
@@ -66,7 +68,7 @@ const Bing = () => {
   const getList = (mkt: string) => {
     setLoading(true)
     // setImglist(imglist.map(x => ({})))
-    Promise.all([req(mkt, -1), req(mkt, 9)])
+    Promise.all([req(mkt, -1), req(mkt, 9, 500)])
       .then(arr => {
         const list = (arr.flat() || []).filter(
           (x, i, o) => x.urlbase !== o[i - 1]?.urlbase
@@ -129,11 +131,11 @@ const Bing = () => {
         src={'https://www.bing.com' + x.urlbase + '_640x480.jpg'}
       />
       <div className="tips">
-        <div className="text">{x.copyright?.replace('(©', '\n(©')}</div>
+        <div className="text">{x.title + '\n' + x.copyright?.replace('(©', '\n(©')}</div>
       </div>
     </div>
   ))
-// https://s.cn.bing.net/th?id=OHR.KissingPenguins_EN-CN8556731919_1920x1080.webp&qlt=10
+  // https://s.cn.bing.net/th?id=OHR.KissingPenguins_EN-CN8556731919_1920x1080.webp&qlt=10
   const mktList = [
     'EN-WW',
     'EN-AU',
@@ -154,12 +156,14 @@ const Bing = () => {
   ))
 
   const downAll = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-    imglist.forEach(x => {
+    imglist.forEach((x, i) => {
       const name = x.urlbase.split('=')[1] + '.jpg'
       const url = `https://www.bing.com${x.urlbase}_UHD.jpg`
       // const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
       // const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
-      openDown(name, url, e)
+      setTimeout(() => {
+        openDown(name, url, e)
+      }, i * 500);
       // openDown(name2, url2, e)
     })
 
