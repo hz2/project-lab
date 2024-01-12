@@ -11,34 +11,47 @@
 
     .btn-list {
         .item {
-            width: 120px;
+            // width: 120px;
             overflow: hidden;
-            border-radius: 18px;
-            background: color-mix(in srgb, var(--color-item) 25%, #fff 100%);
-            border: 3px solid color-mix(in srgb, var(--color-item) 28%, #fff 100%);
+            display: inline-flex;
+            align-items: center;
+            border-radius: 12px;
+            padding: 10px 0;
+            // background-color: #ff0;
+            box-shadow: 1px 1px 10px color-mix(in srgb, var(--color-item) 60%, #fff 100%);
 
             .letter {
                 // height: 50px;
-                font-size: 40px;
-                opacity: .75;
+                font-size: 30px;
+                line-height: 30px;
+                // opacity: .75;
+                background: color-mix(in srgb, var(--color-item) 25%, #fff 100%);
+                // width: 40px;
+                // height: 40px;
+                padding: 15px;
+                border-radius: 999px;
+                margin: 0 20px;
                 // text-transform: uppercase;
                 // white-space: nowrap;
                 // color: #fff;
                 // letter-spacing: .1em;
                 // font-weight: 500;
                 // overflow: hidden;
+                // box-shadow: 1px 1px 30px #fff;
             }
 
             .text {
                 margin: 8px auto;
                 line-height: 1.4;
+                margin-right: 20px;
                 // text-align: right;
                 // padding-right: 10px;
                 color: #666;
+                min-width: 6em;
             }
 
             &:hover {
-                background: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
+                background: color-mix(in srgb, var(--color-item) 5%, #fff 100%);
                 border-color: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
                 transition: all linear 0.2s;
                 transform: scale(1.1);

@@ -6,7 +6,7 @@ import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
 import { CSSProperties } from 'react'
-import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTone, ControlTwoTone, EnvironmentTwoTone, FireTwoTone, GiftTwoTone, HourglassTwoTone, IdcardTwoTone, InteractionTwoTone, PictureTwoTone, RocketTwoTone, SmileTwoTone, StarTwoTone, TagTwoTone } from '@ant-design/icons'
+import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -21,23 +21,23 @@ import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTon
 
 
 const iconList = {
-  person: IdcardTwoTone,
-  bing: CameraTwoTone,
-  nasa: PictureTwoTone,
-  color: SmileTwoTone,
-  lottery: GiftTwoTone,
-  'gua/*': CompassTwoTone,
-  plumFlower: FireTwoTone,
-  qs: CodeTwoTone,
-  notation: TagTwoTone,
-  hex: ControlTwoTone,
-  encode: InteractionTwoTone,
-  dataURL: BulbTwoTone,
-  ipAddress: EnvironmentTwoTone,
-  svgSymbol: StarTwoTone,
-  svgo: RocketTwoTone,
-  svgbg: AppstoreTwoTone,
-  mirrors: HourglassTwoTone,
+  person: IdcardFilled,
+  bing: CameraFilled,
+  nasa: PictureFilled,
+  color: SmileFilled,
+  lottery: GiftFilled,
+  'gua/*': CompassFilled,
+  plumFlower: FireFilled,
+  qs: CodeFilled,
+  notation: TagFilled,
+  hex: ControlFilled,
+  encode: InteractionFilled,
+  dataURL: BulbFilled,
+  ipAddress: EnvironmentFilled,
+  svgSymbol: StarFilled,
+  svgo: RocketFilled,
+  svgbg: AppstoreFilled,
+  mirrors: HourglassFilled,
 }
 
 const Home = (_props: any) => (
@@ -49,7 +49,7 @@ const Home = (_props: any) => (
       </h1>
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
-          const color = `hsl(${Math.round(36 * i * Math.random())} 55% 50% / .9)`
+          const color = `hsl(${Math.round(36 * i * Math.random())} 65% 50% / .9)`
           const IconComp = iconList[(x.path) as keyof typeof iconList]
           // x.path
           return <Link
@@ -60,7 +60,7 @@ const Home = (_props: any) => (
             to={'/' + x.path.replace('/*', '')}
             title={x.zh}>
             <div className="letter">
-              <IconComp twoToneColor={color} />
+              <IconComp style={{color,opacity: .75}} />
             </div>
             <div className="text">{x.zh}</div>
           </Link>
