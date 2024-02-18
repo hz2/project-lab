@@ -1,25 +1,25 @@
 export default [
     {
         path: "person",
-        zh: '用户',
+        zh: '用户查询',
         showInHome: true,
         comp: "idcard/idcard"
     },
     {
         path: "bing",
-        zh: '必应',
+        zh: '必应壁纸',
         showInHome: true,
         comp: "bing/index"
     },
     {
         path: "nasa",
-        zh: 'NASA',
+        zh: 'NASA壁纸',
         showInHome: true,
         comp: "bing/nasa"
     },
     {
         path: "color",
-        zh: '颜色',
+        zh: '颜色转换',
         showInHome: true,
         comp: "color/index"
     },
@@ -31,19 +31,19 @@ export default [
     },
     {
         path: "lottery",
-        zh: '彩票',
+        zh: '彩票号码',
         showInHome: true,
         comp: "lottery/lottery"
     },
     {
-        path: "gua",
-        zh: '卦象',
+        path: "gua/*",
+        zh: '六十四卦',
         showInHome: true,
         comp: "plumFlower/gua"
     },
     {
         path: "plumFlower",
-        zh: '易数',
+        zh: '梅花易数',
         showInHome: true,
         comp: "plumFlower/plumFlower"
     },
@@ -55,31 +55,31 @@ export default [
     },
     {
         path: "qs",
-        zh: '字符',
+        zh: '查询字符串',
         showInHome: true,
         comp: "encode/qs"
     },
     {
         path: "notation",
-        zh: '命名',
+        zh: '命名法转换',
         showInHome: true,
         comp: "encode/notation"
     },
     {
         path: "hex",
-        zh: '进制',
+        zh: '进制转换',
         showInHome: true,
         comp: "encode/hexConversion"
     },
     {
         path: "encode",
-        zh: '编码',
+        zh: '编码转换',
         showInHome: true,
         comp: "encode/encodeDecode"
     },
     {
         path: "dataURL",
-        zh: '网址',
+        zh: '网址编码',
         showInHome: true,
         comp: "encode/dataURL"
     },
@@ -101,7 +101,7 @@ export default [
     },
     {
         path: "ipAddress",
-        zh: '位置',
+        zh: '位置查询',
         showInHome: true,
         comp: "onlineService/ip"
     },
@@ -119,19 +119,19 @@ export default [
     },
     {
         path: "svgSymbol",
-        zh: '符号',
+        zh: '矢量符号',
         showInHome: true,
         comp: "svgTool/svgSymbol"
     },
     {
         path: "svgo",
-        zh: '优化',
+        zh: '矢量图优化',
         showInHome: true,
         comp: "svgTool/svgO"
     },
     {
         path: "svgbg",
-        zh: '背景',
+        zh: '矢量图背景',
         showInHome: true,
         comp: "svgTool/svg2bg"
     },
@@ -145,7 +145,7 @@ export default [
     },
     {
         path: "mirrors",
-        zh: '镜像',
+        zh: '公共镜像',
         showInHome: true,
         comp: "toy/mirrors"
     },

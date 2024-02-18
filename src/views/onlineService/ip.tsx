@@ -23,6 +23,9 @@ const convertLoc = (lat: number, lon: number) => {
 }
 
 const getMap = (loc: string) => {
+  if (!loc) {
+    return
+  }
   const locArr = loc.split(',')
   const [lat, lon] = locArr.map((x: string) => Number(x))
   const [x, y] = [7, 6]
@@ -156,7 +159,7 @@ const Page = () => {
             <Form.Item label="地址：">
               {`${countryObj.emoji} ${countryObj.zh || ''} ${countryObj.name}`}
             </Form.Item>
-            <Form.Item label="区域：">{`${text.region} ${text.city}`}</Form.Item>
+            <Form.Item label="区域：">{`${text.region || ''} ${text.city || ''}`}</Form.Item>
             <Form.Item label="组织：">{text.org}</Form.Item>
             <Form.Item label="邮编：">{text.postal || '-'}</Form.Item>
             <Form.Item label="坐标：">

@@ -6,7 +6,7 @@ import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
 import { CSSProperties } from 'react'
-import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTone, ControlTwoTone, EnvironmentTwoTone, FireTwoTone, GiftTwoTone, HourglassTwoTone, IdcardTwoTone, InteractionTwoTone, PictureTwoTone, RocketTwoTone, SmileTwoTone, StarTwoTone, TagTwoTone } from '@ant-design/icons'
+import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -20,25 +20,25 @@ import { AppstoreTwoTone, BulbTwoTone, CameraTwoTone, CodeTwoTone, CompassTwoTon
 // }
 
 
-const iconList = (path: string, color: string) => ({
-  person: <IdcardTwoTone twoToneColor={color} />,
-  bing: <CameraTwoTone twoToneColor={color} />,
-  nasa: <PictureTwoTone twoToneColor={color} />,
-  color: <SmileTwoTone twoToneColor={color} />,
-  lottery: <GiftTwoTone twoToneColor={color} />,
-  gua: <CompassTwoTone twoToneColor={color} />,
-  plumFlower: <FireTwoTone twoToneColor={color} />,
-  qs: <CodeTwoTone twoToneColor={color} />,
-  notation: <TagTwoTone twoToneColor={color} />,
-  hex: <ControlTwoTone twoToneColor={color} />,
-  encode: <InteractionTwoTone twoToneColor={color} />,
-  dataURL: <BulbTwoTone twoToneColor={color} />,
-  ipAddress: <EnvironmentTwoTone twoToneColor={color} />,
-  svgSymbol: <StarTwoTone twoToneColor={color} />,
-  svgo: <RocketTwoTone twoToneColor={color} />,
-  svgbg: <AppstoreTwoTone twoToneColor={color} />,
-  mirrors: <HourglassTwoTone twoToneColor={color} />,
-}[path])
+const iconList = {
+  person: IdcardFilled,
+  bing: CameraFilled,
+  nasa: PictureFilled,
+  color: SmileFilled,
+  lottery: GiftFilled,
+  'gua/*': CompassFilled,
+  plumFlower: FireFilled,
+  qs: CodeFilled,
+  notation: TagFilled,
+  hex: ControlFilled,
+  encode: InteractionFilled,
+  dataURL: BulbFilled,
+  ipAddress: EnvironmentFilled,
+  svgSymbol: StarFilled,
+  svgo: RocketFilled,
+  svgbg: AppstoreFilled,
+  mirrors: HourglassFilled,
+}
 
 const Home = (_props: any) => (
   <div className="app-home">
@@ -49,15 +49,19 @@ const Home = (_props: any) => (
       </h1>
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
-          const color = `hsl(${Math.round(36 * i * Math.random())} 55% 50% / .9)`
+          const color = `hsl(${Math.round(36 * i * Math.random() )} 68% 50% / .9)`
+          const IconComp = iconList[(x.path) as keyof typeof iconList]
+          // x.path
           return <Link
             style={{ '--color-item': color } as CSSProperties}
             className="item inline-block align-top center m20"
             type="primary"
             key={i}
-            to={'/' + x.path}
+            to={'/' + x.path.replace('/*', '')}
             title={x.zh}>
-            <div className="letter">{iconList(x.path, color) || x.path}</div>
+            <div className="letter">
+              <IconComp style={{ color, opacity: .75 }} />
+            </div>
             <div className="text">{x.zh}</div>
           </Link>
 
