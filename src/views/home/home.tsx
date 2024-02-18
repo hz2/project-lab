@@ -49,7 +49,7 @@ const Home = (_props: any) => (
       </h1>
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
-          const color = `hsl(${Math.round(36 * i * Math.random())} 65% 50% / .9)`
+          const color = `hsl(${Math.round(36 * i * Math.random() )} 68% 50% / .9)`
           const IconComp = iconList[(x.path) as keyof typeof iconList]
           // x.path
           return <Link
@@ -60,7 +60,7 @@ const Home = (_props: any) => (
             to={'/' + x.path.replace('/*', '')}
             title={x.zh}>
             <div className="letter">
-              <IconComp style={{color,opacity: .75}} />
+              <IconComp style={{ color, opacity: .75 }} />
             </div>
             <div className="text">{x.zh}</div>
           </Link>
