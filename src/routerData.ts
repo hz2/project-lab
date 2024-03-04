@@ -156,5 +156,11 @@ export default [
     {
         path: "bookmark",
         comp: "bookmarkTool/bookmark"
+    },
+    {
+        path: "random",
+        zh: '随机数据',
+        showInHome: true,
+        comp: "tools/random"
     }
 ]
