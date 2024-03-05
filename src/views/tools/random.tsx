@@ -1,6 +1,7 @@
 import { copyText } from "@/libs/common"
-import { CopyTwoTone } from "@ant-design/icons"
-import { Button, InputNumber, Radio, RadioChangeEvent, Slider } from "antd"
+import { CopyTwoTone, BulbOutlined } from "@ant-design/icons"
+import { Button, Checkbox, InputNumber, Radio, RadioChangeEvent, Slider } from "antd"
+import type { GetProp } from 'antd';
 import { useEffect, useState } from "react"
 import "./random.less";
 
@@ -9,6 +10,7 @@ const L2 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
 const L3 = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 const L4 = ["!", "#", "$", "%", "&", "?", "@", "=", "^", "-", "*", "+"]
 const L5 = [" ", "\"", "'", "(", ")", ",", "_", ".", "/", ":", ";", "<", ">", "[", "\\", "]", "`", "{", "|", "}", "~"]
+
 
 
 const RandomPage = () => {
@@ -28,12 +30,13 @@ const RandomPage = () => {
 
     useEffect(() => {
         genUuid(5)
+        genUserName()
         onSecurityChangeFn({ target: { value: 'letter' } } as RadioChangeEvent)
     }, [])
 
     const charToColor = (char: string) => {
         if (L1.includes(char)) {
-            return 'blue'
+            return '#444'
         } else if (L2.includes(char)) {
             return 'green'
         } else if (L3.includes(char)) {
@@ -44,10 +47,10 @@ const RandomPage = () => {
             return 'purple'
         }
     }
-    const genPwd = (len: number, charList: string[]) => {
+    const genPwd = (len: number = pwdlen, list: string[] = charList) => {
         var array = new Uint32Array(len);
         window.crypto.getRandomValues(array);
-        const r = [...array].map(x => charList[x % charList.length])
+        const r = [...array].map(x => list[x % list.length])
         setPwd(r)
     }
 
@@ -98,21 +101,60 @@ const RandomPage = () => {
     ]
 
 
+    const usernameCfgOptions = [
+        { label: '字母', value: 'letter', disabled: true },
+        { label: '数字', value: 'num' },
+        { label: '下划线', value: '_' },
+        { label: '连字符', value: '-' },
+        { label: '点号', value: '.' },
+    ];
+    const [nameCharList, setNameCharList] = useState(['letter', 'num', '_'])
+    const [nameList, setNameList] = useState<string[]>([])
+
+    const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = (checkedValues) => {
+        const val = checkedValues as string[]
+        setNameCharList(val as string[])
+        genUserName(val)
+    };
+    const genUserName = (charList = nameCharList) => {
+        const letterList = [...L2, ...L3]
+        const list = charList.reduce((c: string[], x) => {
+            if (x === 'letter') {
+                c = c.concat(letterList)
+            } else if (x === 'num') {
+                c = c.concat(L1)
+            } else {
+                c.push(x)
+            }
+            return c;
+        }, [])
+        var array = new Uint32Array(15);
+        window.crypto.getRandomValues(array);
+        const r = [...array].map((x, i) => i ? list[x % list.length] : letterList[x % letterList.length]);
+        setNameList(r)
+    }
+
+    return <div className="common-tabs inner-page">
+        <div className="my20">
+            <Button type="primary" icon={<BulbOutlined />} onClick={() => genUserName()}>生成用户名</Button>
+        </div>
+
+        <div className="sub-title-plain flex start">
+            规则：
+            <Checkbox.Group options={usernameCfgOptions} defaultValue={nameCharList} onChange={onChange} />
+        </div>
+        <div className="pwd-block">{nameList.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}</div>
 
 
-    return <div className="common-tabs inner-page  ">
-        <h2>随机用户名</h2>
-        _-
-        +
-        .
-
-        <h2>密码</h2>
-
-        <div className="sub-title-plain">
+        <div className="my20">
+            <Button type="primary" icon={<BulbOutlined />} onClick={() => genPwd()}>生成密码</Button>
+        </div>
+        <div className="sub-title-plain flex start">
             长度：
             <Slider
                 min={6}
                 max={100}
+                style={{ width: 220 }}
                 onChange={onPwdlenChange}
                 value={typeof pwdlen === 'number' ? pwdlen : 6}
             />
@@ -132,27 +174,21 @@ const RandomPage = () => {
                 ))}
             </Radio.Group>
         </div>
-        <div className="buttons">
-            <div className="pwd-block">{pwd.map(x => <span style={{ color: charToColor(x) }}>{x}</span>)}</div>
-        </div>
-        <h2>uuid</h2>
+        <div className="pwd-block">{pwd.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}</div>
 
-        <div className="buttons">
-            <Button type="primary" onClick={() => genUuid()}>
-                uuid
-            </Button>
-            <Button type="primary" onClick={() => genUuid(5)}>
-                uuid x 5
-            </Button>
+        
+        <div className="my20">
+            <Button type="primary" icon={<BulbOutlined />} onClick={() => genUuid(5)}>生成 UUID</Button>
         </div>
-        <div className="ballList">{
+        <div>{
             uuidArr.map((x, i) => (
-                <div className="colorItem" title={x} key={i}>
-                    <div className="text">{x}</div>
-                    <div
-                        className="colorItem flex center bgcf c5"
-                        onClick={() => copyText(x, '复制成功！')}>
-                        <CopyTwoTone />
+                <div title={x} key={i}>
+                    <div className="uuid-block">
+                        {x.split('').map((y, j) => <span key={j} style={{ color: charToColor(y) }}>{y}</span>)}
+                        <Button onClick={() => copyText(x, '复制成功！')}>
+                            <CopyTwoTone />
+                        </Button>
+
                     </div>
                 </div>
 
