@@ -118,19 +118,29 @@ const RandomPage = () => {
     };
     const genUserName = (charList = nameCharList) => {
         const letterList = [...L2, ...L3]
-        const list = charList.reduce((c: string[], x) => {
+        const ruleList: string[][] = []
+        charList.forEach((x) => {
             if (x === 'letter') {
-                c = c.concat(letterList)
+                ruleList.push(letterList)
             } else if (x === 'num') {
-                c = c.concat(L1)
+                ruleList.push(L1)
             } else {
-                c.push(x)
+                ruleList.push([x])
             }
-            return c;
-        }, [])
-        var array = new Uint32Array(15);
-        window.crypto.getRandomValues(array);
-        const r = [...array].map((x, i) => i ? list[x % list.length] : letterList[x % letterList.length]);
+        })
+        const flatList = ruleList.flat()
+        const checkResult = (rule: string[][], result: string[]) => rule.every(x => result.some(y => x.includes(y)))
+        const genResult: () => string[] = () => {
+            const array = new Uint32Array(15);
+            window.crypto.getRandomValues(array);
+            const resultList = [...array].map((x, i) => i ? flatList[x % flatList.length] : letterList[x % letterList.length]);
+            if (checkResult(ruleList, resultList)) {
+                return resultList
+            } else {
+                return genResult()
+            }
+        }
+        const r = genResult()
         setNameList(r)
     }
 
@@ -176,7 +186,7 @@ const RandomPage = () => {
         </div>
         <div className="pwd-block">{pwd.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}</div>
 
-        
+
         <div className="my20">
             <Button type="primary" icon={<BulbOutlined />} onClick={() => genUuid(5)}>生成 UUID</Button>
         </div>
