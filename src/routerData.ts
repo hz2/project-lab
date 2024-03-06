@@ -86,7 +86,7 @@ export default [
     {
         path: "qrcode",
         zh: '二维码',
-        showInHome: false,
+        showInHome: true,
         comp: "encode/qr"
     },
     {
@@ -156,5 +156,11 @@ export default [
     {
         path: "bookmark",
         comp: "bookmarkTool/bookmark"
+    },
+    {
+        path: "random",
+        zh: '随机数据',
+        showInHome: true,
+        comp: "tools/random"
     }
 ]

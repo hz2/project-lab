@@ -6,7 +6,7 @@ import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
 import { CSSProperties } from 'react'
-import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled } from '@ant-design/icons'
+import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled , ProductFilled, QrcodeOutlined } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -38,6 +38,8 @@ const iconList = {
   svgo: RocketFilled,
   svgbg: AppstoreFilled,
   mirrors: HourglassFilled,
+  random: ProductFilled,
+  qrcode: QrcodeOutlined,
 }
 
 const Home = (_props: any) => (

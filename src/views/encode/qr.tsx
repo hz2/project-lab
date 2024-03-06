@@ -1,56 +1,53 @@
-import  { useState } from 'react'
-import { Input, message } from 'antd'
+import { useState } from 'react'
+import { ColorPicker, ColorPickerProps, Input, QRCode, QRCodeProps, Segmented } from 'antd'
 import './style.less'
 // import jsQR from "jsqr";
 const { TextArea } = Input
-import { Qs } from '@/libs/common'
 
 const QsPage = () => {
-  const [qsStr, setQsStr] = useState('')
-  const [qsObj, setQsObj] = useState('')
-  return (
-    <div className="encodePage">
-      <h2>Query String 转换</h2>
-      <div className="sub-title">Query String</div>
-      <TextArea
-        placeholder={'id=1&name=querystring'}
-        rows={6}
-        value={qsStr}
-        onChange={({ target: { value } }) => {
-          setQsStr(value)
-          if (!value) {
-            setQsObj('')
-            return
-          }
-          try {
-            const str = value.split('?')[1]
-            setQsObj(JSON.stringify(Qs.parse(str), null, 4))
-          } catch (error) {
-            console.log('error', error)
-            message.error('输入有误')
-          }
-        }}
-      />
-      <div className="sub-title">JSON</div>
-      <TextArea
-        placeholder={'{"id":"1","name":"querystring"}'}
-        rows={6}
-        value={qsObj}
-        onChange={({ target: { value } }) => {
-          setQsObj(value)
-          if (!value) {
-            setQsStr('')
-            return
-          }
-          try {
-            setQsStr(Qs.stringify(JSON.parse(value)))
-          } catch (error) {
-            console.log('error', error)
-            message.error('输入有误')
-          }
-        }}
-      />
+  const [inputVal, setInput] = useState(window.location.href)
+
+  const [color, setColor] = useState<ColorPickerProps['value']>('#444');
+  const [level, setLevel] = useState<string | number>('L');
+  const size = 320
+
+  return (<div className="common-tabs inner-page">
+    <h2>二维码</h2>
+    <QRCode
+      style={{ marginBottom: 16 }}
+      color={String(color)}
+
+      size={size}
+      iconSize={size / 4}
+      errorLevel={level as QRCodeProps['errorLevel']}
+      value={inputVal}
+    />
+    <div className="simple-form">
+      <div className="item flex start my15">
+        <div className="label">二维码颜色：</div>
+        <div className="val">
+          <ColorPicker showText value={color} onChange={(val) => setColor(val.toHexString())} />
+        </div>
+      </div>
+      <div className="item flex start my15">
+        <div className="label">容错级别：</div>
+        <div className="val">
+          <Segmented options={['L', 'M', 'Q', 'H']} value={level} onChange={setLevel} />
+        </div>
+      </div>
+      <div className="item">
+        <div className="label">二维码内容：</div>
+        <div className="val">
+          <TextArea
+            placeholder={'请输入'}
+            rows={6}
+            value={inputVal}
+            onChange={({ target: { value } }) => setInput(value)}
+          />
+        </div>
+      </div>
     </div>
+  </div>
   )
 }
 

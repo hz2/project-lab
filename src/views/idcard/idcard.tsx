@@ -1,6 +1,6 @@
 
 import { SearchOutlined } from '@ant-design/icons'
-import { Input, Button, Spin } from 'antd'
+import { Input, Button, Spin, Alert } from 'antd'
 
 import { copyText } from '@libs/common'
 
@@ -75,11 +75,11 @@ class idcard extends React.Component {
 
   idcardCalc = (b17: string) =>
     [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2][
-      b17
-        .split('')
-        .map((x: string, i: number) => Number(x) * (Math.pow(2, 17 - i) % 11))
-        // .map((x, i) => x * (2 ** (17 - i) % 11))
-        .reduce((x: any, y: any) => x + y) % 11
+    b17
+      .split('')
+      .map((x: string, i: number) => Number(x) * (Math.pow(2, 17 - i) % 11))
+      // .map((x, i) => x * (2 ** (17 - i) % 11))
+      .reduce((x: any, y: any) => x + y) % 11
     ] + ''
   setResult = async (val: string) => {
     let birth = ''
@@ -142,9 +142,8 @@ class idcard extends React.Component {
       icon1 = current.icon
       const currentYear = zodiacList[(Number(val.substring(6, 10)) - 4) % 12]
       astrology = current.txt + ' ' + current.en + ' ' + current.icon
-      zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${
-        currentYear.branch
-      } ${currentYear.zh}年 ${currentYear.icon2}`
+      zodiac = `${tianArr[(Number(val.substring(6, 10)) - 4) % 10]}${currentYear.branch
+        } ${currentYear.zh}年 ${currentYear.icon2}`
       icon2 = currentYear.icon
 
       const [y, m, d] = birth
@@ -154,9 +153,8 @@ class idcard extends React.Component {
 
       const json: any = calendar.solar2lunar(y, m, d)
       this.setState({
-        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${
-          json.ncWeek
-        } ${json.festival || ''}`,
+        resultBirth: `${json.cYear}年 ${json.cMonth}月 ${json.cDay}日 ${json.ncWeek
+          } ${json.festival || ''}`,
         resultBirthCn: `${json.IMonthCn}${json.IDayCn} ${json.lunarFestival ||
           json.Term ||
           ''}`,
@@ -167,20 +165,28 @@ class idcard extends React.Component {
         const b17 = val.substring(0, 17)
         const end = val.substring(17, 18)
         isValidate = this.idcardCalc(b17) === end ? 'valid' : 'invalid'
+
+        console.log('id card isValidate', isValidate);
+
       }
-      const area = await this.queryArea(val.substring(0, 6))
       this.setState({
-        resultArea: area
+        resultSex: sex,
+        resultAstrology: astrology,
+        resultZodiac: zodiac,
+        icon1: icon1,
+        icon2: icon2,
+        isValidate: isValidate
       })
+      try {
+        const area = await this.queryArea(val.substring(0, 6))
+        this.setState({
+          resultArea: area
+        })
+      } catch (error) {
+        console.log('err', error);
+
+      }
     }
-    this.setState({
-      resultSex: sex,
-      resultAstrology: astrology,
-      resultZodiac: zodiac,
-      icon1: icon1,
-      icon2: icon2,
-      isValidate: isValidate
-    })
   }
 
   queryArea = async (code: string) => {
@@ -320,7 +326,7 @@ class idcard extends React.Component {
           xzqh: res
         })
       })
-      .catch(_err => {})
+      .catch(_err => { })
   }
   genPerson = () => {
     // this.generateIDCardNO()
@@ -383,16 +389,16 @@ class idcard extends React.Component {
             <p>
               {this.state.isValidate
                 ? {
-                    valid: '校验通过 ✔️',
-                    invalid: '校验未通过 ❌'
-                  }[this.state.isValidate]
+                  valid: <Alert message="校验通过" type="success" showIcon />,
+                  invalid: <Alert message="校验未通过" type="error" showIcon />
+                }[this.state.isValidate]
                 : ''}
             </p>
             <p>{this.state.resultArea as string}</p>
             <p>{this.state.resultSex as string}</p>
             <p>{this.state.resultBirth as string}</p>
             <p>
-              {this.state.resultZodiac  as string} {this.state.resultBirthCn  as string}
+              {this.state.resultZodiac as string} {this.state.resultBirthCn as string}
             </p>
             <p>{this.state.resultAstrology as string}</p>
             <p>{this.state.resultBirthGZ as string}</p>
