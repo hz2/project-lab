@@ -86,7 +86,7 @@ export default [
     {
         path: "qrcode",
         zh: '二维码',
-        showInHome: false,
+        showInHome: true,
         comp: "encode/qr"
     },
     {
