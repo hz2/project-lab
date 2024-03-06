@@ -70,9 +70,9 @@ const LotteryPage = () => {
       return (
         <div className="ballgroup" key={key}>
           {ball6.map((x, i) => (
-            <div className="ball redball" key={i}>{x}</div>
+            <div className="ball code redball" key={i}>{x}</div>
           ))}
-          <div className="ball blueball">{ball1}</div>
+          <div className="ball code blueball">{ball1}</div>
         </div>
       )
     }
@@ -113,10 +113,10 @@ const LotteryPage = () => {
       return (
         <div className="ballgroup" key={key}>
           {ball5.map((x, i) => (
-            <div className="ball blue2ball" key={i}>{x}</div>
+            <div className="ball code blue2ball" key={i}>{x}</div>
           ))}
           {ball2.map((x, i) => (
-            <div className="ball yellowball" key={i}>{x}</div>
+            <div className="ball code yellowball" key={i}>{x}</div>
           ))}
         </div>
       )
