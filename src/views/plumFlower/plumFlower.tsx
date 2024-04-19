@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import HeluoComp, { TTabVal } from './heluo'
 import { downloadBlob } from '@libs/common'
-import { gql } from '@/libs/req'
+import { gua as GuaTable } from './guaTable.json'
 
 const w = 1000
 const half = w / 2
@@ -71,24 +71,34 @@ const guaType: IGuaType = {
   guishu: ['kun', 'zhen', 'li', 'dui', 'qian', 'xun', 'kan', 'gen'],
   longtu: ['zhen', 'qian', 'dui', 'kan', 'xun', 'kun', 'gen', 'li']
 }
-const getGua = (v: string, order: string) => gql(`query {
-  text: gua1(key: "text") {
-    ...guaKit
+const getGua = (v: string, order: string) => {
+  const getListByOrder = (key: string) => GuaTable.filter(x => x.key === key)[0]
+  const obj = {
+    text: getListByOrder('text'),
+    color: getListByOrder('color'),
+    [v]: getListByOrder(v)
   }
-  color: gua1(key: "color") {
-    ...guaKit
-  }
-  ${v}: gua1(key: "${v}") {
-    ...guaKit
-  }
+  return obj
 }
-fragment guaKit on Gua {${order}}
-`)
+
+//   gql(`query {
+//   text: gua1(key: "text") {
+//     ...guaKit
+//   }
+//   color: gua1(key: "color") {
+//     ...guaKit
+//   }
+//   ${v}: gua1(key: "${v}") {
+//     ...guaKit
+//   }
+// }
+// fragment guaKit on Gua {${order}}
+// `)
 const Yi = () => {
   const genDom = async (type: TGuaType = 'houtian', textkey = 'trigrams') => {
     const guaArr = guaType[type]
     const order = guaArr.join(' ')
-    const { text, color, [textkey]: v } = await getGua(textkey, order);
+    const { text, color, [textkey]: v } = getGua(textkey, order);
     const gua = listOrig
       .map((x, i) => Object.assign(x, {
         text: text[guaArr[i]],
