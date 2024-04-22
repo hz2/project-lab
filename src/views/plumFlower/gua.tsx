@@ -1,10 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, CSSProperties } from 'react'
 // import { Input } from 'antd'
 import './gua.less'
 import GuaList from './gua.json'
 import { NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import GuaItem from './guaItem'
-import { colorStr2arr } from '@/views/color/components/colors'
 
 const Page = () => {
 
@@ -73,8 +72,6 @@ const Page = () => {
 
     }
 
-    const guaToColor = (gua: number) => `hwb( ${360 / 64 * (gua + 18)} 90% 5% / 100% )`
-
 
     // useEffect(() => {
     //     getList()
@@ -85,42 +82,40 @@ const Page = () => {
         <Routes >
             <Route path=":gua" element={<GuaItemEl />} />
         </Routes>
-        <div className="common-box">
-            <div>{['/gua/', '/gua'].includes(pathname) &&
-                <>
-                    <div className="round-list">
-                        {
-                            XiantianRoundList.map(((x, i) => <NavLink
-                                to={x.gua}
-                                className="gua-item" style={{
-                                    transform: `translate(-50%, -50%) rotate( ${180 - i * 360 / 64 - 360 / 128}deg )`,
-                                    backgroundColor: guaToColor(x.binval)
-                                }} key={i}>
-                                <div className="gua-name">{x.name}</div>
-                                <div className="gua"  >{x.gua}</div>
-                            </NavLink>))
-                        }
-                    </div>
-                    <div className="square-list">
-                        {
-                            XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
-                                {
-                                    x.map((y, j) => <NavLink
-                                        to={y.gua}
-                                        style={{
-                                            backgroundColor: guaToColor(y.binval)
-                                        }}
-                                        className="gua-item flex" key={j}>
-                                        <div className="gua-name">{y.name}</div>
-                                        <div className="gua">{y.gua}</div>
-                                    </NavLink>)
-                                }
-                            </div>)
-                        }
-                    </div>
-                </>
-            }</div>
-        </div>
+        {['/gua/', '/gua'].includes(pathname) &&
+            <div className="common-box">
+                <div className="round-list">
+                    {
+                        XiantianRoundList.map(((x, i) => <NavLink
+                            to={x.gua}
+                            className="gua-item" style={{
+                                '--gua-rotate': 180 - i * 360 / 64 - 360 / 128 + 'deg',
+                                '--gua-binval': 360 / 64 * (x.binval + 18)
+                            } as CSSProperties} key={i}>
+                            <div className="gua-name">{x.name}</div>
+                            <div className="gua"  >{x.gua}</div>
+                        </NavLink>))
+                    }
+                </div>
+                <div className="square-list">
+                    {
+                        XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
+                            {
+                                x.map((y, j) => <NavLink
+                                    to={y.gua}
+                                    style={{
+                                        '--gua-binval': 360 / 64 * (y.binval + 18)
+                                    } as CSSProperties}
+                                    className="gua-item flex" key={j}>
+                                    <div className="gua-name">{y.name}</div>
+                                    <div className="gua">{y.gua}</div>
+                                </NavLink>)
+                            }
+                        </div>)
+                    }
+                </div>
+            </div>
+        }
     </>
 }
 
