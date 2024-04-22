@@ -16,9 +16,13 @@ const TablePage = () => {
         {
             name: 'kw',
             zh: '键值对',
+        },
+        {
+            name: 'class',
+            zh: '类',
         }
     ]
-    const [outputType, setOutputType] = useState('kw')
+    const [outputType, setOutputType] = useState('class')
     const outputChangeFn = ({ target: { value: type } }: RadioChangeEvent) => {
         setOutputType(type)
         outputFormat(type)
@@ -31,6 +35,9 @@ const TablePage = () => {
             case 'kw':
                 setOutputStr(obj2Str);
                 break;
+            case 'class':
+                setOutputStr(obj3Str);
+                break;
             default:
                 break;
         }
@@ -40,6 +47,7 @@ const TablePage = () => {
 
     const [obj1Str, setObj1Str] = useState('')
     const [obj2Str, setObj2Str] = useState('')
+    const [obj3Str, setObj3Str] = useState('')
 
 
     const [html, setHtml] = useState('')
@@ -70,16 +78,19 @@ const TablePage = () => {
                 setObj1Str(JSON.stringify(obj1, undefined, 4))
 
                 let obj2 = `{\n`
+                let obj3 = `{\n` 
                 list.forEach((x: string[]) => {
                     const [key, type, , defaultVal, remark] = x;
                     const defaulVal = defaultVal || ({ number: '', string: '' }[type])
-                    obj2 += `    "${key}": "${defaulVal}",      // ${remark}\n`
+                    obj2 += `    ${key}: "${defaulVal}",\t\t// ${remark}\n`
+                    obj3 += `    ${key} = "${defaulVal}";\t\t// ${remark}\n`
                 })
                 obj2 += '}'
                 setObj2Str(obj2)
-                setOutputStr(obj2)
 
-
+                obj3 += '}'
+                setObj3Str(obj3)
+                setOutputStr(obj3)
             }
 
 
