@@ -1,77 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Input, Radio, RadioChangeEvent, Spin, Switch, message } from 'antd'
+import { useEffect, useState } from 'react'
+import { Input, Radio, RadioChangeEvent } from 'antd'
 import './style.less'
 const { TextArea } = Input
 
-const translateText = async (str: string) => {
-    const response = await fetch('https://serv.respok.com/transmart', {
-        mode: 'cors',
-        method: "POST",
-        body: JSON.stringify({
-            "header": {
-                "fn": "auto_translation", "client_key": `browser-${navigator.userAgent.split(' ').at(-1)?.replace('/', '-')}-${navigator.platform?.split(' ')[0]}-${crypto.randomUUID()}-${Date.now()}`
-            },
-            "type": "plain",
-            "model_category": "normal",
-            "text_domain": "general",
-            "source":
-            {
-                "lang": "zh",
-                "text_list": str.split('\n').flatMap(x => [x, '\n'])
-            },
-            "target": { "lang": "en" }
-        }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-
-    })
-    const res = await response.json()
-    return res
-}
 
 
 const TablePage = () => {
-    const [inputStr, setInputStr] = useState('')
     const [outputStr, setOutputStr] = useState('')
-    const [outputRaw, setOutputRaw] = useState('')
-    const typeList = [
-        {
-            name: 'lowerCamelCase',
-            zh: '小驼峰',
-            fn: (arr: string[]) => arr.map(([x, ...rest], i) => (i ? x.toUpperCase() : x.toLowerCase()) + rest.join('').toLowerCase()).join('')
-        },
-        {
-            name: 'UpperCamelCase',
-            zh: '大驼峰',
-            fn: (arr: string[]) => arr.map(([x, ...rest]) => x.toUpperCase() + rest.join('').toLowerCase()).join('').replace(/[_-]\w/g, '-')
-        },
-        {
-            name: 'kebab-case',
-            zh: '连字符',
-            fn: (arr: string[]) => arr.map(x => x.toLowerCase()).join('-').replace(/_/g, '-')
-        },
-        // {
-        //     name: 'SCREAM-KEBAB-CASE',
-        //     zh: '连字符大写', 
-        //     fn: (arr: string[]) => arr.map(x => x.toUpperCase()).join('-')
-        // },
-        // {
-        //     name: 'snake_case',
-        //     zh: '下划线',
-        //     fn: (arr: string[]) => arr.map(x => x.toLowerCase()).join('_')
-        // },
-        {
-            name: 'SCREAM_SNAKE_CASE',
-            zh: '下划线',
-            fn: (arr: string[]) => arr.map(x => x.toUpperCase()).join('_').replace(/-/g, '_')
-        },
-    ]
-    const [currentType, setCurrentType] = useState('请输入')
-    const textTransformChange = (value = outputRaw, type = currentType) => {
-        const fn = typeList.find(x => x.name === type)?.fn || ((str: string[]) => str.join(''))
-        return value.split('\n').filter(x => x).map(x => fn(x.split(/[ \-_\']/g).filter(x => x))).join('\n')
-    }
+    const [currentType] = useState('请输入')
     const outputTypeList = [
         {
             name: 'raw',
@@ -100,12 +36,6 @@ const TablePage = () => {
         }
     }
 
-    const [shouldTranslate, setShouldTranslate] = useState(false)
-    const translateSwitch = (checked: boolean) => {
-        setShouldTranslate(checked)
-    }
-
-    const [loading, setLoading] = useState(false)
 
 
     const [obj1Str, setObj1Str] = useState('')
@@ -141,7 +71,7 @@ const TablePage = () => {
 
                 let obj2 = `{\n`
                 list.forEach((x: string[]) => {
-                    const [key, type,, defaultVal, remark] = x;
+                    const [key, type, , defaultVal, remark] = x;
                     const defaulVal = defaultVal || ({ number: '', string: '' }[type])
                     obj2 += `    "${key}": "${defaulVal}",      // ${remark}\n`
                 })
@@ -191,28 +121,26 @@ const TablePage = () => {
 
     }, [])
     return (
-        <Spin spinning={loading} size="large">
-            <div className="common-tabs inner-page table-exchage">
-                <h2>表格转换</h2>
-                <div className="sub-title">
-                    粘贴复制的表格
-                </div>
-                <div style={{outline:'1px solid #ffc6c6'}} dangerouslySetInnerHTML={{ __html: html }}></div>
-                <TextArea
-                    placeholder={currentType}
-                    rows={6}
-                    value={outputStr}
-                    spellCheck="false"
-                />
-                <div className="sub-title-plain">
-                    <Radio.Group onChange={outputChangeFn} buttonStyle="solid" value={outputType}>
-                        {outputTypeList.map((x, i) => (
-                            <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
-                        ))}
-                    </Radio.Group>
-                </div>
+        <div className="common-tabs inner-page table-exchage">
+            <h2>表格转换</h2>
+            <div className="sub-title">
+                粘贴复制的表格
             </div>
-        </Spin>
+            <div style={{ outline: '1px solid #ffc6c6' }} dangerouslySetInnerHTML={{ __html: html }}></div>
+            <TextArea
+                placeholder={currentType}
+                rows={6}
+                value={outputStr}
+                spellCheck="false"
+            />
+            <div className="sub-title-plain">
+                <Radio.Group onChange={outputChangeFn} buttonStyle="solid" value={outputType}>
+                    {outputTypeList.map((x, i) => (
+                        <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
+                    ))}
+                </Radio.Group>
+            </div>
+        </div>
 
     )
 }
