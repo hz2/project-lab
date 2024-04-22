@@ -40,6 +40,7 @@ const iconList = {
   mirrors: HourglassFilled,
   random: ProductFilled,
   qrcode: QrcodeOutlined,
+  table: QrcodeOutlined,
 }
 
 const Home = (_props: any) => (
