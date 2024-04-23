@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",
+    "@types/react-transition-group": "^4.4.10",
     "antd": "^5.15.0",
     "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
+    "react-transition-group": "^4.4.5",
     "sanitize.css": "^13.0.0",
     "svgo": "^3.2.0"
   },
@@ -35,7 +37,7 @@
     "less": "^4.2.0",
     "pub.css": "^0.0.36",
     "typescript": "^5.3.3",
-    "vite-plugin-svgr": "^4.2.0",
-    "vite": "^5.1.4"
+    "vite": "^5.1.4",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

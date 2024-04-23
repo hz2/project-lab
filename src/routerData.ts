@@ -66,6 +66,12 @@ export default [
         comp: "encode/notation"
     },
     {
+        path: "table",
+        zh: '表格转换',
+        showInHome: true,
+        comp: "encode/table"
+    },
+    {
         path: "hex",
         zh: '进制转换',
         showInHome: true,
@@ -86,7 +92,7 @@ export default [
     {
         path: "qrcode",
         zh: '二维码',
-        showInHome: false,
+        showInHome: true,
         comp: "encode/qr"
     },
     {

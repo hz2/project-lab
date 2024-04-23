@@ -1,5 +1,5 @@
 import { copyText } from "@/libs/common"
-import { CopyTwoTone, BulbOutlined } from "@ant-design/icons"
+import { CopyOutlined, BulbOutlined } from "@ant-design/icons"
 import { Button, Checkbox, InputNumber, Radio, RadioChangeEvent, Slider } from "antd"
 import type { GetProp } from 'antd';
 import { useEffect, useState } from "react"
@@ -153,7 +153,10 @@ const RandomPage = () => {
             规则：
             <Checkbox.Group options={usernameCfgOptions} defaultValue={nameCharList} onChange={onChange} />
         </div>
-        <div className="pwd-block">{nameList.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}</div>
+        <div className="code pwd-block inline-flex center start">
+            {nameList.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}
+            <Button type="primary" ghost icon={<CopyOutlined />} className="ml15" onClick={() => copyText(nameList.join(''), '复制成功！')}></Button>
+        </div>
 
 
         <div className="my20">
@@ -184,7 +187,10 @@ const RandomPage = () => {
                 ))}
             </Radio.Group>
         </div>
-        <div className="pwd-block">{pwd.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}</div>
+        <div className="code pwd-block inline-flex center start">
+            {pwd.map((x, i) => <span key={i} style={{ color: charToColor(x) }}>{x}</span>)}
+            <Button type="primary" ghost icon={<CopyOutlined />} className="ml15" onClick={() => copyText(pwd.join(''), '复制成功！')}></Button>
+        </div>
 
 
         <div className="my20">
@@ -193,12 +199,9 @@ const RandomPage = () => {
         <div>{
             uuidArr.map((x, i) => (
                 <div title={x} key={i}>
-                    <div className="uuid-block">
+                    <div className="code uuid-block inline-flex center start">
                         {x.split('').map((y, j) => <span key={j} style={{ color: charToColor(y) }}>{y}</span>)}
-                        <Button onClick={() => copyText(x, '复制成功！')}>
-                            <CopyTwoTone />
-                        </Button>
-
+                        <Button type="primary" ghost icon={<CopyOutlined />} className="ml15" onClick={() => copyText(x, '复制成功！')}></Button>
                     </div>
                 </div>
 

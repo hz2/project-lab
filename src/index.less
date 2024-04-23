@@ -6,6 +6,11 @@
 
 }
 
+@font-face {
+  font-family: "CascadiaCode";
+  src: url("./woff2/CascadiaCode.woff2") format("woff2");
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -18,7 +23,7 @@ body {
 
 code,
 .code {
-  font-family: source-code-pro, Monaco, Consolas, monospace;
+  font-family: source-code-pro, 'CascadiaCode', Monaco, Consolas, monospace;
 }
 
 a {
@@ -108,4 +113,37 @@ a {
     color: #666;
   }
 
+}
+
+
+
+.page-ani-change {
+  // position: absolute;
+  // left: -15px;
+  // right: -15px;
+}
+
+.page-ani-enter {
+  opacity: 0;
+  // transform: scale(1.1);
+  transform: translateX(5%);
+}
+
+.page-ani-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 250ms ease-in,  opacity 250ms ease-in;
+}
+
+.page-ani-exit {
+  opacity: 1;
+  // transform: scale(1);
+  transform: translateX(0);
+}
+
+.page-ani-exit-active {
+  opacity: 0;
+  // transform: scale(0.9);
+  transform: translateX(-5%);
+  transition: transform 250ms ease-in,  opacity 250ms ease-in;
 }

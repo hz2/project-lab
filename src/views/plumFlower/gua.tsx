@@ -1,8 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, forwardRef, useRef, CSSProperties } from 'react'
 // import { Input } from 'antd'
 import './gua.less'
 import GuaList from './gua.json'
-import { NavLink, Route, Routes, useParams } from 'react-router-dom'
+import GuaFullList from './guaFull.json'
+import {
+    NavLink, Route, Routes, useLocation, useParams,
+    useOutlet,
+} from 'react-router-dom'
+import { TransitionGroup, SwitchTransition, CSSTransition } from 'react-transition-group'
+import GuaItem from './guaItem'
 
 const Page = () => {
 
@@ -50,71 +56,83 @@ const Page = () => {
     //     }
     // ]
 
-    const XiantianRoundList = [...GuaList.sort((x, y) => x.val - y.val).filter((_x, i) => i < 32), ...GuaList.sort((x, y) => y.val - x.val).filter((_x, i) => i < 32)]
+    const XiantianRoundList = [
+        ...GuaList.sort((x, y) => x.val - y.val).filter((_x, i) => i < 32),
+        ...GuaList.sort((x, y) => y.val - x.val).filter((_x, i) => i < 32)]
 
     const XiantianSqr = GuaList.sort((x, y) => x.val - y.val).reduce((o, x, i) => { o[Math.floor(i / 8)] = (o[Math.floor(i / 8)] || []).concat(x); return o }, [] as (typeof GuaList)[])
 
 
 
-    const getList = () => {
-        console.log('vGuaList ',);
+    // const getList = () => {
+    //     console.log('vGuaList ',);
+    // }
 
-    }
+    const { pathname } = useLocation()
+    const location = useLocation()
+    const nodeRef = useRef(null);
 
 
-    const GuaItem = () => {
+    const GuaItemEl = () => {
         let params = useParams();
-
-        console.log('params',params);
-        
-        return <div
-            style={{
-                // // ...styles.fill,
-                // // ...styles.rgb,
-                // background: `rgb(${params.r}, ${params.g}, ${params.b})`
-            }}>
-            gua ({params.gua})
-        </div>
+        const item = GuaFullList.filter(x => x.gua === params.gua)[0]
+        return <GuaItem item={item} ref={nodeRef} />
 
     }
 
-    useEffect(() => {
-        getList()
-    }, [])
+    // useEffect(() => {
+    //     getList()
+    // }, [])
 
-    return (
-        <div className="common-box">
-            {/* <Input value={url} onChange={urlChange} /> */}
-
-            <Routes >
-                <Route path=":gua" element={<GuaItem />} /> 
-            </Routes>
-            <div className="round-list">
-                {
-                    XiantianRoundList.map(((x, i) => <NavLink
-                        to={x.gua}
-                        className="gua-item" style={{ transform: `translate(-50%, -50%) rotate( ${180 - i * 360 / 64 - 360 / 128}deg )` }} key={i}>
-                        <div className="gua-name">{x.name}</div>
-                        <div className="gua">{x.gua}</div>
-                    </NavLink>))
-                }
+    return <>
+        <TransitionGroup>
+            <CSSTransition
+                key={location.pathname}
+                timeout={300}
+                classNames="page-ani"
+                unmountOnExit
+                nodeRef={nodeRef}
+            >
+                <Routes >
+                    <Route path=":gua" element={<GuaItemEl />} />
+                </Routes>
+            </CSSTransition>
+        </TransitionGroup>
+        {['/gua/', '/gua'].includes(pathname) &&
+            <div className="common-box">
+                <div className="round-list">
+                    {
+                        XiantianRoundList.map(((x, i) => <NavLink
+                            to={x.gua}
+                            className="gua-item" style={{
+                                '--gua-rotate': 180 - i * 360 / 64 - 360 / 128 + 'deg',
+                                '--gua-binval': 360 / 64 * (x.binval + 18)
+                            } as CSSProperties} key={i}>
+                            <div className="gua-name">{x.name}</div>
+                            <div className="gua"  >{x.gua}</div>
+                        </NavLink>))
+                    }
+                </div>
+                <div className="square-list">
+                    {
+                        XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
+                            {
+                                x.map((y, j) => <NavLink
+                                    to={y.gua}
+                                    style={{
+                                        '--gua-binval': 360 / 64 * (y.binval + 18)
+                                    } as CSSProperties}
+                                    className="gua-item flex" key={j}>
+                                    <div className="gua-name">{y.name}</div>
+                                    <div className="gua">{y.gua}</div>
+                                </NavLink>)
+                            }
+                        </div>)
+                    }
+                </div>
             </div>
-            <div className="square-list">
-                {
-                    XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
-                        {
-                            x.map((y, j) => <NavLink
-                                to={y.gua}
-                                className="gua-item flex" key={j}>
-                                <div className="gua-name">{y.name}</div>
-                                <div className="gua">{y.gua}</div>
-                            </NavLink>)
-                        }
-                    </div>)
-                }
-            </div>
-        </div>
-    )
+        }
+    </>
 }
 
 export default Page
