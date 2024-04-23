@@ -1,8 +1,13 @@
-import { useEffect, CSSProperties } from 'react'
+import { useEffect, forwardRef, useRef, CSSProperties } from 'react'
 // import { Input } from 'antd'
 import './gua.less'
 import GuaList from './gua.json'
-import { NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import GuaFullList from './guaFull.json'
+import {
+    NavLink, Route, Routes, useLocation, useParams,
+    useOutlet,
+} from 'react-router-dom'
+import { TransitionGroup, SwitchTransition, CSSTransition } from 'react-transition-group'
 import GuaItem from './guaItem'
 
 const Page = () => {
@@ -64,24 +69,35 @@ const Page = () => {
     // }
 
     const { pathname } = useLocation()
+    const location = useLocation()
+    const nodeRef = useRef(null);
 
 
     const GuaItemEl = () => {
         let params = useParams();
-        return <GuaItem gua={params.gua} />
+        const item = GuaFullList.filter(x => x.gua === params.gua)[0]
+        return <GuaItem item={item} ref={nodeRef} />
 
     }
-
 
     // useEffect(() => {
     //     getList()
     // }, [])
 
-
     return <>
-        <Routes >
-            <Route path=":gua" element={<GuaItemEl />} />
-        </Routes>
+        <TransitionGroup>
+            <CSSTransition
+                key={location.pathname}
+                timeout={300}
+                classNames="page-ani"
+                unmountOnExit
+                nodeRef={nodeRef}
+            >
+                <Routes >
+                    <Route path=":gua" element={<GuaItemEl />} />
+                </Routes>
+            </CSSTransition>
+        </TransitionGroup>
         {['/gua/', '/gua'].includes(pathname) &&
             <div className="common-box">
                 <div className="round-list">

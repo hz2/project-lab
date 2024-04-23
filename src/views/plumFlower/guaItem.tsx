@@ -1,22 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef, RefObject } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {Transition, CSSTransition, SwitchTransition, TransitionGroup} from "react-transition-group";
 import GuaList from './guaFull.json'
 
-const GuaItem = (Prop: {
-    gua?: string
-}) => {
-    const [item, setItem] = useState<typeof GuaList[0]>()
+const GuaItem = forwardRef(({ item }: { item: typeof GuaList[0] }, ref) => {
+    // const [item, setItem] = useState<typeof GuaList[0]>()
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const item = GuaList.filter(x => x.gua === Prop.gua)[0]
-        item && setItem(item)
+    // useEffect(() => {
+    //     const item = GuaList.filter(x => x.gua === Prop.gua)[0]
+    //     item && setItem(item)
 
-        console.log('item===>', item);
+    //     console.log('Prop===>', Prop );
 
-    }, [])
+    // }, [])
 
     const gotoTargetGua = (index: number) => {
         const itemArr = item?.binString.split('') || []
@@ -30,16 +27,11 @@ const GuaItem = (Prop: {
         navigate('/gua/' + linkItem.gua);
     }
 
-    return  <TransitionGroup > 
-    <CSSTransition  timeout={500} classNames="fade">
-    <div className="common-box gua-item-full"
+    return <div className="common-box gua-item-full  " ref={ref as RefObject<HTMLDivElement>}
         style={{
-            // // ...styles.fill,
-            // // ...styles.rgb,
             background: `hwb( ${360 / 64 * ((item?.binval || 0) + 18)} 85% 5% / 100% )`
         }}>
         <Link to='/gua/'>六十四卦</Link>
-
         <div className="gua-graph">
             {
                 item?.binString.split('').map((x: string, i: number) =>
@@ -62,34 +54,37 @@ const GuaItem = (Prop: {
             <div className="xiang m20">
                 <div className="fz24">象</div>
                 {
-                item?.xiang.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
-                    x.map((y, j) => <div key={j} className='m20'> {y}</div>)
-                }</div> : <div key={i} className='m20'> {x}</div>)
-            }</div>
+                    item?.xiang.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
+                        x.map((y, j) => <div key={j} className='m20'> {y}</div>)
+                    }</div> : <div key={i} className='m20'> {x}</div>)
+                }</div>
             <div className="yi m20">
-            <div className="fz24">易传</div>
+                <div className="fz24">易传</div>
                 {
-                item?.yi.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
-                    x.map((y, j) => <div key={j} className='m20'> {y}</div>)
-                }</div> : <div key={i} className='m20'> {x}</div>)
-            }</div>
+                    item?.yi.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
+                        x.map((y, j) => <div key={j} className='m20'> {y}</div>)
+                    }</div> : <div key={i} className='m20'> {x}</div>)
+                }</div>
             <div className="tuan m20">
-            <div className="fz24">彖曰</div>
+                <div className="fz24">彖曰</div>
                 {
-                item?.tuan.map((x, i) => Array.isArray(x) ? <div className='m20' key={i}>{
-                    x.map((y, j) => <div key={j} className='m20'> {y}</div>)
-                }</div> : <div key={i} className='m20'> {x}</div>)
-            }</div>
-            <div className="wenyan m20">
-                
-            <div className="fz24">文言曰</div>
-                {
-                item?.wenyan?.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
-                    x.map((y, j) => <div key={j} className='m20'> {y}</div>)
-                }</div> : <div key={i} className='m20'> {x}</div>)
-            }</div>
+                    item?.tuan.map((x, i) => Array.isArray(x) ? <div className='m20' key={i}>{
+                        x.map((y, j) => <div key={j} className='m20'> {y}</div>)
+                    }</div> : <div key={i} className='m20'> {x}</div>)
+                }</div>
+            {
+                item?.wenyan?.length && <div className="wenyan m20">
+
+                    <div className="fz24">文言曰</div>
+                    {
+                        item?.wenyan?.map((x, i) => Array.isArray(x) ? <div key={i} className='m20'> {
+                            x.map((y, j) => <div key={j} className='m20'> {y}</div>)
+                        }</div> : <div key={i} className='m20'> {x}</div>)
+                    }
+                </div>
+            }
+
         </div>
     </div>
-            </CSSTransition></TransitionGroup>
-}
+})
 export default GuaItem
