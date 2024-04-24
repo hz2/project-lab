@@ -81,9 +81,9 @@ const TablePage = () => {
                 let obj3 = `{\n` 
                 list.forEach((x: string[]) => {
                     const [key, type, , defaultVal, remark] = x;
-                    const defaulVal = defaultVal || ({ number: '', string: '' }[type])
-                    obj2 += `    ${key}: "${defaulVal}",\t\t// ${remark}\n`
-                    obj3 += `    ${key} = "${defaulVal}";\t\t// ${remark}\n`
+                    const defaulVal = defaultVal || ({ number: '', string: '', null: '', 'object\u00a0[]': [] }[type]) || ''
+                    obj2 += `    ${key}: ${JSON.stringify(defaulVal)},\t\t// ${remark}\n`
+                    obj3 += `    ${key} = ${JSON.stringify(defaulVal)};\t\t// ${remark}\n`
                 })
                 obj2 += '}'
                 setObj2Str(obj2)
