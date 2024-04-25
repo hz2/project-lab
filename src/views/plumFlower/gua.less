@@ -110,8 +110,16 @@ html {
     height: 100vh;
     overflow: auto;
     transition: all linear 150ms;
-    .gua-graph {
+
+    .graph-box {
+        align-items: center;
         display: flex;
+        font-size: 16px;
+        padding: 2em;
+    }
+
+    .gua-graph {
+        display: inline-flex;
         gap: 1em;
         flex-direction: column-reverse;
 
@@ -120,12 +128,14 @@ html {
             height: 1em;
             background-color: #777;
         }
+
         .yin {
             display: flex;
             justify-content: space-between;
             width: 9em;
             height: 1em;
             background-color: transparent;
+
             &::before,
             &::after {
                 content: '';
@@ -136,5 +146,61 @@ html {
             }
         }
 
+    }
+
+    .comp {
+        font-size: 3em;
+        display: inline-flex;
+        margin-left: .5em;
+        flex-direction: column-reverse;
+
+        .el {
+            padding: .25em;
+            position: relative;
+
+            &:hover {
+                &::before {
+                    content: '';
+                    position: absolute;
+                    outline: 1px #f003 solid;
+                    background-color: #f003;
+                    display: block;
+                    height: 2em;
+                    margin-top: -.25em;
+                    right: -.2em;
+                    width: 6.5em;
+                    pointer-events: none;
+                }
+
+            }
+
+            &:last-child::before {
+
+                margin-top: -.25em;
+            }
+        }
+    }
+
+    .element {
+        font-size: 3em;
+        display: flex;
+        align-items: center;
+
+        .el {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.8em;
+            text-align: center;
+            height: 3.2em;
+            line-height: 1.25em;
+            border: 1px solid #aaa;
+            font-weight: bold;
+        }
+
+        .dark {
+            background-color: #aaa;
+            color: var(--gua-full-bg);
+        }
     }
 }

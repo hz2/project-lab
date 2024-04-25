@@ -118,32 +118,29 @@ a {
 
 
 .page-ani-change {
-  // position: absolute;
-  // left: -15px;
-  // right: -15px;
+  position: absolute;
+  left: -15px;
+  right: -15px;
 }
 
 .page-ani-enter {
   opacity: 0;
-  // transform: scale(1.1);
   transform: translateX(5%);
 }
 
 .page-ani-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: transform 250ms ease-in,  opacity 250ms ease-in;
+  transition: all 100ms ease-in-out;
 }
 
 .page-ani-exit {
   opacity: 1;
-  // transform: scale(1);
   transform: translateX(0);
 }
 
 .page-ani-exit-active {
   opacity: 0;
-  // transform: scale(0.9);
   transform: translateX(-5%);
-  transition: transform 250ms ease-in,  opacity 250ms ease-in;
+  transition: all 100ms ease-in-out;
 }
