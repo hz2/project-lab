@@ -84,11 +84,44 @@ const Page = () => {
     //     getList()
     // }, [])
 
-    return <>
-        <TransitionGroup>
+    return ['/gua/', '/gua'].includes(pathname) ?
+        <div className="common-box">
+            <div className="round-list">
+                {
+                    XiantianRoundList.map(((x, i) => <NavLink
+                        to={x.gua}
+                        className="gua-item" style={{
+                            '--gua-rotate': 180 - i * 360 / 64 - 360 / 128 + 'deg',
+                            '--gua-binval': 360 / 64 * (x.binval + 18)
+                        } as CSSProperties} key={i}>
+                        <div className="gua-name">{x.name}</div>
+                        <div className="gua"  >{x.gua}</div>
+                    </NavLink>))
+                }
+            </div>
+            <div className="square-list">
+                {
+                    XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
+                        {
+                            x.map((y, j) => <NavLink
+                                to={y.gua}
+                                style={{
+                                    '--gua-binval': 360 / 64 * (y.binval + 18)
+                                } as CSSProperties}
+                                className="gua-item flex" key={j}>
+                                <div className="gua-name">{y.name}</div>
+                                <div className="gua">{y.gua}</div>
+                            </NavLink>)
+                        }
+                    </div>)
+                }
+            </div>
+        </div>
+        :
+        <TransitionGroup className="common-box" style={{ background: 'var(--gua-full-bg)' }}>
             <CSSTransition
                 key={location.pathname}
-                timeout={300}
+                timeout={100}
                 classNames="page-ani"
                 unmountOnExit
                 nodeRef={nodeRef}
@@ -98,41 +131,6 @@ const Page = () => {
                 </Routes>
             </CSSTransition>
         </TransitionGroup>
-        {['/gua/', '/gua'].includes(pathname) &&
-            <div className="common-box">
-                <div className="round-list">
-                    {
-                        XiantianRoundList.map(((x, i) => <NavLink
-                            to={x.gua}
-                            className="gua-item" style={{
-                                '--gua-rotate': 180 - i * 360 / 64 - 360 / 128 + 'deg',
-                                '--gua-binval': 360 / 64 * (x.binval + 18)
-                            } as CSSProperties} key={i}>
-                            <div className="gua-name">{x.name}</div>
-                            <div className="gua"  >{x.gua}</div>
-                        </NavLink>))
-                    }
-                </div>
-                <div className="square-list">
-                    {
-                        XiantianSqr.map((x, i) => <div className="flex start gua-line" key={i}>
-                            {
-                                x.map((y, j) => <NavLink
-                                    to={y.gua}
-                                    style={{
-                                        '--gua-binval': 360 / 64 * (y.binval + 18)
-                                    } as CSSProperties}
-                                    className="gua-item flex" key={j}>
-                                    <div className="gua-name">{y.name}</div>
-                                    <div className="gua">{y.gua}</div>
-                                </NavLink>)
-                            }
-                        </div>)
-                    }
-                </div>
-            </div>
-        }
-    </>
 }
 
 export default Page

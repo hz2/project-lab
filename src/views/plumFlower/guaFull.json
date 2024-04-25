@@ -4,10 +4,10 @@
       "binval": 63,
       "cixu": 1,
       "cixuZh": "第一卦",
-      "el": "干为天",
+      "el": "乾为天",
       "enName": "Hexagram for the Creative Heaven",
       "enToZh": "创造性天",
-      "f3": "䷀乾下乾上",
+      "f3": "乾下乾上",
       "gua": "䷀",
       "name": "乾",
       "tuan": [
@@ -89,7 +89,7 @@
       "el": "坤为地",
       "enName": "Hexagram for the Receptive Earth",
       "enToZh": "接受性地",
-      "f3": "䷁坤下坤上",
+      "f3": "坤下坤上",
       "gua": "䷁",
       "name": "坤",
       "tuan": [
@@ -146,7 +146,7 @@
       "el": "水雷屯",
       "enName": "Hexagram for Difficulty At the Beginning",
       "enToZh": "开始难点",
-      "f3": "䷂震下坎上",
+      "f3": "震下坎上",
       "gua": "䷂",
       "name": "屯",
       "tuan": [
@@ -184,7 +184,7 @@
       "el": "山水蒙",
       "enName": "Hexagram for Youthful Folly",
       "enToZh": "年少无知",
-      "f3": "䷃坎下艮上",
+      "f3": "坎下艮上",
       "gua": "䷃",
       "name": "蒙",
       "tuan": [
@@ -222,7 +222,7 @@
       "el": "水天需",
       "enName": "Hexagram for Waiting",
       "enToZh": "等待",
-      "f3": "䷄干下坎上",
+      "f3": "乾下坎上",
       "gua": "䷄",
       "name": "需",
       "tuan": [
@@ -260,7 +260,7 @@
       "el": "天水讼",
       "enName": "Hexagram for Conflict",
       "enToZh": "冲突",
-      "f3": "䷅坎下干上",
+      "f3": "坎下乾上",
       "gua": "䷅",
       "name": "讼",
       "tuan": [
@@ -298,7 +298,7 @@
       "el": "地水师",
       "enName": "Hexagram for the Army",
       "enToZh": "军队",
-      "f3": "䷆坎下坤上",
+      "f3": "坎下坤上",
       "gua": "䷆",
       "name": "师",
       "tuan": [
@@ -336,7 +336,7 @@
       "el": "水地比",
       "enName": "Hexagram for Holding Together",
       "enToZh": "团结一致",
-      "f3": "䷇坤下坎上",
+      "f3": "坤下坎上",
       "gua": "䷇",
       "name": "比",
       "tuan": [
@@ -374,7 +374,7 @@
       "el": "风天小畜",
       "enName": "Hexagram for Small Taming",
       "enToZh": "小型驯养",
-      "f3": "䷈干下巽上",
+      "f3": "乾下巽上",
       "gua": "䷈",
       "name": "小畜",
       "tuan": [
@@ -412,7 +412,7 @@
       "el": "天泽履",
       "enName": "Hexagram for Treading",
       "enToZh": "行走",
-      "f3": "䷉兑下干上",
+      "f3": "兑下乾上",
       "gua": "䷉",
       "name": "履",
       "tuan": [
@@ -450,7 +450,7 @@
       "el": "地天泰",
       "enName": "Hexagram for Peace",
       "enToZh": "和平",
-      "f3": "䷊干下坤上",
+      "f3": "乾下坤上",
       "gua": "䷊",
       "name": "泰",
       "tuan": [
@@ -488,7 +488,7 @@
       "el": "天地否",
       "enName": "Hexagram for Standstill",
       "enToZh": "停止",
-      "f3": "䷋坤下干上",
+      "f3": "坤下乾上",
       "gua": "䷋",
       "name": "否",
       "tuan": [
@@ -526,7 +526,7 @@
       "el": "天火同人",
       "enName": "Hexagram for Fellowship",
       "enToZh": "伙伴关系",
-      "f3": "䷌离下干上",
+      "f3": "离下乾上",
       "gua": "䷌",
       "name": "同人",
       "tuan": [
@@ -564,7 +564,7 @@
       "el": "火天大有",
       "enName": "Hexagram for Great Possession",
       "enToZh": "广泛占有",
-      "f3": "䷍干下离上",
+      "f3": "乾下离上",
       "gua": "䷍",
       "name": "大有",
       "tuan": [
@@ -602,7 +602,7 @@
       "el": "地山谦",
       "enName": "Hexagram for Modesty",
       "enToZh": "谦虚",
-      "f3": "䷎艮下坤上",
+      "f3": "艮下坤上",
       "gua": "䷎",
       "name": "谦",
       "tuan": [
@@ -640,7 +640,7 @@
       "el": "雷地豫",
       "enName": "Hexagram for Enthusiasm",
       "enToZh": "积极性",
-      "f3": "䷏坤下震上",
+      "f3": "坤下震上",
       "gua": "䷏",
       "name": "豫",
       "tuan": [
@@ -678,7 +678,7 @@
       "el": "泽雷随",
       "enName": "Hexagram for Following",
       "enToZh": "跟随",
-      "f3": "䷐震下兑上",
+      "f3": "震下兑上",
       "gua": "䷐",
       "name": "随",
       "tuan": [
@@ -716,7 +716,7 @@
       "el": "山风蛊",
       "enName": "Hexagram for Work On the Decayed",
       "enToZh": "工作腐败",
-      "f3": "䷑巽下艮上",
+      "f3": "巽下艮上",
       "gua": "䷑",
       "name": "蛊",
       "tuan": [
@@ -754,7 +754,7 @@
       "el": "地泽临",
       "enName": "Hexagram for Approach",
       "enToZh": "接近",
-      "f3": "䷒兑下坤上",
+      "f3": "兑下坤上",
       "gua": "䷒",
       "name": "临",
       "tuan": [
@@ -792,7 +792,7 @@
       "el": "风地观",
       "enName": "Hexagram for Contemplation",
       "enToZh": "沉思",
-      "f3": "䷓坤下巽上",
+      "f3": "坤下巽上",
       "gua": "䷓",
       "name": "观",
       "tuan": [
@@ -830,7 +830,7 @@
       "el": "火雷噬嗑",
       "enName": "Hexagram for Biting Through",
       "enToZh": "刺痛",
-      "f3": "䷔震下离上",
+      "f3": "震下离上",
       "gua": "䷔",
       "name": "噬嗑",
       "tuan": [
@@ -868,7 +868,7 @@
       "el": "山火贲",
       "enName": "Hexagram for Grace",
       "enToZh": "宽限",
-      "f3": "䷕离下艮上",
+      "f3": "离下艮上",
       "gua": "䷕",
       "name": "贲",
       "tuan": [
@@ -906,7 +906,7 @@
       "el": "山地剥",
       "enName": "Hexagram for Splitting Apart",
       "enToZh": "分离",
-      "f3": "䷖坤下艮上",
+      "f3": "坤下艮上",
       "gua": "䷖",
       "name": "剥",
       "tuan": [
@@ -944,7 +944,7 @@
       "el": "地雷复",
       "enName": "Hexagram for Return",
       "enToZh": "返回",
-      "f3": "䷗震下坤上",
+      "f3": "震下坤上",
       "gua": "䷗",
       "name": "复",
       "tuan": [
@@ -982,7 +982,7 @@
       "el": "天雷无妄",
       "enName": "Hexagram for Innocence",
       "enToZh": "清白",
-      "f3": "䷘震下干上",
+      "f3": "震下乾上",
       "gua": "䷘",
       "name": "无妄",
       "tuan": [
@@ -1020,7 +1020,7 @@
       "el": "山天大畜",
       "enName": "Hexagram for Great Taming",
       "enToZh": "大型驯养",
-      "f3": "䷙干下艮上",
+      "f3": "乾下艮上",
       "gua": "䷙",
       "name": "大畜",
       "tuan": [
@@ -1058,7 +1058,7 @@
       "el": "山雷颐",
       "enName": "Hexagram for Mouth Corners",
       "enToZh": "嘴角",
-      "f3": "䷚震下艮上",
+      "f3": "震下艮上",
       "gua": "䷚",
       "name": "颐",
       "tuan": [
@@ -1096,7 +1096,7 @@
       "el": "泽风大过",
       "enName": "Hexagram for Great Preponderance",
       "enToZh": "较大优势",
-      "f3": "䷛巽下兑上",
+      "f3": "巽下兑上",
       "gua": "䷛",
       "name": "大过",
       "tuan": [
@@ -1134,7 +1134,7 @@
       "el": "坎为水",
       "enName": "Hexagram for the Abysmal Water",
       "enToZh": "万丈深渊",
-      "f3": "䷜坎下坎上",
+      "f3": "坎下坎上",
       "gua": "䷜",
       "name": "坎",
       "tuan": [
@@ -1172,7 +1172,7 @@
       "el": "离为火",
       "enName": "Hexagram for the Clinging Fire",
       "enToZh": "汹汹大火",
-      "f3": "䷝离下离上",
+      "f3": "离下离上",
       "gua": "䷝",
       "name": "离",
       "tuan": [
@@ -1210,7 +1210,7 @@
       "el": "泽山咸",
       "enName": "Hexagram for Influence",
       "enToZh": "影响",
-      "f3": "䷝艮下兑上",
+      "f3": "艮下兑上",
       "gua": "䷞",
       "name": "咸",
       "tuan": [
@@ -1248,7 +1248,7 @@
       "el": "雷风恒",
       "enName": "Hexagram for Duration",
       "enToZh": "持续时间",
-      "f3": "䷟巽下震上",
+      "f3": "巽下震上",
       "gua": "䷟",
       "name": "恒",
       "tuan": [
@@ -1286,7 +1286,7 @@
       "el": "天山遁",
       "enName": "Hexagram for Retreat",
       "enToZh": "撤退",
-      "f3": "䷠艮下干上",
+      "f3": "艮下乾上",
       "gua": "䷠",
       "name": "遁",
       "tuan": [
@@ -1324,7 +1324,7 @@
       "el": "雷天大壮",
       "enName": "Hexagram for Great Power",
       "enToZh": "强大力量",
-      "f3": "䷡干下震上",
+      "f3": "乾下震上",
       "gua": "䷡",
       "name": "大壮",
       "tuan": [
@@ -1362,7 +1362,7 @@
       "el": "火地晋",
       "enName": "Hexagram for Progress",
       "enToZh": "进度",
-      "f3": "䷢坤下离上",
+      "f3": "坤下离上",
       "gua": "䷢",
       "name": "晋",
       "tuan": [
@@ -1400,7 +1400,7 @@
       "el": "地火明夷",
       "enName": "Hexagram for Darkening of the Light",
       "enToZh": "变暗的光",
-      "f3": "䷣离下坤上",
+      "f3": "离下坤上",
       "gua": "䷣",
       "name": "明夷",
       "tuan": [
@@ -1438,7 +1438,7 @@
       "el": "风火家人",
       "enName": "Hexagram for the Family",
       "enToZh": "家庭",
-      "f3": "䷤离下巽上",
+      "f3": "离下巽上",
       "gua": "䷤",
       "name": "家人",
       "tuan": [
@@ -1476,7 +1476,7 @@
       "el": "火泽睽",
       "enName": "Hexagram for Opposition",
       "enToZh": "相反",
-      "f3": "䷥兑下离上",
+      "f3": "兑下离上",
       "gua": "䷥",
       "name": "睽",
       "tuan": [
@@ -1514,7 +1514,7 @@
       "el": "水山蹇",
       "enName": "Hexagram for Obstruction",
       "enToZh": "障碍",
-      "f3": "䷦艮下坎上",
+      "f3": "艮下坎上",
       "gua": "䷦",
       "name": "蹇",
       "tuan": [
@@ -1552,7 +1552,7 @@
       "el": "雷水解",
       "enName": "Hexagram for Deliverance",
       "enToZh": "解救",
-      "f3": "䷧坎下震上",
+      "f3": "坎下震上",
       "gua": "䷧",
       "name": "解",
       "tuan": [
@@ -1590,7 +1590,7 @@
       "el": "山泽损",
       "enName": "Hexagram for Decrease",
       "enToZh": "减少",
-      "f3": "䷨兑下艮上",
+      "f3": "兑下艮上",
       "gua": "䷨",
       "name": "损",
       "tuan": [
@@ -1628,7 +1628,7 @@
       "el": "风雷益",
       "enName": "Hexagram for Increase",
       "enToZh": "增加",
-      "f3": "䷩震下巽上",
+      "f3": "震下巽上",
       "gua": "䷩",
       "name": "益",
       "tuan": [
@@ -1666,7 +1666,7 @@
       "el": "泽天夬",
       "enName": "Hexagram for Breakthrough",
       "enToZh": "突破",
-      "f3": "䷪干下兑上",
+      "f3": "乾下兑上",
       "gua": "䷪",
       "name": "夬",
       "tuan": [
@@ -1704,7 +1704,7 @@
       "el": "天风姤",
       "enName": "Hexagram for Coming To Meet",
       "enToZh": "接见",
-      "f3": "䷫巽下干上",
+      "f3": "巽下乾上",
       "gua": "䷫",
       "name": "姤",
       "tuan": [
@@ -1742,7 +1742,7 @@
       "el": "泽地萃",
       "enName": "Hexagram for Gathering Together",
       "enToZh": "集合",
-      "f3": "䷬坤下兑上",
+      "f3": "坤下兑上",
       "gua": "䷬",
       "name": "萃",
       "tuan": [
@@ -1780,7 +1780,7 @@
       "el": "地风升",
       "enName": "Hexagram for Pushing Upward",
       "enToZh": "向上推",
-      "f3": "䷭巽下坤上",
+      "f3": "巽下坤上",
       "gua": "䷭",
       "name": "升",
       "tuan": [
@@ -1818,7 +1818,7 @@
       "el": "泽水困",
       "enName": "Hexagram for Oppression",
       "enToZh": "压迫",
-      "f3": "䷮坎下兑上",
+      "f3": "坎下兑上",
       "gua": "䷮",
       "name": "困",
       "tuan": [
@@ -1856,7 +1856,7 @@
       "el": "水风井",
       "enName": "Hexagram for the Well",
       "enToZh": "井",
-      "f3": "䷯巽下坎上",
+      "f3": "巽下坎上",
       "gua": "䷯",
       "name": "井",
       "tuan": [
@@ -1894,7 +1894,7 @@
       "el": "泽火革",
       "enName": "Hexagram for Revolution",
       "enToZh": "旋转",
-      "f3": "䷰离下兑上",
+      "f3": "离下兑上",
       "gua": "䷰",
       "name": "革",
       "tuan": [
@@ -1932,7 +1932,7 @@
       "el": "火风鼎",
       "enName": "Hexagram for the Cauldron",
       "enToZh": "大锅炉",
-      "f3": "䷱巽下离上",
+      "f3": "巽下离上",
       "gua": "䷱",
       "name": "鼎",
       "tuan": [
@@ -1970,7 +1970,7 @@
       "el": "震为雷",
       "enName": "Hexagram for the Arousing Thunder",
       "enToZh": "连续的雷声",
-      "f3": "䷲震下震上",
+      "f3": "震下震上",
       "gua": "䷲",
       "name": "震",
       "tuan": [
@@ -2008,7 +2008,7 @@
       "el": "艮为山",
       "enName": "Hexagram for the Keeping Still Mountain",
       "enToZh": "稳坐如山",
-      "f3": "䷳艮下艮上",
+      "f3": "艮下艮上",
       "gua": "䷳",
       "name": "艮",
       "tuan": [
@@ -2046,7 +2046,7 @@
       "el": "风山渐",
       "enName": "Hexagram for Development",
       "enToZh": "发展",
-      "f3": "䷴艮下巽上",
+      "f3": "艮下巽上",
       "gua": "䷴",
       "name": "渐",
       "tuan": [
@@ -2084,7 +2084,7 @@
       "el": "雷泽归妹",
       "enName": "Hexagram for the Marrying Maiden",
       "enToZh": "新娘",
-      "f3": "䷵兑下震上",
+      "f3": "兑下震上",
       "gua": "䷵",
       "name": "归妹",
       "tuan": [
@@ -2122,7 +2122,7 @@
       "el": "雷火丰",
       "enName": "Hexagram for Abundance",
       "enToZh": "丰富充裕",
-      "f3": "䷶离下震上",
+      "f3": "离下震上",
       "gua": "䷶",
       "name": "丰",
       "tuan": [
@@ -2160,7 +2160,7 @@
       "el": "火山旅",
       "enName": "Hexagram for the Wanderer",
       "enToZh": "流浪者",
-      "f3": "䷷艮下离上",
+      "f3": "艮下离上",
       "gua": "䷷",
       "name": "旅",
       "tuan": [
@@ -2198,7 +2198,7 @@
       "el": "巽为风",
       "enName": "Hexagram for the Gentle Wind",
       "enToZh": "微风",
-      "f3": "䷸巽下巽上",
+      "f3": "巽下巽上",
       "gua": "䷸",
       "name": "巽",
       "tuan": [
@@ -2236,7 +2236,7 @@
       "el": "兑为泽",
       "enName": "Hexagram for the Joyous Lake",
       "enToZh": "欢乐湖",
-      "f3": "䷹兑下兑上",
+      "f3": "兑下兑上",
       "gua": "䷹",
       "name": "兑",
       "tuan": [
@@ -2274,7 +2274,7 @@
       "el": "风水涣",
       "enName": "Hexagram for Dispersion",
       "enToZh": "散布",
-      "f3": "䷺坎下巽上",
+      "f3": "坎下巽上",
       "gua": "䷺",
       "name": "涣",
       "tuan": [
@@ -2312,7 +2312,7 @@
       "el": "水泽节",
       "enName": "Hexagram for Limitation",
       "enToZh": "限制",
-      "f3": "䷻兑下坎上",
+      "f3": "兑下坎上",
       "gua": "䷻",
       "name": "节",
       "tuan": [
@@ -2350,7 +2350,7 @@
       "el": "风泽中孚",
       "enName": "Hexagram for Inner Truth",
       "enToZh": "内在真理",
-      "f3": "䷼兑下巽上",
+      "f3": "兑下巽上",
       "gua": "䷼",
       "name": "中孚",
       "tuan": [
@@ -2388,7 +2388,7 @@
       "el": "雷山小过",
       "enName": "Hexagram for Small Preponderance",
       "enToZh": "较小优势",
-      "f3": "䷽艮下震上",
+      "f3": "艮下震上",
       "gua": "䷽",
       "name": "小过",
       "tuan": [
@@ -2426,7 +2426,7 @@
       "el": "水火既济",
       "enName": "Hexagram for After Completion",
       "enToZh": "完成之后",
-      "f3": "䷾离下坎上",
+      "f3": "离下坎上",
       "gua": "䷾",
       "name": "既济",
       "tuan": [
@@ -2464,7 +2464,7 @@
       "el": "火水未济",
       "enName": "Hexagram for Before Completion",
       "enToZh": "完成之前",
-      "f3": "䷿坎下离上",
+      "f3": "坎下离上",
       "gua": "䷿",
       "name": "未济",
       "tuan": [

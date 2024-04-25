@@ -6,7 +6,7 @@ import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
 import { CSSProperties } from 'react'
-import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled , ProductFilled, QrcodeOutlined, InsertRowBelowOutlined } from '@ant-design/icons'
+import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled, ProductFilled, QrcodeOutlined, InsertRowBelowOutlined } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -52,12 +52,12 @@ const Home = (_props: any) => (
       </h1>
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
-          const color = `hsl(${Math.round(36 * i * Math.random() )} 68% 50% / .9)`
+          const color = `hwb(${Math.round(36 * i * Math.random()  ) } 30% 15% / 100%)`
           const IconComp = iconList[(x.path) as keyof typeof iconList]
           // x.path
           return <Link
             style={{ '--color-item': color } as CSSProperties}
-            className="item inline-block align-top center m20"
+            className="item inline-block align-top center "
             type="primary"
             key={i}
             to={'/' + x.path.replace('/*', '')}
