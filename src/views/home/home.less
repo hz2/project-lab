@@ -10,35 +10,27 @@
     }
 
     .btn-list {
+        gap: 30px;
+        display: flex;
+        flex-wrap: wrap;
         .item {
-            // width: 120px;
             overflow: hidden;
             display: inline-flex;
             align-items: center;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px 0;
-            // background-color: #ff0;
-            background: color-mix(in srgb, var(--color-item) 6%, #fff 10%);
-            box-shadow: 1px 1px 5px .5px color-mix(in srgb, var(--color-item) 80%, #0001 40%);
+            --round-color: color-mix(in srgb, var(--color-item) 30%, #fff0 100%);
+            background: color-mix(in srgb, var(--color-item) 4%, #fff 100%);
+            border: 2px solid  var(--round-color);
+            box-shadow: 5px 2px 0 1px var(--round-color);
 
             .letter {
-                // height: 50px;
                 font-size: 30px;
                 line-height: 30px;
-                // opacity: .75;
-                background: color-mix(in srgb, var(--color-item) 20%, #0005 5%);
-                // width: 40px;
-                // height: 40px;
+                background: color-mix(in srgb, var(--color-item) 20%, #0002 5%);
                 padding: 15px;
                 border-radius: 999px;
                 margin: 0 10px 0 20px;
-                // text-transform: uppercase;
-                // white-space: nowrap;
-                // color: #fff;
-                // letter-spacing: .1em;
-                // font-weight: 500;
-                // overflow: hidden;
-                // box-shadow: 1px 1px 30px #fff;
             }
 
             .text {
@@ -52,11 +44,13 @@
             }
 
             &:hover {
+                
+            --round-color: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
+
                 background: color-mix(in srgb, var(--color-item) 15%, #fff7 100%);
-                border-color: color-mix(in srgb, var(--color-item) 45%, #fff 100%);
                 transition: all linear 0.2s;
-                transform: scale(1.1);
-                // filter: hue-rotate(145deg);
+                border-color: var(--round-color);
+                box-shadow: 8px 3px 0 3px var(--round-color);
             }
         }
     }
