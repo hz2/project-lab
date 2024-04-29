@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Spin, Image } from 'antd'
 import './bing.less'
-import { downloadBlob } from '@libs/common'
+import { openDown } from '@libs/common'
 
 interface IWPItem {
   startdate: string
@@ -46,19 +46,6 @@ const openView = (
 ) => {
   event.preventDefault()
   window.open(`https://www.bing.com${x.urlbase}_UHD.jpg`)
-}
-const openDown = (
-  name: string,
-  url: RequestInfo,
-  event:
-    | React.MouseEvent<HTMLDivElement, MouseEvent>
-    | React.MouseEvent<HTMLAnchorElement, MouseEvent>
-) => {
-  event.preventDefault()
-  fetch(url, { mode: 'cors' })
-    .then(response => response.blob())
-    .then(r => downloadBlob(r, name))
-    .catch(err => console.error(new Error(err)))
 }
 
 const Bing = () => {
@@ -105,7 +92,7 @@ const Bing = () => {
           onClick={e =>
             openDown(
               x.urlbase.split('=')[1] + '.jpg',
-              `https://www.bing.com${x.urlbase}_UHD.jpg`,
+              `https://s.cn.bing.net${x.urlbase}_UHD.jpg`,
               e
             )
           }
@@ -158,9 +145,9 @@ const Bing = () => {
   const downAll = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     imglist.forEach((x, i) => {
       const name = x.urlbase.split('=')[1] + '.jpg'
-      const url = `https://www.bing.com${x.urlbase}_UHD.jpg`
+      const url = `https://s.cn.bing.net${x.urlbase}_UHD.jpg`
       // const name2 = x.urlbase.split('=')[1] + '_1920x1080.jpg'
-      // const url2 = `https://www.bing.com${x.urlbase}_1920x1080.jpg`
+      // const url2 = `https://s.cn.bing.net${x.urlbase}_1920x1080.jpg`
       setTimeout(() => {
         openDown(name, url, e)
       }, i * 500);
