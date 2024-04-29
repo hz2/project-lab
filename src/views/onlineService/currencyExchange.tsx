@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { Input, Select, Statistic, Card, Tooltip, Space } from 'antd'
 import { CaretLeftFilled, CaretRightFilled } from '@ant-design/icons'
 
-// import Currency from './currency.json'
+import CurrencyFull from './currencyFull.json'
 import './currency-page.less'
 
-import { gql } from "@/libs/req"
+// import { gql } from "@/libs/req"
 
 
 const digitUppercase = function (n: number) {
@@ -91,23 +91,25 @@ interface IRates {
 }
 
 const getFullList = async () => {
-  const r = await gql(`query {
-    currency {
-      currency
-      value: country
-      country: country
-      text: currency_name
-    }
-  }`)
-  const list = (r.currency || []).map((x: ICurrency) => ({
+  // const r = await gql(`query {
+  //   currency {
+  //     currency
+  //     value: country
+  //     country: country
+  //     text: currency_name
+  //   }
+  // }`)
+  const list = (CurrencyFull || []).map((x) => ({
     ...x,
     num: 0,
-    label: `${x.country} ${x.text} ${x.currency} `,
-  }))
+    value: x.currency,
+    text: x.currency_name,
+    label: `${x.country} ${x.currency_name} ${x.currency} `,
+  })) as unknown as ICurrency[]
   return list
 }
 const getFullRate = async () => {
-  const r = await fetch('https://serv.respok.com/fixer_io', { mode: 'cors' })
+  const r = await fetch('https://app.hx.fyi/fixer_io', { mode: 'cors' })
     .then(response => response.json())
   if (r && r.rates) {
     return r.rates

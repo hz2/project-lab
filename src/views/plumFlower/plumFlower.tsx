@@ -71,7 +71,7 @@ const guaType: IGuaType = {
   guishu: ['kun', 'zhen', 'li', 'dui', 'qian', 'xun', 'kan', 'gen'],
   longtu: ['zhen', 'qian', 'dui', 'kan', 'xun', 'kun', 'gen', 'li']
 }
-const getGua = (v: string, order: string) => {
+const getGua = (v: string, _order: string) => {
   const getListByOrder = (key: string) => GuaTable.filter(x => x.key === key)[0]
   const obj = {
     text: getListByOrder('text'),
