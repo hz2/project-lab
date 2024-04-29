@@ -1,4 +1,4 @@
-import { useEffect, useState, forwardRef, RefObject } from 'react'
+import { forwardRef, RefObject } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import GuaList from './guaFull.json'
 

@@ -117,6 +117,8 @@ export default [
     },
     {
         path: "currency",
+        showInHome: true,
+        zh: '货币换算',
         comp: "onlineService/currencyExchange"
     },
     {

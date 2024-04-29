@@ -1,13 +1,12 @@
-import { useEffect, forwardRef, useRef, CSSProperties } from 'react'
+import { useRef, CSSProperties } from 'react'
 // import { Input } from 'antd'
 import './gua.less'
 import GuaList from './gua.json'
 import GuaFullList from './guaFull.json'
 import {
     NavLink, Route, Routes, useLocation, useParams,
-    useOutlet,
 } from 'react-router-dom'
-import { TransitionGroup, SwitchTransition, CSSTransition } from 'react-transition-group'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import GuaItem from './guaItem'
 
 const Page = () => {
