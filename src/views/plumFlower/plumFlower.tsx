@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Radio, Form, Button } from 'antd'
 import HeluoComp, { TTabVal } from './heluo'
+import Wuxing, { WuXingType } from './wixing'
 import { downloadBlob } from '@libs/common'
 import { gua as GuaTable } from './guaTable.json'
 
@@ -96,6 +97,18 @@ const getGua = (v: string, _order: string) => {
 // `)
 const Yi = () => {
   const genDom = async (type: TGuaType = 'houtian', textkey = 'trigrams') => {
+    if (['wuxing', 'wuxing0', 'wuxing1', 'wuxing2'].includes(type)) {
+      const typeVal = type as WuXingType
+      const w = 2000
+      const half = w / 2
+      const r2 = Math.sqrt(Math.pow((1 / 8) * w, 2) / 2)
+      const dom = <Wuxing half={half} r={r2} type={typeVal} />
+      setGuaList(dom)
+      return
+    }
+
+
+
     const guaArr = guaType[type]
     const order = guaArr.join(' ')
     const { text, color, [textkey]: v } = getGua(textkey, order);
@@ -137,7 +150,7 @@ const Yi = () => {
     setGuaList(result)
   }
 
-  const [guaList, setGuaList] = useState<JSX.Element[]>([])
+  const [guaList, setGuaList] = useState<JSX.Element[] | JSX.Element>([])
   // const [luoshuVal, setLuoshuVal] = useState(null)
   const [guaTypeVal, setGuaTypeVal] = useState<TGuaType>('houtian')
   const [guaTextVal, setGuaTextVal] = useState('trigrams')
@@ -152,7 +165,11 @@ const Yi = () => {
       houtian: '文王后天',
       lianshan: '连山',
       guishu: '坤乾龟书',
-      longtu: '震巽龙图'
+      longtu: '震巽龙图',
+      wuxing: '五行',
+      wuxing0: '生克',
+      wuxing1: '五行生',
+      wuxing2: '五行克'
     })
     return (
       <Radio.Group
@@ -183,15 +200,15 @@ const Yi = () => {
       t15: '五音',
       t16: '五味',
       t17: '五色',
-      t12: '器官',
+      // t12: '脏腑',
       t11: '天干',
-      t10: '生肖',
       t9: '地支',
-      t3: '家人',
-      t4: '性情',
-      t5: '动物',
-      t6: '身体',
-      t7: '器官'
+      t10: '生肖',
+      // t7: '器官',
+      t4: '性情（说卦七）',
+      t5: '动物（说卦八）',
+      t6: '身体（说卦九）',
+      t3: '家人（说卦十）',
     })
     return (
       <Radio.Group
@@ -225,10 +242,10 @@ const Yi = () => {
       luoshup: '洛书',
       taijiorig: '原始太极',
       taijihetu: '太极河图',
-      wuxing: '五行',
-      wuxing0: '生克',
-      wuxing1: '五行生',
-      wuxing2: '五行克'
+      // wuxing: '五行',
+      // wuxing0: '生克',
+      // wuxing1: '五行生',
+      // wuxing2: '五行克'
     })
     return (
       <Radio.Group
@@ -295,15 +312,34 @@ const Yi = () => {
         </Form.Item>
       </Form>
       <div className="yiContainer">
-        <svg
-          id="plumflower"
-          viewBox={[0, 0, w, w].join(' ')}
-          xmlns="http://www.w3.org/2000/svg">
-          <g transform="scale(.9 .9) translate(50,50)">
-            <g id="guagraph">{guaList}</g>
-            <HeluoComp w={w} tabVal={heluoTab} />
-          </g>
-        </svg>
+
+
+        {
+          Array.isArray(guaList) ?
+            <svg
+              id="plumflower"
+              viewBox={[0, 0, w, w].join(' ')}
+              xmlns="http://www.w3.org/2000/svg">
+              <g transform="scale(.9 .9) translate(50,50)">
+                <g id="guagraph">{guaList}</g>
+                <HeluoComp w={w} tabVal={heluoTab} />
+              </g>
+            </svg>
+            :
+            <svg
+              id="wuxing"
+              viewBox={[0, 0, w, w].join(' ')}
+              xmlns="http://www.w3.org/2000/svg" style={{background:'#ccc'}}
+              >
+              <g transform="translate(-500,-500)" >
+              {guaList}
+              </g>
+            </svg>
+        }
+
+
+
+
       </div>
       <div className="downloadBtn">
         <Button type="default" onClick={() => downloadSvgFile('svg')}>

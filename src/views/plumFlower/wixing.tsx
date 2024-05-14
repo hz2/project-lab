@@ -90,7 +90,7 @@ const arrowSheng = (half: number, r: number, i: number) => (
       transform={`rotate(${i * 72},${half},${half})`}
       fill="none"
       stroke={shengColor}
-      strokeWidth={half / 100}
+      strokeWidth={half / 200}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -167,7 +167,7 @@ const Sheng1 = (half: number, r: number) => {
         transform={i > 2 ? `rotate(${90 * (i + 2)},${half},${half})` : ''}
         fill="none"
         stroke={shengColor}
-        strokeWidth={half / 100}
+        strokeWidth={half / 200}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -260,7 +260,7 @@ const Ke1 = (half: number, r: number) => {
         transform={i > 2 ? `rotate(${0},${half},${half})` : ''}
         fill="none"
         stroke={keColor}
-        strokeWidth={half / 100}
+        strokeWidth={half / 200}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -303,7 +303,7 @@ const arrowKe = (half: number, r: number, i: number) => {
         transform={`rotate(${i * 72},${half},${half})`}
         fill="none"
         stroke={keColor}
-        strokeWidth={half / 100}
+        strokeWidth={half / 200}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -359,7 +359,7 @@ const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
   }
 
   return (
-    <g id="wuxing">
+    <>
       {list.map((x, i) => (
         <g key={i}>
           <circle
@@ -369,7 +369,7 @@ const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
             r={r / 2}
             fill={x.color}
             stroke="#fff"
-            strokeWidth={w / 300}
+            // strokeWidth={w / 300}
           />
           <text
             fill="#fff"
@@ -383,7 +383,7 @@ const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
         </g>
       ))}
       {arrow}
-    </g>
+    </>
   )
 }
 
