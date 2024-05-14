@@ -6,7 +6,7 @@ import './home.less'
 import LinkSvg from './imgs/link.svg?react'
 import routerData from '@/routerData'
 import { CSSProperties } from 'react'
-import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled, ProductFilled, QrcodeOutlined, InsertRowBelowOutlined } from '@ant-design/icons'
+import { AppstoreFilled, BulbFilled, CameraFilled, CodeFilled, CompassFilled, ControlFilled, EnvironmentFilled, FireFilled, GiftFilled, HourglassFilled, IdcardFilled, InteractionFilled, PictureFilled, RocketFilled, SmileFilled, StarFilled, TagFilled, ProductFilled, QrcodeOutlined, InsertRowBelowOutlined, PayCircleFilled } from '@ant-design/icons'
 
 // import { ReactComponent as ChatSvg } from './imgs/chat.svg?react'
 
@@ -41,6 +41,7 @@ const iconList = {
   random: ProductFilled,
   qrcode: QrcodeOutlined,
   table: InsertRowBelowOutlined,
+  currency : PayCircleFilled,
 }
 
 const Home = (_props: any) => (
@@ -52,7 +53,7 @@ const Home = (_props: any) => (
       </h1>
       <div className="btn-list p30">{
         routerData.filter(x => x.showInHome).map((x, i: number) => {
-          const color = `hwb(${Math.round(36 * i * Math.random()  ) } 30% 15% / 100%)`
+          const color = `hwb(${Math.round(36 * i * Math.random())} 30% 15% / 100%)`
           const IconComp = iconList[(x.path) as keyof typeof iconList]
           // x.path
           return <Link
@@ -63,7 +64,7 @@ const Home = (_props: any) => (
             to={'/' + x.path.replace('/*', '')}
             title={x.zh}>
             <div className="letter">
-              <IconComp style={{ color, opacity: .75 }} />
+              {IconComp && <IconComp style={{ color, opacity: .75 }} />}
             </div>
             <div className="text">{x.zh}</div>
           </Link>

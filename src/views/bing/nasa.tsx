@@ -15,7 +15,7 @@ type TNasa = INasa[]
 
 const req = (): Promise<TNasa> =>
   new Promise((resolve, reject) => {
-    fetch('https://serv.respok.com/nasa', { mode: 'cors' })
+    fetch('https://app.hx.fyi/nasa', { mode: 'cors' })
       .then(response => response.json())
       .then(r => resolve(r))
       .catch(error => reject(error))
