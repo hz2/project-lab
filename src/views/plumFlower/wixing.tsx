@@ -84,20 +84,20 @@ const arrowSheng = (half: number, r: number, i: number) => (
         half + sinTheta(36) * r * 2 - r * 0.8,
         half + cosTheta(36) * r * 2,
         half + sinTheta(36) * r * 2 - r * 0.6,
-        half + cosTheta(36) * r * 2 + r / 6,
-        half + sinTheta(36) * r * 2 - r * 0.8
+        // half + cosTheta(36) * r * 2 + r / 6,
+        // half + sinTheta(36) * r * 2 - r * 0.8
       ].join(' ')}
       transform={`rotate(${i * 72},${half},${half})`}
       fill="none"
       stroke={shengColor}
-      strokeWidth={half / 200}
+      strokeWidth={half / 300}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <text
       fill={shengColor}
       fontSize={half / 15}
-      fontWeight="bold"
+      fontWeight="normal"
       x={half + cosTheta(36) * r * 2.5}
       y={half}
       textAnchor="middle"
@@ -123,10 +123,10 @@ const Sheng1 = (half: number, r: number) => {
     half + cosTheta(45) * r * 0.6,
     half + 2 * r - cosTheta(45) * r * 0.6,
     half + cosTheta(45) * r * 0.6 + cosTheta(45 - arrowTheta) * arrowLineC(r),
-    half +
-    2 * r -
-    cosTheta(45) * r * 0.6 -
-    sinTheta(45 - arrowTheta) * arrowLineC(r)
+    // half +
+    // 2 * r -
+    // cosTheta(45) * r * 0.6 -
+    // sinTheta(45 - arrowTheta) * arrowLineC(r)
   ]
   const arr = [
     [
@@ -137,10 +137,10 @@ const Sheng1 = (half: number, r: number) => {
       half - r * 0.6,
       half - r / 6,
       half - r * 0.8,
-      half,
-      half - r * 0.6,
-      half + r / 6,
-      half - r * 0.8
+      // half,
+      // half - r * 0.6,
+      // half + r / 6,
+      // half - r * 0.8
     ],
     [
       'M',
@@ -149,10 +149,10 @@ const Sheng1 = (half: number, r: number) => {
       half + r * 1.4,
       half,
       half + r * 1.2,
-      half - r / 6,
-      half + r * 1.4,
-      half,
-      half + r * 1.2,
+      // half - r / 6,
+      // half + r * 1.4,
+      // half,
+      // half + r * 1.2,
       half + r / 6
     ],
     arrow,
@@ -167,7 +167,7 @@ const Sheng1 = (half: number, r: number) => {
         transform={i > 2 ? `rotate(${90 * (i + 2)},${half},${half})` : ''}
         fill="none"
         stroke={shengColor}
-        strokeWidth={half / 200}
+        strokeWidth={half / 300}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -189,11 +189,11 @@ const Ke1 = (half: number, r: number) => {
     half - cosTheta(45) * r * 0.6 - sinTheta(45 - arrowTheta) * arrowLineC(r),
     half + 2 * r - cosTheta(45) * r * 0.6,
     half - cosTheta(45) * r * 0.6,
-    half +
-    2 * r -
-    cosTheta(45) * r * 0.6 -
-    sinTheta(45 - arrowTheta) * arrowLineC(r),
-    half - cosTheta(45) * r * 0.6 - cosTheta(45 - arrowTheta) * arrowLineC(r)
+    // half +
+    // 2 * r -
+    // cosTheta(45) * r * 0.6 -
+    // sinTheta(45 - arrowTheta) * arrowLineC(r),
+    // half - cosTheta(45) * r * 0.6 - cosTheta(45 - arrowTheta) * arrowLineC(r)
   ]
   const arr = [
     arrow,
@@ -206,10 +206,10 @@ const Ke1 = (half: number, r: number) => {
       half - r / 6,
       half - r * 1.2,
       half - r / 3,
-      half - r * 1.4,
-      half - r / 6,
-      half - r * 1.2,
-      half
+      // half - r * 1.4,
+      // half - r / 6,
+      // half - r * 1.2,
+      // half
     ],
     [
       'M',
@@ -218,10 +218,10 @@ const Ke1 = (half: number, r: number) => {
       half - r * 0.6,
       half,
       half - r * 0.8,
-      half - r / 6,
-      half - r * 0.6,
-      half,
-      half - r * 0.8,
+      // half - r / 6,
+      // half - r * 0.6,
+      // half,
+      // half - r * 0.8,
       half + r / 6
     ],
     [
@@ -235,7 +235,7 @@ const Ke1 = (half: number, r: number) => {
       half,
       half + r * 1.4,
       half + r / 6,
-      half + r * 1.2
+      // half + r * 1.2
     ],
     // shui huo
     [
@@ -244,10 +244,10 @@ const Ke1 = (half: number, r: number) => {
       half + r * 1.4,
       half + r / 6,
       half - r * 1.4,
-      half,
-      half - r * 1.2,
-      half + r / 6,
-      half - r * 1.4,
+      // half,
+      // half - r * 1.2,
+      // half + r / 6,
+      // half - r * 1.4,
       half + r / 3,
       half - r * 1.2
     ]
@@ -260,7 +260,7 @@ const Ke1 = (half: number, r: number) => {
         transform={i > 2 ? `rotate(${0},${half},${half})` : ''}
         fill="none"
         stroke={keColor}
-        strokeWidth={half / 200}
+        strokeWidth={half / 300}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -295,15 +295,15 @@ const arrowKe = (half: number, r: number, i: number) => {
           cosTheta(36) * r * 2 -
           cosTheta(18) * 0.6 * r -
           sinTheta(108 - arrowTheta) * arrowLineC(r),
-          half -
-          sinTheta(36) * r * 2 +
-          sinTheta(18) * 0.6 * r -
-          cosTheta(108 - arrowTheta) * arrowLineC(r)
+          // half -
+          // sinTheta(36) * r * 2 +
+          // sinTheta(18) * 0.6 * r -
+          // cosTheta(108 - arrowTheta) * arrowLineC(r)
         ].join(' ')}
         transform={`rotate(${i * 72},${half},${half})`}
         fill="none"
         stroke={keColor}
-        strokeWidth={half / 200}
+        strokeWidth={half / 300}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -319,7 +319,7 @@ const ShengKe = (half: number, r: number) =>
       <text
         fill={keColor}
         fontSize={half / 12}
-        fontWeight="bold"
+        fontWeight="normal"
         x={half}
         y={half}
         textAnchor="middle"
@@ -360,6 +360,7 @@ const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
 
   return (
     <>
+      {arrow}
       {list.map((x, i) => (
         <g key={i}>
           <circle
@@ -382,7 +383,6 @@ const Wuxing = (props: { half: number; r: number; type: WuXingType }) => {
           </text>
         </g>
       ))}
-      {arrow}
     </>
   )
 }

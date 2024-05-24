@@ -170,5 +170,9 @@ export default [
         zh: '随机数据',
         showInHome: true,
         comp: "tools/random"
-    }
+    },
+    {
+        path: "neijing",
+        comp: "dataset/neijing"
+    },
 ]
