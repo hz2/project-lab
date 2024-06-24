@@ -1,5 +1,4 @@
-import  { useState, useEffect } from 'react'
-import Wuxing, { WuXingType } from './wixing'
+import { useState, useEffect } from 'react'
 import {
   luoshuArr,
   hetuArr,
@@ -171,11 +170,7 @@ const heluoFn = (val: TTabVal, graph: IGraphInstance, size: ISize) => {
         ))}
       </g>
     )
-  } else if (['wuxing', 'wuxing0', 'wuxing1', 'wuxing2'].includes(val)) {
-    const typeVal = val as WuXingType
-    dom = <Wuxing half={half} r={r2} type={typeVal} />
   }
-
   return dom
 }
 
@@ -228,7 +223,7 @@ const genDom = (tabVal: TTabVal, w: number) => {
 }
 
 
-export type TTabVal = 'fish' | 'hetu' | 'hetup' | 'hetup2' | 'luoshu' | 'luoshup' | 'taijiorig' | 'taijihetu' | 'wuxing' | 'wuxing0' | 'wuxing1' | 'wuxing2'
+export type TTabVal = 'fish' | 'hetu' | 'hetup' | 'hetup2' | 'luoshu' | 'luoshup' | 'taijiorig' | 'taijihetu'
 
 interface IProps {
   w: number,
