@@ -152,7 +152,32 @@ const NotationPage = () => {
 
     // const [loading, setLoading] = useState(false)
 
+    const insertText = (text: string) => {
+        const textarea: HTMLTextAreaElement | null = document.querySelector('#textEl');
+        if (!textarea) return
+        // Get the current cursor position
+        const position = textarea.selectionStart;
+        const range = textarea.selectionEnd - textarea.selectionStart;
 
+        // Get the text before and after the cursor position
+        const before = textarea.value.substring(0, position);
+        const after = textarea.value.substring(position + range, textarea.value.length);
+
+        // Insert the new text at the cursor position
+        // textarea.value = before + text + after;
+        setTextShape(before + text + after)
+        // Set the cursor position to after the newly inserted text
+        textarea.selectionStart = textarea.selectionEnd = position + text.length;
+    };
+    const setTextShape = (value = outputCustomStr) => {
+        setOutputCustomStr(value)
+        if (!value) {
+            setOutputCustomStr('')
+            return
+        }
+        outputFormat(outputType, textTransformChange(enStr), enStr, zhStr)
+
+    }
     return (
         <Spin spinning={false} size="large">
             <div className="common-tabs inner-page  ">
@@ -163,8 +188,10 @@ const NotationPage = () => {
                 </div> */}
                 <div className="flex start">
                     <div className="block">
-                        <div className="sub-title inline-block">英文（ en ）</div>
+                        <div className="block">
+                            <div className="sub-title inline-block">英文（ en ）</div></div>
                         <TextArea
+                            className='w400'
                             placeholder="englishName"
                             rows={6}
                             value={enStr}
@@ -196,8 +223,10 @@ const NotationPage = () => {
                         />
                     </div>
                     <div className="block ml30">
-                        <div className="sub-title inline-block">中文（ zh ）</div>
+                        <div className="block">
+                            <div className="sub-title inline-block">中文（ zh ）</div></div>
                         <TextArea
+                            className='w400'
                             placeholder="对应中文"
                             rows={6}
                             value={zhStr}
@@ -213,36 +242,38 @@ const NotationPage = () => {
                         />
                     </div>
                 </div>
-                <div className="sub-title-plain">
-                    <Radio.Group onChange={onChangeFn} buttonStyle="solid" value={currentType}>
-                        {typeList.map((x, i) => (
-                            <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
-                        ))}
-                    </Radio.Group>
-                </div>
                 <div className="flex start top">
-                    <TextArea
-                        placeholder={currentType}
-                        rows={6}
-                        value={outputStr}
-                    />
+                    <div className="block ">
+                        <div className="sub-title-plain">
+                            <Radio.Group onChange={onChangeFn} buttonStyle="solid" value={currentType}>
+                                {typeList.map((x, i) => (
+                                    <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
+                                ))}
+                            </Radio.Group>
+                        </div>
+                        <TextArea
+                            className='w400'
+                            placeholder={currentType}
+                            rows={6}
+                            value={outputStr}
+                        />
+                    </div>
                     {
                         outputType === 'customStr' &&
-                        <TextArea
-                            placeholder="请输入"
-                            rows={12}
-                            value={outputCustomStr}
-                            onChange={({ target: { value } }) => {
-                                setOutputCustomStr(value)
-                                if (!value) {
-                                    setOutputCustomStr('')
-                                    return
-                                }
-                                setTimeout(() => {
-                                    outputFormat(outputType, textTransformChange(enStr), enStr, zhStr)
-                                }, 150);
-                            }}
-                        />
+                        <div className="block ml30">
+                            <div className="flex start">
+                                <button className="sub-title clickable" onClick={() => insertText('${zh}')}> zh</button>
+                                <button className="sub-title clickable ml15" onClick={() => insertText('${en}')}>en</button>
+                            </div>
+                            <TextArea
+                                className='w400'
+                                id="textEl"
+                                placeholder="请输入"
+                                rows={12}
+                                value={outputCustomStr}
+                                onChange={({ target: { value } }) => setTextShape(value)}
+                            />
+                        </div>
                     }
                 </div>
                 <div className="sub-title-plain">
