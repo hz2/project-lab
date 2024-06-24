@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, Radio, RadioChangeEvent, Spin, Switch, message } from 'antd'
+import { Input, Radio, RadioChangeEvent, Spin, message } from 'antd'
 import './style.less'
 const { TextArea } = Input
 
