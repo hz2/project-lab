@@ -37,7 +37,14 @@ const NotationPage = () => {
 
     const [enStr, setEnStr] = useState('');
     const [zhStr, setZhStr] = useState('');
-    const [outputCustomStr, setOutputCustomStr] = useState("{ ${en}:\"${zh}\" },")
+    const [outputCustomStr, setOutputCustomStr] = useState(`{
+    path: "\${en}",
+    name: "prefix\${en}",
+    meta: {
+        title: "\${zh}"
+    },
+    component: () => import('@/page/pagePath/\${en}.vue')
+},`)
 
     const typeList = [
         {
@@ -91,7 +98,7 @@ const NotationPage = () => {
         },
         {
             name: 'file',
-            zh: '文件',
+            zh: 'vue文件',
         },
         {
             name: 'customStr',
@@ -120,7 +127,7 @@ const NotationPage = () => {
                 r = arrMerge.map(x => `${x.output}:"${x.zh || x.en}",`).join('\n')
                 break;
             case 'file':
-                r = arrMerge.map(x => `echo "<template><div class=\\\"page\\\">${x.zh || x.en}</div></template>" > ${x.output}.vue`).join('\n')
+                r = arrMerge.map(x => `echo -e "<template>\\n    <div class=\\\"common-page\\\">\\n        ${x.zh || x.en}\\n    </div>\\n</template>\\n<script lang=\\\"ts\\\" setup>\\n\\n</script>\\n<style scoped lang=\\\"less\\\">\\n.common-page {\\n    min-height: calc(100vh - 1px);\\n    background-color: #e8e8e8;\\n}\\n</style>" > ${x.output}.vue`).join('\n')
                 break;
             case 'customStr':
                 r = arrMerge.map(x => (outputCustomStr || '')
@@ -242,7 +249,7 @@ const NotationPage = () => {
                         />
                     </div>
                 </div>
-                <div className="flex start top">
+                <div className="flex start bottom">
                     <div className="block ">
                         <div className="sub-title-plain">
                             <Radio.Group onChange={onChangeFn} buttonStyle="solid" value={currentType}>
@@ -254,7 +261,7 @@ const NotationPage = () => {
                         <TextArea
                             className='w400'
                             placeholder={currentType}
-                            rows={6}
+                            rows={12}
                             value={outputStr}
                         />
                     </div>
