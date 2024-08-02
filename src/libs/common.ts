@@ -7,12 +7,24 @@ try {
       constructor() {
         super();
 
-        const divElem = document.createElement('div');
+        // const divElem = document.createElement('div');
         // divElem.textContent = this.getAttribute('text');
-        divElem.className = 'text-node'
+        // divElem.className = 'text-node'
         // style
         const style = document.createElement('style');
         style.append(document.createTextNode(`
+      .msg-item {
+        width: 250px;
+        background: linear-gradient(to bottom right, #00000037, #0004, #00000057);
+        box-shadow: 1px 0 20px 1px #64646433;
+        padding: 2px 20px;
+        margin-top: 16px;
+        z-index: 65536;
+        border-radius: 100px;
+        color: #fff;
+        transform: translateX(280px) translateY(0);
+        transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 250ms;
+      }
       .text-node{
         font-size: 14px;
         line-height: 21px;
@@ -20,13 +32,12 @@ try {
         width: 100%;
         overflow: hidden;
         word-break: break-word;
-      }      
+      }
       `))
         const shadowRoot = this.attachShadow({
           mode: 'open'
         });
         shadowRoot.appendChild(style);
-        shadowRoot.appendChild(divElem);
       }
     }
   );
@@ -48,19 +59,45 @@ globalThis.myVariable = 42;
 
 globalThis.__hx_Msg_list = new Set();
 
+const createElementWithName = (name: string) => {
+  const tag = name.split(/[\.\#\[]/g)[0] || 'div';
+  const classname = name.match(/(?<=\.)[\w\-]+/g)?.join(' ');
+  const id = name.match(/(?<=\#)[\w\-]+/g)?.[0];
+  const attr = name.match(/(?<=\[)[\w\-\=\"\']+(?=\])/g)?.map(x => x.split('='))
+  const el = document.createElement(tag);
+  if (classname) {
+    el.className = classname;
+  }
+  if (id) {
+    el.id = id
+  }
+  if (attr?.length) {
+    attr.forEach(([key, val]) => el.setAttribute(key, val.replace(/["']/g, '')))
+  }
+  return el
+}
+
 class __hx_MsgIns {
   text: string;
+  container: HTMLElement;
   el: HTMLElement;
   textEl: HTMLElement;
   constructor(text: string) {
     this.text = text;
-    this.el = document.createElement('hxdownload-message')
-    document.body.insertAdjacentElement('beforeend', this.el)
-    this.el.className = 'hx-download-original-images-tool-msg';
-    this.textEl = this.el.shadowRoot?.querySelector('.text-node')!;
+    const containerEl = <HTMLElement>document.querySelector('hxdownload-message');
+    if (containerEl) {
+      this.container = containerEl
+    } else {
+      this.container = createElementWithName('hxdownload-message.hx-download-original-images-tool-msg')
+      document.body.insertAdjacentElement('beforeend', this.container)
+    }
+    this.el = createElementWithName('.msg-item');
+    this.textEl = createElementWithName('.text-node');
+    this.el.appendChild(this.textEl)
+    this.container.shadowRoot?.append(this.el)
+
     this.textEl.innerText = text;
     __hx_Msg_list.add(this);
-    this.el.style.transform = `translateX(280px) translateY(-${(__hx_Msg_list.size - 1) * 50}px)`
   }
   /**
    * @param {string} text
@@ -70,7 +107,7 @@ class __hx_MsgIns {
   }
   close() {
     this.textEl.innerText = ''
-    this.el.parentElement?.removeChild(this.el)
+    this.container.shadowRoot?.removeChild(this.el)
     __hx_Msg_list.delete(this);
   }
 }
