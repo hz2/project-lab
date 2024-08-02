@@ -20,6 +20,10 @@ const TablePage = () => {
         {
             name: 'class',
             zh: '类',
+        },
+        {
+            name: 'text',
+            zh: '文本',
         }
     ]
     const [outputType, setOutputType] = useState('class')
@@ -38,6 +42,9 @@ const TablePage = () => {
             case 'class':
                 setOutputStr(obj3Str);
                 break;
+            case 'text':
+                setOutputStr(obj4Str);
+                break;
             default:
                 break;
         }
@@ -48,6 +55,7 @@ const TablePage = () => {
     const [obj1Str, setObj1Str] = useState('')
     const [obj2Str, setObj2Str] = useState('')
     const [obj3Str, setObj3Str] = useState('')
+    const [obj4Str, setObj4Str] = useState('')
 
 
     const [html, setHtml] = useState('')
@@ -91,6 +99,11 @@ const TablePage = () => {
                 obj3 += '}'
                 setObj3Str(obj3)
                 setOutputStr(obj3)
+
+
+                const textList = list.map( x=> x.join('\t\t\t\t\t')).join('\n')
+                setObj4Str(textList)
+
             }
 
 
