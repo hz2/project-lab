@@ -24,6 +24,10 @@ const TablePage = () => {
         {
             name: 'text',
             zh: '文本',
+        },
+        {
+            name: 'json',
+            zh: 'JSON',
         }
     ]
     const [outputType, setOutputType] = useState('class')
@@ -45,6 +49,9 @@ const TablePage = () => {
             case 'text':
                 setOutputStr(obj4Str);
                 break;
+            case 'json':
+                setOutputStr(obj5Str);
+                break;
             default:
                 break;
         }
@@ -56,10 +63,13 @@ const TablePage = () => {
     const [obj2Str, setObj2Str] = useState('')
     const [obj3Str, setObj3Str] = useState('')
     const [obj4Str, setObj4Str] = useState('')
+    const [obj5Str, setObj5Str] = useState('')
 
 
     const [html, setHtml] = useState('')
     const currentHtml = async (type: string, blob: Blob) => {
+        console.log('type', type);
+
         if (type === 'text/html') {
             const textStr = await blob.text()
 
@@ -86,7 +96,7 @@ const TablePage = () => {
                 setObj1Str(JSON.stringify(obj1, undefined, 4))
 
                 let obj2 = `{\n`
-                let obj3 = `{\n` 
+                let obj3 = `{\n`
                 list.forEach((x: string[]) => {
                     const [key, type, , defaultVal, remark] = x;
                     const defaulVal = defaultVal || ({ number: '', string: '', null: '', 'object\u00a0[]': [] }[type]) || ''
@@ -101,8 +111,16 @@ const TablePage = () => {
                 setOutputStr(obj3)
 
 
-                const textList = list.map( x=> x.join('\t\t\t\t\t')).join('\n')
+                const textList = list.map(x => x.join('\t\t\t\t\t')).join('\n')
                 setObj4Str(textList)
+
+
+
+                const genJSON = (list: string[][]) => {
+                    const [k, ...v] = list;
+                    return v.map(x => x.reduce((p, c, i) => Object.assign(p, { [k[i]]: c }), {}))
+                }
+                setObj5Str(JSON.stringify(genJSON(list), null, 4))
 
             }
 
