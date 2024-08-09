@@ -150,7 +150,7 @@ const Bing = () => {
       // const url2 = `https://s.cn.bing.net${x.urlbase}_1920x1080.jpg`
       setTimeout(() => {
         openDown(name, url, e)
-      }, i * 500);
+      }, i * 120);
       // openDown(name2, url2, e)
     })
 

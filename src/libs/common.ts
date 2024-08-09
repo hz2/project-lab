@@ -1,8 +1,12 @@
 import { message } from 'antd'
 
+const CUSTOM_EL = 'hxdownload-message-list'
 
 try {
-  customElements.define('hxdownload-message',
+  let ctor = customElements.get(CUSTOM_EL);
+  console.log('ctor ', ctor);
+
+  customElements.define(CUSTOM_EL,
     class extends HTMLElement {
       constructor() {
         super();
@@ -13,9 +17,9 @@ try {
         // style
         const style = document.createElement('style');
         style.append(document.createTextNode(`
-      .msg-item {
+      .hx-msg-item{
         width: 250px;
-        background: linear-gradient(to bottom right, #00000037, #0004, #00000057);
+        background: linear-gradient(to bottom right, #0007, #0004, #0005);
         box-shadow: 1px 0 20px 1px #64646433;
         padding: 2px 20px;
         margin-top: 16px;
@@ -23,9 +27,15 @@ try {
         border-radius: 100px;
         color: #fff;
         transform: translateX(280px) translateY(0);
-        transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 250ms;
+        transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) 450ms;
       }
-      .text-node{
+      .hx-msg-item.creating {
+        transform: translateX(0) translateY(0);
+      }
+      .hx-msg-item.deleting {
+        transform: translateX(0) translateY(0);
+      }
+      .hx-text-node{
         font-size: 14px;
         line-height: 21px;
         font-family: sans-serif;
@@ -43,6 +53,8 @@ try {
   );
 
 } catch (error) {
+  console.log('e', error);
+
 
 }
 
@@ -84,20 +96,22 @@ class __hx_MsgIns {
   textEl: HTMLElement;
   constructor(text: string) {
     this.text = text;
-    const containerEl = <HTMLElement>document.querySelector('hxdownload-message');
+    const containerEl = <HTMLElement>document.querySelector(CUSTOM_EL);
     if (containerEl) {
       this.container = containerEl
     } else {
-      this.container = createElementWithName('hxdownload-message.hx-download-original-images-tool-msg')
+      this.container = createElementWithName(CUSTOM_EL + '.hx-download-original-images-tool-msg')
       document.body.insertAdjacentElement('beforeend', this.container)
     }
-    this.el = createElementWithName('.msg-item');
-    this.textEl = createElementWithName('.text-node');
+    this.el = createElementWithName('.hx-msg-item.creating');
+    this.textEl = createElementWithName('.hx-text-node');
+    this.textEl.innerText = text;
     this.el.appendChild(this.textEl)
     this.container.shadowRoot?.append(this.el)
-
-    this.textEl.innerText = text;
     __hx_Msg_list.add(this);
+    setTimeout(() => {
+      this.el.className = 'hx-msg-item'      
+    }, 100);
   }
   /**
    * @param {string} text
@@ -106,9 +120,13 @@ class __hx_MsgIns {
     this.textEl.innerText = text
   }
   close() {
-    this.textEl.innerText = ''
-    this.container.shadowRoot?.removeChild(this.el)
-    __hx_Msg_list.delete(this);
+    this.el.className = 'hx-msg-item deleting'
+    setTimeout(() => {
+      this.textEl.innerText = ''
+      console.log(' this', this);
+      this.container.shadowRoot?.removeChild(this.el)
+      __hx_Msg_list.delete(this);
+    }, 450);
   }
 }
 
@@ -156,7 +174,7 @@ export const openDown = (
         }
         chunks.push(value);
         receivedLength += value.length;
-        __hx_Msg.update(`Received ${formatBytes(receivedLength)} / ${formatBytes(contentLength)}`)
+        __hx_Msg.update(`下载中 ${formatBytes(receivedLength)} / ${formatBytes(contentLength)}`)
       }
       __hx_Msg.close()
       return new Blob(chunks, {
@@ -241,8 +259,8 @@ export const formatBytes = (
 
   const k = 1024
   const dm = decimals < 0 ? 0 : decimals
-  // const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  const sizes = ['b', 'k', 'm']
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  // const sizes = ['b', 'k', 'm']
 
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
