@@ -84,7 +84,7 @@ const TablePage = () => {
 
                 const thList = [...table?.querySelectorAll('th') || []].map(y => y.innerText)
 
-                const list = [...trList].map(x => [...x.querySelectorAll('td')].map(y => y.innerText)).filter(x => x?.length)
+                const list = [...trList].map(x => [...x.querySelectorAll('td')].map(y => (y.innerHTML = y.innerHTML?.replace(/<br>/gi,'\n')) && y.innerText)).filter(x => x?.length)
 
                 console.log('list', thList, list);
 
