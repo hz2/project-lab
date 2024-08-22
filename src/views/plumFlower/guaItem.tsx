@@ -31,7 +31,11 @@ const GuaItem = forwardRef(({ item }: { item: typeof GuaList[0] }, ref) => {
     root.style.setProperty('--gua-full-bg', `hwb( ${360 / 64 * ((item?.binval || 0) + 18)} 85% 5% / 100% )`);
 
     return <div className="gua-item-full  " ref={ref as RefObject<HTMLDivElement>}>
-        <Link to='/gua/'>六十四卦</Link>
+        <div className="flex start">
+            <Link to='/gua/'>六十四卦</Link>
+            <span className='mx15'>&gt;</span>
+            <div className="cixu">{item?.cixuZh}</div>
+        </div>
         <div className="graph-box">
             <div className="gua-graph">
                 {
@@ -44,7 +48,6 @@ const GuaItem = forwardRef(({ item }: { item: typeof GuaList[0] }, ref) => {
                 }
             </div>
             <div className="comp">{item?.f3?.split(/(?=.{2}$)/g).map(x => <div className="el" key={x}>{x}</div>)}</div>
-            <div className="cixu">{item?.cixuZh}</div>
             <div className="element">
                 {
                     item?.el?.includes('为') ?
@@ -62,8 +65,7 @@ const GuaItem = forwardRef(({ item }: { item: typeof GuaList[0] }, ref) => {
             </div>
         </div>
         <div className="text-info">
-            <div className="enName">{item?.enName}</div>
-            <div className="enToZh">{item?.enToZh}</div>
+            <div className="en">{item?.en} {item?.enToZh}</div>
             <div className="gua">{item?.gua}</div>
             <div className="name">{item?.name}</div>
             <div className="yi m20">
