@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Input, Radio, RadioChangeEvent, Spin, message } from 'antd'
 import './style.less'
 const { TextArea } = Input
@@ -32,11 +32,19 @@ const { TextArea } = Input
 
 
 const NotationPage = () => {
-    const [outputStr, setOutputStr] = useState('')
 
 
     const [enStr, setEnStr] = useState('');
     const [zhStr, setZhStr] = useState('');
+    type typeRadio = typeof typeList[number]['name']
+    type typeListType = typeRadio | 'en' | 'zh'
+    type IAllOutput = {
+        [key in typeListType]: string
+    }
+    const [currentType, setCurrentType] = useState<typeRadio>('lowerCamelCase')
+    const [outputType, setOutputType] = useState('raw')
+    const [outputStr, setOutputStr] = useState('')
+
     const [outputCustomStr, setOutputCustomStr] = useState(`{
     path: "\${en}",
     name: "prefix\${en}",
@@ -77,16 +85,9 @@ const NotationPage = () => {
             zh: '下划线',
             fn: (arr: string[]) => arr.map(x => x.toUpperCase()).join('_').replace(/-/g, '_')
         },
-    ]
-    const [currentType, setCurrentType] = useState('lowerCamelCase')
-    const onChangeFn = ({ target: { value: type } }: RadioChangeEvent) => {
-        setCurrentType(type)
-        outputFormat(outputType, textTransformChange(enStr, type), enStr, zhStr)
-    }
-    const textTransformChange = (value = enStr, type = currentType) => {
-        const fn = typeList.find(x => x.name === type)?.fn || ((str: string[]) => str.join(''))
-        return value.split('\n').filter(x => x).map(x => fn(x.split(/[ \-_\']/g).filter(x => x))).join('\n')
-    }
+    ] as const
+
+
     const outputTypeList = [
         {
             name: 'raw',
@@ -105,44 +106,35 @@ const NotationPage = () => {
             zh: '自定义格式',
         },
     ]
-    const [outputType, setOutputType] = useState('raw')
-    const outputChangeFn = ({ target: { value: type } }: RadioChangeEvent) => {
-        setOutputType(type)
-        outputFormat(type)
-    }
-    const outputFormat = (type = outputType, transformedRaw = textTransformChange(enStr), en = enStr, zh = zhStr) => {
-        const arrMerge = en.split('\n').filter(x => x).map((x, i) => ({
-            en: x,
-            zh: zh?.split('\n').filter(x => x)[i] || '',
-            output: transformedRaw.split('\n').filter(x => x)[i]
-        }))
-        console.log('arrMerge', arrMerge);
-
+    const genShowOutput = (type: string) => {
         let r = '';
         switch (type) {
             case 'raw':
-                r = arrMerge.map(x => x.output).join('\n')
+                r = allOutput.map(x => x[currentType]).join('\n')
                 break;
             case 'kw':
-                r = arrMerge.map(x => `${x.output}:"${x.zh || x.en}",`).join('\n')
+                r = allOutput.map(x => `${x[currentType]}:"${x.zh || x.en}",`).join('\n')
                 break;
             case 'file':
-                r = arrMerge.map(x => `echo -e "<template>\\n    <div class=\\\"common-page\\\">\\n        ${x.zh || x.en}\\n    </div>\\n</template>\\n<script lang=\\\"ts\\\" setup>\\n\\n</script>\\n<style scoped lang=\\\"less\\\">\\n.common-page {\\n    min-height: calc(100vh - 1px);\\n    background-color: #e8e8e8;\\n}\\n</style>" > ${x.output}.vue`).join('\n')
+                r = allOutput.map(x => `echo -e "<template>\\n    <div class=\\\"${x['kebab-case']}\\\">\\n        ${x.zh || x.en}\\n    </div>\\n</template>\\n<script lang=\\\"ts\\\" setup>\\n\\n</script>\\n<style scoped lang=\\\"less\\\">\\n.${x['kebab-case']} {}\\n</style>" > ${x[currentType]}.vue`).join('\n')
                 break;
             case 'customStr':
-                r = arrMerge.map(x => (outputCustomStr || '')
+                r = allOutput.map(x => (outputCustomStr || '')
                     .replace(/([a-zA-Z])\$\{en\}/g, (_x, _y) => {
-                        let srt = x.output;
+                        let srt = x[currentType];
                         if (currentType === 'kebab-case') {
-                            srt = _y + '-' + x.output
+                            srt = _y + '-' + x[currentType]
                         } else if (currentType === 'SCREAM_SNAKE_CASE') {
-                            srt = _y + '_' + x.output
+                            srt = _y + '_' + x[currentType]
                         } else if (currentType === 'lowerCamelCase') {
-                            srt = _y + x.output.substring(0, 1).toUpperCase() + x.output.substring(1)
+                            srt = _y + x[currentType].substring(0, 1).toUpperCase() + x[currentType].substring(1)
                         }
                         return srt
                     })
-                    .replace(/\$\{en\}/g, x.output)
+                    .replace(/\$\{lowerCamelCase\}/g, x['UpperCamelCase'])
+                    .replace(/\$\{UpperCamelCase\}/g, x['UpperCamelCase'])
+                    .replace(/\$\{kebab-case\}/g, x['kebab-case'])
+                    .replace(/\$\{SCREAM_SNAKE_CASE\}/g, x['SCREAM_SNAKE_CASE'])
                     .replace(/\$\{zh\}/g, x.zh || x.en)
                 ).join('\n')
                 break;
@@ -151,6 +143,30 @@ const NotationPage = () => {
         }
         setOutputStr(r);
     }
+    const [allOutput, setAllOutput] = useState<IAllOutput[]>([])
+    const outputFormat = (en = enStr, zh = zhStr) => {
+        const genAllOutputFormat = (en: string) => typeList.reduce((p, c) => Object.assign(p, {
+            [c.name]: c.fn(en.split(/[ \-_\']/g).filter(x => x))
+        } as const), {} as {
+            [key in typeof typeList[number]['name']]: string
+        })
+
+        const arrMerge = en.split('\n').filter(x => x).map((x, i) => ({
+            en: x,
+            zh: zh?.split('\n').filter(x => x)[i] || '',
+            // output: transformedRaw.split('\n').filter(x => x)[i] ,
+            ...genAllOutputFormat(x)
+        }))
+        console.log('arrMerge', arrMerge);
+        setAllOutput(arrMerge)
+    }
+
+    useEffect(() => {
+        genShowOutput(outputType)
+    }, [allOutput, outputType])
+    useEffect(() => {
+        outputFormat(enStr, zhStr)
+    }, [enStr, zhStr, currentType])
 
     // const [shouldTranslate, setShouldTranslate] = useState(false)
     // const translateSwitch = (checked: boolean) => {
@@ -182,7 +198,7 @@ const NotationPage = () => {
             setOutputCustomStr('')
             return
         }
-        outputFormat(outputType, textTransformChange(enStr), enStr, zhStr)
+        outputFormat(enStr, zhStr)
 
     }
     return (
@@ -198,7 +214,7 @@ const NotationPage = () => {
                         <div className="block">
                             <div className="sub-title inline-block">英文（ en ）</div></div>
                         <TextArea
-                            className='w400'
+                            className='textarea-box'
                             placeholder="englishName"
                             rows={6}
                             value={enStr}
@@ -220,7 +236,6 @@ const NotationPage = () => {
                                     //     })
                                     // } else {
                                     // setOutputRaw(value)
-                                    outputFormat(outputType, textTransformChange(value), value, zhStr)
                                     // }
                                 } catch (error) {
                                     console.log('error', error)
@@ -233,7 +248,7 @@ const NotationPage = () => {
                         <div className="block">
                             <div className="sub-title inline-block">中文（ zh ）</div></div>
                         <TextArea
-                            className='w400'
+                            className='textarea-box'
                             placeholder="对应中文"
                             rows={6}
                             value={zhStr}
@@ -243,8 +258,6 @@ const NotationPage = () => {
                                     setZhStr('')
                                     return
                                 }
-
-                                outputFormat(outputType, textTransformChange(enStr), enStr, value)
                             }}
                         />
                     </div>
@@ -252,14 +265,16 @@ const NotationPage = () => {
                 <div className="flex start bottom">
                     <div className="block ">
                         <div className="sub-title-plain">
-                            <Radio.Group onChange={onChangeFn} buttonStyle="solid" value={currentType}>
+                            <Radio.Group onChange={({ target: { value } }) => {
+                                setCurrentType(value)
+                            }} buttonStyle="solid" value={currentType}>
                                 {typeList.map((x, i) => (
                                     <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
                                 ))}
                             </Radio.Group>
                         </div>
                         <TextArea
-                            className='w400'
+                            className='textarea-box'
                             placeholder={currentType}
                             rows={12}
                             value={outputStr}
@@ -269,11 +284,15 @@ const NotationPage = () => {
                         outputType === 'customStr' &&
                         <div className="block ml30">
                             <div className="flex start">
-                                <button className="sub-title clickable" onClick={() => insertText('${zh}')}> zh</button>
-                                <button className="sub-title clickable ml15" onClick={() => insertText('${en}')}>en</button>
+                                <span>替换变量：</span>
+                                <button className="sub-title clickable" onClick={() => insertText('${zh}')}> 中文</button>
+                                <button className="sub-title clickable ml15" onClick={() => insertText('${lowerCamelCase}')}>小驼峰</button>
+                                <button className="sub-title clickable ml15" onClick={() => insertText('${UpperCamelCase}')}>大驼峰</button>
+                                <button className="sub-title clickable ml15" onClick={() => insertText('${kebab-case}')}>连字符</button>
+                                <button className="sub-title clickable ml15" onClick={() => insertText('${SCREAM_SNAKE_CASE}')}>下划线</button>
                             </div>
                             <TextArea
-                                className='w400'
+                                className='textarea-box'
                                 id="textEl"
                                 placeholder="请输入"
                                 rows={12}
@@ -284,7 +303,9 @@ const NotationPage = () => {
                     }
                 </div>
                 <div className="sub-title-plain">
-                    <Radio.Group onChange={outputChangeFn} buttonStyle="solid" value={outputType}>
+                    <Radio.Group onChange={({ target: { value } }) => {
+                        setOutputType(value)
+                    }} buttonStyle="solid" value={outputType}>
                         {outputTypeList.map((x, i) => (
                             <Radio.Button className="my5" value={x.name} key={i}>{x.zh}</Radio.Button>
                         ))}
